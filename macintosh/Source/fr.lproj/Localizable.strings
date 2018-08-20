@@ -1,0 +1,66 @@
+/*
+ French (fr) strings for MacMAME
+ */
+
+/* Nav Services dialog prompts */
+
+"PromptToSaveFile" = "Choisissez un dossier pour la création de ce fichier.";
+"PromptToLoadReplayFile" = "Choisissez un Film (.inp) à relire.";
+"PromptToLoadCheatFile" = "Choisissez un fichier de Triche à charger.";
+"PromptToLoadLangFile" = "Choisissez un fichier de langue à charger.";
+"PromptToChooseROMToIdent" = "Choisissez un jeu à identifier.";
+
+/* MacMAME support folders */
+
+"MacMAMEFolderOld" = "MacMAME fr-Data";
+"MacMAMEFolder" = "MacMAMEfr User Data";
+"ROMSFolder" = "ROMs";
+"HardDiskFolder" = "Images disques durs";
+"CHDDiffFolder" = "Disques durs Diffs";
+"SamplesFolder" = "Echantillons sons";
+"ArtworkFolder" = "Décors";
+"NVRAMFolder" = "NVRAM";
+"HighScoresFolder" = "High Scores";
+"MiscSupportFolder" = "Fichiers divers";
+"ConfigFolder" = "Config";
+"SaveStateFolder" = "Sauvegardes";
+"ScreenshotFolder" = "Photos";
+"MovieFolder" = "Films";
+"OpenGLOverlayFolder" = "Masques OpenGL";
+"ReportsFolder" = "Rapports";
+"INPFolder" = "Films";
+"CategoriesFolder" = "Categories";
+"TitleScreenshotFolder" = "Ecrans titres";
+"CabinetArtFolder" = "Bornes";
+"FlyerArtFolder" = "Flyers";
+"MarqueeArtFolder" = "Frontons";
+"ControlPanelArtFolder" = "Panneaux de commandes";
+
+"ErrorText" = "MacMAME a recontré un problème.";
+"MinOSError" = "MacMAME nécessite MacOS X 10.2 ou ultérieur.";
+
+"MAMEGameInfoXML" = "MAME Game Info.xml";
+
+/* Contextual menu for front-end list */
+
+"FE_ContextMenu_Driver" = "Driver: %s";
+"FE_ContextMenu_Description" = "Description: %s";
+"FE_ContextMenu_Filename" = "Nom du Fichier: %s";
+"FE_ContextMenu_CloneOf" = "Clone de: %s  “%s”";
+"FE_ContextMenu_ClonesOfThisDriver" = "Clones de ce jeu:";
+"FE_ContextMenu_CloneList" = "   %s  “%s”";
+"FE_ContextMenu_SourceFile" = "Fichier Source: %s";
+"FE_ContextMenu_MoveToTrash" = "Mettre à la Corbeille";
+"FE_ContextMenu_RevealInFinder" = "Afficher dans le Finder";
+
+/* Reports (not used yet) */
+
+"Report_SupportedGame" = "MAME currently supports the following games:";
+"Report_Samples" = "MAME currently supports sound samples for the following games:";
+"Report_Clones" = "MAME currently supports the following clones:";
+"Report_Parents" = "MAME currently supports the following parents:";
+"Report_NonWorking" = "The following games are currently non-working:";
+"Report_ImperfectSound" = "The following games have imperfect sound:";
+"Report_NoSound" = "The following games have no sound:";
+"Report_ImperfectColor" = "The following games have imperfect color:";
+"Report_WrongColor" = "The following games have totally wrong color:";

@@ -16,7 +16,7 @@ INLINE void tst_di( void );
 INLINE void jmp_di( void );
 INLINE void clr_di( void );
 INLINE void nop( void );
-INLINE void sync( void );
+INLINE void sync_( void );
 INLINE void sexw( void );
 INLINE void lbra( void );
 INLINE void lbsr( void );
@@ -659,7 +659,7 @@ static void (*hd6309_main[0x100])(void) = {
 /* 0x0X */  neg_di,  oim_di,  aim_di,  com_di,  lsr_di,  eim_di,  ror_di,  asr_di,
             asl_di,  rol_di,  dec_di,  tim_di,  inc_di,  tst_di,  jmp_di,  clr_di,
 
-/* 0x1X */  pref10,  pref11,  nop,     sync,    sexw,    IIError, lbra,    lbsr,
+/* 0x1X */  pref10,  pref11,  nop,     sync_,    sexw,    IIError, lbra,    lbsr,
             IIError, daa,     orcc,    IIError, andcc,   sex,     exg,     tfr,
 
 /* 0x2X */  bra,     brn,     bhi,     bls,     bcc,     bcs,     bne,     beq,

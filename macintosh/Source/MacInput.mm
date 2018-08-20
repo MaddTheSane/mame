@@ -9,7 +9,8 @@
 #include <Carbon/Carbon.h>
 #include <IOKit/hid/IOHIDLib.h>
 #include <IOKit/hid/IOHIDUsageTables.h>
-#include "HID_Utilities_External.h"
+#include <HIDUtilities/HID_Utilities_External.h>
+#import <Foundation/Foundation.h>
 
 #include <cctype>
 #include <vector>
@@ -19,7 +20,7 @@ using std::vector;
 extern "C"
 {
 	#include "mac.h"
-	#include "MacInput.h"
+	#include "macinput.h"
 	#include "macstrings.h"
 }
 
@@ -217,27 +218,27 @@ typedef struct
 
 typedef struct
 {
-    pRecDevice			device;
-    vector<pRecElement>	axisElements;
+    IOHIDDeviceRef		device;
+    vector<IOHIDElementRef>	axisElements;
     vector<long>		axisElementValue;
-    vector<pRecElement>	buttonElements;
+    vector<IOHIDElementRef>	buttonElements;
     vector<long>		buttonElementValue;
-    vector<pRecElement>	povElements;
+    vector<IOHIDElementRef>	povElements;
     vector<long>		povElementValue;
 } t_hidJoyDevice;
 
 typedef struct
 {
-	vector<pRecElement> element;
+	vector<IOHIDElementRef> element;
 	long				value;
 	int					keyCode;
 } t_hidKeyElement;
 
 typedef struct
 {
-    pRecDevice			device;
+    IOHIDDeviceRef		device;
     t_hidKeyElement		modifierElements[6];
-    pRecElement			ledElements[3];
+    IOHIDElementRef		ledElements[3];
     long				ledElementValue[3];
 } t_hidKeyDevice;
 
@@ -655,8 +656,12 @@ static Boolean		ReadMouseButton (int inButtonNum);
 static void			EnableMouse (Boolean inState);
 static Boolean		InitializeMouse (void);
 
-static void			AddHIDJoystickDevice (pRecDevice inDevice);
-static void			AddHIDKeyboardDevice (pRecDevice inDevice);
+static void			AddHIDJoystickDevice (IOHIDDeviceRef inDevice);
+static void			AddHIDKeyboardDevice (IOHIDDeviceRef inDevice);
+
+static long HIDSetElementValue (IOHIDDeviceRef pDevice, IOHIDElementRef pElement,void* pIOHIDEvent);
+static long HIDGetElementValue (IOHIDDeviceRef pDevice, IOHIDElementRef pElement);
+static SInt32 HIDCalibrateValue (SInt32 value, IOHIDElementRef pElement);
 
 /*##########################################################################
 	INLINE FUNCTIONS
@@ -699,7 +704,7 @@ void MacMAME_ShutdownInput (void)
 }
 
 #pragma mark -
-#pragma mark ¥ MAME Keyboard Handling
+#pragma mark â€¢ MAME Keyboard Handling
 
 //===============================================================================
 //	osd_get_code_list
@@ -1115,10 +1120,12 @@ void UpdateLEDs(int inLEDState)
 			IOHIDEventStruct hidstruct = {kIOHIDElementTypeOutput}; 
 			IOReturn result = 0; 
 
-			hidstruct.type = (IOHIDElementType)sKeyboards[0]->ledElements[i]->type; 
-			hidstruct.elementCookie = (IOHIDElementCookie) sKeyboards[0]->ledElements[i]->cookie; 
+			hidstruct.type = IOHIDElementGetType(sKeyboards[0]->ledElements[i]);
+			hidstruct.elementCookie = IOHIDElementGetCookie(sKeyboards[0]->ledElements[i]);
 			hidstruct.value = (inLEDState & (1 << i)) ? 1 : 0;
-			result = HIDSetElementValue (sKeyboards[0]->device, sKeyboards[0]->ledElements[i], &hidstruct); 
+			//iohidelementsetVa
+			//IOHIDElementSetProperty(sKeyboards[0]->ledElements[i], CFSTR(""), CFSTR(""));
+			result = HIDSetElementValue (sKeyboards[0]->device, sKeyboards[0]->ledElements[i], &hidstruct);
 		}
 	}
 	
@@ -1126,7 +1133,7 @@ void UpdateLEDs(int inLEDState)
 }
 
 #pragma mark -
-#pragma mark ¥ Keyboard Setup/Tear Down
+#pragma mark â€¢ Keyboard Setup/Tear Down
 
 //===============================================================================
 //	InitializeKeyboard
@@ -1337,7 +1344,7 @@ static void BuildKeyList(void)
 
 
 #pragma mark -
-#pragma mark ¥ MAME Joystick Handling
+#pragma mark â€¢ MAME Joystick Handling
 
 //============================================================
 //	add_joylist_entry
@@ -1392,8 +1399,8 @@ INT32 mac_is_joy_pressed(os_code joycode)
 		case CODETYPE_AXIS_NEG:
 		{
 			val = sJoysticks[joynum]->axisElementValue[joyindex];
-			top = sJoysticks[joynum]->axisElements[joyindex]->max;
-			bottom = sJoysticks[joynum]->axisElements[joyindex]->min;
+			top = IOHIDElementGetPhysicalMax(sJoysticks[joynum]->axisElements[joyindex]);
+			bottom = IOHIDElementGetPhysicalMin(sJoysticks[joynum]->axisElements[joyindex]);
 			int middle = (top + bottom) / 2;
 			double a2d_deadzone = 0.35;
 
@@ -1433,8 +1440,8 @@ INT32 mac_is_joy_pressed(os_code joycode)
 			gAnalogInputActive = true;
 
 			val = sJoysticks[joynum]->axisElementValue[joyindex];
-			top = sJoysticks[joynum]->axisElements[joyindex]->max;
-			bottom = sJoysticks[joynum]->axisElements[joyindex]->min;
+			top = IOHIDElementGetPhysicalMax(sJoysticks[joynum]->axisElements[joyindex]);
+			bottom = IOHIDElementGetPhysicalMin(sJoysticks[joynum]->axisElements[joyindex]);
 
 			val = (INT64)val * (INT64)(ANALOG_VALUE_MAX - ANALOG_VALUE_MIN) / (INT64)(top - bottom) + ANALOG_VALUE_MIN;
 
@@ -1529,8 +1536,8 @@ void PollInputs(void)
 		return;
 
 	long value;
-	pRecDevice device;
-	pRecElement element;
+	IOHIDDeviceRef device;
+	IOHIDElementRef element;
 
 	for (int stick = 0; stick < sJoysticks.size(); stick++)
 	{
@@ -1541,6 +1548,7 @@ void PollInputs(void)
 		{
 			element = sJoysticks[stick]->axisElements[axis];
 			value = HIDGetElementValue (device, element);
+			//iohidelementget
 			value = HIDCalibrateValue (value, element);
 			
 			sJoysticks[stick]->axisElementValue[axis] = value;
@@ -1562,16 +1570,16 @@ void PollInputs(void)
 			value = HIDGetElementValue (device, element);
 			
 			// If the value is outside the min/max range, it's probably in a centered/NULL state.
-			if ((value < element->min) || (value > element->max))
+			if ((value < IOHIDElementGetPhysicalMin(element)) || (value > IOHIDElementGetPhysicalMax(element)))
 			{
-				if (element->nullState)
-					value = -1;
+				//if (element->nullState)
+				//	value = -1;
 			}
 			else
 			{
 				// Do like DirectInput and express the hatswitch value in hundredths of a
 				// degree, clockwise from north.
-				value = 36000 / (element->max - element->min + 1) * (value - element->min);
+				value = 36000 / (IOHIDElementGetPhysicalMax(element) - IOHIDElementGetPhysicalMin(element) + 1) * (value - IOHIDElementGetPhysicalMin(element));
 			}
 			
 			sJoysticks[stick]->povElementValue[pov] = value;
@@ -1617,7 +1625,7 @@ void PollInputs(void)
 
 
 #pragma mark -
-#pragma mark ¥ HID Manager Routines
+#pragma mark â€¢ HID Manager Routines
 
 //===============================================================================
 //	InitializeHID
@@ -1643,12 +1651,12 @@ static void InitializeHID(void)
 		sHIDInitialized = true;
 		
 		// Walk the joystick list and add them to our sJoysticks array.
-		pRecDevice curDevice = HIDGetFirstDevice();
+		IOHIDDeviceRef curDevice = HIDGetFirstDevice();
 		while (curDevice)
 		{
-			if ((curDevice->usage == kHIDUsage_GD_GamePad) || (curDevice->usage == kHIDUsage_GD_Joystick))
+			if ((IOHIDDevice_GetUsage(curDevice) == kHIDUsage_GD_GamePad) || (IOHIDDevice_GetUsage(curDevice) == kHIDUsage_GD_Joystick))
 				AddHIDJoystickDevice (curDevice);
-			else if (curDevice->usage == kHIDUsage_GD_Keyboard)
+			else if (IOHIDDevice_GetUsage(curDevice) == kHIDUsage_GD_Keyboard)
 				AddHIDKeyboardDevice (curDevice);
 
 			curDevice = HIDGetNextDevice (curDevice);
@@ -1658,7 +1666,7 @@ static void InitializeHID(void)
 	BuildJoyList ();
 }
 
-static void AddHIDJoystickDevice (pRecDevice inDevice)
+static void AddHIDJoystickDevice (IOHIDDeviceRef inDevice)
 {
 	if (inDevice == NULL) return;
 
@@ -1668,30 +1676,34 @@ static void AddHIDJoystickDevice (pRecDevice inDevice)
 	newDevice->device = inDevice;
 	
 #if MAME_DEBUG
-	fprintf(stderr, "Joystick Device: %s\n", inDevice->product);
+	{
+		NSString *prodName = (NSString*)IOHIDDevice_GetProduct(inDevice);
+	fprintf(stderr, "Joystick Device: %s\n", prodName.UTF8String);
+	}
 #endif
 
 	// Now add all the elements we recognize
-	pRecElement curElement = HIDGetFirstDeviceElement (inDevice, kHIDElementTypeIO);
+	IOHIDElementRef curElement = HIDGetFirstDeviceElement (inDevice, kHIDElementTypeIO);
 	while (curElement)
 	{
+		NSString *nameStr = (NSString *)IOHIDElementGetName(curElement);
 #if MAME_DEBUG
-		fprintf(stderr, " element: %s (usage: %04x, usagePage: %04x)\n", curElement->name, curElement->usage, curElement->usagePage);
+		fprintf(stderr, " element: %s (usage: %04x, usagePage: %04x)\n", nameStr.UTF8String, IOHIDElementGetUsage(curElement), IOHIDElementGetUsagePage(curElement));
 #endif
 
-		if (curElement->type == kIOHIDElementTypeInput_Button)
+		if (IOHIDElementGetType(curElement) == kIOHIDElementTypeInput_Button)
 		{
 			// Found a button
 			newDevice->buttonElements.push_back(curElement);
 		}
-		else if ((curElement->usagePage == kHIDPage_GenericDesktop) && (curElement->usage == kHIDUsage_GD_Hatswitch))
+		else if ((IOHIDElementGetUsagePage(curElement) == kHIDPage_GenericDesktop) && (IOHIDElementGetUsage(curElement) == kHIDUsage_GD_Hatswitch))
 		{
 			// Found a POV hatswitch
 			newDevice->povElements.push_back(curElement);
 		}
-		else if (curElement->usagePage == kHIDPage_GenericDesktop)
+		else if (IOHIDElementGetUsagePage(curElement) == kHIDPage_GenericDesktop)
 		{
-			switch (curElement->usage)
+			switch (IOHIDElementGetUsage(curElement))
 			{
 				// The standard axis types for the generic desktop usage page.
 				case kHIDUsage_GD_X:
@@ -1708,12 +1720,12 @@ static void AddHIDJoystickDevice (pRecDevice inDevice)
 					break;
 			}
 		}
-		else if (curElement->usagePage == kHIDPage_Simulation)
+		else if (IOHIDElementGetUsagePage(curElement) == kHIDPage_Simulation)
 		{
-			switch (curElement->usage)
+			switch (IOHIDElementGetUsage(curElement))
 			{
 				// The standard axis types for the simulation usage page.
-				// ¥¥¥ÊAre more usage types actually present in the wild?
+				// â€¢â€¢â€¢Â Are more usage types actually present in the wild?
 				case kHIDUsage_Sim_Aileron:
 				case kHIDUsage_Sim_Elevator:
 				case kHIDUsage_Sim_Rudder:
@@ -1730,7 +1742,7 @@ static void AddHIDJoystickDevice (pRecDevice inDevice)
 	sJoysticks.push_back(newDevice);
 }
 
-static void AddHIDKeyboardDevice (pRecDevice inDevice)
+static void AddHIDKeyboardDevice (IOHIDDeviceRef inDevice)
 {
 	if (inDevice == NULL) return;
 
@@ -1742,38 +1754,42 @@ static void AddHIDKeyboardDevice (pRecDevice inDevice)
 		newDevice->ledElements[i] = NULL;
 	
 #if MAME_DEBUG
-	fprintf(stderr, "Keyboard Device: %s\n", inDevice->product);
+	{
+		NSString *prodName = (NSString*)IOHIDDevice_GetProduct(inDevice);
+		fprintf(stderr, "Keyboard Device: %s\n", prodName.UTF8String);
+	}
 #endif
 
 	// Now add all the elements we recognize
-	pRecElement curElement = HIDGetFirstDeviceElement (inDevice, kHIDElementTypeIO);
+	IOHIDElementRef curElement = HIDGetFirstDeviceElement (inDevice, kHIDElementTypeIO);
 	while (curElement)
 	{
+		NSString *nameStr = (NSString *)IOHIDElementGetName(curElement);
 #if MAME_DEBUG
-		fprintf(stderr, " element: %s (usage: %04x, usagePage: %04x)\n", curElement->name, curElement->usage, curElement->usagePage);
+		fprintf(stderr, " element: %s (usage: %04x, usagePage: %04x)\n", nameStr.UTF8String, IOHIDElementGetUsage(curElement), IOHIDElementGetUsagePage(curElement));
 #endif
 
-		if (curElement->usagePage == kHIDPage_LEDs)
+		if (IOHIDElementGetUsagePage(curElement) == kHIDPage_LEDs)
 		{
-			switch (curElement->usage)
+			switch (IOHIDElementGetUsage(curElement))
 			{
 				case kHIDUsage_LED_NumLock:
 					newDevice->ledElements[0] = curElement;
-					newDevice->ledElementValue[0] = HIDGetElementValue (inDevice, curElement);
+					newDevice->ledElementValue[0] = IOHIDElement_GetValue(curElement, kIOHIDValueScaleTypePhysical);
 					break;
 				case kHIDUsage_LED_CapsLock:
 					newDevice->ledElements[1] = curElement;
-					newDevice->ledElementValue[1] = HIDGetElementValue (inDevice, curElement);
+					newDevice->ledElementValue[1] = IOHIDElement_GetValue(curElement, kIOHIDValueScaleTypePhysical);
 					break;
 				case kHIDUsage_LED_ScrollLock:
 					newDevice->ledElements[2] = curElement;
-					newDevice->ledElementValue[2] = HIDGetElementValue (inDevice, curElement);
+					newDevice->ledElementValue[2] = IOHIDElement_GetValue(curElement, kIOHIDValueScaleTypePhysical);
 					break;
 			}
 		}
-		else if (curElement->usagePage == kHIDPage_KeyboardOrKeypad)
+		else if (IOHIDElementGetUsagePage(curElement) == kHIDPage_KeyboardOrKeypad)
 		{
-			switch (curElement->usage)
+			switch (IOHIDElementGetUsage(curElement))
 			{
 				// It's possible for one keyboard to have multiple elements for the same
 				// modifier key. For example, my MacAlly keyboard has 2 different elements
@@ -1837,15 +1853,15 @@ static void TearDownHID(void)
 				IOHIDEventStruct hidstruct = {kIOHIDElementTypeOutput}; 
 				IOReturn result = 0; 
 
-				hidstruct.type = (IOHIDElementType)sKeyboards[0]->ledElements[i]->type; 
-				hidstruct.elementCookie = (IOHIDElementCookie) sKeyboards[0]->ledElements[i]->cookie; 
+				hidstruct.type = (IOHIDElementType)IOHIDElementGetType(sKeyboards[0]->ledElements[i]);
+				hidstruct.elementCookie = IOHIDElementGetCookie(sKeyboards[0]->ledElements[i]);
 				hidstruct.value = sKeyboards[0]->ledElementValue[i];
 				result = HIDSetElementValue (sKeyboards[0]->device, sKeyboards[0]->ledElements[i], &hidstruct); 
 			}
 		}
 	}
 	
-	// ¥¥¥ TODO deallocate keyboard vectors.
+	// â€¢â€¢â€¢ TODO deallocate keyboard vectors.
 	
 	vector<t_hidJoyDevice*>::iterator iter;
 	for (iter = sJoysticks.begin(); iter != sJoysticks.end(); iter++)
@@ -1880,7 +1896,7 @@ static void BuildJoyList (void)
 #endif
 
 	// map mice first
-	int mouse_count = 1; // ¥¥¥
+	int mouse_count = 1; // â€¢â€¢â€¢
 	for (int mouse = 0; mouse < mouse_count; mouse++)
 	{
 		// add analog axes (fix me -- should enumerate these)
@@ -1902,7 +1918,7 @@ static void BuildJoyList (void)
 	}
 
 	// map lightguns second
-	int lightgun_count = 0; // ¥¥¥
+	int lightgun_count = 0; // â€¢â€¢â€¢
 	for (int gun = 0; gun < lightgun_count; gun++)
 	{
 		// add lightgun axes (fix me -- should enumerate these)
@@ -1916,12 +1932,14 @@ static void BuildJoyList (void)
 	for (int stick = 0; stick < sJoysticks.size(); stick++)
 	{
 		// log the info
-		if (verbose)
-			fprintf(stderr, "Joystick %d: %s (%d axes, %d buttons, %d POVs)\n", stick + 1,
-				sJoysticks[stick]->device->product,
+		if (verbose) {
+			NSString *prodName = (NSString*)IOHIDDevice_GetProduct(sJoysticks[stick]->device);
+			fprintf(stderr, "Joystick %d: %s (%lu axes, %lu buttons, %lu POVs)\n", stick + 1,
+				prodName.UTF8String,
 				sJoysticks[stick]->axisElements.size(),
 				sJoysticks[stick]->buttonElements.size(),
 				sJoysticks[stick]->povElements.size());
+		}
 
 		sJoysticks[stick]->axisElementValue.resize(sJoysticks[stick]->axisElements.size());
 
@@ -1933,25 +1951,27 @@ static void BuildJoyList (void)
 //			joystick_type[stick][axis] = AXIS_TYPE_INVALID;
 
 			// attempt to get the object info
-			pRecElement element = sJoysticks[stick]->axisElements[axis];
+			IOHIDElementRef element = sJoysticks[stick]->axisElements[axis];
 			if (element)
 			{
+				NSString *name = (NSString *)IOHIDElementGetName(element);
+				const char *cName = [name cStringUsingEncoding:NSMacOSRomanStringEncoding];
 //				if (verbose)
 //					fprintf(stderr, "  Axis %d (%s)%s\n", axis, instance.tszName, joystick_digital[stick][axis] ? " - digital" : "");
 
 				// add analog axis
 //				if (!joystick_digital[stick][axis])
 				{
-					sprintf(tempname, "J%d %s", stick + 1, element->name);
+					sprintf(tempname, "J%d %s", stick + 1, cName);
 					add_joylist_entry(tempname, JOYCODE(stick, CODETYPE_JOYAXIS, axis), CODE_OTHER_ANALOG_ABSOLUTE);
 				}
 
 				// add negative value
-				sprintf(tempname, "J%d %s -", stick + 1, element->name);
+				sprintf(tempname, "J%d %s -", stick + 1, cName);
 				add_joylist_entry(tempname, JOYCODE(stick, CODETYPE_AXIS_NEG, axis), CODE_OTHER_DIGITAL);
 
 				// add positive value
-				sprintf(tempname, "J%d %s +", stick + 1, element->name);
+				sprintf(tempname, "J%d %s +", stick + 1, cName);
 				add_joylist_entry(tempname, JOYCODE(stick, CODETYPE_AXIS_POS, axis), CODE_OTHER_DIGITAL);
 			}
 		}
@@ -1964,11 +1984,13 @@ static void BuildJoyList (void)
 			if (button >= kMaxMAMEButtons) break;
 
 			// attempt to get the object info
-			pRecElement element = sJoysticks[stick]->buttonElements[button];
+			IOHIDElementRef element = sJoysticks[stick]->buttonElements[button];
 			if (element)
 			{
+				NSString *name = (NSString *)IOHIDElementGetName(element);
+				const char *cName = [name cStringUsingEncoding:NSMacOSRomanStringEncoding];
 				// make the name for this item
-				sprintf(tempname, "J%d %s", stick + 1, element->name);
+				sprintf(tempname, "J%d %s", stick + 1, cName);
 				add_joylist_entry(tempname, JOYCODE(stick, CODETYPE_BUTTON, button), CODE_OTHER_DIGITAL);
 			}
 		}
@@ -1981,23 +2003,25 @@ static void BuildJoyList (void)
 			if (pov >= kMaxMAMEPOVs) break;
 
 			// attempt to get the object info
-			pRecElement element = sJoysticks[stick]->povElements[pov];
+			IOHIDElementRef element = sJoysticks[stick]->povElements[pov];
 			if (element)
 			{
+				NSString *name = (NSString *)IOHIDElementGetName(element);
+				const char *cName = [name cStringUsingEncoding:NSMacOSRomanStringEncoding];
 				// add up direction
-				sprintf(tempname, "J%d %s U", stick + 1, element->name);
+				sprintf(tempname, "J%d %s U", stick + 1, cName);
 				add_joylist_entry(tempname, JOYCODE(stick, CODETYPE_POV_UP, pov), CODE_OTHER_DIGITAL);
 
 				// add down direction
-				sprintf(tempname, "J%d %s D", stick + 1, element->name);
+				sprintf(tempname, "J%d %s D", stick + 1, cName);
 				add_joylist_entry(tempname, JOYCODE(stick, CODETYPE_POV_DOWN, pov), CODE_OTHER_DIGITAL);
 
 				// add left direction
-				sprintf(tempname, "J%d %s L", stick + 1, element->name);
+				sprintf(tempname, "J%d %s L", stick + 1, cName);
 				add_joylist_entry(tempname, JOYCODE(stick, CODETYPE_POV_LEFT, pov), CODE_OTHER_DIGITAL);
 
 				// add right direction
-				sprintf(tempname, "J%d %s R", stick + 1, element->name);
+				sprintf(tempname, "J%d %s R", stick + 1, cName);
 				add_joylist_entry(tempname, JOYCODE(stick, CODETYPE_POV_RIGHT, pov), CODE_OTHER_DIGITAL);
 			}
 		}
@@ -2024,7 +2048,7 @@ void DeactivateInputDevices(Boolean fullPause)
 }
 
 #pragma mark -
-#pragma mark ¥ Mouse handling
+#pragma mark â€¢ Mouse handling
 
 #define MAX_BUTTONS 32		// Carbon events supports up to 65536 buttons,
 							// but we're a little more pragmatic
@@ -2038,13 +2062,13 @@ static EventTime sMouseDeltaTime;				// timestamp of last delta event
 
 static Boolean sMouseEnabled;
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 // appMouseEventHandler
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 // This event handler is installed by InitializeMouse (below) to respond to
 // Carbon events that affect the application as a whole. It does all the work
 // of keeping track of mouse deltas and button states.
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 
 static pascal OSStatus appMouseEventHandler (EventHandlerCallRef myHandler, EventRef event, void* userData)
 {
@@ -2142,13 +2166,13 @@ static pascal OSStatus appMouseEventHandler (EventHandlerCallRef myHandler, Even
 	return result;
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 // ReadMouseDeltas
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 // Effectively polls the mouse delta values as set by the Carbon event handlers.
 // It also resets them so that the delta states accurately represent the delta
 // since the last time this routine was called.
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 
 static void ReadMouseDeltas (SInt32 *deltaX, SInt32 *deltaY)
 {
@@ -2159,12 +2183,12 @@ static void ReadMouseDeltas (SInt32 *deltaX, SInt32 *deltaY)
 	sMouseDelta.h = sMouseDelta.v = 0;
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 // ReadMouseButton
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 // Effectively polls the mouse button values based on the current
 // states as set by the Carbon event handlers. First button is 0.
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 
 static Boolean ReadMouseButton (int inButtonNum)
 {
@@ -2173,14 +2197,14 @@ static Boolean ReadMouseButton (int inButtonNum)
 	return sMouseButtons[inButtonNum];
 }
 
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 // EnableMouse
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 // Controls whether our Carbon event handler will handle mouse events or
 // ignore them totally. Used around dialogs.
 // If mouse events are enabled, we eat all the events we can handle, which
 // means that they don't get passed back to the system.
-//ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
+//â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 
 static void EnableMouse (Boolean inState)
 {
@@ -2220,3 +2244,17 @@ static Boolean InitializeMouse (void)
 	// indicate success
 	return true;
 }
+
+static long HIDSetElementValue (IOHIDDeviceRef pDevice, IOHIDElementRef pElement,void* pIOHIDEvent)
+{
+	return 0;
+}
+static long HIDGetElementValue (IOHIDDeviceRef pDevice, IOHIDElementRef pElement)
+{
+	return 0;
+}
+static SInt32 HIDCalibrateValue (SInt32 value, IOHIDElementRef pElement)
+{
+	return value;
+}
+

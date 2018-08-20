@@ -60,6 +60,8 @@ void				GetHashAsUINT32 (const char *inHash, UINT32 *outCrc);
 Boolean				_NavGetOneFile (CFStringRef inMessage, int inMAMEFolderType, CFURLRef *outURL);
 Boolean 			_NavPutOneFile (CFStringRef inMessage, CFStringRef inDefaultFileName, int inMAMEFolderType, CFURLRef *outURL, FSSpec *outSpec);
 
+extern char *strlwr(char *str);
+
 #ifdef __cplusplus
 }
 #endif

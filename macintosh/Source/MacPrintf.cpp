@@ -28,12 +28,12 @@ extern "C" int printf(const char *format,...)
 	size_t length = vsnprintf (NULL, 0, format, args);
 	
 	buf = new char[length + 1];
-	require (buf, cantAllocate);
+	__Require (buf, cantAllocate);
 
 	vsprintf(buf, format, args);
 
-	require ( errorString = CFCopyLocalizedString(CFSTR("ErrorText"), NULL), cantGetErrorString );
-	require ( detailString = CFStringCreateWithCString (NULL, buf, kCFStringEncodingMacRoman), cantCreateDetailString );
+	__Require ( errorString = CFCopyLocalizedString(CFSTR("ErrorText"), NULL), cantGetErrorString );
+	__Require ( detailString = CFStringCreateWithCString (NULL, buf, kCFStringEncodingMacRoman), cantCreateDetailString );
 	
 	DialogRef dialog;
 	DialogItemIndex itemIndex;

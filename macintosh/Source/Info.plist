@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
@@ -183,27 +183,29 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>MacMAME</string>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
 	<string>0.103u2 (gcc), Copyright 1997-2006, The MAME Team</string>
-	<key>CFBundleLongVersionString</key>
-	<string>0.103u2 (gcc), Copyright 1997-2006, The MAME Team</string>
-	<key>CFBundleShortVersionString</key>
-	<string>0.103u2 (gcc)</string>
-	<key>CFBundleVersion</key>
-	<string>0.103u2 (gcc)</string>
 	<key>CFBundleIconFile</key>
 	<string>MacMAME.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.macmame.macmame</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLongVersionString</key>
+	<string>0.103u2 (gcc), Copyright 1997-2006, The MAME Team</string>
 	<key>CFBundleName</key>
 	<string>MacMAME</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.103u2 (gcc)</string>
 	<key>CFBundleSignature</key>
 	<string>eMuL</string>
+	<key>CFBundleVersion</key>
+	<string>0.103u2 (gcc)</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.games</string>
 	<key>LSRequiresCarbon</key>
 	<true/>
 	<key>NSAppleScriptEnabled</key>

@@ -14,7 +14,7 @@
 
 #include "mac.h"
 #include "macoptions.h"
-#include "macprefs.h"
+#include "MacPrefs.h"
 #include "macutils.h"
 #include "macvideo.h"
 

@@ -35,8 +35,10 @@ typedef char          int8;
 typedef int           int16;
 typedef long          int32;
 typedef unsigned char uint8;
+#ifndef _CSSMCONFIG_H_
 typedef unsigned int  uint16;
 typedef unsigned long uint32;
+#endif
 typedef char          boolean;
 
 

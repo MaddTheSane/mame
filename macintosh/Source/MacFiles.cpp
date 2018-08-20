@@ -210,14 +210,14 @@ extern "C" OSStatus GetCStringForMAMEFolder (int inMAMEFolderType, char *outPath
 {
 	OSStatus err = fnfErr;
 	
-	require (outPath, badParam);
+	__Require (outPath, badParam);
 	outPath[0] = 0;
 	
 	FSRef folderRef;
-	require_noerr( err = GetFSRefForMAMEFolder (inMAMEFolderType, &folderRef), cantGetFSRef );
+	__Require_noErr( err = GetFSRefForMAMEFolder (inMAMEFolderType, &folderRef), cantGetFSRef );
 
 	// Now convert the FSRef for the MAME folder to a full pathname.
-	require_noerr( FSRefMakePath (&folderRef, (UInt8 *)outPath, kMacMaxPath), cantMakePath );
+	__Require_noErr( FSRefMakePath (&folderRef, (UInt8 *)outPath, kMacMaxPath), cantMakePath );
 			
 	err = noErr;
 	
@@ -239,7 +239,7 @@ CFURLRef CopyCFURLForMAMEFolder (int inMAMEFolderType)
 	CFURLRef outURL = NULL;
 	FSRef fsRef;
 
-	require_noerr(GetFSRefForMAMEFolder (inMAMEFolderType, &fsRef), cantGetFSRef);
+	__Require_noErr(GetFSRefForMAMEFolder (inMAMEFolderType, &fsRef), cantGetFSRef);
 	outURL = CFURLCreateFromFSRef (NULL, &fsRef);
 
 cantGetFSRef:
@@ -260,12 +260,12 @@ extern "C" OSStatus GetFSRefForMAMEFolder (int inMAMEFolderType, FSRef *outFSRef
 	CFStringRef folderString = NULL;
 	Boolean isFolder, isAlias;
 	
-	require(outFSRef, badParam);
+	__Require(outFSRef, badParam);
 	
 	// Get FSRef for the user-local Documents folder (our parent)
 	FSRef documentsRef;
 	err = FSFindFolder (kUserDomain, kDocumentsFolderType, true, &documentsRef);
-	require_noerr(err, cantFindDocumentsFolder);
+	__Require_noErr(err, cantFindDocumentsFolder);
 	err = FSResolveAliasFile (&documentsRef, true, &isFolder, &isAlias);
 
 	FSRef parentFolderRef;
@@ -276,7 +276,7 @@ extern "C" OSStatus GetFSRefForMAMEFolder (int inMAMEFolderType, FSRef *outFSRef
 		// If we're not looking for the "MacMAME User Data" folder itself, find it and use it as the parent for the folder
 		// we're looking for.
 		folderString = CopyFolderStringForFolderType (MAC_FILETYPE_MAC_FILES);
-		require (folderString, cantGetFolderString);
+		__Require (folderString, cantGetFolderString);
 		name.length = ConvertCFStringToUnicode (folderString, name.unicode);
 
 		CFRelease (folderString);
@@ -287,12 +287,12 @@ extern "C" OSStatus GetFSRefForMAMEFolder (int inMAMEFolderType, FSRef *outFSRef
 		if (err == dupFNErr)
 		{
 			// Folder already exists, get valid FSRef to it.
-			require_noerr (FSMakeFSRefUnicode (&documentsRef, name.length, name.unicode, kTextEncodingUnknown, &parentFolderRef), cantMakeFSRef);
+			__Require_noErr (FSMakeFSRefUnicode (&documentsRef, name.length, name.unicode, kTextEncodingUnknown, &parentFolderRef), cantMakeFSRef);
 		}
 		else if (err) goto cantCreateDirectory;
 
 		err = FSResolveAliasFile (&parentFolderRef, true, &isFolder, &isAlias);
-		require_noerr(err, cantResolveAlias);
+		__Require_noErr(err, cantResolveAlias);
 	}
 	else
 	{
@@ -302,18 +302,18 @@ extern "C" OSStatus GetFSRefForMAMEFolder (int inMAMEFolderType, FSRef *outFSRef
 
 	// Now find the MAME folder we're looking for, creating it if necessary.
 	folderString = CopyFolderStringForFolderType (inMAMEFolderType);
-	require (folderString, cantGetFolderString);
+	__Require (folderString, cantGetFolderString);
 	
 	name.length = ConvertCFStringToUnicode (folderString, name.unicode);
 	err = FSCreateDirectoryUnicode (&parentFolderRef, name.length, name.unicode, kFSCatInfoNone, NULL, outFSRef, NULL, NULL);
 	if (err == dupFNErr)
 	{
 		// Folder already exists, get valid FSRef to it.
-		require_noerr (FSMakeFSRefUnicode (&parentFolderRef, name.length, name.unicode, kTextEncodingUnknown, outFSRef), cantMakeFSRef2);
+		__Require_noErr (FSMakeFSRefUnicode (&parentFolderRef, name.length, name.unicode, kTextEncodingUnknown, outFSRef), cantMakeFSRef2);
 	}
 
 	err = FSResolveAliasFile (outFSRef, true, &isFolder, &isAlias);
-	require_noerr(err, cantResolveAlias2);
+	__Require_noErr(err, cantResolveAlias2);
 
 badParam:
 cantFindDocumentsFolder:
@@ -339,11 +339,11 @@ extern "C" OSStatus GetFSSpecForMAMEFolder (int inMAMEFolderType, FSSpec *outFSS
 	OSStatus err = fnfErr;
 	FSRef fsRef;
 	
-	require(outFSSpec, badParam);
+	__Require(outFSSpec, badParam);
 	
 	// Simply get the FSRef for the folder, then convert it to an FSSpec.
-	require_noerr( err = GetFSRefForMAMEFolder (inMAMEFolderType, &fsRef), cantGetFSRef );
-	require_noerr( err = FSGetCatalogInfo(&fsRef, kFSCatInfoNone, NULL, NULL, outFSSpec, NULL), cantCreateFSSpec );
+	__Require_noErr( err = GetFSRefForMAMEFolder (inMAMEFolderType, &fsRef), cantGetFSRef );
+	__Require_noErr( err = FSGetCatalogInfo(&fsRef, kFSCatInfoNone, NULL, NULL, outFSSpec, NULL), cantCreateFSSpec );
 
 badParam:
 cantGetFSRef:
@@ -389,7 +389,7 @@ void AddFolderPathRecursive (int inMAMEFolderType, FSRef *inParent, int inDepth)
 {
 	FSIterator fsIterator;
 	OSStatus err = noErr;
-	require_noerr(FSOpenIterator (inParent, kFSIterateFlat, &fsIterator), cantOpenIterator);
+	__Require_noErr(FSOpenIterator (inParent, kFSIterateFlat, &fsIterator), cantOpenIterator);
 
 	while (1)
 	{
@@ -409,7 +409,7 @@ void AddFolderPathRecursive (int inMAMEFolderType, FSRef *inParent, int inDepth)
 		if (!err && isFolder && (inDepth < 4) && (name.unicode[0] != (UniChar)'('))
 		{
 			FSRefPtr newRef = new FSRef;
-			require(newRef, cantAllocateFSRef);
+			__Require(newRef, cantAllocateFSRef);
 
 			*newRef = subfolderRef;
 			sMAMESubfolderList[inMAMEFolderType].push_back(newRef);
@@ -417,7 +417,7 @@ void AddFolderPathRecursive (int inMAMEFolderType, FSRef *inParent, int inDepth)
 		}		
 	}
 	
-	require_noerr(FSCloseIterator (fsIterator), cantCloseIterator);
+	__Require_noErr(FSCloseIterator (fsIterator), cantCloseIterator);
 
 cantOpenIterator:
 cantAllocateFSRef:
@@ -436,7 +436,7 @@ extern "C" void RenameOldMacMAMEFolder (void)
 	// Get FSRef for the user-local Documents folder (our parent)
 	FSRef documentsRef;
 	err = FSFindFolder (kUserDomain, kDocumentsFolderType, true, &documentsRef);
-	require_noerr(err, cantFindDocumentsFolder);
+	__Require_noErr(err, cantFindDocumentsFolder);
 	err = FSResolveAliasFile (&documentsRef, true, &isFolder, &isAlias);
 
 	// Get the "MacMAME" folder in the Documents folder if it exists
@@ -445,14 +445,14 @@ extern "C" void RenameOldMacMAMEFolder (void)
 	
 	// Now create the MAME folder type
 	folderString = CopyFolderStringForFolderType (MAC_FILETYPE_MAC_FILES_OLD);
-	require (folderString, cantGetFolderString);
+	__Require (folderString, cantGetFolderString);
 	
 	name.length = ConvertCFStringToUnicode (folderString, name.unicode);
 	// Folder already exists, get valid FSRef to it.
-	require_noerr (FSMakeFSRefUnicode (&documentsRef, name.length, name.unicode, kTextEncodingUnknown, &macmameRef), cantMakeFSRef2);
+	__Require_noErr (FSMakeFSRefUnicode (&documentsRef, name.length, name.unicode, kTextEncodingUnknown, &macmameRef), cantMakeFSRef2);
 
 	newFolderString = CopyFolderStringForFolderType (MAC_FILETYPE_MAC_FILES);
-	require (newFolderString, cantGetFolderString);
+	__Require (newFolderString, cantGetFolderString);
 	
 	name.length = ConvertCFStringToUnicode (newFolderString, name.unicode);
 	// Folder already exists, get valid FSRef to it.
@@ -473,7 +473,7 @@ const ROMSetData * FindROMFast (const char *inFilename, char *outDriverName, Boo
 	Boolean isZip;
 	isZip = (mame_stricmp (inFilename + strlen (inFilename)-4, ".zip") == 0);
 
-	char *slashPtr;
+	const char *slashPtr;
 	if ((slashPtr = strrchr (inFilename, '/')))
 	{
 		strlcpy (driverName, slashPtr, sizeof(driverName));
@@ -516,7 +516,7 @@ static osd_file * mac_fopen_cached (int inMAMEFolderType, int pathindex, const c
 		folderRef = *sMAMESubfolderList[inMAMEFolderType].at(pathindex);
 		
 		// First, convert the FSRef for the MAME folder to a full pathname.
-		require_noerr( FSRefMakePath (&folderRef, (UInt8 *)filePath, sizeof(filePath)), cantMakePath );
+		__Require_noErr( FSRefMakePath (&folderRef, (UInt8 *)filePath, sizeof(filePath)), cantMakePath );
 			
 		// Now append the filename we want to open, including any partial paths it references
 		strlcat (filePath, "/", sizeof(filePath));
@@ -524,7 +524,7 @@ static osd_file * mac_fopen_cached (int inMAMEFolderType, int pathindex, const c
 	}
 
 	cachedFile = fopen(filePath, mode);
-	require_quiet (cachedFile, cantOpenFile);
+	__Require (cachedFile, cantOpenFile);
 
 	// determine the length
 	fseek (cachedFile, 0, SEEK_END);
@@ -533,7 +533,7 @@ static osd_file * mac_fopen_cached (int inMAMEFolderType, int pathindex, const c
 					
 	// allocate memory for entire file
 	newFile->cachedData = malloc (newFile->length);
-	require (newFile->cachedData, cantAllocateBuffer);
+	__Require (newFile->cachedData, cantAllocateBuffer);
 
 	// read and checksum file
 	(void)fread(newFile->cachedData, 1, newFile->length, cachedFile);
@@ -567,9 +567,9 @@ extern "C" int osd_get_path_count(int inMAMEFolderType)
 		
 		sMAMESubfolderSearched[inMAMEFolderType] = true;
 
-		require_noerr(GetFSRefForMAMEFolder (inMAMEFolderType, &folderRef), cantGetFSRef);
+		__Require_noErr(GetFSRefForMAMEFolder (inMAMEFolderType, &folderRef), cantGetFSRef);
 		FSRefPtr newRef = new FSRef;
-		require(newRef, cantAllocateFSRef);
+		__Require(newRef, cantAllocateFSRef);
 
 		*newRef = folderRef;
 		sMAMESubfolderList[inMAMEFolderType].push_back(newRef);
@@ -603,20 +603,20 @@ extern "C" int osd_get_path_info(int inMAMEFolderType, int pathindex, const char
 
 	FSRef folderRef = *sMAMESubfolderList[inMAMEFolderType].at(pathindex);
 
-	require(composite_filename, badParam);
+	__Require(composite_filename, badParam);
 
 	HFSUniStr255 name;
 	name.length = ConvertCStringToUnicode (composite_filename, name.unicode);
 	if (name.length == 0) goto bail;
 
 	FSRef fileRef;
-	require_noerr_quiet(FSMakeFSRefUnicode (&folderRef, name.length, name.unicode, kTextEncodingUnknown, &fileRef), cantMakeFSRef);
+	__Require_noErr_Quiet(FSMakeFSRefUnicode (&folderRef, name.length, name.unicode, kTextEncodingUnknown, &fileRef), cantMakeFSRef);
 
 	Boolean isFolder, isAlias;
-	require_noerr_quiet(FSResolveAliasFile (&fileRef, true, &isFolder, &isAlias), cantResolveAlias);
+	__Require_noErr_Quiet(FSResolveAliasFile (&fileRef, true, &isFolder, &isAlias), cantResolveAlias);
 
 	FSCatalogInfo catInfo;
-	require_noerr(FSGetCatalogInfo (&fileRef, kFSCatInfoNodeFlags, &catInfo, NULL, NULL, NULL), cantGetCatInfo);
+	__Require_noErr(FSGetCatalogInfo (&fileRef, kFSCatInfoNodeFlags, &catInfo, NULL, NULL, NULL), cantGetCatInfo);
 
 	if (catInfo.nodeFlags & kFSNodeIsDirectoryMask)
 		return PATH_IS_DIRECTORY;
@@ -636,8 +636,8 @@ extern "C" osd_file *osd_fopen(int inMAMEFolderType, int pathindex, const char *
 	osd_file *newFile = NULL;
 	OSStatus err = noErr;
 
-	require (composite_filename, badParam);
-	require (mode, badParam);
+	__Require (composite_filename, badParam);
+	__Require (mode, badParam);
 	
 	if (ShouldFileBeCached (inMAMEFolderType))
 		return mac_fopen_cached (inMAMEFolderType, pathindex, composite_filename, mode);
@@ -683,7 +683,7 @@ extern "C" osd_file *osd_fopen(int inMAMEFolderType, int pathindex, const char *
 			*(lastSlash+1) = 0x00;
 		}
 				
-		require_noerr( FSPathMakeRef((UInt8*)parentPath, &folderRef, &isDirectory), cantGetParent );
+		__Require_noErr( FSPathMakeRef((UInt8*)parentPath, &folderRef, &isDirectory), cantGetParent );
 	}
 	else
 	{
@@ -691,11 +691,11 @@ extern "C" osd_file *osd_fopen(int inMAMEFolderType, int pathindex, const char *
 		folderRef = *sMAMESubfolderList[inMAMEFolderType].at(pathindex);
 		
 		// If composite_filename is a partial path (i.e. contains a '/'), we have to take extra steps
-		char *lastSlash = strrchr (composite_filename, '/');
+		char *lastSlash = (char *)strrchr (composite_filename, '/');
 		if (lastSlash)
 		{
 			// First, convert the FSRef for the MAME folder to a full pathname.
-			require_noerr( FSRefMakePath (&folderRef, (UInt8 *)parentPath, sizeof(parentPath)), cantMakePath );
+			__Require_noErr( FSRefMakePath (&folderRef, (UInt8 *)parentPath, sizeof(parentPath)), cantMakePath );
 			
 			strlcat (parentPath, "/", sizeof(parentPath));
 			
@@ -711,7 +711,7 @@ extern "C" osd_file *osd_fopen(int inMAMEFolderType, int pathindex, const char *
 			*(lastSlash+1) = 0x00;
 			
 			// Finally, make an FSRef out of the combined path components.
-			require_noerr( FSPathMakeRef((UInt8*)parentPath, &folderRef, &isDirectory), cantGetParent );
+			__Require_noErr( FSPathMakeRef((UInt8*)parentPath, &folderRef, &isDirectory), cantGetParent );
 		}
 		else
 			strlcpy (fileName, composite_filename, sizeof (fileName));
@@ -980,7 +980,7 @@ extern "C" Boolean _NavGetOneFile (CFStringRef inMessage, int inMAMEFolderType, 
 {
 	Boolean retVal = false;
 
-	require(outURL, badParam);
+	__Require(outURL, badParam);
 	*outURL = NULL;
 	
 	NavDialogCreationOptions navOptions;
@@ -988,7 +988,7 @@ extern "C" Boolean _NavGetOneFile (CFStringRef inMessage, int inMAMEFolderType, 
 	NavReplyRecord navReply;
 	
 	// Set up the Nav Services options for this load dialog.
-	require_noerr( NavGetDefaultDialogCreationOptions (&navOptions), cantGetDefaultOptions );
+	__Require_noErr( NavGetDefaultDialogCreationOptions (&navOptions), cantGetDefaultOptions );
 	navOptions.clientName = CFSTR(kAppName);
 	if (inMessage)
 		navOptions.message = inMessage;
@@ -998,7 +998,7 @@ extern "C" Boolean _NavGetOneFile (CFStringRef inMessage, int inMAMEFolderType, 
 	GetFileTypeForMAMEFolder (inMAMEFolderType, &creator, &filetype);
 	
 	// Create our nav services dialog
-	require_noerr( NavCreateChooseFileDialog (&navOptions, NULL, NULL, NULL, NULL, NULL, &navDialog), cantCreateDialog );
+	__Require_noErr( NavCreateChooseFileDialog (&navOptions, NULL, NULL, NULL, NULL, NULL, &navDialog), cantCreateDialog );
 
 	// Set the default location for where we normally would want to save the file.
 	AEDesc fileLocation;
@@ -1006,13 +1006,13 @@ extern "C" Boolean _NavGetOneFile (CFStringRef inMessage, int inMAMEFolderType, 
 
 	if (GetFSRefForMAMEFolder (inMAMEFolderType, &defaultFSRef) == noErr)
 	{
-		require_noerr( AECreateDesc (typeFSRef, &defaultFSRef, sizeof (FSRef), &fileLocation), cantCreateDesc );
-		require_noerr( NavCustomControl (navDialog, kNavCtlSetLocation, (void*) &fileLocation), cantSetControl );
+		__Require_noErr( AECreateDesc (typeFSRef, &defaultFSRef, sizeof (FSRef), &fileLocation), cantCreateDesc );
+		__Require_noErr( NavCustomControl (navDialog, kNavCtlSetLocation, (void*) &fileLocation), cantSetControl );
 	}
 	
 	// Run the Nav Services dialog and get the reply when it has finished.
-	require_noerr( NavDialogRun (navDialog), cantRunDialog );
-	require_noerr_quiet( NavDialogGetReply (navDialog, &navReply), cantGetReply );
+	__Require_noErr( NavDialogRun (navDialog), cantRunDialog );
+	__Require_noErr_Quiet( NavDialogGetReply (navDialog, &navReply), cantGetReply );
 	
 	if (navReply.validRecord)
 	{
@@ -1022,7 +1022,7 @@ extern "C" Boolean _NavGetOneFile (CFStringRef inMessage, int inMAMEFolderType, 
 		FSRef fileRef;
 		
 		// Get FSRef for selection
-		require_noerr( AEGetNthPtr (&navReply.selection, 1, typeFSRef, &aeKeyword, &typeCode, &fileRef, sizeof (FSRef), &actualSize), cantGetAEPtr );
+		__Require_noErr( AEGetNthPtr (&navReply.selection, 1, typeFSRef, &aeKeyword, &typeCode, &fileRef, sizeof (FSRef), &actualSize), cantGetAEPtr );
 	
 		// Convert that FSRef to a CFURLRef
 		*outURL = CFURLCreateFromFSRef (NULL, &fileRef);
@@ -1064,7 +1064,7 @@ extern "C" Boolean _NavPutOneFile (CFStringRef inMessage, CFStringRef inDefaultF
 	NavReplyRecord navReply;
 	
 	// Set up the Nav Services options for this save dialog.
-	require_noerr( NavGetDefaultDialogCreationOptions (&navOptions), cantGetDefaultOptions );
+	__Require_noErr( NavGetDefaultDialogCreationOptions (&navOptions), cantGetDefaultOptions );
 	navOptions.clientName = CFSTR(kAppName);
 	if (inDefaultFileName)
 		navOptions.saveFileName = inDefaultFileName;
@@ -1076,7 +1076,7 @@ extern "C" Boolean _NavPutOneFile (CFStringRef inMessage, CFStringRef inDefaultF
 	GetFileTypeForMAMEFolder (inMAMEFolderType, &creator, &filetype);
 	
 	// Create our nav services dialog
-	require_noerr( NavCreatePutFileDialog (&navOptions, creator, filetype, NULL, NULL, &navDialog), cantCreateDialog );
+	__Require_noErr( NavCreatePutFileDialog (&navOptions, creator, filetype, NULL, NULL, &navDialog), cantCreateDialog );
 
 	// Set the default location for where we normally would want to save the file.
 	AEDesc fileLocation;
@@ -1084,13 +1084,13 @@ extern "C" Boolean _NavPutOneFile (CFStringRef inMessage, CFStringRef inDefaultF
 				
 	if (GetFSRefForMAMEFolder (inMAMEFolderType, &defaultFSRef) == noErr)
 	{
-		require_noerr( AECreateDesc (typeFSRef, &defaultFSRef, sizeof (FSRef), &fileLocation), cantCreateDesc );
-		require_noerr( NavCustomControl (navDialog, kNavCtlSetLocation, (void*) &fileLocation), cantSetControl );
+		__Require_noErr( AECreateDesc (typeFSRef, &defaultFSRef, sizeof (FSRef), &fileLocation), cantCreateDesc );
+		__Require_noErr( NavCustomControl (navDialog, kNavCtlSetLocation, (void*) &fileLocation), cantSetControl );
 	}
 	
 	// Run the Nav Services dialog and get the reply when it has finished.
-	require_noerr( NavDialogRun (navDialog), cantRunDialog );
-	require_noerr( NavDialogGetReply (navDialog, &navReply), cantGetReply );
+	__Require_noErr( NavDialogRun (navDialog), cantRunDialog );
+	__Require_noErr( NavDialogGetReply (navDialog, &navReply), cantGetReply );
 	
 	if (navReply.validRecord)
 	{
@@ -1103,7 +1103,7 @@ extern "C" Boolean _NavPutOneFile (CFStringRef inMessage, CFStringRef inDefaultF
 			FSSpec tempSpec;
 			char tempName[256];
 			
-			require_noerr( AEGetNthPtr (&navReply.selection, 1, typeFSS, &aeKeyword, &typeCode, &tempSpec, sizeof (FSSpec), &actualSize), cantGetAEPtr );
+			__Require_noErr( AEGetNthPtr (&navReply.selection, 1, typeFSS, &aeKeyword, &typeCode, &tempSpec, sizeof (FSSpec), &actualSize), cantGetAEPtr );
 			if (CFStringGetCString (NavDialogGetSaveFileName (navDialog), tempName, sizeof(tempName), kCFStringEncodingMacRoman))
 			{
 				OSErr err;
@@ -1118,12 +1118,12 @@ extern "C" Boolean _NavPutOneFile (CFStringRef inMessage, CFStringRef inDefaultF
 			FSRef folderRef;
 		
 			// Get FSRef for parent folder
-			require_noerr( AEGetNthPtr (&navReply.selection, 1, typeFSRef, &aeKeyword, &typeCode, &folderRef, sizeof (FSRef), &actualSize), cantGetAEPtr );
+			__Require_noErr( AEGetNthPtr (&navReply.selection, 1, typeFSRef, &aeKeyword, &typeCode, &folderRef, sizeof (FSRef), &actualSize), cantGetAEPtr );
 		
 			// Convert that FSRef to a CFURLRef
 			CFURLRef folderURL;
 			folderURL = CFURLCreateFromFSRef (NULL, &folderRef);
-			require (folderURL, cantCreateFolderURL);
+			__Require (folderURL, cantCreateFolderURL);
 			
 			// Append new filename to the CFURL. This is what we'll return to the caller.
 			*outURL = CFURLCreateCopyAppendingPathComponent (NULL, folderURL, navReply.saveFileName, false);
@@ -1295,8 +1295,8 @@ extern "C" OSStatus GetPartialPathSpec (const FSSpec *base, const char *partpath
 
 void GetFilenameFromURL (CFURLRef inRef, char *outName, int inNameLength)
 {
-	require(outName, badParam);
-	require(inNameLength, badParam);
+	__Require(outName, badParam);
+	__Require(inNameLength, badParam);
 	
 	char fullPath[kMacMaxPath];
 	Boolean successful; successful = CFURLGetFileSystemRepresentation(inRef, true, (UInt8 *)fullPath, sizeof(fullPath));
@@ -1371,3 +1371,19 @@ extern "C" Boolean IsFolder (const FSSpec *spec)
 	
 	return false;
 }
+
+#include <string.h>
+#include <ctype.h>
+
+extern "C" char *strlwr(char *str)
+{
+	unsigned char *p = (unsigned char *)str;
+	
+	while (*p) {
+		*p = tolower((unsigned char)*p);
+		p++;
+	}
+	
+	return str;
+}
+

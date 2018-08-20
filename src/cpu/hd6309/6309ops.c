@@ -249,7 +249,7 @@ INLINE void nop( void )
 }
 
 /* $13 SYNC inherent ----- */
-INLINE void sync( void )
+INLINE void sync_( void )
 {
 	/* SYNC stops processing instructions until an interrupt request happens. */
 	/* This doesn't require the corresponding interrupt to be enabled: if it */

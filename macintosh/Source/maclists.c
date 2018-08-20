@@ -737,7 +737,7 @@ static OSStatus FindROMFolder (long *dirID, short *vRefNum)
 
 	FSCatalogInfo catInfo;
 	err = FSGetCatalogInfo (&folderRef, kFSCatInfoVolume | kFSCatInfoNodeID, &catInfo, NULL, NULL, NULL);
-	require_noerr(err, cantGetCatInfo);
+	__Require_noErr(err, cantGetCatInfo);
 	
 	*dirID = catInfo.nodeID;
 	*vRefNum = catInfo.volume;

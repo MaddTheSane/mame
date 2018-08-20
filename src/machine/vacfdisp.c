@@ -68,18 +68,18 @@ static int  BD1_setdata(int id, int segdata, int data);
 //
 static const char BFM2ASCII[] = 
 //0123456789ABCDEF0123456789ABC DEF01 23456789ABCDEF0123456789ABCDEF
- "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ £\"#$%%'()*+.-./0123456789&%<=>?"\
- "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ £\"#$%%'()*+.-./0123456789&%<=>?"\
- "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ £\"#$%%'()*+.-./0123456789&%<=>?";
+ "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ \243\"#$%%'()*+.-./0123456789&%<=>?"\
+ "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ \243\"#$%%'()*+.-./0123456789&%<=>?"\
+ "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ \243\"#$%%'()*+.-./0123456789&%<=>?";
 
 // 
 // OKI MSC1937 charset to ASCII conversion table
 //
 static const char OKI1937ASCII[]=
 //0123456789ABCDEF0123456789ABC DEF01 23456789ABCDEF0123456789ABCDEF
- "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ £\"#$%%'()*+.-./0123456789&%<=>?"\
- "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ £\"#$%%'()*+.-./0123456789&%<=>?"\
- "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ £\"#$%%'()*+.-./0123456789&%<=>?";
+ "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ \243\"#$%%'()*+.-./0123456789&%<=>?"\
+ "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ \243\"#$%%'()*+.-./0123456789&%<=>?"\
+ "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_ \243\"#$%%'()*+.-./0123456789&%<=>?";
 
 /*
    16 segment charset lookup table

@@ -572,7 +572,7 @@ static int m6809_execute(int cycles)	/* NS 970908 */
 			case 0x10: pref10();					 break;
 			case 0x11: pref11();					 break;
 			case 0x12: nop();	   m6809_ICount-= 2; break;
-			case 0x13: sync();	   m6809_ICount-= 4; break;
+			case 0x13: sync_();	   m6809_ICount-= 4; break;
 			case 0x14: illegal();  m6809_ICount-= 2; break;
 			case 0x15: illegal();  m6809_ICount-= 2; break;
 			case 0x16: lbra();	   m6809_ICount-= 5; break;

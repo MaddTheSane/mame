@@ -267,7 +267,7 @@ INLINE void subd_ix(void);
 INLINE void swi(void);
 INLINE void swi2(void);
 INLINE void swi3(void);
-INLINE void sync(void);
+INLINE void sync_(void);
 INLINE void tfr(void);
 INLINE void tst_di(void);
 INLINE void tst_ex(void);
@@ -282,7 +282,7 @@ INLINE void pref11(void);
 static void (*m6809_main[0x100])(void) = {
 	neg_di, illegal,illegal,com_di, lsr_di, illegal,ror_di, asr_di, 	/* 00 */
 	asl_di, rol_di, dec_di, illegal,inc_di, tst_di, jmp_di, clr_di,
-	pref10, pref11, nop,	sync,	illegal,illegal,lbra,	lbsr,		/* 10 */
+	pref10, pref11, nop,	sync_,	illegal,illegal,lbra,	lbsr,		/* 10 */
 	illegal,daa,	orcc,	illegal,andcc,	sex,	exg,	tfr,
 	bra,	brn,	bhi,	bls,	bcc,	bcs,	bne,	beq,		/* 20 */
 	bvc,	bvs,	bpl,	bmi,	bge,	blt,	bgt,	ble,

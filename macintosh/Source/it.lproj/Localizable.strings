@@ -1,0 +1,66 @@
+﻿/*
+	Stringhe in italiano per MacMAME
+*/
+
+/* Nav Services dialog prompts */
+
+"PromptToSaveFile" = "Selezionare una cartella per questo file.";
+"PromptToLoadReplayFile" = "Selezionare un file replay (.inp) da visualizzare.";
+"PromptToLoadCheatFile" = "Selezionare un database di cheats da caricare";
+"PromptToLoadLangFile" = "Selezionare un file linguaggio da caricare.";
+"PromptToChooseROMToIdent" = "Selezionare il Set di ROMs da identificare.";
+
+/* MacMAME support folders */
+
+"MacMAMEFolderOld" = "MacMAME";
+"MacMAMEFolder" = "MacMAME IT";
+"ROMSFolder" = "ROMs";
+"HardDiskFolder" = "Immagini Hard Disks";
+"CHDDiffFolder" = "Differenze Hard Disks";
+"SamplesFolder" = "Suoni Campionati";
+"ArtworkFolder" = "Decorazioni";
+"NVRAMFolder" = "NVRAM";
+"HighScoresFolder" = "Punteggi";
+"MiscSupportFolder" = "Files Vari di Supporto";
+"ConfigFolder" = "Configurazioni";
+"SaveStateFolder" = "Salvataggi";
+"ScreenshotFolder" = "Screenshots";
+"MovieFolder" = "Filmati";
+"OpenGLOverlayFolder" = "Overlays OpenGL";
+"ReportsFolder" = "Resoconti";
+"INPFolder" = "Replays";
+"CategoriesFolder" = "Categorie";
+"TitleScreenshotFolder" = "Screenshots Titoli";
+"CabinetArtFolder" = "Cabinati";
+"FlyerArtFolder" = "Posters";
+"MarqueeArtFolder" = "Loghi sui Cabinati";
+"ControlPanelArtFolder" = "Pannelli di Controllo";
+
+"ErrorText" = "MacMAME ha riscontrato un problema.";
+"MinOSError" = "MacMAME richiede MacOS 10.2 o successivo.";
+
+"MAMEGameInfoXML" = "MAME Game Info.xml";
+
+/* Contextual menu for front-end list */
+
+"FE_ContextMenu_Driver" = "Driver: %s";
+"FE_ContextMenu_Description" = "Descrizione: %s";
+"FE_ContextMenu_Filename" = "Nome del Set di ROMs: %s";
+"FE_ContextMenu_CloneOf" = "Clone di: %s  “%s”";
+"FE_ContextMenu_ClonesOfThisDriver" = "Clone di questo driver:";
+"FE_ContextMenu_CloneList" = "   %s  “%s”";
+"FE_ContextMenu_SourceFile" = "Nome del File sorgente: %s";
+"FE_ContextMenu_MoveToTrash" = "Sposta nel Cestino";
+"FE_ContextMenu_RevealInFinder" = "Visualizza nel Finder";
+
+/* Reports (not used yet) */
+
+"Report_SupportedGame" = "MAME currently supports the following games:";
+"Report_Samples" = "MAME currently supports sound samples for the following games:";
+"Report_Clones" = "MAME currently supports the following clones:";
+"Report_Parents" = "MAME currently supports the following parents:";
+"Report_NonWorking" = "The following games are currently non-working:";
+"Report_ImperfectSound" = "The following games have imperfect sound:";
+"Report_NoSound" = "The following games have no sound:";
+"Report_ImperfectColor" = "The following games have imperfect color:";
+"Report_WrongColor" = "The following games have totally wrong color:";

@@ -10,13 +10,13 @@
 
 #pragma once
 
+#include <CoreFoundation/CFBase.h>
 
 /*##########################################################################
 	CONSTANTS
 ##########################################################################*/
 
-typedef UInt8 ROMSetFormat;
-enum
+typedef CF_ENUM(UInt8, ROMSetFormat)
 {
 	kROMSetFormatFolder,
 	kROMSetFormatZip,
@@ -24,8 +24,7 @@ enum
 };
 
 
-typedef UInt8 ROMSetType;
-enum
+typedef CF_ENUM(UInt8, ROMSetType)
 {
 	kROMSetTypeNormal,
 	kROMSetTypeGhost,
@@ -34,8 +33,7 @@ enum
 };
 
 
-typedef UInt8 ListNodeType;
-enum
+typedef CF_ENUM(UInt8, ListNodeType)
 {
 	kNodeOpenFolder,
 	kNodeClosedFolder,
@@ -44,8 +42,7 @@ enum
 };
 
 
-typedef UInt16 GroupSorting;
-enum
+typedef CF_ENUM(UInt16, GroupSorting)
 {
 	kGroupByFolder				= 0,
 	kGroupByManufacturer,
@@ -54,8 +51,7 @@ enum
 };
 
 
-typedef UInt16 GroupFlags;
-enum
+typedef CF_OPTIONS(UInt16, GroupFlags)
 {
 	kGroupFlagHideClones		= 0x0001,
 	kGroupFlagShowGhosts		= 0x0002,
@@ -64,8 +60,7 @@ enum
 };
 
 
-typedef UInt8 DriverSortType;
-enum
+typedef CF_ENUM(UInt8, DriverSortType)
 {
 	kSortedByName,
 	kSortedByDescription,
@@ -89,7 +84,7 @@ typedef struct ROMSetData
 	struct ROMSetData *			next;		// link to the next in the linear list
 	struct ROMSetData *			nextoftype;	// link to the next in the linear list for this type
 	struct ROMSetFolderData *	parent;		// pointer to our parent folder (or NULL for the root)
-	const game_driver *	driver;		// game driver
+	const game_driver *	driver;				// game driver
 	FSSpec						spec;		// rom file/folder
 	FSRef						ref;		// rom file/folder
 	UInt32						sortkey;	// key for sorting
