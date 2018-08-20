@@ -1,0 +1,1 @@
+#define m6800_get_info					m6800_get_info_c#define m6801_get_info					m6801_get_info_c#define m6802_get_info					m6802_get_info_c#define m6803_get_info					m6803_get_info_c#define m6808_get_info					m6808_get_info_c#define hd63701_get_info				hd63701_get_info_c#define nsc8105_get_info				nsc8105_get_info_c#include "cpu/m6800/m6800.c"int m6800_ICount;
