@@ -15,6 +15,11 @@
 		55370032212A2F7F0081F61B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55370030212A2F7F0081F61B /* CoreFoundation.framework */; };
 		55370033212A2F7F0081F61B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55370031212A2F7F0081F61B /* Foundation.framework */; };
 		55370035212A2F850081F61B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55370034212A2F850081F61B /* Cocoa.framework */; };
+		557086B4212B54220065B854 /* CocoaInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557086B2212B53110065B854 /* CocoaInput.swift */; };
+		557086C4212B59C60065B854 /* HIDUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 557086BD212B598F0065B854 /* HIDUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		557086C5212B59D60065B854 /* HIDUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557086BD212B598F0065B854 /* HIDUtilities.framework */; };
+		557086C6212B5A050065B854 /* HIDUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557086BD212B598F0065B854 /* HIDUtilities.framework */; };
+		557086C7212B5A050065B854 /* HIDUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 557086BD212B598F0065B854 /* HIDUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55DE7E83212159BC009FBDBB /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DE7E82212159BC009FBDBB /* libexpat.tbd */; };
 		55DE7E85212159CF009FBDBB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DE7E84212159CF009FBDBB /* libz.tbd */; };
 		55DE7E9B21215E56009FBDBB /* mame.r in Rez */ = {isa = PBXBuildFile; fileRef = 55DE7E9A21215E56009FBDBB /* mame.r */; };
@@ -278,19 +283,15 @@
 		55FF011E212A267000EB17F5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DE7E84212159CF009FBDBB /* libz.tbd */; };
 		55FF011F212A267000EB17F5 /* libexpat.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55DE7E82212159BC009FBDBB /* libexpat.tbd */; };
 		55FF0120212A267000EB17F5 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EB2F21057F2C44004EB9EC /* Carbon.framework */; };
-		55FF0122212A267000EB17F5 /* HIDUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FFFFEC212A005000EB17F5 /* HIDUtilities.framework */; };
 		55FF0124212A267000EB17F5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EB2F25057F2C44004EB9EC /* OpenGL.framework */; };
 		55FF0126212A267000EB17F5 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EB3095057F2C4A004EB9EC /* IOKit.framework */; };
 		55FF0127212A267000EB17F5 /* libmachine_macho.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6A663305E9D93200421731 /* libmachine_macho.a */; };
 		55FF0128212A267000EB17F5 /* libdrivers_macho.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6C34050664048D00E63F42 /* libdrivers_macho.a */; };
 		55FF0129212A267000EB17F5 /* libvidhrdw_macho.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6C352906641F4000E63F42 /* libvidhrdw_macho.a */; };
 		55FF012A212A267000EB17F5 /* libsndhrdw_macho.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B364F7F07C96CB3001B6B36 /* libsndhrdw_macho.a */; };
-		55FF012F212A267000EB17F5 /* HIDUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55FFFFEC212A005000EB17F5 /* HIDUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55FFFEAD2129E27300EB17F5 /* Warning.nib in Resources */ = {isa = PBXBuildFile; fileRef = 55FFFEAF2129E27300EB17F5 /* Warning.nib */; };
 		55FFFEB22129E33500EB17F5 /* MenuBar.nib in Resources */ = {isa = PBXBuildFile; fileRef = 55FFFEB42129E33500EB17F5 /* MenuBar.nib */; };
 		55FFFEB62129E35900EB17F5 /* OpenGLPrefs.nib in Resources */ = {isa = PBXBuildFile; fileRef = 55FFFEB82129E35900EB17F5 /* OpenGLPrefs.nib */; };
-		55FFFFEF212A005D00EB17F5 /* HIDUtilities.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55FFFFEC212A005000EB17F5 /* HIDUtilities.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		55FFFFF7212A1F7200EB17F5 /* HIDUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FFFFEC212A005000EB17F5 /* HIDUtilities.framework */; };
 		55FFFFF8212A1F9000EB17F5 /* WASTE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FFFFF2212A16C500EB17F5 /* WASTE.framework */; };
 		55FFFFF9212A1F9000EB17F5 /* WASTE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55FFFFF2212A16C500EB17F5 /* WASTE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9B6A667D05E9DDCD00421731 /* libmachine_macho.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6A663305E9D93200421731 /* libmachine_macho.a */; };
@@ -580,6 +581,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		557086BC212B598F0065B854 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 557086B5212B598F0065B854 /* HID Utilities.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D07F2C80486CC7A007CD1D0;
+			remoteInfo = Framework;
+		};
+		557086BE212B598F0065B854 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 557086B5212B598F0065B854 /* HID Utilities.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 97F808C710347C9A00D58924;
+			remoteInfo = "dynamic library";
+		};
+		557086C0212B598F0065B854 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 557086B5212B598F0065B854 /* HID Utilities.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 553F7526208BE7CB00CF8872;
+			remoteInfo = HIDUtilitiesSwift;
+		};
+		557086C2212B59B60065B854 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 557086B5212B598F0065B854 /* HID Utilities.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D07F2BC0486CC7A007CD1D0;
+			remoteInfo = Framework;
+		};
+		557086C8212B5A050065B854 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 557086B5212B598F0065B854 /* HID Utilities.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D07F2BC0486CC7A007CD1D0;
+			remoteInfo = Framework;
+		};
 		55FF0000212A267000EB17F5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9B364F7D07C96CB3001B6B36 /*  sndhrdw.xcodeproj */;
@@ -673,7 +709,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				55FF012F212A267000EB17F5 /* HIDUtilities.framework in Embed Frameworks */,
+				557086C7212B5A050065B854 /* HIDUtilities.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -684,7 +720,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				55FFFFEF212A005D00EB17F5 /* HIDUtilities.framework in Embed Frameworks */,
+				557086C4212B59C60065B854 /* HIDUtilities.framework in Embed Frameworks */,
 				55FFFFF9212A1F9000EB17F5 /* WASTE.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -703,6 +739,9 @@
 		55370030212A2F7F0081F61B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55370031212A2F7F0081F61B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55370034212A2F850081F61B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		557086B1212B53100065B854 /* MacMAME-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MacMAME-Bridging-Header.h"; sourceTree = "<group>"; };
+		557086B2212B53110065B854 /* CocoaInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaInput.swift; sourceTree = "<group>"; };
+		557086B5212B598F0065B854 /* HID Utilities.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "HID Utilities.xcodeproj"; path = "Vendor/HIDUtilities/HID Utilities.xcodeproj"; sourceTree = "<group>"; };
 		55DE7E82212159BC009FBDBB /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		55DE7E84212159CF009FBDBB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55DE7E9521215D9C009FBDBB /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; lineEnding = 0; name = en; path = en.lproj/mamelang.r; sourceTree = "<group>"; };
@@ -879,7 +918,6 @@
 		55FFFF642129EE4900EB17F5 /* multipcm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = multipcm.h; sourceTree = "<group>"; };
 		55FFFF662129EEB100EB17F5 /* sharcdsm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sharcdsm.h; sourceTree = "<group>"; };
 		55FFFF672129F66000EB17F5 /* osinline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = osinline.h; sourceTree = "<group>"; };
-		55FFFFEC212A005000EB17F5 /* HIDUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HIDUtilities.framework; path = "macintosh/Source/HID Utilities/HIDUtilities.framework"; sourceTree = "<group>"; };
 		55FFFFF1212A0FCE00EB17F5 /* MacMAME-ppcemu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MacMAME-ppcemu.h"; sourceTree = "<group>"; };
 		55FFFFF2212A16C500EB17F5 /* WASTE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WASTE.framework; path = macintosh/Source/WASTE.framework; sourceTree = "<group>"; };
 		55FFFFF5212A1C4F00EB17F5 /* mamedbg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mamedbg.h; sourceTree = "<group>"; };
@@ -1187,13 +1225,13 @@
 				55FF011E212A267000EB17F5 /* libz.tbd in Frameworks */,
 				55FF011F212A267000EB17F5 /* libexpat.tbd in Frameworks */,
 				55FF0120212A267000EB17F5 /* Carbon.framework in Frameworks */,
-				55FF0122212A267000EB17F5 /* HIDUtilities.framework in Frameworks */,
 				55FF0124212A267000EB17F5 /* OpenGL.framework in Frameworks */,
 				55FF0126212A267000EB17F5 /* IOKit.framework in Frameworks */,
 				55FF0127212A267000EB17F5 /* libmachine_macho.a in Frameworks */,
 				55FF0128212A267000EB17F5 /* libdrivers_macho.a in Frameworks */,
 				55FF0129212A267000EB17F5 /* libvidhrdw_macho.a in Frameworks */,
 				55FF012A212A267000EB17F5 /* libsndhrdw_macho.a in Frameworks */,
+				557086C6212B5A050065B854 /* HIDUtilities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1205,11 +1243,11 @@
 				55DE7E83212159BC009FBDBB /* libexpat.tbd in Frameworks */,
 				F5EB2F22057F2C44004EB9EC /* Carbon.framework in Frameworks */,
 				55FFFFF8212A1F9000EB17F5 /* WASTE.framework in Frameworks */,
-				55FFFFF7212A1F7200EB17F5 /* HIDUtilities.framework in Frameworks */,
 				F5EB2F24057F2C44004EB9EC /* QuickTime.framework in Frameworks */,
 				F5EB2F26057F2C44004EB9EC /* OpenGL.framework in Frameworks */,
 				F5EB2F28057F2C44004EB9EC /* AGL.framework in Frameworks */,
 				F5EB3096057F2C4A004EB9EC /* IOKit.framework in Frameworks */,
+				557086C5212B59D60065B854 /* HIDUtilities.framework in Frameworks */,
 				9B6A667D05E9DDCD00421731 /* libmachine_macho.a in Frameworks */,
 				9B6C34FA06641A4B00E63F42 /* libdrivers_macho.a in Frameworks */,
 				9B6C3530066423D000E63F42 /* libvidhrdw_macho.a in Frameworks */,
@@ -1235,12 +1273,24 @@
 				5537002B212A2C3C0081F61B /* CocoaCoreDefines.h */,
 				55370025212A28720081F61B /* CocoaInput.h */,
 				55370026212A28720081F61B /* CocoaInput.mm */,
+				557086B2212B53110065B854 /* CocoaInput.swift */,
 				55370028212A298D0081F61B /* Cocoa.pch */,
 				5537002C212A2F0C0081F61B /* main.m */,
 				55E852F1212B421F00AD7CB6 /* CMAMEAppDelegate.h */,
 				55E852F2212B421F00AD7CB6 /* CMAMEAppDelegate.m */,
+				557086B1212B53100065B854 /* MacMAME-Bridging-Header.h */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		557086B6212B598F0065B854 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				557086BD212B598F0065B854 /* HIDUtilities.framework */,
+				557086BF212B598F0065B854 /* libHID_Utilities.dylib */,
+				557086C1212B598F0065B854 /* HIDUtilitiesSwift.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		55DE7EA0212161B1009FBDBB /* intelBlit */ = {
@@ -1858,13 +1908,13 @@
 		F5EB2D66057F2C34004EB9EC /* Dependent Libs */ = {
 			isa = PBXGroup;
 			children = (
+				557086B5212B598F0065B854 /* HID Utilities.xcodeproj */,
 				55FFFFF2212A16C500EB17F5 /* WASTE.framework */,
 				9B6A662805E9D93100421731 /*  drivers.xcodeproj */,
 				9B6A662A05E9D93100421731 /*  machine.xcodeproj */,
 				9B364F7D07C96CB3001B6B36 /*  sndhrdw.xcodeproj */,
 				9B6A662E05E9D93100421731 /*  vidhrdw.xcodeproj */,
 				9BEE478605E9F1AE00ED1A7A /* libmacblitters.a */,
-				55FFFFEC212A005000EB17F5 /* HIDUtilities.framework */,
 			);
 			name = "Dependent Libs";
 			sourceTree = "<group>";
@@ -1908,6 +1958,7 @@
 				55FFFFFD212A267000EB17F5 /* PBXTargetDependency */,
 				55FFFFFF212A267000EB17F5 /* PBXTargetDependency */,
 				55FF0001212A267000EB17F5 /* PBXTargetDependency */,
+				557086C9212B5A050065B854 /* PBXTargetDependency */,
 			);
 			name = "MacMAME Cocoa";
 			productName = "mame release";
@@ -1928,6 +1979,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				557086C3212B59B60065B854 /* PBXTargetDependency */,
 				F591407E089F343000C2EFF5 /* PBXTargetDependency */,
 				F591407A089F343000C2EFF5 /* PBXTargetDependency */,
 				F591407C089F343000C2EFF5 /* PBXTargetDependency */,
@@ -1945,6 +1997,12 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CMAME;
+				LastUpgradeCheck = 0940;
+				TargetAttributes = {
+					F5EB2BD0057F2C33004EB9EC = {
+						LastSwiftMigration = 0940;
+					};
+				};
 			};
 			buildConfigurationList = F56EC18C0866695000FF69E1 /* Build configuration list for PBXProject "MacMAME" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1977,6 +2035,10 @@
 					ProductGroup = 9B6A662F05E9D93100421731 /* Products */;
 					ProjectRef = 9B6A662E05E9D93100421731 /*  vidhrdw.xcodeproj */;
 				},
+				{
+					ProductGroup = 557086B6212B598F0065B854 /* Products */;
+					ProjectRef = 557086B5212B598F0065B854 /* HID Utilities.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1987,6 +2049,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		557086BD212B598F0065B854 /* HIDUtilities.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HIDUtilities.framework;
+			remoteRef = 557086BC212B598F0065B854 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		557086BF212B598F0065B854 /* libHID_Utilities.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libHID_Utilities.dylib;
+			remoteRef = 557086BE212B598F0065B854 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		557086C1212B598F0065B854 /* HIDUtilitiesSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HIDUtilitiesSwift.framework;
+			remoteRef = 557086C0212B598F0065B854 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9B364F7F07C96CB3001B6B36 /* libsndhrdw_macho.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2361,6 +2444,7 @@
 				55FF00FF212A267000EB17F5 /* z80dasm.c in Sources */,
 				55FF0100212A267000EB17F5 /* z80daisy.c in Sources */,
 				55FF0102212A267000EB17F5 /* dsp56k.c in Sources */,
+				557086B4212B54220065B854 /* CocoaInput.swift in Sources */,
 				55FF0103212A267000EB17F5 /* dsp56dsm.c in Sources */,
 				55FF0104212A267000EB17F5 /* validity.c in Sources */,
 				55FF0105212A267000EB17F5 /* xmlfile.c in Sources */,
@@ -2638,6 +2722,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		557086C3212B59B60065B854 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Framework;
+			targetProxy = 557086C2212B59B60065B854 /* PBXContainerItemProxy */;
+		};
+		557086C9212B5A050065B854 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Framework;
+			targetProxy = 557086C8212B5A050065B854 /* PBXContainerItemProxy */;
+		};
 		55FF0001212A267000EB17F5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = vidhrdw;
@@ -2739,6 +2833,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2767,6 +2863,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.macmame.macmame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SCRIPT_TYPE = Roman;
+				SWIFT_OBJC_BRIDGING_HEADER = "cocoa/Source/MacMAME-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -2774,6 +2872,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2807,12 +2907,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.macmame.macmame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SCRIPT_TYPE = Roman;
+				SWIFT_OBJC_BRIDGING_HEADER = "cocoa/Source/MacMAME-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 		F56EC1850866694F00FF69E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2845,6 +2949,8 @@
 		F56EC1860866694F00FF69E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2883,19 +2989,45 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(HOME)/oldQTFrameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					src,
 					src/includes,
@@ -2914,8 +3046,10 @@
 					"macintosh/Source/HID\\ Utilities",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = MacMAME;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WARNING_CFLAGS = "-Wall";
 				WARNING_LDFLAGS = (
 					"-multiply_defined",
@@ -2929,16 +3063,41 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(HOME)/oldQTFrameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					src,
 					src/includes,
@@ -2959,6 +3118,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = MacMAME;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				WARNING_CFLAGS = "-Wall";
 				WARNING_LDFLAGS = (
 					"-multiply_defined",

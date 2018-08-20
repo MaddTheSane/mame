@@ -1665,7 +1665,7 @@ static void AddHIDJoystickDevice (IOHIDDeviceRef inDevice)
 	
 #if MAME_DEBUG
 	{
-		NSString *prodName = (NSString*)IOHIDDevice_GetProduct(inDevice);
+		NSString *prodName = (__bridge NSString*)IOHIDDevice_GetProduct(inDevice);
 	fprintf(stderr, "Joystick Device: %s\n", prodName.UTF8String);
 	}
 #endif
@@ -1743,7 +1743,7 @@ static void AddHIDKeyboardDevice (IOHIDDeviceRef inDevice)
 	
 #if MAME_DEBUG
 	{
-		NSString *prodName = (NSString*)IOHIDDevice_GetProduct(inDevice);
+		NSString *prodName = (__bridge NSString*)IOHIDDevice_GetProduct(inDevice);
 		fprintf(stderr, "Keyboard Device: %s\n", prodName.UTF8String);
 	}
 #endif
@@ -1921,7 +1921,7 @@ static void BuildJoyList (void)
 	{
 		// log the info
 		if (verbose) {
-			NSString *prodName = (NSString*)IOHIDDevice_GetProduct(sJoysticks[stick]->device);
+			NSString *prodName = (__bridge NSString*)IOHIDDevice_GetProduct(sJoysticks[stick]->device);
 			fprintf(stderr, "Joystick %d: %s (%lu axes, %lu buttons, %lu POVs)\n", stick + 1,
 				prodName.UTF8String,
 				sJoysticks[stick]->axisElements.size(),
