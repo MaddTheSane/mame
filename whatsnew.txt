@@ -1,3 +1,311 @@
+0.103u5
+-------
+
+
+MAMETesters Bugs Fixed
+----------------------
+esb065gre [Mathis Rosenhauer]
+
+
+
+Source Changes
+--------------
+Undid fix for turbofrc37b1gre since it broke more things that it
+fixed. [Pierpaolo Prazzoli]
+
+Fixed minor color issue in Cookie & Bibi. [David Haywood]
+
+Updates to the Hyperstone core: [Pierpaolo Prazzoli]
+ - Removed nested delays
+ - Added better delay branch support
+ - Fixed PC seen by a delay instruction, because a delay instruction
+    should use the delayed PC (thus allowing the execution of software
+    opcodes too)
+
+Hooked up watchdog for NeoGeo games and removed a number of hacks.
+[David Haywood]
+
+Fixed hanging at the end of level 3 in klondkp. [Pierpaolo Prazzoli]
+
+Fixed inputs in Renju Kizoku, Neratte Chu, Mayjinsen 2 and some dips 
+in Neratte Chu, Mayjinsen 2. [Sonikos]
+
+Improved auto_malloc so it uses less memory and doesn't have a hard-
+coded limit on the maximum number of allocations. Also audited the
+use of auto_malloc in the code and removed unnecessary checks for
+NULL (since auto_malloc doesn't return if it fails). [Atari Ace]
+
+Fixed osd_fopen error reporting to return the correct value if you hit 
+MAX_OPEN_FILES. [Nathan Woods]
+
+Changed several byte operands in the i386 disassembler to be 
+diassembled as unsigned rather than signed. [Nathan Woods]
+
+Discrete sound updates: [Derrick Renaud]
+ - Added new DISCRETE_CSVLOG module that lets you log discrete nodes 
+    as CSV (comma separated values) data.
+ - Modified discrete core to use the clock specified in the 
+    MDRV_SOUND_ADD line.  If the clock is specified as 0, then the 
+    discrete emulation will default to the audio sample rate clock.
+ - Tweaked Phoenix Effect 2 sound to be more accurate matching 
+    oscilliscope data.  Changed the Phoenix discrete clock rate to 
+    a fixed rate of 120000 allowing the simulation to be more 
+    accurate with less alaising noise at the cost of speed. 
+ - Fixed the bug in the DISCRETE_NOTE module that produced notes 
+    1 count off.
+
+Added support for registers that are not to be displayed in the 
+register list. This is useful for registers like AX on i386, so that
+AX can be used in expressions but not represented on the register 
+list. Simply precede the register name with '~' to prevent display.
+[Nathan Woods, Aaron Giles]
+
+Added support for the various x86 8-bit and 16-bit derived 
+registers, as hidden registers in the i386 core. [Nathan Woods]
+
+Fixed background music in ESB. Updated IRQ frequency and divider to 
+match the schematics. [Mathis Rosenhauer]
+
+Improved dip switches for rocktrv2. [Chaneman]
+
+Separated the allocation of graphics data from the decoding. This fixes
+the crashes that were introduced in u4, and will allow for decoding
+progress to be reported eventually. [Aaron Giles]
+
+Made a clean-up pass over all the makefiles. rules.mak is gone now,
+replaced by cpu.mak and sound.mak. mame.mak has been reorganized. All 
+the makefiles are now commented and should be easier to follow. 
+[Aaron Giles]
+
+Rewrote artwork scaling function to compute accurate sum over all
+contributing pixels. This produces better results when scaling high
+resolution artwork down to lower resolutions. Kept existing bilinear
+filter for scaling low resolution art to higher resolutions. 
+[Aaron Giles]
+
+
+
+New games added or promoted from NOT_WORKING status
+---------------------------------------------------
+Hidden Catch (World) [Pierpaolo Prazzoli]
+Fortress 2 Blue Arcade [Pierpaolo Prazzoli]
+
+
+
+New clones added
+----------------
+Several more NeoGeo bootlegs [Razoola, David Haywood]
+Jumbo Ozaki Super Masters Golf (Japan) [Team Japump]
+Miss Puzzle (Nudes) [Brian Troha]
+
+
+
+0.103u4
+-------
+
+
+MAMETesters Bugs Fixed
+----------------------
+xevious083gre [MASH]
+
+
+
+Source Changes
+--------------
+Intel i386/i486/Pentium update: [Nathan Woods]
+ - Fixed A20 mask implementation
+ - Added A20 mask to debugger translate callback
+ - Implemented Pentium opcode CMPXCHG8B
+ - Fixed XADD, and added support for the 8 and 16 bit variants
+
+Fixed Top Shooter sprites. Game still not playable. [Tomasz Slanina]
+
+Changed debug view property code to pass property values as unions rather 
+than void pointers, in order to appease compilers that whine about strict 
+aliasing. [Nathan Woods]
+
+Fixed resource allocation issue with bitmaps in the Windows code and
+MESS. [Nathan Woods]
+
+Removed a number of unnecessary video_stop and machine_stop routines.
+[Atari Ace]
+
+Converted a few more exit() calls to osd_die(). [Oliver Stoneberg]
+
+Fixed inputs on Ninja Spirit and the Sega System 16b driver to match the
+JAMMA button ordering. [Corrado Tomaselli]
+
+Fixes to the Hyperstone core: [Pierpaolo Prazzoli]
+ - Removed nested delays
+ - Don't allow software opcodes to be executed in a delay slot
+
+Added/changed the following discrete modules: [Derrick Renaud]
+ - DISCRETE_WAVELOG - easy way to log discrete nodes as a .wav file to 
+    compare against scope waveforms.
+ - DISCRETE_OUTPUT - added a final gain parameter to get it to 16 bit 
+    wav level.  (The old VOL setting was disabled after the last sound 
+    re-write.)
+
+Fixed graphics banking in 8751-based Altered Beast sets. [David Haywood]
+
+Fixed some bad gfx in kdynastg when levels start. [Pierpaolo Prazzoli]
+
+Decrypted graphics in Darkmist and Panic Road. [Nicola Salmoria]
+
+Added stream_set_sample_rate() call, and converted the TMS5110, TMS5220, 
+ES5505/6, BSMT2000, AY8910, POKEY, TIA, Sega PCM/Multi-PCM, SN76496, 
+OKIM6295, and YMZ280B sound cores to output at their native sample rates, 
+allowing the core sound system to perform over/re-sampling to the output 
+rate. [Aaron Giles]
+
+Moved CHD file access routines to fileio.c. [Aaron Giles]
+
+Added assert macro to mamecore.h. [Aaron Giles]
+
+
+
+New games added or promoted from NOT_WORKING status
+---------------------------------------------------
+Laser Battle/Lazarian [Pierpaolo Prazzoli]
+Cat and Mouse [Pierpaolo Prazzoli]
+KlonDike+ [Pierpaolo Prazzoli]
+Alien Arena
+Crowns Golf in Hawaii [Aaron Giles]
+
+
+
+New clones added
+----------------
+Joust (Solid Green Label) [Reznor007]
+Space Intruder (Japan) [Tomasz Slanina, Guru]
+
+
+
+New games marked as GAME_NOT_WORKING
+------------------------------------
+Galaxia [David Haywood]
+
+
+
+0.103u3
+-------
+
+
+Source Changes
+--------------
+
+H8/Last Fight update: [R. Belmont]
+ * (H8) Limited vector reads to 24 bits
+ * (H8) Added SHLL.W, EXTU.L, SUBS.L #2, and SUBS.L #4 opcodes
+ * Includes Guru's readme
+ * Loads all ROMs
+ * Maps RAM for the stack
+
+Converted wcvol95 and hvysmash to use the 16-bit deco tilemap functions.
+[David Haywood]
+
+Added BCD multiply to ARM coprocessor to fix wcvol95. [David Haywood]
+
+Cleaned up the Neo Geo mess from 0.103u2. [David Haywood, Razoola]
+
+Added support for >4GB CHD files to chdman for non-Windows systems.
+[Lawrence Gold]
+
+Fixed leapyear calculation. [William Krick]
+
+Converted Super Burger Time, Vapor Trail, and Crude Buster to use the 
+deco tilemap functions. [David Haywood]
+
+Rewrote Neo-Geo video system, removing distinction between raster and
+non-raster games and cleaning up the code significantly. [David Haywood]
+
+Improved DIP switches for clowns, clowns1, and bowler. [Bob Seidel]
+
+Added CPUINFO_PTR_DEBUG_SETUP_COMMANDS: a callback that is invoked to 
+tell CPU cores to set up commands specific to a CPU core. [Nathan Woods]
+
+Added SegBase() and SegLimit() functions to the i386 core debugger.
+[Nathan Woods]
+
+Improved sound balance in Night Slashers. [MAME Italia]
+
+Improvements to the Deco MLC games (added sprite buffering, fixed tile 
+banking, fixed clear colour, added sprite clipping & ARM interrupt bug 
+fix). The only thing left for this driver is really raster support for 
+the pitch in Stadium Hero. [Bryan McPhail]
+
+Fixed Hang On stereo sound routine. [Mamesick]
+
+Cleaned up PC keyboard code. [Nathan Woods]
+
+Added memory_install_* calls that are not specific to specific bus 
+widths (only for static handlers, not for function pointers). [Nathan Woods]
+
+Added sound to Ping Pong Masters '93. [Tomasz Slanina]
+
+Converted Crazy Balloon sound to use the discrete system. [Derrick Renaud]
+
+Major Namco System 22 update: [Phil Stroffolino]
+ * Hooked up the real master DSP BIOS.  Many games are now working or
+    displaying graphics that were having problems before; removed many
+    hacks as a result.
+ * Hooked up the runtime-configurable interrupt handlers, removing more
+    game-specific hacks.
+ * Some improvements and additional documentation of video hardware.
+ * Emulated Alpine Surfer protection and fixed bogus loading of Point
+    ROMs, though the game still has problems.
+
+Fixed the Wild Western bonus screen, where the horse would not scroll 
+into view. [Nicola Salmoria]
+
+Cleaned up inputs in the bfm_sc2 driver. [El Condor]
+
+Fixed in the old debugger the display of opcodes for word-addressed CPUs 
+like the TMS32010, which was completely broken before. [Alex Jackson]
+
+Separated debugger break key from OSD display. They can now be programmed
+differently. Also fixed behavior in the new debugger when using the break so
+that text doesn't get entered onto the command line. [Aaron Giles]
+
+Fixed the handling of address masking and display within the debugger.
+[Aaron Giles, Nathan Woods]
+
+Fixed order of operations in the expression engine if functions were used.
+[Aaron Giles]
+
+Added timer support to the ADSP cores and hooked it up for the DCS games.
+[Aaron Giles]
+
+Many Voodoo updates to add Voodoo Banshee and Voodoo 3 support. [Aaron Giles]
+
+
+
+New games added or promoted from NOT_WORKING status
+---------------------------------------------------
+Backfire! [David Haywood]
+Skull Fang [Bryan McPhail]
+Thunder Hoop [Pierpaolo Prazzoli, Mike Coates, Brian Troha]
+X-Files [Pierpaolo Prazzoli]
+King of Dynast Gear [Pierpaolo Prazzoli, Guru]
+Meijinsen [Tomasz Slanina]
+
+
+
+New clones added
+----------------
+Demon's World / Horror Story (first edition) [Corrado Tomaselli]
+The Couples (Set 3) [f205v]
+Dragon World (World, V0300) [f205v]
+
+
+
+New games marked as GAME_NOT_WORKING
+------------------------------------
+Poizone [Chris Hardy, David Haywood]
+
+
+
+
 0.103u2
 -------
 

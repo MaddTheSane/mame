@@ -31,11 +31,6 @@ Notes:
 -   The Japan set doesn't seem to have (or use) NVRAM. I can't enter
     a test mode or use the service coin either !?
 
--	Rock and Tread emulation by Justin Lee Turner
-	Roms from my bootleg PCB's.  PCB's and roms are printed MADE IN KOREA.
-	Bootleg PCB's use FPGA, no JALACO Custom
-	PCB's made from deleted MAME roms??? ROCKN4 was unreleased??
-
 ***************************************************************************/
 
 #include "driver.h"
@@ -493,11 +488,11 @@ static ADDRESS_MAP_START( rocknms_main_readmem, ADDRESS_SPACE_PROGRAM, 16 )
 	AM_RANGE(0x108000, 0x10ffff) AM_READ(MRA16_RAM				)	// Work RAM
 	AM_RANGE(0x200000, 0x23ffff) AM_READ(tetrisp2_priority_r	)	// Priority
 	AM_RANGE(0x300000, 0x31ffff) AM_READ(MRA16_RAM				)	// Palette
-//	AM_RANGE(0x500000, 0x50ffff) AM_READ(MRA16_RAM				)	// Line
+//  AM_RANGE(0x500000, 0x50ffff) AM_READ(MRA16_RAM              )   // Line
 	AM_RANGE(0x600000, 0x60ffff) AM_READ(MRA16_RAM				)	// Rotation
 	AM_RANGE(0x800000, 0x803fff) AM_READ(MRA16_RAM				)	// Foreground
 	AM_RANGE(0x804000, 0x807fff) AM_READ(MRA16_RAM				)	// Background
-//	AM_RANGE(0x808000, 0x809fff) AM_READ(MRA16_RAM				)	// ???
+//  AM_RANGE(0x808000, 0x809fff) AM_READ(MRA16_RAM              )   // ???
 	AM_RANGE(0x900000, 0x903fff) AM_READ(rockn_nvram_r		)	// NVRAM
 	AM_RANGE(0xa30000, 0xa30001) AM_READ(rockn_soundvolume_r	)	// Sound Volume
 	AM_RANGE(0xa40002, 0xa40003) AM_READ(tetrisp2_sound_r		)	// Sound
@@ -516,11 +511,11 @@ static ADDRESS_MAP_START( rocknms_main_writemem, ADDRESS_SPACE_PROGRAM, 16 )
 	AM_RANGE(0x108000, 0x10ffff) AM_WRITE(MWA16_RAM									)	// Work RAM
 	AM_RANGE(0x200000, 0x23ffff) AM_WRITE(rockn_priority_w) AM_BASE(&tetrisp2_priority	)	// Priority
 	AM_RANGE(0x300000, 0x31ffff) AM_WRITE(tetrisp2_palette_w) AM_BASE(&paletteram16			)	// Palette
-//	AM_RANGE(0x500000, 0x50ffff) AM_WRITE(MWA16_RAM									)	// Line
+//  AM_RANGE(0x500000, 0x50ffff) AM_WRITE(MWA16_RAM                                 )   // Line
 	AM_RANGE(0x600000, 0x60ffff) AM_WRITE(tetrisp2_vram_rot_w) AM_BASE(&tetrisp2_vram_rot	)	// Rotation
 	AM_RANGE(0x800000, 0x803fff) AM_WRITE(tetrisp2_vram_fg_w) AM_BASE(&tetrisp2_vram_fg		)	// Foreground
 	AM_RANGE(0x804000, 0x807fff) AM_WRITE(tetrisp2_vram_bg_w) AM_BASE(&tetrisp2_vram_bg		)	// Background
-//	AM_RANGE(0x808000, 0x809fff) AM_WRITE(MWA16_RAM									)	// ???
+//  AM_RANGE(0x808000, 0x809fff) AM_WRITE(MWA16_RAM                                 )   // ???
 	AM_RANGE(0x900000, 0x903fff) AM_WRITE(tetrisp2_nvram_w) AM_BASE(&tetrisp2_nvram) AM_SIZE(&tetrisp2_nvram_size	)	// NVRAM
 	AM_RANGE(0xa30000, 0xa30001) AM_WRITE(rockn_soundvolume_w						)	// Sound Volume
 	AM_RANGE(0xa40000, 0xa40003) AM_WRITE(tetrisp2_sound_w							)	// Sound
@@ -545,13 +540,13 @@ static ADDRESS_MAP_START( rocknms_sub_readmem, ADDRESS_SPACE_PROGRAM, 16 )
 	AM_RANGE(0x108000, 0x10ffff) AM_READ(MRA16_RAM				)	// Work RAM
 	AM_RANGE(0x200000, 0x23ffff) AM_READ(rocknms_sub_priority_r	)	// Priority
 	AM_RANGE(0x300000, 0x31ffff) AM_READ(MRA16_RAM				)	// Palette
-//	AM_RANGE(0x500000, 0x50ffff) AM_READ(MRA16_RAM				)	// Line
+//  AM_RANGE(0x500000, 0x50ffff) AM_READ(MRA16_RAM              )   // Line
 	AM_RANGE(0x600000, 0x60ffff) AM_READ(MRA16_RAM				)	// Rotation
 	AM_RANGE(0x800000, 0x803fff) AM_READ(MRA16_RAM				)	// Foreground
 	AM_RANGE(0x804000, 0x807fff) AM_READ(MRA16_RAM				)	// Background
-//	AM_RANGE(0x808000, 0x809fff) AM_READ(MRA16_RAM				)	// ???
+//  AM_RANGE(0x808000, 0x809fff) AM_READ(MRA16_RAM              )   // ???
 	AM_RANGE(0x900000, 0x907fff) AM_READ(MRA16_RAM				)	// NVRAM
-//	AM_RANGE(0xbe0000, 0xbe0001) AM_READ(MRA16_NOP				)	// INT-level1 dummy read
+//  AM_RANGE(0xbe0000, 0xbe0001) AM_READ(MRA16_NOP              )   // INT-level1 dummy read
 	AM_RANGE(0xbe0002, 0xbe0003) AM_READ(rocknms_main2sub_r		)	// MAIN -> SUB Communication
 	AM_RANGE(0xbe000a, 0xbe000b) AM_READ(watchdog_reset16_r	)	// Watchdog
 ADDRESS_MAP_END
@@ -564,11 +559,11 @@ static ADDRESS_MAP_START( rocknms_sub_writemem, ADDRESS_SPACE_PROGRAM, 16 )
 	AM_RANGE(0x108000, 0x10ffff) AM_WRITE(MWA16_RAM									)	// Work RAM
 	AM_RANGE(0x200000, 0x23ffff) AM_WRITE(rocknms_sub_priority_w) AM_BASE(&rocknms_sub_priority	)	// Priority
 	AM_RANGE(0x300000, 0x31ffff) AM_WRITE(rocknms_sub_palette_w) AM_BASE(&paletteram16_2			)	// Palette
-//	AM_RANGE(0x500000, 0x50ffff) AM_WRITE(MWA16_RAM									)	// Line
+//  AM_RANGE(0x500000, 0x50ffff) AM_WRITE(MWA16_RAM                                 )   // Line
 	AM_RANGE(0x600000, 0x60ffff) AM_WRITE(rocknms_sub_vram_rot_w) AM_BASE(&rocknms_sub_vram_rot	)	// Rotation
 	AM_RANGE(0x800000, 0x803fff) AM_WRITE(rocknms_sub_vram_fg_w) AM_BASE(&rocknms_sub_vram_fg		)	// Foreground
 	AM_RANGE(0x804000, 0x807fff) AM_WRITE(rocknms_sub_vram_bg_w) AM_BASE(&rocknms_sub_vram_bg		)	// Background
-//	AM_RANGE(0x808000, 0x809fff) AM_WRITE(MWA16_RAM									)	// ???
+//  AM_RANGE(0x808000, 0x809fff) AM_WRITE(MWA16_RAM                                 )   // ???
 	AM_RANGE(0x900000, 0x907fff) AM_WRITE(MWA16_RAM	)	// NVRAM
 	AM_RANGE(0xa30000, 0xa30001) AM_WRITE(rockn_soundvolume_w						)	// Sound Volume
 	AM_RANGE(0xa40000, 0xa40003) AM_WRITE(tetrisp2_sound_w							)	// Sound
@@ -1364,28 +1359,28 @@ ROM_END
 
 /***************************************************************************
 
-							Rock'n Tread 1 (Japan)
-							Rock'n Tread 2 (Japan)
-							Rock'n MegaSession (Japan)
-							Rock'n 3 (Japan)
-							Rock'n 4 (Japan)
+                            Rock'n Tread 1 (Japan)
+                            Rock'n Tread 2 (Japan)
+                            Rock'n MegaSession (Japan)
+                            Rock'n 3 (Japan)
+                            Rock'n 4 (Japan)
 
 (c)1997 Jaleco
 
-CPU:	68000-12
-Sound:	YMZ280B-F
-OSC:	12.000MHz
-		48.0000MHz
-		16.9344MHz
+CPU:    68000-12
+Sound:  YMZ280B-F
+OSC:    12.000MHz
+        48.0000MHz
+        16.9344MHz
 
-Custom:	SS91022-03
-		GS91022-04
-		GS91022-05
-		SS91022-05
+Custom: SS91022-03
+        GS91022-04
+        GS91022-05
+        SS91022-05
 
 ***************************************************************************/
 
-ROM_START( rocknb ) /* JLT */
+ROM_START( rockna )
 	ROM_REGION( 0x100000, REGION_CPU1, 0 )		/* 68000 Code */
 	ROM_LOAD16_BYTE( "prg1", 0x000001, 0x80000, CRC(6078fa48) SHA1(e98c1a1abf026f2d5b5035ccbc9d412a08ca1f02) )
 	ROM_LOAD16_BYTE( "prg0", 0x000000, 0x80000, CRC(c8310bd0) SHA1(1efee954cc94b668b7d9f28a099b8d1c83d3093f) )
@@ -1424,7 +1419,7 @@ ROM_START( rocknb ) /* JLT */
 ROM_END
 
 
-ROM_START( rockn2b ) /* JLT */
+ROM_START( rockn2 )
 	ROM_REGION( 0x100000, REGION_CPU1, 0 )		/* 68000 Code */
 	ROM_LOAD16_BYTE( "prg1", 0x000001, 0x80000, CRC(854b5a45) SHA1(91496bc511fef1d552d2bd00b82d2470eae94528) )
 	ROM_LOAD16_BYTE( "prg0", 0x000000, 0x80000, CRC(4665bbd2) SHA1(3562c67b81a32d178a8bcb872e676bf7284855d7) )
@@ -1470,7 +1465,7 @@ ROM_START( rockn2b ) /* JLT */
 ROM_END
 
 
-ROM_START( rockn3b ) /* JLT */
+ROM_START( rockn3 )
 	ROM_REGION( 0x100000, REGION_CPU1, 0 )		/* 68000 Code */
 	ROM_LOAD16_BYTE( "prg1", 0x000001, 0x80000, CRC(abc6ab4a) SHA1(2f1983b95cd9e42d709edac5613b1f0b450df4ba) )
 	ROM_LOAD16_BYTE( "prg0", 0x000000, 0x80000, CRC(3ecba46e) SHA1(64ff5b7932a8d8dc01c649b9dcc1d55cf1e43387) )
@@ -1515,7 +1510,7 @@ ROM_START( rockn3b ) /* JLT */
 ROM_END
 
 
-ROM_START( rockn4b ) /* JLT */
+ROM_START( rockn4 )
 	ROM_REGION( 0x100000, REGION_CPU1, 0 )		/* 68000 Code */
 	ROM_LOAD16_BYTE( "prg1", 0x000001, 0x80000, CRC(c666caea) SHA1(57018de40d71fe214a6b5cc33c8ad5e88622d010) )
 	ROM_LOAD16_BYTE( "prg0", 0x000000, 0x80000, CRC(cc94e557) SHA1(d38abed04239d9eecf1b1be7a9f765a1b7aa0d8d) )
@@ -1548,7 +1543,7 @@ ROM_START( rockn4b ) /* JLT */
 ROM_END
 
 
-ROM_START( rocknmsb ) /* JLT */
+ROM_START( rocknms )
 	ROM_REGION( 0x100000, REGION_CPU1, 0 )		/* 68000 Code */
 	ROM_LOAD16_BYTE( "mast_prg1", 0x000001, 0x80000, CRC(c36674f8) SHA1(8aeb19fcd6f786c9d76a72abee4b607d29fb7d56) )
 	ROM_LOAD16_BYTE( "mast_prg0", 0x000000, 0x80000, CRC(69382065) SHA1(2d528c2954556d440e790db209a2e3563580296a) )
@@ -1618,13 +1613,10 @@ ROM_END
 
 GAME( 1997, tetrisp2, 0,        tetrisp2, tetrisp2, 0,       ROT0,   "Jaleco / The Tetris Company", "Tetris Plus 2 (World?)", 0 )
 GAME( 1997, teplus2j, tetrisp2, tetrisp2, teplus2j, 0,       ROT0,   "Jaleco / The Tetris Company", "Tetris Plus 2 (Japan)", 0 )
-GAME( 1999, rockn,    0,        rockn,    rockn,   rockn,  ROT270, "Jaleco", "Rock'n Tread (Japan)", GAME_NO_SOUND )
 
-/* JLT */
-GAME( 1999, rocknb,   rockn,    rockn,    rockn,   rockn1,  ROT270, "Jaleco", "Rock'n Tread 1 (Japan, bootleg)",0)
-GAME( 1999, rockn2b,  0,        rockn2,   rockn,   rockn2,  ROT270, "Jaleco", "Rock'n Tread 2 (Japan, bootleg)",0)
-
-GAME( 1999, rocknmsb, 0,        rocknms,  rocknms,  rocknms, ROT0,   "bootleg", "Rock'n MegaSession (Japan, bootleg)", GAME_IMPERFECT_GRAPHICS )
-
-GAME( 1999, rockn3b,  0,        rockn2,   rockn,   rockn3,  ROT270, "bootleg", "Rock'n 3 (Japan, bootleg)",0 )
-GAME( 2000, rockn4b,  0,        rockn2,   rockn,   rockn3,  ROT270, "bootleg", "Rock'n 4 (Japan, prototype, bootleg)",0 )
+GAME( 1999, rockn,    0,        rockn,    rockn,   rockn,    ROT270, "Jaleco", "Rock'n Tread (Japan)", 0)
+GAME( 1999, rockna,   rockn,    rockn,    rockn,   rockn1,   ROT270, "Jaleco", "Rock'n Tread (Japan, alternate)", 0)
+GAME( 1999, rockn2,   0,        rockn2,   rockn,   rockn2,   ROT270, "Jaleco", "Rock'n Tread 2 (Japan)", 0)
+GAME( 1999, rocknms,  0,        rocknms,  rocknms, rocknms,  ROT0,   "Jaleco", "Rock'n MegaSession (Japan)", GAME_IMPERFECT_GRAPHICS )
+GAME( 1999, rockn3,   0,        rockn2,   rockn,   rockn3,   ROT270, "Jaleco", "Rock'n 3 (Japan)", 0)
+GAME( 2000, rockn4,   0,        rockn2,   rockn,   rockn3,   ROT270, "Jaleco (PCCWJ)", "Rock'n 4 (Japan, prototype)", 0)

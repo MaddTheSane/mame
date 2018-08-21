@@ -1184,9 +1184,10 @@ static void create_font(void)
 	}
 
 	/* decode rotated font */
-	uirotfont = decodegfx(uifontdata, &layout);
+	uirotfont = allocgfx(&layout);
 	if (!uirotfont)
 		osd_die("Fatal error: could not allocate memory for UI font!");
+	decodegfx(uirotfont, uifontdata, 0, uirotfont->total_elements);
 
 	/* set the raw and rotated character width/height */
 	uirotcharwidth = (Machine->ui_orientation & ORIENTATION_SWAP_XY) ? layout.height : layout.width;
@@ -3029,6 +3030,24 @@ static void showcharset(mame_bitmap *bitmap)
 	tilemap_mark_all_tiles_dirty(NULL);
 }
 
+
+
+int ui_display_decoding(mame_bitmap *bitmap, int percent)
+{
+	char buf[1000];
+	char *bufptr = buf;
+
+	bufptr += sprintf(bufptr, "%s: %d%%", ui_getstring(UI_decoding_gfx), percent);
+
+	erase_screen(bitmap);
+
+	ui_draw_message_window(buf);
+	render_ui(bitmap);
+
+	update_video_and_audio();
+
+	return input_ui_pressed(IPT_UI_CANCEL);
+}
 
 
 int ui_display_copyright(mame_bitmap *bitmap)

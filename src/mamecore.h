@@ -15,6 +15,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <assert.h>
 #include "osd_cpu.h"
 
 
@@ -156,6 +157,15 @@ typedef union
     Common macros
 
 ***************************************************************************/
+
+/* Standard MAME assertion macro */
+#undef assert
+#ifdef MAME_DEBUG
+#define assert(x)	do { if (!(x)) osd_die("assert: %s:%d: %s", __FILE__, __LINE__, #x); } while (0)
+#else
+#define assert(x)
+#endif
+
 
 /* Standard MIN/MAX macros */
 #ifndef MIN
@@ -473,8 +483,7 @@ INLINE int bcd_2_dec(int a)
 
 INLINE int gregorian_is_leap_year(int year)
 {
-	return ((year & 4) == 0)
-		&& ((year % 100 != 0) || (year % 400 == 0));
+	return !(year % 100 ? year % 4 : year % 400);
 }
 
 

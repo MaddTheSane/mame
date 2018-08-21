@@ -546,15 +546,22 @@ static void neogeo_gfx_decrypt(int extra_xor)
 		baser ^= address_16_23_xor2[(baser >> 8) & 0xff] << 16;
 		baser ^= address_0_7_xor[(baser >> 8) & 0xff];
 
-		/* special handling for preisle2 */
-		if (rom_size == 0x3000000)
+
+		if (rom_size == 0x3000000) /* special handling for preisle2 */
 		{
 			if (rpos < 0x2000000/4)
 				baser &= (0x2000000/4)-1;
 			else
 				baser = 0x2000000/4 + (baser & ((0x1000000/4)-1));
 		}
-		else	/* Clamp to the real rom size */
+		else if (rom_size == 0x6000000)	/* special handling for kf2k3pcb */
+		{
+			if (rpos < 0x4000000/4)
+				baser &= (0x4000000/4)-1;
+			else
+				baser = 0x4000000/4 + (baser & ((0x1000000/4)-1));
+		}
+		else /* Clamp to the real rom size */
 			baser &= (rom_size/4)-1;
 
 		rom[4*rpos+0] = buf[4*baser+0];
@@ -690,6 +697,77 @@ void svcchaos_s1data_decrypt( void )
 		s1[ i ] = BITSWAP8( s1[ i ] ^ 0xd2, 4, 0, 7, 2, 5, 1, 6, 3 );
 	}
 }
+
+/* from Razoola */
+void decode_kf2k3pcb_croms( void )
+{
+	UINT8 *src = memory_region( REGION_GFX3 );
+	UINT8 *buffer = (UINT8*)malloc(0x6000000);
+	int i,j;
+	int addrxor=0x00000000;
+	int dataxor1=0xC5; // 0xC5988549
+	int dataxor2=0x98;
+	int dataxor3=0x85;
+	int dataxor4=0x49;
+	if (buffer){
+		for (i=0;i<0x6000000;i+=4)
+			{
+			j= ((i&~0xffffff)|BITSWAP24(i,23,21,10,20,19,22,18,17,16,15,14,13,12,11,9,8,7,6,5,4,3,2,1,0))^addrxor;
+			buffer[j+0]=src[i+0];
+			buffer[j+1]=src[i+2];
+			buffer[j+2]=src[i+1];
+			buffer[j+3]=src[i+3];
+			}
+			for (i=0;i<0x6000000;i+=4)
+				{
+				src[i+3]=   ((buffer[i+0]>>5)&1)<<0|
+					((buffer[i+0]>>3)&1)<<1|
+					((buffer[i+1]>>7)&1)<<2|
+					((buffer[i+2]>>7)&1)<<3|
+					((buffer[i+0]>>0)&1)<<4|
+					((buffer[i+2]>>3)&1)<<5|
+					((buffer[i+1]>>5)&1)<<6|
+					((buffer[i+1]>>1)&1)<<7;
+
+				src[i+2]=   ((buffer[i+3]>>5)&1)<<0|
+					((buffer[i+1]>>6)&1)<<1|
+					((buffer[i+0]>>2)&1)<<2|
+					((buffer[i+2]>>4)&1)<<3|
+					((buffer[i+3]>>4)&1)<<4|
+					((buffer[i+3]>>2)&1)<<5|
+					((buffer[i+1]>>2)&1)<<6|
+					((buffer[i+3]>>3)&1)<<7;
+
+				src[i+1]=   ((buffer[i+0]>>6)&1)<<0|
+					((buffer[i+1]>>3)&1)<<1|
+					((buffer[i+2]>>5)&1)<<2|
+					((buffer[i+2]>>2)&1)<<3|
+					((buffer[i+3]>>6)&1)<<4|
+					((buffer[i+2]>>1)&1)<<5|
+					((buffer[i+1]>>4)&1)<<6|
+					((buffer[i+0]>>4)&1)<<7;
+
+				src[i+0]=   ((buffer[i+2]>>6)&1)<<0|
+					((buffer[i+0]>>7)&1)<<1|
+					((buffer[i+3]>>7)&1)<<2|
+					((buffer[i+3]>>1)&1)<<3|
+					((buffer[i+2]>>0)&1)<<4|
+					((buffer[i+0]>>1)&1)<<5|
+					((buffer[i+1]>>0)&1)<<6|
+					((buffer[i+3]>>0)&1)<<7;
+
+				buffer[i+0]=src[i+0]^dataxor1;
+				buffer[i+2]=src[i+1]^dataxor2;
+				buffer[i+1]=src[i+2]^dataxor3;
+				buffer[i+3]=src[i+3]^dataxor4;
+		}
+		memcpy(src,buffer,0x6000000);
+		}
+	free(buffer);
+}
+
+
+
 
 /***************************************************************************
 
@@ -1163,6 +1241,51 @@ void kof2003a_px_decrypt( void )
 	}
 
 	free(dst);
+}
+
+void kof2003biosdecode(void)
+{
+		unsigned int address[0x80]={
+		0xb9,0xb8,0x36,0x37,0x3d,0x3c,0xb2,0xb3,
+		0xb9,0xb8,0x36,0x37,0x3d,0x3c,0xb2,0xb3,
+		0x65,0xea,0x6f,0xe0,0xe1,0x6e,0xeb,0x64,
+		0x65,0xea,0x6f,0xe0,0xe1,0x6e,0xeb,0x64,
+		0x45,0xca,0x47,0xc8,0xc9,0x46,0xcb,0x44,
+		0x45,0xca,0x47,0xc8,0xc9,0x46,0xcb,0x44,
+		0x9a,0x15,0x98,0x17,0x1e,0x91,0x1c,0x93,
+		0x9a,0x15,0x98,0x17,0x1e,0x91,0x1c,0x93,
+		0x7e,0xf1,0x7c,0xf3,0xf0,0x7f,0xf2,0x7d,
+		0x7e,0xf1,0x7c,0xf3,0xf0,0x7f,0xf2,0x7d,
+		0x27,0xa8,0x25,0xaa,0xa3,0x2c,0xa1,0x2e,
+		0x27,0xa8,0x25,0xaa,0xa3,0x2c,0xa1,0x2e,
+		0x04,0x8b,0x06,0x89,0x80,0x0f,0x82,0x0d,
+		0x04,0x8b,0x06,0x89,0x80,0x0f,0x82,0x0d,
+		0xd3,0xd2,0x5c,0x5d,0x57,0x56,0xd8,0xd9,
+		0xd3,0xd2,0x5c,0x5d,0x57,0x56,0xd8,0xd9,
+	};
+	UINT16*src= (UINT16*)memory_region( REGION_USER1 );
+	UINT16*buf= (UINT16*)malloc(0x80000);
+	int	a,addr;
+
+		for (a=0;a<0x80000/2;a++)
+		{
+			//data xor
+			if (src[a] & 0x0004)	src[a] ^= 0x0001;
+			if (src[a] & 0x0010)	src[a] ^= 0x0002;
+			if (src[a] & 0x0020)	src[a] ^= 0x0008;
+			//address xor
+			addr  = a & ~0xff;
+			addr |= address[a & 0x7f];
+			if ( a & 0x00008)	addr ^= 0x0008;
+			if ( a & 0x00080)	addr ^= 0x0080;
+			if ( a & 0x00200)	addr ^= 0x0100;
+			if (~a & 0x02000)	addr ^= 0x0400;
+			if (~a & 0x10000)	addr ^= 0x1000;
+			if ( a & 0x02000)	addr ^= 0x8000;
+			buf[addr]=src[a];
+		}
+		memcpy(src,buf,0x80000);
+		free(buf);
 }
 
 /***************************************************************************
