@@ -49,7 +49,7 @@ INLINE int _vec_mult(int x, int y)
 #endif
 
 /* profiler callback */
-extern unsigned int (*gGetCyclesFunction)(void);
+extern long long (*gGetCyclesFunction)(void);
 #define osd_cycles (*gGetCyclesFunction)
 
 

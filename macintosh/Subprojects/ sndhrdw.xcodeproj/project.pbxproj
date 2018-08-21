@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55A4AEB9212BC596009FABC1 /* taito_en.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A4AEB8212BC595009FABC1 /* taito_en.h */; };
+		55A4AEBC212BC5C6009FABC1 /* generic.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AEBA212BC5C5009FABC1 /* generic.c */; };
+		55A4AEBD212BC5C6009FABC1 /* generic.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A4AEBB212BC5C6009FABC1 /* generic.h */; };
+		55A4AEBF212BC5DE009FABC1 /* crbaloon.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AEBE212BC5DE009FABC1 /* crbaloon.c */; };
+		55A4AEC1212BC5F0009FABC1 /* amiga.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AEC0212BC5F0009FABC1 /* amiga.c */; };
 		9B2BDD4A07F7D743004C810B /* circus.c in Sources */ = {isa = PBXBuildFile; fileRef = 9B2BDD4907F7D743004C810B /* circus.c */; };
 		9BEAAEC107C99E3400B14C06 /* atarifb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAAEAD07C99E3400B14C06 /* atarifb.c */; };
 		9BEAAEC207C99E3400B14C06 /* avalnche.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAAEAE07C99E3400B14C06 /* avalnche.c */; };
@@ -45,7 +50,7 @@
 		F50197FE070CF8DC009C5423 /* timeplt.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197AC070CF8DC009C5423 /* timeplt.c */; };
 		F50197FF070CF8DC009C5423 /* targ.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197AD070CF8DC009C5423 /* targ.c */; };
 		F5019801070CF8DC009C5423 /* taitosnd.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197AF070CF8DC009C5423 /* taitosnd.c */; };
-		F5019802070CF8DC009C5423 /* taito_f3.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B0070CF8DC009C5423 /* taito_f3.c */; };
+		F5019802070CF8DC009C5423 /* taito_en.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B0070CF8DC009C5423 /* taito_en.c */; };
 		F5019803070CF8DC009C5423 /* system16.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B1070CF8DC009C5423 /* system16.c */; };
 		F5019804070CF8DC009C5423 /* starwars.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B2070CF8DC009C5423 /* starwars.c */; };
 		F5019805070CF8DC009C5423 /* snes.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B3070CF8DC009C5423 /* snes.c */; };
@@ -111,13 +116,17 @@
 		F52DB787095F3821003C45C4 /* timeplt.h in Headers */ = {isa = PBXBuildFile; fileRef = F52DB77A095F3821003C45C4 /* timeplt.h */; };
 		F52DB788095F3821003C45C4 /* williams.h in Headers */ = {isa = PBXBuildFile; fileRef = F52DB77B095F3821003C45C4 /* williams.h */; };
 		F541AFC6071CC72C00C70078 /* suna8.c in Sources */ = {isa = PBXBuildFile; fileRef = F541AFC5071CC72C00C70078 /* suna8.c */; };
-		F5AD668D0955766A004AEC57 /* ataridis.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD66890955766A004AEC57 /* ataridis.c */; };
 		F5AD668E0955766A004AEC57 /* attckufo.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD668A0955766A004AEC57 /* attckufo.c */; };
 		F5AD668F0955766A004AEC57 /* namcoc7x.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD668B0955766A004AEC57 /* namcoc7x.c */; };
 		F5AD66900955766A004AEC57 /* spiders.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD668C0955766A004AEC57 /* spiders.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		55A4AEB8212BC595009FABC1 /* taito_en.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = taito_en.h; sourceTree = "<group>"; };
+		55A4AEBA212BC5C5009FABC1 /* generic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = generic.c; sourceTree = "<group>"; };
+		55A4AEBB212BC5C6009FABC1 /* generic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = generic.h; sourceTree = "<group>"; };
+		55A4AEBE212BC5DE009FABC1 /* crbaloon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crbaloon.c; sourceTree = "<group>"; };
+		55A4AEC0212BC5F0009FABC1 /* amiga.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = amiga.c; sourceTree = "<group>"; };
 		9B2BDD4907F7D743004C810B /* circus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = circus.c; sourceTree = "<group>"; };
 		9BEAAEAD07C99E3400B14C06 /* atarifb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atarifb.c; sourceTree = "<group>"; };
 		9BEAAEAE07C99E3400B14C06 /* avalnche.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = avalnche.c; sourceTree = "<group>"; };
@@ -156,7 +165,7 @@
 		F50197AC070CF8DC009C5423 /* timeplt.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = timeplt.c; sourceTree = "<group>"; };
 		F50197AD070CF8DC009C5423 /* targ.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = targ.c; sourceTree = "<group>"; };
 		F50197AF070CF8DC009C5423 /* taitosnd.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = taitosnd.c; sourceTree = "<group>"; };
-		F50197B0070CF8DC009C5423 /* taito_f3.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = taito_f3.c; sourceTree = "<group>"; };
+		F50197B0070CF8DC009C5423 /* taito_en.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = taito_en.c; sourceTree = "<group>"; };
 		F50197B1070CF8DC009C5423 /* system16.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = system16.c; sourceTree = "<group>"; };
 		F50197B2070CF8DC009C5423 /* starwars.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = starwars.c; sourceTree = "<group>"; };
 		F50197B3070CF8DC009C5423 /* snes.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = snes.c; sourceTree = "<group>"; };
@@ -223,7 +232,6 @@
 		F52DB77B095F3821003C45C4 /* williams.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = williams.h; sourceTree = "<group>"; };
 		F541AFA2071CC64500C70078 /* libsndhrdw_macho.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsndhrdw_macho.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F541AFC5071CC72C00C70078 /* suna8.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = suna8.c; sourceTree = "<group>"; };
-		F5AD66890955766A004AEC57 /* ataridis.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = ataridis.c; sourceTree = "<group>"; };
 		F5AD668A0955766A004AEC57 /* attckufo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = attckufo.c; sourceTree = "<group>"; };
 		F5AD668B0955766A004AEC57 /* namcoc7x.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = namcoc7x.c; sourceTree = "<group>"; };
 		F5AD668C0955766A004AEC57 /* spiders.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = spiders.c; sourceTree = "<group>"; };
@@ -244,10 +252,10 @@
 			isa = PBXGroup;
 			children = (
 				F50197A3070CF8DC009C5423 /* 8080bw.c */,
+				55A4AEC0212BC5F0009FABC1 /* amiga.c */,
 				F50197A2070CF8DC009C5423 /* asteroid.c */,
 				F50197A1070CF8DC009C5423 /* astinvad.c */,
 				F501979F070CF8DC009C5423 /* astrof.c */,
-				F5AD66890955766A004AEC57 /* ataridis.c */,
 				9BEAAEAD07C99E3400B14C06 /* atarifb.c */,
 				F501979D070CF8DC009C5423 /* atarijsa.c */,
 				F52DB76F095F3821003C45C4 /* atarijsa.h */,
@@ -266,6 +274,7 @@
 				F50197E5070CF8DC009C5423 /* cclimber.c */,
 				F50197E4070CF8DC009C5423 /* cinemat.c */,
 				9B2BDD4907F7D743004C810B /* circus.c */,
+				55A4AEBE212BC5DE009FABC1 /* crbaloon.c */,
 				F50197D7070CF8DC009C5423 /* cyberbal.c */,
 				F50197D6070CF8DC009C5423 /* dcs.c */,
 				F52DB771095F3821003C45C4 /* dcs.h */,
@@ -279,6 +288,8 @@
 				F50197C0070CF8DC009C5423 /* flower.c */,
 				F50197BF070CF8DC009C5423 /* galaxian.c */,
 				F50197BE070CF8DC009C5423 /* geebee.c */,
+				55A4AEBA212BC5C5009FABC1 /* generic.c */,
+				55A4AEBB212BC5C6009FABC1 /* generic.h */,
 				F50197C8070CF8DC009C5423 /* gomoku.c */,
 				F50197C7070CF8DC009C5423 /* gorf.c */,
 				F50197C6070CF8DC009C5423 /* gottlieb.c */,
@@ -332,7 +343,8 @@
 				9BEAAEB907C99E3400B14C06 /* subs.c */,
 				F541AFC5071CC72C00C70078 /* suna8.c */,
 				F50197B1070CF8DC009C5423 /* system16.c */,
-				F50197B0070CF8DC009C5423 /* taito_f3.c */,
+				F50197B0070CF8DC009C5423 /* taito_en.c */,
+				55A4AEB8212BC595009FABC1 /* taito_en.h */,
 				F50197AF070CF8DC009C5423 /* taitosnd.c */,
 				F52DB779095F3821003C45C4 /* taitosnd.h */,
 				9BF8405807CBB60400E56A1B /* tank8.c */,
@@ -381,6 +393,7 @@
 			files = (
 				F52DB77C095F3821003C45C4 /* atarijsa.h in Headers */,
 				F52DB77D095F3821003C45C4 /* cage.h in Headers */,
+				55A4AEB9212BC596009FABC1 /* taito_en.h in Headers */,
 				F52DB77E095F3821003C45C4 /* dcs.h in Headers */,
 				F52DB780095F3821003C45C4 /* irem.h in Headers */,
 				F52DB781095F3821003C45C4 /* m72.h in Headers */,
@@ -390,6 +403,7 @@
 				F52DB785095F3821003C45C4 /* seibu.h in Headers */,
 				F52DB786095F3821003C45C4 /* taitosnd.h in Headers */,
 				F52DB787095F3821003C45C4 /* timeplt.h in Headers */,
+				55A4AEBD212BC5C6009FABC1 /* generic.h in Headers */,
 				F52DB788095F3821003C45C4 /* williams.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,12 +492,14 @@
 				F50197FA070CF8DC009C5423 /* warpwarp.c in Sources */,
 				F50197FB070CF8DC009C5423 /* turbo.c in Sources */,
 				F50197FC070CF8DC009C5423 /* trackfld.c in Sources */,
+				55A4AEC1212BC5F0009FABC1 /* amiga.c in Sources */,
 				F50197FE070CF8DC009C5423 /* timeplt.c in Sources */,
 				F50197FF070CF8DC009C5423 /* targ.c in Sources */,
 				F5019801070CF8DC009C5423 /* taitosnd.c in Sources */,
-				F5019802070CF8DC009C5423 /* taito_f3.c in Sources */,
+				F5019802070CF8DC009C5423 /* taito_en.c in Sources */,
 				F5019803070CF8DC009C5423 /* system16.c in Sources */,
 				F5019804070CF8DC009C5423 /* starwars.c in Sources */,
+				55A4AEBC212BC5C6009FABC1 /* generic.c in Sources */,
 				F5019805070CF8DC009C5423 /* snes.c in Sources */,
 				F5019807070CF8DC009C5423 /* seibu.c in Sources */,
 				F5019809070CF8DC009C5423 /* segasnd.c in Sources */,
@@ -520,6 +536,7 @@
 				F501982D070CF8DC009C5423 /* gridlee.c in Sources */,
 				F501982E070CF8DC009C5423 /* gotya.c in Sources */,
 				F501982F070CF8DC009C5423 /* polyplay.c in Sources */,
+				55A4AEBF212BC5DE009FABC1 /* crbaloon.c in Sources */,
 				F5019830070CF8DC009C5423 /* polepos.c in Sources */,
 				F5019831070CF8DD009C5423 /* pleiads.c in Sources */,
 				F5019832070CF8DD009C5423 /* phoenix.c in Sources */,
@@ -555,7 +572,6 @@
 				9BEAB5B307CB18A100B14C06 /* qix.c in Sources */,
 				9BF8405907CBB60400E56A1B /* tank8.c in Sources */,
 				9B2BDD4A07F7D743004C810B /* circus.c in Sources */,
-				F5AD668D0955766A004AEC57 /* ataridis.c in Sources */,
 				F5AD668E0955766A004AEC57 /* attckufo.c in Sources */,
 				F5AD668F0955766A004AEC57 /* namcoc7x.c in Sources */,
 				F5AD66900955766A004AEC57 /* spiders.c in Sources */,
