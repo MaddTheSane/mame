@@ -86,7 +86,7 @@ void fcrash_render_sprites(mame_bitmap *bitmap,const rectangle *cliprect)
 		colour = cps1_gfxram[base+pos+1]&0x1f;
 		ypos = 256-ypos;
 
-		drawgfx(bitmap,Machine->gfx[1],tileno,colour,flipx,flipy,xpos+48,ypos-16,cliprect,TRANSPARENCY_PEN,15);
+		drawgfx(bitmap,Machine->gfx[2],tileno,colour,flipx,flipy,xpos+48,ypos-16,cliprect,TRANSPARENCY_PEN,15);
 
 	}
 
@@ -183,6 +183,7 @@ VIDEO_UPDATE( fcrash )
 	fcrash_render_layer(bitmap,cliprect,1,0);
 	fcrash_render_high_layer(bitmap,cliprect,1); /* prepare mask for sprites */
 	fcrash_render_layer(bitmap,cliprect,0,0);
+	return 0;
 }
 
 #define CPS1_COINAGE_1 \

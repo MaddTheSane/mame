@@ -17,6 +17,7 @@
 **************************************************************************/
 
 #include "driver.h"
+#include "includes/pacman.h"
 
 static tilemap *bg_tilemap;
 static UINT8 charbank;
@@ -124,7 +125,7 @@ PALETTE_INIT( pacman )
 	}
 }
 
-UINT32 pacman_scan_rows( UINT32 col, UINT32 row, UINT32 num_cols, UINT32 num_rows )
+static UINT32 pacman_scan_rows( UINT32 col, UINT32 row, UINT32 num_cols, UINT32 num_rows )
 {
 	int offs;
 
@@ -215,7 +216,7 @@ WRITE8_HANDLER( pacman_flipscreen_w )
 VIDEO_UPDATE( pacman )
 {
 	if (bgpriority != 0)
-		fillbitmap(bitmap,Machine->pens[0],&Machine->visible_area);
+		fillbitmap(bitmap,Machine->pens[0],&Machine->visible_area[0]);
 	else
 		tilemap_draw(bitmap,cliprect,bg_tilemap,TILEMAP_IGNORE_TRANSPARENCY,0);
 
@@ -278,6 +279,7 @@ VIDEO_UPDATE( pacman )
 
 	if (bgpriority != 0)
 		tilemap_draw(bitmap,cliprect,bg_tilemap,0,0);
+	return 0;
 }
 
 
@@ -431,6 +433,7 @@ VIDEO_UPDATE( s2650games )
 				sx,sy + xoffsethack,
 				cliprect,TRANSPARENCY_COLOR,0);
 	}
+	return 0;
 }
 
 WRITE8_HANDLER( s2650games_videoram_w )
@@ -478,7 +481,7 @@ Jr. Pac-Man
 2018 - 2045 = column 1 attr (28 rows)
 */
 
-UINT32 jrpacman_scan_rows( UINT32 col, UINT32 row, UINT32 num_cols, UINT32 num_rows )
+static UINT32 jrpacman_scan_rows( UINT32 col, UINT32 row, UINT32 num_cols, UINT32 num_rows )
 {
 	int offs;
 

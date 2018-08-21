@@ -31,15 +31,15 @@
 #endif
 
 /* REGULAR TYPE DEFINITIONS */
-typedef char          int8;
-typedef int           int16;
-typedef long          int32;
-typedef unsigned char uint8;
+typedef INT8          int8;
+typedef INT16         int16;
+typedef INT32         int32;
+typedef UINT8         uint8;
 #ifndef _CSSMCONFIG_H_
-typedef unsigned int  uint16;
-typedef unsigned long uint32;
+typedef UINT16        uint16;
+typedef UINT32        uint32;
 #endif
-typedef char          boolean;
+typedef UINT8         boolean;
 
 
 /* QUEUE TYPES */

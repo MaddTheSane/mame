@@ -695,6 +695,10 @@ ROM_START( kingofb )
 	ROM_LOAD( "vb14_col.bin", 0x0000, 0x0100, CRC(c58e5121) SHA1(2e6658e24c183d8dacf4ff84a38060e57d11f265) )	/* red component */
 	ROM_LOAD( "vb15_col.bin", 0x0100, 0x0100, CRC(5ab06f25) SHA1(f5e0aabf40ce6d11771e0678fea248abd5b95b3c) )	/* green component */
 	ROM_LOAD( "vb16_col.bin", 0x0200, 0x0100, CRC(1171743f) SHA1(ddfce0ff213381a2fc94337681e599cb28db840c) )	/* blue component */
+
+	ROM_REGION( 0x0200, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal12h6-vh02.bin",   0x0000, 0x0034, CRC(6cc0fdf2) SHA1(12eef0d49def671aa7dbb4cce91cfbe40697dcea) )
+	ROM_LOAD( "pal14h4-vh07.bin",   0x0100, 0x003c, CRC(7e59d45a) SHA1(4a900e424c9edc9f8664f935edccbe4b4759188a) )
 ROM_END
 
 /* Ring King */
@@ -849,7 +853,7 @@ ROM_START( ringkinw )
 	ROM_LOAD( "10.1d",        0x08000, 0x2000, CRC(af5013e7) SHA1(26e737138ab0e8dc28bea1f81d1f83345419e611) )
 	ROM_LOAD( "12.1d",        0x0a000, 0x2000, CRC(1f6654d6) SHA1(edd234b6daeaeaad335c8c725380bebd5c11063e) )
 
-	ROM_REGION( 0x0300, REGION_PROMS, 0 )
+	ROM_REGION( 0x0300, REGION_PROMS, ROMREGION_ERASE00 )
 	/* PROMs are encoded here like the kingofb ones... */
 
 	ROM_REGION( 0x0c00, REGION_USER1, 0 ) /* color proms */

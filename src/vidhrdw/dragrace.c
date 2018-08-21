@@ -5,6 +5,7 @@ Atari Drag Race video emulation
 ***************************************************************************/
 
 #include "driver.h"
+#include "includes/dragrace.h"
 
 UINT8* dragrace_playfield_ram;
 UINT8* dragrace_position_ram;
@@ -84,4 +85,5 @@ VIDEO_UPDATE( dragrace )
 
 		tilemap_draw(bitmap, &rect, bg_tilemap, 0, 0);
 	}
+	return 0;
 }

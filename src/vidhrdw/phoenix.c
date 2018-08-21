@@ -9,10 +9,6 @@
 #include "driver.h"
 #include "phoenix.h"
 
-
-/* in sndhrdw/pleiads.c */
-WRITE8_HANDLER( pleiads_sound_control_c_w );
-
 static UINT8 *videoram_pg1;
 static UINT8 *videoram_pg2;
 static UINT8 *current_videoram_pg;
@@ -344,4 +340,5 @@ VIDEO_UPDATE( phoenix )
 {
 	tilemap_draw(bitmap,cliprect,bg_tilemap,0,0);
 	tilemap_draw(bitmap,cliprect,fg_tilemap,0,0);
+	return 0;
 }

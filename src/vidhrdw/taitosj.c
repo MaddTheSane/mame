@@ -221,10 +221,10 @@ VIDEO_START( taitosj )
 
 	for (i = 0; i < 3; i++)
 	{
-		if ((taitosj_tmpbitmap[i] = auto_bitmap_alloc(Machine->drv->screen_width,Machine->drv->screen_height)) == 0)
+		if ((taitosj_tmpbitmap[i] = auto_bitmap_alloc(Machine->drv->screen[0].maxwidth,Machine->drv->screen[0].maxheight)) == 0)
 			return 1;
 
-		if ((sprite_plane_collbitmap2[i] = auto_bitmap_alloc(Machine->drv->screen_width,Machine->drv->screen_height)) == 0)
+		if ((sprite_plane_collbitmap2[i] = auto_bitmap_alloc(Machine->drv->screen[0].maxwidth,Machine->drv->screen[0].maxheight)) == 0)
 			return 1;
 	}
 
@@ -237,6 +237,11 @@ VIDEO_START( taitosj )
 	flipscreen[0] = flipscreen[1] = 0;
 
 	taitosj_spritebank = spriteram;
+
+	memset(dirtycharacter1, 1, sizeof(dirtycharacter1));
+	memset(dirtycharacter2, 1, sizeof(dirtycharacter2));
+	memset(dirtysprite1, 1, sizeof(dirtysprite1));
+	memset(dirtysprite2, 1, sizeof(dirtysprite2));
 
 	state_save_register_func_postload(taitosj_postload);
 	state_save_register_global_array(taitosj_collision_reg);
@@ -536,10 +541,10 @@ static void calculate_sprites_areas(void)
 			/* check for bitmap bounds to avoid illegal memory access */
 			if (minx < 0) minx = 0;
 			if (miny < 0) miny = 0;
-			if (maxx >= Machine->drv->screen_width - 1)
-				maxx = Machine->drv->screen_width - 1;
-			if (maxy >= Machine->drv->screen_height - 1)
-				maxy = Machine->drv->screen_height - 1;
+			if (maxx >= Machine->drv->screen[0].maxwidth - 1)
+				maxx = Machine->drv->screen[0].maxwidth - 1;
+			if (maxy >= Machine->drv->screen[0].maxheight - 1)
+				maxy = Machine->drv->screen[0].maxheight - 1;
 
 			spritearea[i].min_x = minx;
 			spritearea[i].max_x = maxx;
@@ -735,7 +740,7 @@ static void drawplayfield(int n, mame_bitmap *bitmap)
 				scrolly[i]    = -taitosj_colscrolly[32*n+i] - taitosj_scroll[2*n+1];
 		}
 
-		copyscrollbitmap(bitmap,taitosj_tmpbitmap[n],1,&scrollx,32,scrolly,&Machine->visible_area,TRANSPARENCY_COLOR,0);
+		copyscrollbitmap(bitmap,taitosj_tmpbitmap[n],1,&scrollx,32,scrolly,&Machine->visible_area[0],TRANSPARENCY_COLOR,0);
 
 		/* store parts covered with sprites for sprites/playfields collision detection */
 		for (i=0x00; i<0x20; i++)
@@ -775,7 +780,7 @@ static void kikstart_drawplayfield(int n, mame_bitmap *bitmap)
 			}
 		}
 		scrolly=taitosj_scroll[2*n+1];//always 0 ?
-		copyscrollbitmap(bitmap,taitosj_tmpbitmap[n],32*8,scrollx,1,&scrolly,&Machine->visible_area,TRANSPARENCY_COLOR,0);
+		copyscrollbitmap(bitmap,taitosj_tmpbitmap[n],32*8,scrollx,1,&scrolly,&Machine->visible_area[0],TRANSPARENCY_COLOR,0);
 		/* store parts covered with sprites for sprites/playfields collision detection */
 		for (i=0x00; i<0x20; i++)
 		{
@@ -923,7 +928,7 @@ VIDEO_UPDATE( taitosj )
 
 	/* first of all, fill the screen with the background color */
 	fillbitmap(bitmap,Machine->pens[8 * (taitosj_colorbank[1] & 0x07)],
-			&Machine->visible_area);
+			&Machine->visible_area[0]);
 
 	for (i = 0;i < 4;i++)
 		drawplane(draworder[*taitosj_video_priority & 0x1f][i],bitmap);
@@ -935,4 +940,5 @@ VIDEO_UPDATE( taitosj )
 	check_sprite_plane_collision();
 
 	/*check_plane_plane_collision();*/	/*not implemented !!!*/
+	return 0;
 }

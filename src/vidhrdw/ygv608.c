@@ -105,6 +105,9 @@ static UINT32 get_tile_offset( UINT32 col, UINT32 row,
 	return( ( col << 6 ) | row );
 }
 
+#define layout_total(x) \
+(Machine->drv->gfxdecodeinfo[x].gfxlayout->total)
+
 static void get_tile_info_A_8( int offset )
 {
 	// extract row,col packed into offset
@@ -173,7 +176,7 @@ static void get_tile_info_A_8( int offset )
 		j += ( (int)ygv608.scroll_data_table[0][0xc0+page] << 10 );
 		j += ( ygv608.base_addr[0][base] << 8 );
 
-		if( j >= Machine->drv->gfxdecodeinfo[set].gfxlayout->total )
+		if( j >= layout_total(set) )
 		{
 			logerror( "A_8X8: tilemap=%d\n", j );
 			j = 0;
@@ -268,7 +271,7 @@ static void get_tile_info_B_8( int offset )
 		j += ( (int)ygv608.scroll_data_table[1][0xc0+page] << 10 );
 		j += ( ygv608.base_addr[1][base] << 8 );
 
-		if( j >= Machine->drv->gfxdecodeinfo[set].gfxlayout->total )
+		if( j >= layout_total(set) )
 		{
 			logerror( "B_8X8: tilemap=%d\n", j );
 			j = 0;
@@ -357,7 +360,7 @@ static void get_tile_info_A_16( int offset )
     j += ( (int)ygv608.scroll_data_table[0][0xc0+page] << 8 );
     j += ( ygv608.base_addr[0][base] << 8 );
 
-    if( j >= Machine->drv->gfxdecodeinfo[set].gfxlayout->total ) {
+    if( j >= layout_total(set) ) {
 	logerror( "A_16X16: tilemap=%d\n", j );
       j = 0;
     }
@@ -447,7 +450,7 @@ static void get_tile_info_B_16( int offset )
     j += ( (int)ygv608.scroll_data_table[1][0xc0+page] << 8 );
     j += ( ygv608.base_addr[1][base] << 8 );
 
-    if( j >= Machine->drv->gfxdecodeinfo[set].gfxlayout->total ) {
+    if( j >= layout_total(set) ) {
 	logerror( "B_16X16: tilemap=%d\n", j );
       j = 0;
     }
@@ -581,7 +584,7 @@ static void draw_sprites( mame_bitmap *bitmap, const rectangle *cliprect )
       code = ( (int)ygv608.regs.s.sba << 8 ) | (int)sa->sn;
       if (spf != 0)
 	    color = ( code >> ( (spf - 1) * 2 ) ) & 0x0f;
-      if( code >= Machine->drv->gfxdecodeinfo[GFX_8X8_4BIT].gfxlayout->total ) {
+      if( code >= layout_total(GFX_8X8_4BIT) ) {
 	    logerror( "SZ_8X8: sprite=%d\n", code );
 	    code = 0;
       }
@@ -614,7 +617,7 @@ static void draw_sprites( mame_bitmap *bitmap, const rectangle *cliprect )
       code = ( ( (int)ygv608.regs.s.sba & 0xfc ) << 6 ) | (int)sa->sn;
       if (spf != 0)
 	    color = ( code >> (spf * 2) ) & 0x0f;
-      if( code >= Machine->drv->gfxdecodeinfo[GFX_16X16_4BIT].gfxlayout->total ) {
+      if( code >= layout_total(GFX_16X16_4BIT) ) {
 	    logerror( "SZ_8X8: sprite=%d\n", code );
 	    code = 0;
       }
@@ -647,7 +650,7 @@ static void draw_sprites( mame_bitmap *bitmap, const rectangle *cliprect )
       code = ( ( (int)ygv608.regs.s.sba & 0xf0 ) << 4 ) | (int)sa->sn;
       if (spf != 0)
 	color = ( code >> ( (spf + 1) * 2 ) ) & 0x0f;
-      if( code >= Machine->drv->gfxdecodeinfo[GFX_32X32_4BIT].gfxlayout->total ) {
+      if( code >= layout_total(GFX_32X32_4BIT) ) {
 	  logerror( "SZ_32X32: sprite=%d\n", code );
 	code = 0;
       }
@@ -680,7 +683,7 @@ static void draw_sprites( mame_bitmap *bitmap, const rectangle *cliprect )
       code = ( ( (int)ygv608.regs.s.sba & 0xc0 ) << 2 ) | (int)sa->sn;
       if (spf != 0)
 	    color = ( code >> ( (spf + 1) * 2 ) ) & 0x0f;
-      if( code >= Machine->drv->gfxdecodeinfo[GFX_64X64_4BIT].gfxlayout->total ) {
+      if( code >= layout_total(GFX_64X64_4BIT) ) {
 	    logerror( "SZ_64X64: sprite=%d\n", code );
 	    code = 0;
       }
@@ -740,9 +743,9 @@ VIDEO_UPDATE( ygv608 )
 
 	// clip to the current bitmap
 	finalclip.min_x = 0;
-	finalclip.max_x = Machine->drv->screen_width - 1;
+	finalclip.max_x = Machine->drv->screen[0].maxwidth - 1;
 	finalclip.min_y = 0;
-	finalclip.max_y = Machine->drv->screen_height - 1;
+	finalclip.max_y = Machine->drv->screen[0].maxheight - 1;
 	sect_rect(&finalclip, cliprect);
 	cliprect = &finalclip;
 
@@ -750,7 +753,7 @@ VIDEO_UPDATE( ygv608 )
 	if (ygv608.page_x == 0 || ygv608.page_y == 0)
 	{
 		fillbitmap(bitmap, 0, cliprect);
-		return;
+		return 0;
 	}
 
 	if( ygv608.screen_resize )
@@ -758,19 +761,15 @@ VIDEO_UPDATE( ygv608 )
 #ifdef _ENABLE_SCREEN_RESIZE
 		// hdw should be scaled by 16, not 8
 		// - is it something to do with double dot-clocks???
-		set_visible_area( 0, ((int)(ygv608.regs.s.hdw)<<3/*4*/)-1,
+		set_visible_area(0,  0, ((int)(ygv608.regs.s.hdw)<<3/*4*/)-1,
 						  0, ((int)(ygv608.regs.s.vdw)<<3)-1 );
 #endif
 
-#ifdef _ENABLE_ROTATE_ZOOM
 		if( work_bitmap )
 			bitmap_free( work_bitmap );
-		work_bitmap = bitmap_alloc_depth( Machine->drv->screen_width,
-										  Machine->drv->screen_height,
+		work_bitmap = bitmap_alloc_depth( Machine->drv->screen[0].maxwidth,
+										  Machine->drv->screen[0].maxheight,
 										  Machine->color_depth );
-#else
-		work_bitmap = bitmap;
-#endif
 
 		// reset resize flag
 		ygv608.screen_resize = 0;
@@ -862,7 +861,7 @@ VIDEO_UPDATE( ygv608 )
 	{
 		// If the background tilemap is disabled, we need to clear the bitmap to black
 		fillbitmap (work_bitmap,Machine->pens[0],cliprect);
-//      fillbitmap (work_bitmap,1,&Machine->visible_area);
+//      fillbitmap (work_bitmap,1,&Machine->visible_area[0]);
 	}
 	else
 #endif
@@ -883,16 +882,17 @@ VIDEO_UPDATE( ygv608 )
 
   if( ygv608.regs.s.zron )
     copyrozbitmap( bitmap, work_bitmap,
-                   ( Machine->visible_area.min_x << 16 ) +
+                   ( Machine->visible_area[0].min_x << 16 ) +
                     ygv608.ax + 0x10000 * r *
                     ( -sin( alpha ) * cos_theta + cos( alpha ) * sin_theta ),
-                   ( Machine->visible_area.min_y << 16 ) +
+                   ( Machine->visible_area[0].min_y << 16 ) +
                     ygv608.ay + 0x10000 * r *
                     ( cos( alpha ) * cos_theta + sin( alpha ) * sin_theta ),
                    ygv608.dx, ygv608.dxy, ygv608.dyx, ygv608.dy, 0,
                    cliprect,
                    TRANSPARENCY_NONE, 0, 0 );
   else
+#endif
     copybitmap( bitmap, work_bitmap, 0, 0, 0, 0,
                 cliprect,
                 TRANSPARENCY_NONE, 0 );
@@ -902,8 +902,7 @@ VIDEO_UPDATE( ygv608 )
   // - look at why this is the case?!?
   fillbitmap( work_bitmap,
               Machine->pens[0],
-              &Machine->visible_area );
-#endif
+              &Machine->visible_area[0] );
 
 	if ((ygv608.regs.s.r11 & r11_prm) == PRM_ASBDEX ||
 		(ygv608.regs.s.r11 & r11_prm) == PRM_ASEBDX )
@@ -914,16 +913,16 @@ VIDEO_UPDATE( ygv608 )
 #ifdef _ENABLE_ROTATE_ZOOM
   if( ygv608.regs.s.zron )
     copyrozbitmap( bitmap, work_bitmap,
-                   ygv608.ax, // + ( Machine->visible_area.min_x << 16 ),
-                   ygv608.ay, // + ( Machine->visible_area.min_y << 16 ),
+                   ygv608.ax, // + ( Machine->visible_area[0].min_x << 16 ),
+                   ygv608.ay, // + ( Machine->visible_area[0].min_y << 16 ),
                    ygv608.dx, ygv608.dxy, ygv608.dyx, ygv608.dy, 0,
                    cliprect,
                    TRANSPARENCY_PEN, Machine->pens[0], 0 );
   else
+#endif
     copybitmap( bitmap, work_bitmap, 0, 0, 0, 0,
                 cliprect,
                 TRANSPARENCY_PEN, Machine->pens[0] );
-#endif
 
 	if ((ygv608.regs.s.r11 & r11_prm) == PRM_SABDEX ||
 		(ygv608.regs.s.r11 & r11_prm) == PRM_SEABDX)
@@ -949,6 +948,7 @@ VIDEO_UPDATE( ygv608 )
 	   ( ( (int)ygv608.scroll_data_table[1][0x01] & 0x0f ) << 8 ) );
   ui_draw_text( buffer, 0, 64 );
 #endif
+	return 0;
 }
 
 READ16_HANDLER( ygv608_r )

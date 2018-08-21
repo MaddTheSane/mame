@@ -2,7 +2,7 @@
 #define TAPE_UI_DISPLAY 0
 
 #ifdef MAME_DEBUG
-#define LOGLEVEL  0
+#define LOGLEVEL  3
 #define LOG(n,x)  if (LOGLEVEL >= n) logerror x
 #else
 #define LOG(n,x)
@@ -12,7 +12,6 @@ extern WRITE8_HANDLER( decocass_coin_counter_w );
 extern WRITE8_HANDLER( decocass_sound_command_w );
 extern READ8_HANDLER( decocass_sound_data_r );
 extern READ8_HANDLER( decocass_sound_ack_r );
-extern READ8_HANDLER( decocass_sound_xxx_r );
 extern WRITE8_HANDLER( decocass_sound_data_w );
 extern READ8_HANDLER( decocass_sound_command_r );
 extern WRITE8_HANDLER( decocass_sound_nmi_enable_w );
@@ -29,14 +28,6 @@ extern double tape_time0;
 extern void *tape_timer;
 
 extern WRITE8_HANDLER( decocass_reset_w );
-extern READ8_HANDLER( decocass_type1_r );
-extern READ8_HANDLER( decocass_type1_map1_r );
-extern READ8_HANDLER( decocass_type1_map2_r );
-extern READ8_HANDLER( decocass_type1_map3_r );
-extern READ8_HANDLER( type2_r );
-extern WRITE8_HANDLER( type2_w );
-extern READ8_HANDLER( type3_r );
-extern WRITE8_HANDLER( type3_w );
 
 extern READ8_HANDLER( decocass_e5xx_r );
 extern WRITE8_HANDLER( decocass_e5xx_w );
@@ -45,6 +36,7 @@ extern WRITE8_HANDLER( decocass_e900_w );
 
 extern MACHINE_RESET( decocass );
 extern MACHINE_RESET( ctsttape );
+extern MACHINE_RESET( chwy );
 extern MACHINE_RESET( clocknch );
 extern MACHINE_RESET( ctisland );
 extern MACHINE_RESET( csuperas );
@@ -78,10 +70,9 @@ extern READ8_HANDLER( i8041_p1_r );
 extern WRITE8_HANDLER( i8041_p2_w );
 extern READ8_HANDLER( i8041_p2_r );
 
-/* from drivers/decocass.c */
-extern WRITE8_HANDLER( decocass_w );
+void decocass_machine_state_save_init(void);
 
-/* from vidhrdw/decocass.c */
+/*----------- defined in vidhrdw/decocass.c -----------*/
 extern WRITE8_HANDLER( decocass_paletteram_w );
 extern WRITE8_HANDLER( decocass_charram_w );
 extern WRITE8_HANDLER( decocass_fgvideoram_w );
@@ -118,5 +109,4 @@ extern size_t decocass_bgvideoram_size;
 extern size_t decocass_tileram_size;
 extern size_t decocass_objectram_size;
 
-void decocass_machine_state_save_init(void);
 void decocass_video_state_save_init(void);

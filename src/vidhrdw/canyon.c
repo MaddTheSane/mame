@@ -5,6 +5,7 @@ Atari Canyon Bomber video emulation
 ***************************************************************************/
 
 #include "driver.h"
+#include "includes/canyon.h"
 
 static tilemap *bg_tilemap;
 
@@ -97,4 +98,5 @@ VIDEO_UPDATE( canyon )
 
 	/* watchdog is disabled during service mode */
 		watchdog_enable(!(readinputport(2) & 0x10));
+	return 0;
 }

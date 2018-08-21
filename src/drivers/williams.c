@@ -526,13 +526,14 @@ void defender_install_io_space(void)
 	memory_install_write8_handler(0, ADDRESS_SPACE_PROGRAM, 0xc000, 0xc00f, 0, 0x03e0, williams_paletteram_w);
 	memory_install_write8_handler(0, ADDRESS_SPACE_PROGRAM, 0xc010, 0xc01f, 0, 0x03e0, defender_video_control_w);
 	memory_install_write8_handler(0, ADDRESS_SPACE_PROGRAM, 0xc3ff, 0xc3ff, 0, 0,      williams_watchdog_reset_w);
-	memory_install_read8_handler (0, ADDRESS_SPACE_PROGRAM, 0xc400, 0xc4ff, 0, 0x0300, MRA8_RAM);
+	memory_install_read8_handler (0, ADDRESS_SPACE_PROGRAM, 0xc400, 0xc4ff, 0, 0x0300, MRA8_BANK3);
 	memory_install_write8_handler(0, ADDRESS_SPACE_PROGRAM, 0xc400, 0xc4ff, 0, 0x0300, williams_cmos_w);
 	memory_install_read8_handler (0, ADDRESS_SPACE_PROGRAM, 0xc800, 0xcbff, 0, 0x03e0, williams_video_counter_r);
 	memory_install_read8_handler (0, ADDRESS_SPACE_PROGRAM, 0xcc00, 0xcc03, 0, 0x03e0, pia_1_r);
 	memory_install_write8_handler(0, ADDRESS_SPACE_PROGRAM, 0xcc00, 0xcc03, 0, 0x03e0, pia_1_w);
 	memory_install_read8_handler (0, ADDRESS_SPACE_PROGRAM, 0xcc04, 0xcc07, 0, 0x03e0, pia_0_r);
 	memory_install_write8_handler(0, ADDRESS_SPACE_PROGRAM, 0xcc04, 0xcc07, 0, 0x03e0, pia_0_w);
+	memory_set_bankptr(3, generic_nvram);
 }
 
 
@@ -1226,7 +1227,7 @@ INPUT_PORTS_END
 
 INPUT_PORTS_START( tshoot )
 	PORT_START_TAG("IN0")	/* (muxed with IN3)*/
-	PORT_BIT(0x3F, 0x20, IPT_LIGHTGUN_Y ) PORT_MINMAX(0,0x3F) PORT_SENSITIVITY(25) PORT_KEYDELTA(10)
+	PORT_BIT( 0x3F, 0x20, IPT_AD_STICK_Y ) PORT_MINMAX(0,0x3F) PORT_SENSITIVITY(25) PORT_KEYDELTA(10)
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW,  IPT_BUTTON1 )
 
@@ -1248,7 +1249,7 @@ INPUT_PORTS_START( tshoot )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START_TAG("IN3")	/* (muxed with IN0) */
-   	PORT_BIT(0x3F, 0x20, IPT_LIGHTGUN_X ) PORT_MINMAX(0,0x3F) PORT_SENSITIVITY(25) PORT_KEYDELTA(10)
+   	PORT_BIT( 0x3F, 0x20, IPT_AD_STICK_X ) PORT_MINMAX(0,0x3F) PORT_SENSITIVITY(25) PORT_KEYDELTA(10)
 	PORT_BIT( 0x40, IP_ACTIVE_LOW, IPT_UNKNOWN )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_BUTTON1 )
 INPUT_PORTS_END
@@ -1382,7 +1383,7 @@ static MACHINE_DRIVER_START( defender )
 
 	/* video hardware */
 	MDRV_VIDEO_ATTRIBUTES(VIDEO_TYPE_RASTER)
-	MDRV_SCREEN_SIZE(304, 256)
+	MDRV_SCREEN_SIZE(384, 256)
 	MDRV_VISIBLE_AREA(10, 303, 7, 245)
 	MDRV_PALETTE_LENGTH(16)
 
@@ -1400,7 +1401,6 @@ MACHINE_DRIVER_END
 static MACHINE_DRIVER_START( jin ) // needs a different screen size or the credit text is clipped
 	/* basic machine hardware */
 	MDRV_IMPORT_FROM(defender)
-	MDRV_SCREEN_SIZE(316, 256)
 	MDRV_VISIBLE_AREA(0, 315, 7, 245)
 MACHINE_DRIVER_END
 
@@ -1490,7 +1490,7 @@ static MACHINE_DRIVER_START( williams2 )
 
 	/* video hardware */
 	MDRV_VIDEO_ATTRIBUTES(VIDEO_TYPE_RASTER)
-	MDRV_SCREEN_SIZE(288, 256)
+	MDRV_SCREEN_SIZE(384, 256)
 	MDRV_VISIBLE_AREA(8, 288-5, 8, 248-1)
 	MDRV_GFXDECODE(williams2_gfxdecodeinfo)
 	MDRV_PALETTE_LENGTH(1024)
@@ -1513,6 +1513,7 @@ static MACHINE_DRIVER_START( joust2 )
 	MDRV_SPEAKER_REMOVE("mono")
 	MDRV_IMPORT_FROM(williams_cvsd_sound)
 
+	MDRV_MACHINE_START(joust2)
 	MDRV_MACHINE_RESET(joust2)
 
 	/* sound hardware */
@@ -2424,9 +2425,9 @@ ROM_END
 
 ROM_START( joust2 )
 	ROM_REGION( 0x50000, REGION_CPU1, 0 )
-	ROM_LOAD( "ic55_r1.cpu", 0x0D000, 0x1000, CRC(08b0d5bd) SHA1(b58da478aef36ae20fcfee48151d5d556e16b7b9) )	/* IC55 ROM02 */
-	ROM_LOAD( "ic09_r2.cpu", 0x0E000, 0x1000, CRC(951175ce) SHA1(ac70df125bb438f9fccc082276df4a76ff693e16) )	/* IC09 ROM03 */
-	ROM_LOAD( "ic10_r2.cpu", 0x0F000, 0x1000, CRC(ba6e0f6c) SHA1(431cbf38e919011d030f41008e1ad45e7e0ec38b) )	/* IC10 ROM04 */
+	ROM_LOAD( "ic55_r1.cpu", 0x0d000, 0x1000, CRC(08b0d5bd) SHA1(b58da478aef36ae20fcfee48151d5d556e16b7b9) )	/* IC55 ROM02 */
+	ROM_LOAD( "ic09_r2.cpu", 0x0e000, 0x1000, CRC(951175ce) SHA1(ac70df125bb438f9fccc082276df4a76ff693e16) )	/* IC09 ROM03 */
+	ROM_LOAD( "ic10_r2.cpu", 0x0f000, 0x1000, CRC(ba6e0f6c) SHA1(431cbf38e919011d030f41008e1ad45e7e0ec38b) )	/* IC10 ROM04 */
 
 	ROM_LOAD( "ic18_r1.cpu", 0x10000, 0x2000, CRC(9dc986f9) SHA1(5ce479936536ef713cdfc8fc8190d338c46d171e) )	/* IC18 ROM11 */
 	ROM_LOAD( "ic16_r2.cpu", 0x12000, 0x2000, CRC(56e2b550) SHA1(01211d389ca384987d56c26596aa8c1adffdf8dd) )	/* IC16 ROM09 */
@@ -2488,7 +2489,6 @@ ROM_END
 	williams2_tilemap_config = x
 
 #define CONFIGURE_PIAS(a,b,c) \
-	pia_unconfig();\
 	pia_config(0, PIA_STANDARD_ORDERING, &a);\
 	pia_config(1, PIA_STANDARD_ORDERING, &b);\
 	pia_config(2, PIA_STANDARD_ORDERING, &c)
@@ -2595,10 +2595,6 @@ static DRIVER_INIT( playball )
 {
 	CONFIGURE_BLITTER(WILLIAMS_BLITTER_SC01, 0xc000);
 	CONFIGURE_PIAS(williams_pia_0_intf, playball_pia_1_intf, sinistar_snd_pia_intf);
-
-	/* install RAM instead of ROM in the Dxxx slot */
-	memory_install_read8_handler(0, ADDRESS_SPACE_PROGRAM, 0xd000, 0xdfff, 0, 0, MRA8_RAM);
-	memory_install_write8_handler(0, ADDRESS_SPACE_PROGRAM, 0xd000, 0xdfff, 0, 0, MWA8_RAM);
 }
 
 

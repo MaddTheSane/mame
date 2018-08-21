@@ -246,7 +246,7 @@ static void snes_hblank_tick(int ref)
 			if( snes_ram[HDMAEN] )
 				snes_hdma();
 
-			force_partial_update(snes_ppu.beam.current_vert-1);
+			force_partial_update(0, snes_ppu.beam.current_vert-1);
 		}
 	}
 
@@ -267,15 +267,12 @@ static void snes_init_ram(void)
 	InitDSP1();
 
 	/* Init VRAM */
-	snes_vram = (UINT8 *)memory_region( REGION_GFX1 );
 	memset( snes_vram, 0, SNES_VRAM_SIZE );
 
 	/* Init Colour RAM */
-	snes_cgram = (UINT16 *)memory_region( REGION_USER1 );
 	memset( (UINT8 *)snes_cgram, 0, SNES_CGRAM_SIZE );
 
 	/* Init oam RAM */
-	snes_oam = (UINT16 *)memory_region( REGION_USER2 );
 	memset( snes_oam, 0xff, SNES_OAM_SIZE );
 
 	/* Init work RAM - 0x55 isn't exactly right but it's close */
@@ -323,7 +320,7 @@ static void snes_init_ram(void)
 	has_dsp1 = ((snes_r_bank1(0xffd6) >= 3) && (snes_r_bank1(0xffd6) <= 5)) ? 1 : 0;
 
 	// init frame counter so first line is 0
-	if( Machine->drv->frames_per_second == 60 )
+	if( Machine->drv->screen[0].refresh_rate == 60 )
 	{
 		snes_ppu.beam.current_vert = SNES_MAX_LINES_NTSC;
 	}
@@ -334,14 +331,29 @@ static void snes_init_ram(void)
 }
 
 /* should we treat this as nvram in MAME? */
+static OPBASE_HANDLER(spc_opbase)
+{
+	opcode_base = opcode_arg_base = spc_ram;
+	return ~0;
+}
+
+MACHINE_START( snes )
+{
+	snes_vram = auto_malloc(SNES_VRAM_SIZE);
+	snes_cgram = auto_malloc(SNES_CGRAM_SIZE);
+	snes_oam = auto_malloc(SNES_OAM_SIZE);
+	memory_set_opbase_handler(1, spc_opbase);
+	return 0;
+}
+
 MACHINE_RESET( snes )
 {
 	snes_init_ram();
 
 	/* Set STAT78 to NTSC or PAL */
-	if( Machine->drv->frames_per_second == 60 )
+	if( Machine->drv->screen[0].refresh_rate == 60 )
 		snes_ram[STAT78] = SNES_NTSC;
-	else /* if( Machine->drv->frames_per_second == 50 ) */
+	else /* if( Machine->drv->screen[0].refresh_rate == 50 ) */
 		snes_ram[STAT78] = SNES_PAL;
 }
 
@@ -1020,14 +1032,14 @@ WRITE8_HANDLER( snes_w_io )
 			snes_ppu.mode = data & 0x7;
 #ifdef SNES_DBG_VIDHRDW
 			if( snes_ppu.mode == 5 || snes_ppu.mode == 6 )
-				set_visible_area(0, (SNES_SCR_WIDTH * 2 * 1.75) - 1, 0, snes_ppu.beam.last_visible_line  - 1);
+				set_visible_area(0, 0, (SNES_SCR_WIDTH * 2 * 1.75) - 1, 0, snes_ppu.beam.last_visible_line  - 1);
 			else
-				set_visible_area(0, (SNES_SCR_WIDTH * 2 * 1.75) - 1, 0, snes_ppu.beam.last_visible_line - 1 );
+				set_visible_area(0, 0, (SNES_SCR_WIDTH * 2 * 1.75) - 1, 0, snes_ppu.beam.last_visible_line - 1 );
 #else
 			if( snes_ppu.mode == 5 || snes_ppu.mode == 6 )
-				set_visible_area(0, (SNES_SCR_WIDTH * 2) - 1, 0, snes_ppu.beam.last_visible_line - 1 );
+				set_visible_area(0, 0, (SNES_SCR_WIDTH * 2) - 1, 0, snes_ppu.beam.last_visible_line - 1 );
 			else
-				set_visible_area(0, SNES_SCR_WIDTH - 1, 0, snes_ppu.beam.last_visible_line - 1 );
+				set_visible_area(0, 0, SNES_SCR_WIDTH - 1, 0, snes_ppu.beam.last_visible_line - 1 );
 #endif
 
 			snes_ppu.layer[0].tile_size = (data >> 4) & 0x1;
@@ -1462,7 +1474,7 @@ DRIVER_INIT( snes )
 	UINT8  *rom;
 
 	rom = memory_region( REGION_USER3 );
-	snes_ram = memory_region( REGION_CPU1 );
+	snes_ram = auto_malloc(0x1000000);
 	memset( snes_ram, 0, 0x1000000 );
 
 	/* all NSS games seem to use MODE 20 */
@@ -1504,8 +1516,6 @@ DRIVER_INIT( snes )
 		if( snes_cart.sram > snes_cart.sram_max )
 			snes_cart.sram = snes_cart.sram_max;
 	}
-
-	free_memory_region(REGION_USER3);
 }
 #endif	/* MESS */
 

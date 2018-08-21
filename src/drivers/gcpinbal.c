@@ -63,7 +63,7 @@ static INTERRUPT_GEN( gcpinbal_interrupt )
 	/* Unsure of actual sequence */
 
 	timer_set(TIME_IN_CYCLES(500,0),0, gcpinbal_interrupt1);
-	timer_set(TIME_IN_CYCLES(1000,0),0, gcpinbal_interrupt3);
+//  timer_set(TIME_IN_CYCLES(1000,0),0, gcpinbal_interrupt3);
 	cpunum_set_input_line(0, 4, HOLD_LINE);
 }
 
@@ -376,11 +376,6 @@ static struct MSM5205interface msm5205_interface =
                         MACHINE DRIVERS
 ***********************************************************/
 
-VIDEO_EOF( gcpinbal )
-{
-//  buffer_spriteram16_w(0,0,0);
-}
-
 static MACHINE_DRIVER_START( gcpinbal )
 
 	/* basic machine hardware */
@@ -399,7 +394,6 @@ static MACHINE_DRIVER_START( gcpinbal )
 	MDRV_PALETTE_LENGTH(4096)
 
 	MDRV_VIDEO_START(gcpinbal)
-	MDRV_VIDEO_EOF(gcpinbal)
 	MDRV_VIDEO_UPDATE(gcpinbal)
 
 	/* sound hardware */

@@ -39,38 +39,12 @@
 #include "machine/eeprom.h"
 #include "taito_f3.h"
 #include "sound/es5506.h"
+#include "sndhrdw/taito_en.h"
 
-VIDEO_START( f3 );
-VIDEO_UPDATE( f3 );
-VIDEO_EOF( f3 );
-
-extern UINT32 *f3_vram,*f3_line_ram;
-extern UINT32 *f3_pf_data,*f3_pivot_ram;
 static UINT32 coin_word[2], *f3_ram;
 UINT32 *f3_shared_ram;
 int f3_game;
 
-WRITE32_HANDLER( f3_control_0_w );
-WRITE32_HANDLER( f3_control_1_w );
-WRITE32_HANDLER( f3_palette_24bit_w );
-WRITE32_HANDLER( f3_pf_data_w );
-WRITE32_HANDLER( f3_vram_w );
-WRITE32_HANDLER( f3_pivot_w );
-WRITE32_HANDLER( f3_lineram_w );
-WRITE32_HANDLER( f3_videoram_w );
-
-/* from Machine.c */
-READ16_HANDLER(f3_68000_share_r);
-WRITE16_HANDLER(f3_68000_share_w);
-READ16_HANDLER(f3_68681_r);
-WRITE16_HANDLER(f3_68681_w);
-READ16_HANDLER(es5510_dsp_r);
-WRITE16_HANDLER(es5510_dsp_w);
-WRITE16_HANDLER(f3_volume_w);
-WRITE16_HANDLER(f3_es5505_bank_w);
-void f3_68681_reset(void);
-
-static UINT16 *sound_ram;
 
 /******************************************************************************/
 
@@ -209,21 +183,7 @@ static ADDRESS_MAP_START( f3_writemem, ADDRESS_SPACE_PROGRAM, 32 )
 	AM_RANGE(0xc80100, 0xc80103) AM_WRITE(f3_sound_reset_1_w)
 ADDRESS_MAP_END
 
-/******************************************************************************/
 
-static ADDRESS_MAP_START( sound_map, ADDRESS_SPACE_PROGRAM, 16 )
-	AM_RANGE(0x000000, 0x00ffff) AM_RAM AM_MIRROR(0x30000) AM_SHARE(1) AM_BASE(&sound_ram)
-	AM_RANGE(0x140000, 0x140fff) AM_READWRITE(f3_68000_share_r, f3_68000_share_w)
-	AM_RANGE(0x200000, 0x20001f) AM_READWRITE(ES5505_data_0_r, ES5505_data_0_w)
-	AM_RANGE(0x260000, 0x2601ff) AM_READWRITE(es5510_dsp_r, es5510_dsp_w)
-	AM_RANGE(0x280000, 0x28001f) AM_READWRITE(f3_68681_r, f3_68681_w)
-	AM_RANGE(0x300000, 0x30003f) AM_WRITE(f3_es5505_bank_w)
-	AM_RANGE(0x340000, 0x340003) AM_WRITE(f3_volume_w) /* 8 channel volume control */
-	AM_RANGE(0xc00000, 0xc1ffff) AM_ROMBANK(1)
-	AM_RANGE(0xc20000, 0xc3ffff) AM_ROMBANK(2)
-	AM_RANGE(0xc40000, 0xc7ffff) AM_ROMBANK(3)
-	AM_RANGE(0xff0000, 0xffffff) AM_RAM AM_SHARE(1)	// mirror
-ADDRESS_MAP_END
 
 /******************************************************************************/
 
@@ -440,26 +400,12 @@ static INTERRUPT_GEN( f3_interrupt2 )
 
 static MACHINE_RESET( f3 )
 {
-	/* Sound cpu program loads to 0xc00000 so we use a bank */
-	UINT16 *ROM = (UINT16 *)memory_region(REGION_CPU2);
-	memory_set_bankptr(1,&ROM[0x80000]);
-	memory_set_bankptr(2,&ROM[0x90000]);
-	memory_set_bankptr(3,&ROM[0xa0000]);
-
-	sound_ram[0]=ROM[0x80000]; /* Stack and Reset vectors */
-	sound_ram[1]=ROM[0x80001];
-	sound_ram[2]=ROM[0x80002];
-	sound_ram[3]=ROM[0x80003];
-
+	taito_f3_soundsystem_reset();
 	cpunum_set_input_line(1, INPUT_LINE_RESET, ASSERT_LINE);
+
 	f3_68681_reset();
 }
 
-static struct ES5505interface es5505_interface =
-{
-	REGION_SOUND1,	/* Bank 0: Unused by F3 games? */
-	REGION_SOUND1	/* Bank 1: All games seem to use this */
-};
 
 NVRAM_HANDLER( taito_f3 )
 {
@@ -500,8 +446,7 @@ static MACHINE_DRIVER_START( f3 )
 	MDRV_CPU_PROGRAM_MAP(f3_readmem,f3_writemem)
 	MDRV_CPU_VBLANK_INT(f3_interrupt2,1)
 
-	MDRV_CPU_ADD(M68000, 16000000)
-	MDRV_CPU_PROGRAM_MAP(sound_map,0) /* audio CPU */
+	TAITO_F3_SOUND_SYSTEM_CPU(16000000)
 
 	MDRV_FRAMES_PER_SECOND(58.97)
 	MDRV_VBLANK_DURATION(624) /* 58.97 Hz, 624us vblank time */
@@ -522,12 +467,7 @@ static MACHINE_DRIVER_START( f3 )
 	MDRV_VIDEO_UPDATE(f3)
 
 	/* sound hardware */
-	MDRV_SPEAKER_STANDARD_STEREO("left", "right")
-
-	MDRV_SOUND_ADD(ES5505, 30476100/2)
-	MDRV_SOUND_CONFIG(es5505_interface)
-	MDRV_SOUND_ROUTE(0, "left", 1.0)
-	MDRV_SOUND_ROUTE(1, "right", 1.0)
+	TAITO_F3_SOUND_SYSTEM_ES5505(30476100/2)
 MACHINE_DRIVER_END
 
 /* These games reprogram the video output registers to display different scanlines,
@@ -666,6 +606,17 @@ ROM_START( arabianm )
 	ROM_LOAD16_BYTE("d29-01.rom", 0x000000, 0x200000, CRC(545ac4b3) SHA1(f89513fca8a03cab11160aa1f0a9c3adbc8bda08) )	// C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d29-02.rom", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )	// -std-
+
+	ROM_REGION( 0x1200, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "palce20v8h.1",  0x0000, 0x0157, CRC(5dd5c8f9) SHA1(5e6153d9e08985b2326dfd6d73f7b90136a7a4b1) )
+	ROM_LOAD( "pal20l8b.2",    0x0200, 0x0144, CRC(c91437e2) SHA1(5bd6fb57fd7e0ff957a6ef9509b8f2e35a8ca29a) )
+	ROM_LOAD( "palce20v8h.3",  0x0400, 0x0157, CRC(74d61d36) SHA1(c34d8b2d227f69c167d1516dea53e4bcb76491d1) )
+	ROM_LOAD( "palce16v8h.11", 0x0600, 0x0117, CRC(51088324) SHA1(b985835b92c9d1e1dae6ae7cba9fa83c4db58bbb) )
+	ROM_LOAD( "pal16l8b.22",   0x0800, 0x0104, CRC(3e01e854) SHA1(72f48982673ac8337dac3358b7a79e45c60b9601) )
+	ROM_LOAD( "palce16v8h.31", 0x0a00, 0x0117, CRC(e0789727) SHA1(74add02cd194741de5ca6e36a99f9dd3e756fbdf) )
+	ROM_LOAD( "pal16l8b.62",   0x0c00, 0x0104, CRC(7093e2f3) SHA1(62bb0085ed93cc8a5fb3a1b08ce9c8071ebda657) )
+	ROM_LOAD( "palce20v8h.69", 0x0e00, 0x0157, CRC(25d205d5) SHA1(8859fd498e4d84a55424899d23db470be217eaba) )
+	ROM_LOAD( "pal20l8b.70",   0x1000, 0x0144, CRC(92b5b97c) SHA1(653ab0467f71d93eceb8143b124cdedaf1ede750) )
 ROM_END
 
 ROM_START( arabiamj )
@@ -695,6 +646,17 @@ ROM_START( arabiamj )
 	ROM_LOAD16_BYTE("d29-01.rom", 0x000000, 0x200000, CRC(545ac4b3) SHA1(f89513fca8a03cab11160aa1f0a9c3adbc8bda08) )	// C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d29-02.rom", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )	// -std-
+
+	ROM_REGION( 0x1200, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "palce20v8h.1",  0x0000, 0x0157, CRC(5dd5c8f9) SHA1(5e6153d9e08985b2326dfd6d73f7b90136a7a4b1) )
+	ROM_LOAD( "pal20l8b.2",    0x0200, 0x0144, CRC(c91437e2) SHA1(5bd6fb57fd7e0ff957a6ef9509b8f2e35a8ca29a) )
+	ROM_LOAD( "palce20v8h.3",  0x0400, 0x0157, CRC(74d61d36) SHA1(c34d8b2d227f69c167d1516dea53e4bcb76491d1) )
+	ROM_LOAD( "palce16v8h.11", 0x0600, 0x0117, CRC(51088324) SHA1(b985835b92c9d1e1dae6ae7cba9fa83c4db58bbb) )
+	ROM_LOAD( "pal16l8b.22",   0x0800, 0x0104, CRC(3e01e854) SHA1(72f48982673ac8337dac3358b7a79e45c60b9601) )
+	ROM_LOAD( "palce16v8h.31", 0x0a00, 0x0117, CRC(e0789727) SHA1(74add02cd194741de5ca6e36a99f9dd3e756fbdf) )
+	ROM_LOAD( "pal16l8b.62",   0x0c00, 0x0104, CRC(7093e2f3) SHA1(62bb0085ed93cc8a5fb3a1b08ce9c8071ebda657) )
+	ROM_LOAD( "palce20v8h.69", 0x0e00, 0x0157, CRC(25d205d5) SHA1(8859fd498e4d84a55424899d23db470be217eaba) )
+	ROM_LOAD( "pal20l8b.70",   0x1000, 0x0144, CRC(92b5b97c) SHA1(653ab0467f71d93eceb8143b124cdedaf1ede750) )
 ROM_END
 
 ROM_START( arabiamu )
@@ -724,6 +686,17 @@ ROM_START( arabiamu )
 	ROM_LOAD16_BYTE("d29-01.rom", 0x000000, 0x200000, CRC(545ac4b3) SHA1(f89513fca8a03cab11160aa1f0a9c3adbc8bda08) )	// C8 C9 CA CB
 	// half empty
 	ROM_LOAD16_BYTE("d29-02.rom", 0x600000, 0x100000, CRC(ed894fe1) SHA1(5bf2fb6abdcf25bc525a2c3b29dbf7aca0b18fea) )	// -std-
+
+	ROM_REGION( 0x1200, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "palce20v8h.1",  0x0000, 0x0157, CRC(5dd5c8f9) SHA1(5e6153d9e08985b2326dfd6d73f7b90136a7a4b1) )
+	ROM_LOAD( "pal20l8b.2",    0x0200, 0x0144, CRC(c91437e2) SHA1(5bd6fb57fd7e0ff957a6ef9509b8f2e35a8ca29a) )
+	ROM_LOAD( "palce20v8h.3",  0x0400, 0x0157, CRC(74d61d36) SHA1(c34d8b2d227f69c167d1516dea53e4bcb76491d1) )
+	ROM_LOAD( "palce16v8h.11", 0x0600, 0x0117, CRC(51088324) SHA1(b985835b92c9d1e1dae6ae7cba9fa83c4db58bbb) )
+	ROM_LOAD( "pal16l8b.22",   0x0800, 0x0104, CRC(3e01e854) SHA1(72f48982673ac8337dac3358b7a79e45c60b9601) )
+	ROM_LOAD( "palce16v8h.31", 0x0a00, 0x0117, CRC(e0789727) SHA1(74add02cd194741de5ca6e36a99f9dd3e756fbdf) )
+	ROM_LOAD( "pal16l8b.62",   0x0c00, 0x0104, CRC(7093e2f3) SHA1(62bb0085ed93cc8a5fb3a1b08ce9c8071ebda657) )
+	ROM_LOAD( "palce20v8h.69", 0x0e00, 0x0157, CRC(25d205d5) SHA1(8859fd498e4d84a55424899d23db470be217eaba) )
+	ROM_LOAD( "pal20l8b.70",   0x1000, 0x0144, CRC(92b5b97c) SHA1(653ab0467f71d93eceb8143b124cdedaf1ede750) )
 ROM_END
 
 ROM_START( ridingf )
@@ -1847,6 +1820,13 @@ ROM_START( bubsymph )
 	ROM_REGION16_BE(0x800000, REGION_SOUND1 , ROMREGION_ERASE00 )	// V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("d90-04", 0x000000, 0x200000, CRC(feee5fda) SHA1(b89354013ec4d34bcd51ecded412effa66dd2f2f) )	// C8 C9 CA CB
  	ROM_LOAD16_BYTE("d90-05", 0x400000, 0x200000, CRC(c192331f) SHA1(ebab05b3681c70b373bc06c1826be1cc397d3af7) )	// CC CD -std-
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.bin",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.bin",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-14.bin", 0x0800, 0x0117, CRC(7427e777) SHA1(e692cedb13e5bc02edc4b25e9dcea51e6715de85) )
 ROM_END
 
 ROM_START( bubsympu )
@@ -2059,6 +2039,13 @@ ROM_START( spcnv95u )
 	ROM_REGION16_BE(0x800000, REGION_SOUND1 , ROMREGION_ERASE00 )	// V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e06-04", 0x000000, 0x200000, CRC(1dac29df) SHA1(ed68a41def148dcf4057cfac87a2a563c6882e1d) )	// C8 C9 CA CB
  	ROM_LOAD16_BYTE("e06-05", 0x400000, 0x200000, CRC(f370ff15) SHA1(4bc464d1c3a28326c8b1ae2036387954cb1dd813) )	// CC CD CE CF
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.bin",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.bin",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-13.bin", 0x0800, 0x0117, CRC(66e32e73) SHA1(350d0f98809f3623eab999540c7f47d1190dd648) )
 ROM_END
 
 ROM_START( spcinv95 )
@@ -2087,6 +2074,13 @@ ROM_START( spcinv95 )
 	ROM_REGION16_BE(0x800000, REGION_SOUND1 , ROMREGION_ERASE00 )	// V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e06-04", 0x000000, 0x200000, CRC(1dac29df) SHA1(ed68a41def148dcf4057cfac87a2a563c6882e1d) )	// C8 C9 CA CB
  	ROM_LOAD16_BYTE("e06-05", 0x400000, 0x200000, CRC(f370ff15) SHA1(4bc464d1c3a28326c8b1ae2036387954cb1dd813) )	// CC CD CE CF
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.bin",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.bin",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-13.bin", 0x0800, 0x0117, CRC(66e32e73) SHA1(350d0f98809f3623eab999540c7f47d1190dd648) )
 ROM_END
 
 ROM_START( akkanvdr )
@@ -2143,6 +2137,15 @@ ROM_START( elvactr )
 	ROM_REGION16_BE(0x800000, REGION_SOUND1 , ROMREGION_ERASE00 )	// V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e02-04.38", 0x000000, 0x200000, CRC(b74307af) SHA1(deb42415049efa2df70e7b25ba8b1b716aa227f1) )	// C8 C9 CA CB
 	ROM_LOAD16_BYTE("e02-05.39", 0x400000, 0x200000, CRC(eb729855) SHA1(85253efe794e8b5ffaf16bcb1123bca831e776a5) )	// CC CD CE CF
+
+	ROM_REGION( 0x0e00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "ampal20l10a.a12", 0x0000, 0x00cc, CRC(e719542f) SHA1(b28b9e13ec1ca98203ebbfd592dbdc44d3a6e936) )
+	ROM_LOAD( "pal20l10b.a24",   0x0200, 0x00cc, NO_DUMP )	/* read protected */
+	ROM_LOAD( "pal16l8b.b24",    0x0400, 0x0104, CRC(0b73a7d1) SHA1(953234ce95a8c2dfb9ba276742411cb2ca4d4bf8) )
+	ROM_LOAD( "pal16l8b.b57",    0x0600, 0x0104, CRC(74b4d8be) SHA1(23ba316bc5550dd69f07f9a0f697927656a35e5a) )
+	ROM_LOAD( "pal16l8b.b58",    0x0800, 0x0104, CRC(17e2c9b8) SHA1(841b290ee3a3089a975456b20018c04e6afb2257) )
+	ROM_LOAD( "pal16l8b.b59",    0x0a00, 0x0104, CRC(dc0db200) SHA1(9f46e7edf053ad9ee3a4a6dd00f9f6996203fc60) )
+	ROM_LOAD( "pal16l8b.b64",    0x0c00, 0x0104, CRC(3aed3d98) SHA1(8f0b02baad87aeda1767f0e95aa1a84545376076) )
 ROM_END
 
 ROM_START( elvactrj )
@@ -2230,6 +2233,15 @@ ROM_START( twinqix )
 	ROM_LOAD16_BYTE("snd-1.b44",  0x100000, 0x80000, CRC(274864af) SHA1(47fefee23038bb751bdf6b6f48312ba0b6e38b90) )	// C9
 	ROM_LOAD16_BYTE("snd-14.b10", 0x200000, 0x80000, CRC(26312451) SHA1(9f947a11592fd8420fc581914bf16e7ade75390c) )	// -std-
 	ROM_LOAD16_BYTE("snd-15.b11", 0x300000, 0x80000, CRC(2edaa9dc) SHA1(72fead505c4f44e5736ff7d545d72dfa37d613e2) )	// -std-
+
+	ROM_REGION( 0x0c00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal20l10a.a12", 0x0000, 0x00cc, NO_DUMP)  /* PAL is read protected */
+	ROM_LOAD( "pal20l10a.a24", 0x0100, 0x00cc, NO_DUMP)  /* PAL is read protected */
+	ROM_LOAD( "pal16l8b.b24",  0x0200, 0x0104, CRC(0b73a7d1) SHA1(953234ce95a8c2dfb9ba276742411cb2ca4d4bf8) )
+	ROM_LOAD( "pal16l8b.b57",  0x0400, 0x0104, CRC(74b4d8be) SHA1(23ba316bc5550dd69f07f9a0f697927656a35e5a) )
+	ROM_LOAD( "pal16l8b.b58",  0x0600, 0x0104, CRC(17e2c9b8) SHA1(841b290ee3a3089a975456b20018c04e6afb2257) )
+	ROM_LOAD( "pal16l8b.b59",  0x0800, 0x0104, CRC(dc0db200) SHA1(9f46e7edf053ad9ee3a4a6dd00f9f6996203fc60) )
+	ROM_LOAD( "pal16l8b.b64",  0x0a00, 0x0104, CRC(3aed3d98) SHA1(8f0b02baad87aeda1767f0e95aa1a84545376076) )
 ROM_END
 
 ROM_START( quizhuhu )
@@ -2371,6 +2383,13 @@ ROM_START( pbobbl2x )
 	ROM_REGION16_BE(0x800000, REGION_SOUND1 , ROMREGION_ERASE00 )	// V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e10-04.rom", 0x000000, 0x200000, CRC(5c0862a6) SHA1(f916f63b8629239e3221e1e231e1b39962ef38ba) )	// C8 C9 CA CB
 	ROM_LOAD16_BYTE("e10-03.rom", 0x400000, 0x200000, CRC(46d68ac8) SHA1(ad014e9f0d458308014959ca6823077f581ab088) )	// CC CD CE CF
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.bin",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.bin",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-14.bin", 0x0800, 0x0117, CRC(7427e777) SHA1(e692cedb13e5bc02edc4b25e9dcea51e6715de85) )
 ROM_END
 
 ROM_START( gekirido )
@@ -2683,6 +2702,13 @@ ROM_START( arkretrn )
 
 	ROM_REGION16_BE(0x400000, REGION_SOUND1 , ROMREGION_ERASE00 )	// V2: 4 banks, only 1 populated
 	ROM_LOAD16_BYTE("e36-04", 0x000000, 0x200000, CRC(2250959b) SHA1(06943f1b72bdf325485356a01278d88aeae93d87) )	// C8 C9 CA CB
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.bin",  0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.bin",  0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8-d77-11.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8-d77-12.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8-d77-14.bin", 0x0800, 0x0117, CRC(7427e777) SHA1(e692cedb13e5bc02edc4b25e9dcea51e6715de85) )
 ROM_END
 
 ROM_START( kirameki )
@@ -2751,6 +2777,13 @@ ROM_START( puchicar )
 	ROM_LOAD16_BYTE("e46-07", 0x400000, 0x200000, CRC(f20af91e) SHA1(86040ff7ce591418b32c06c3a02fabcbe76281f5) )	// C8 C9 CA CB
 	ROM_LOAD16_BYTE("e46-08", 0x800000, 0x200000, CRC(f7f96e1d) SHA1(8a83ea9036e8647b8dec6b5e144288ed9c025779) )	// CC CD CE CF
 	ROM_LOAD16_BYTE("e46-09", 0xc00000, 0x200000, CRC(824135f8) SHA1(13e9edeac38e63fa27d9fd7892d51c216f36ec30) )	// D0 D1 D2 D3
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09a.bin",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10a.bin",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11a.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12a.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-15a.bin", 0x0800, 0x0117, CRC(0edf820a) SHA1(6bfcc711a15a31dd57e863c46537df9de1a66c2f) )
 ROM_END
 
 ROM_START( puchicrj )
@@ -2784,6 +2817,13 @@ ROM_START( puchicrj )
 	ROM_LOAD16_BYTE("e46-07", 0x400000, 0x200000, CRC(f20af91e) SHA1(86040ff7ce591418b32c06c3a02fabcbe76281f5) )	// C8 C9 CA CB
 	ROM_LOAD16_BYTE("e46-08", 0x800000, 0x200000, CRC(f7f96e1d) SHA1(8a83ea9036e8647b8dec6b5e144288ed9c025779) )	// CC CD CE CF
 	ROM_LOAD16_BYTE("e46-09", 0xc00000, 0x200000, CRC(824135f8) SHA1(13e9edeac38e63fa27d9fd7892d51c216f36ec30) )	// D0 D1 D2 D3
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09a.bin",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10a.bin",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11a.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12a.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-15a.bin", 0x0800, 0x0117, CRC(0edf820a) SHA1(6bfcc711a15a31dd57e863c46537df9de1a66c2f) )
 ROM_END
 
 ROM_START( pbobble4 )
@@ -2813,6 +2853,13 @@ ROM_START( pbobble4 )
 	ROM_LOAD16_BYTE("e49-03", 0x400000, 0x200000, CRC(f64303e0) SHA1(4d5df77047522419d21ff36402076e9b7c5acff8) )	// C8 C9 CA CB
 	ROM_LOAD16_BYTE("e49-04", 0x800000, 0x200000, CRC(09be229c) SHA1(a3a88969b34628d2bf3163bdf85d520feac9a7ac) )	// E7 CD E8 E6
 	ROM_LOAD16_BYTE("e49-05", 0xc00000, 0x200000, CRC(5ce90ee2) SHA1(afafc1f64ecf2dbd94a9f7871a26150ac2d22be5) )	// D3 D4 D5 DB
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.bin",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.bin",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-15.bin", 0x0800, 0x0117, NO_DUMP ) /* PAL is read protected */
 ROM_END
 
 ROM_START( pbobbl4j )
@@ -2842,6 +2889,13 @@ ROM_START( pbobbl4j )
 	ROM_LOAD16_BYTE("e49-03", 0x400000, 0x200000, CRC(f64303e0) SHA1(4d5df77047522419d21ff36402076e9b7c5acff8) )	// C8 C9 CA CB
 	ROM_LOAD16_BYTE("e49-04", 0x800000, 0x200000, CRC(09be229c) SHA1(a3a88969b34628d2bf3163bdf85d520feac9a7ac) )	// E7 CD E8 E6
 	ROM_LOAD16_BYTE("e49-05", 0xc00000, 0x200000, CRC(5ce90ee2) SHA1(afafc1f64ecf2dbd94a9f7871a26150ac2d22be5) )	// D3 D4 D5 DB
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.bin",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.bin",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-15.bin", 0x0800, 0x0117, NO_DUMP ) /* PAL is read protected */
 ROM_END
 
 ROM_START( pbobbl4u )
@@ -2871,6 +2925,13 @@ ROM_START( pbobbl4u )
 	ROM_LOAD16_BYTE("e49-03", 0x400000, 0x200000, CRC(f64303e0) SHA1(4d5df77047522419d21ff36402076e9b7c5acff8) )	// C8 C9 CA CB
 	ROM_LOAD16_BYTE("e49-04", 0x800000, 0x200000, CRC(09be229c) SHA1(a3a88969b34628d2bf3163bdf85d520feac9a7ac) )	// E7 CD E8 E6
 	ROM_LOAD16_BYTE("e49-05", 0xc00000, 0x200000, CRC(5ce90ee2) SHA1(afafc1f64ecf2dbd94a9f7871a26150ac2d22be5) )	// D3 D4 D5 DB
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.bin",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.bin",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.bin", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.bin", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-15.bin", 0x0800, 0x0117, NO_DUMP ) /* PAL is read protected */
 ROM_END
 
 ROM_START( popnpopj )
@@ -2899,6 +2960,13 @@ ROM_START( popnpopj )
 	ROM_REGION16_BE(0x800000, REGION_SOUND1 , ROMREGION_ERASE00 )	// V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e51-04.38", 0x000000, 0x200000, CRC(66790f55) SHA1(ac539b2655dbcda1bdffb9f3cf4c96fb05721e9d) )	// C9 CA CB CC
 	ROM_LOAD16_BYTE("e51-05.41", 0x400000, 0x200000, CRC(4d08b26d) SHA1(071a11a1b1ee8b8129d02b15ec0e533912c91b04) )	// CD CE -std-
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.ic14",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.ic28",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.ic37", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.ic48", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-15.ic21", 0x0800, 0x0117, NO_DUMP ) /* PAL is read protected */
 ROM_END
 
 ROM_START( popnpop )
@@ -2927,6 +2995,13 @@ ROM_START( popnpop )
 	ROM_REGION16_BE(0x800000, REGION_SOUND1 , ROMREGION_ERASE00 )	// V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e51-04.38", 0x000000, 0x200000, CRC(66790f55) SHA1(ac539b2655dbcda1bdffb9f3cf4c96fb05721e9d) )	// C9 CA CB CC
 	ROM_LOAD16_BYTE("e51-05.41", 0x400000, 0x200000, CRC(4d08b26d) SHA1(071a11a1b1ee8b8129d02b15ec0e533912c91b04) )	// CD CE -std-
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.ic14",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.ic28",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.ic37", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.ic48", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-15.ic21", 0x0800, 0x0117, NO_DUMP ) /* PAL is read protected */
 ROM_END
 
 ROM_START( popnpopu )
@@ -2955,6 +3030,13 @@ ROM_START( popnpopu )
 	ROM_REGION16_BE(0x800000, REGION_SOUND1 , ROMREGION_ERASE00 )	// V2: 4 banks, only 2 populated
 	ROM_LOAD16_BYTE("e51-04.38", 0x000000, 0x200000, CRC(66790f55) SHA1(ac539b2655dbcda1bdffb9f3cf4c96fb05721e9d) )	// C9 CA CB CC
 	ROM_LOAD16_BYTE("e51-05.41", 0x400000, 0x200000, CRC(4d08b26d) SHA1(071a11a1b1ee8b8129d02b15ec0e533912c91b04) )	// CD CE -std-
+
+	ROM_REGION( 0x0a00, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8a-d77-09.ic14",   0x0000, 0x0104, CRC(b371532b) SHA1(7f875f380e69d14326a036a09d2fda7554b73664) )
+	ROM_LOAD( "pal16l8a-d77-10.ic28",   0x0200, 0x0104, CRC(42f59227) SHA1(1f0db7489b49c00603ea51d130c9dfc237545390) )
+	ROM_LOAD( "palce16v8q-d77-11.ic37", 0x0400, 0x0117, CRC(eacc294e) SHA1(90679d523d90c1f8d2ecbd7b6fac2861f94cf107) )
+	ROM_LOAD( "palce16v8q-d77-12.ic48", 0x0600, 0x0117, CRC(e9920cfe) SHA1(58b73fe65f118d57fdce56d781593fc70c797f1b) )
+	ROM_LOAD( "palce16v8q-d77-15.ic21", 0x0800, 0x0117, NO_DUMP ) /* PAL is read protected */
 ROM_END
 
 ROM_START( landmakr )
@@ -3423,87 +3505,87 @@ static DRIVER_INIT( commandw )
 
 /******************************************************************************/
 
-GAME( 1992, ringrage, 0,        f3_224a, f3, ringrage, ROT0,   "Taito Corporation Japan",   "Ring Rage (World)", GAME_IMPERFECT_SOUND )
-GAME( 1992, ringragj, ringrage, f3_224a, f3, ringrage, ROT0,   "Taito Corporation",         "Ring Rage (Japan)", GAME_IMPERFECT_SOUND )
-GAME( 1992, ringragu, ringrage, f3_224a, f3, ringrage, ROT0,   "Taito America Corporation", "Ring Rage (US)", GAME_IMPERFECT_SOUND )
-GAME( 1992, arabianm, 0,        f3_224a, f3, arabianm, ROT0,   "Taito Corporation Japan",   "Arabian Magic (World)", 0 )
-GAME( 1992, arabiamj, arabianm, f3_224a, f3, arabianm, ROT0,   "Taito Corporation",         "Arabian Magic (Japan)", 0 )
-GAME( 1992, arabiamu, arabianm, f3_224a, f3, arabianm, ROT0,   "Taito America Corporation", "Arabian Magic (US)", 0 )
-GAME( 1992, ridingf,  0,        f3_224b, f3, ridingf,  ROT0,   "Taito Corporation Japan",   "Riding Fight (World)", GAME_NO_SOUND )
-GAME( 1992, ridefgtj, ridingf,  f3_224b, f3, ridingf,  ROT0,   "Taito Corporation",         "Riding Fight (Japan)", GAME_NO_SOUND )
-GAME( 1992, ridefgtu, ridingf,  f3_224b, f3, ridingf,  ROT0,   "Taito America Corporation", "Riding Fight (US)", GAME_NO_SOUND )
-GAME( 1992, gseeker,  0,        f3_224b, f3, gseeker,  ROT90,  "Taito Corporation Japan",   "Grid Seeker: Project Stormhammer (World)", 0 )
-GAME( 1992, gseekerj, gseeker,  f3_224b, f3, gseeker,  ROT90,  "Taito Corporation",         "Grid Seeker: Project Stormhammer (Japan)", 0 )
-GAME( 1992, gseekeru, gseeker,  f3_224b, f3, gseeker,  ROT90,  "Taito America Corporation", "Grid Seeker: Project Stormhammer (US)", 0 )
-GAME( 1992, commandw, 0,        f3_224b, f3, commandw, ROT0,   "Taito Corporation",         "Command War - Super Special Battle & War Game (Prototype)", GAME_IMPERFECT_GRAPHICS )
+GAME( 1992, ringrage, 0,        f3_224a, f3, ringrage, ROT0,   "Taito Corporation Japan",   "Ring Rage (Ver 2.3O 1992/08/09)", GAME_IMPERFECT_SOUND )
+GAME( 1992, ringragj, ringrage, f3_224a, f3, ringrage, ROT0,   "Taito Corporation",         "Ring Rage (Ver 2.3J 1992/08/09)", GAME_IMPERFECT_SOUND )
+GAME( 1992, ringragu, ringrage, f3_224a, f3, ringrage, ROT0,   "Taito America Corporation", "Ring Rage (Ver 2.3A 1992/08/09)", GAME_IMPERFECT_SOUND )
+GAME( 1992, arabianm, 0,        f3_224a, f3, arabianm, ROT0,   "Taito Corporation Japan",   "Arabian Magic (Ver 1.0O 1992/07/06)", 0 )
+GAME( 1992, arabiamj, arabianm, f3_224a, f3, arabianm, ROT0,   "Taito Corporation",         "Arabian Magic (Ver 1.0J 1992/07/06)", 0 )
+GAME( 1992, arabiamu, arabianm, f3_224a, f3, arabianm, ROT0,   "Taito America Corporation", "Arabian Magic (Ver 1.0A 1992/07/06)", 0 )
+GAME( 1992, ridingf,  0,        f3_224b, f3, ridingf,  ROT0,   "Taito Corporation Japan",   "Riding Fight (Ver 1.0O)", GAME_NO_SOUND )
+GAME( 1992, ridefgtj, ridingf,  f3_224b, f3, ridingf,  ROT0,   "Taito Corporation",         "Riding Fight (Ver 1.0J)", GAME_NO_SOUND )
+GAME( 1992, ridefgtu, ridingf,  f3_224b, f3, ridingf,  ROT0,   "Taito America Corporation", "Riding Fight (Ver 1.0A)", GAME_NO_SOUND )
+GAME( 1992, gseeker,  0,        f3_224b, f3, gseeker,  ROT90,  "Taito Corporation Japan",   "Grid Seeker: Project Storm Hammer (Ver 1.3O)", 0 )
+GAME( 1992, gseekerj, gseeker,  f3_224b, f3, gseeker,  ROT90,  "Taito Corporation",         "Grid Seeker: Project Storm Hammer (Ver 1.3J)", 0 )
+GAME( 1992, gseekeru, gseeker,  f3_224b, f3, gseeker,  ROT90,  "Taito America Corporation", "Grid Seeker: Project Storm Hammer (Ver 1.3A)", 0 )
+GAME( 1992, commandw, 0,        f3_224b, f3, commandw, ROT0,   "Taito Corporation",         "Command War - Super Special Battle & War Game (Ver 0.0J) (Prototype)", GAME_IMPERFECT_GRAPHICS )
 /* Most of the football games share some GFX roms but shouldn't be considered clones unless they have the same Taito game code for the program roms */
-GAME( 1993, cupfinal, 0,        f3_224a, f3, cupfinal, ROT0,   "Taito Corporation Japan",   "Taito Cup Finals (World)", 0 )
-GAME( 1992, hthero93, cupfinal, f3_224a, f3, cupfinal, ROT0,   "Taito Corporation",         "Hat Trick Hero '93 (Japan)", 0 )
-GAME( 1993, trstar,   0,        f3,      f3, trstaroj, ROT0,   "Taito Corporation Japan",   "Top Ranking Stars (World new version)", 0 )
-GAME( 1993, trstarj,  trstar,   f3,      f3, trstaroj, ROT0,   "Taito Corporation",         "Top Ranking Stars (Japan new version)", 0 )
-GAME( 1993, prmtmfgt, trstar,   f3,      f3, trstaroj, ROT0,   "Taito America Corporation", "Prime Time Fighter (US new version)", 0 )
-GAME( 1993, trstaro,  trstar,   f3,      f3, trstaroj, ROT0,   "Taito Corporation Japan",   "Top Ranking Stars (World old version)", 0 )
-GAME( 1993, trstaroj, trstar,   f3,      f3, trstaroj, ROT0,   "Taito Corporation",         "Top Ranking Stars (Japan old version)", 0 )
-GAME( 1993, prmtmfgo, trstar,   f3,      f3, trstaroj, ROT0,   "Taito America Corporation", "Prime Time Fighter (US old version)", 0 )
-GAME( 1993, gunlock,  0,        f3_224a, f3, gunlock,  ROT90,  "Taito Corporation Japan",   "Gunlock (World)", 0 )
-GAME( 1993, rayforcj, gunlock,  f3_224a, f3, gunlock,  ROT90,  "Taito Corporation",         "Rayforce (Japan)", 0 )
-GAME( 1993, rayforce, gunlock,  f3_224a, f3, gunlock,  ROT90,  "Taito America Corporation", "Rayforce (US)", 0 )
-GAME( 1993, scfinals, 0,        f3_224a, f3, scfinals, ROT0,   "Taito Corporation Japan",   "Super Cup Finals (World)", 0 )
-GAME( 1993, dungeonm, 0,        f3_224a, f3, lightbr,  ROT0,   "Taito Corporation Japan",   "Dungeon Magic (World)", 0 )
-GAME( 1993, lightbr,  dungeonm, f3_224a, f3, lightbr,  ROT0,   "Taito Corporation",         "Light Bringer (Japan)", 0 )
-GAME( 1993, dungenmu, dungeonm, f3_224a, f3, lightbr,  ROT0,   "Taito America Corporation", "Dungeon Magic (US)", 0 )
-GAME( 1994, intcup94, 0,        f3_224a, f3, intcup94, ROT0,   "Taito Corporation Japan",   "International Cup '94 (World)", 0 )
-GAME( 1994, hthero94, intcup94, f3_224a, f3, intcup94, ROT0,   "Taito America Corporation", "Hat Trick Hero '94 (US)", 0 )
-GAME( 1994, kaiserkn, 0,        f3_224a, kn, kaiserkn, ROT0,   "Taito Corporation Japan",   "Kaiser Knuckle (World)", 0 )
-GAME( 1994, kaiserkj, kaiserkn, f3_224a, kn, kaiserkn, ROT0,   "Taito Corporation",         "Kaiser Knuckle (Japan)", 0 )
-GAME( 1994, gblchmp,  kaiserkn, f3_224a, kn, kaiserkn, ROT0,   "Taito America Corporation", "Global Champion (US)", 0 )
-GAME( 1994, dankuga,  kaiserkn, f3_224a, kn, kaiserkn, ROT0,   "Taito Corporation",         "Dan-Ku-Ga (Prototype)", 0 )
-GAME( 1994, dariusg,  0,        f3,      f3, dariusg,  ROT0,   "Taito Corporation Japan",   "Darius Gaiden - Silver Hawk (World)", 0 )
-GAME( 1994, dariusgj, dariusg,  f3,      f3, dariusg,  ROT0,   "Taito Corporation",         "Darius Gaiden - Silver Hawk (Japan)", 0 )
-GAME( 1994, dariusgu, dariusg,  f3,      f3, dariusg,  ROT0,   "Taito America Corporation", "Darius Gaiden - Silver Hawk (US)", 0 )
-GAME( 1994, dariusgx, dariusg,  f3,      f3, dariusg,  ROT0,   "Taito Corporation",         "Darius Gaiden - Silver Hawk (Extra Version) [Official Hack]", 0 )
-GAME( 1994, bublbob2, 0,        f3_224a, f3, bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Bobble 2 (World)", 0 )
-GAME( 1994, bubsympe, bublbob2, f3_224a, f3, bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Symphony (Europe)", 0 )
-GAME( 1994, bubsympu, bublbob2, f3_224a, f3, bubsymph, ROT0,   "Taito America Corporation", "Bubble Symphony (US)", 0 )
-GAME( 1994, bubsymph, bublbob2, f3_224a, f3, bubsymph, ROT0,   "Taito Corporation",         "Bubble Symphony (Japan)", 0 )
-GAME( 1994, spcinvdj, spacedx,  f3,      f3, spcinvdj, ROT0,   "Taito Corporation",         "Space Invaders DX (Japan F3 version)", 0 )
-GAME( 1994, pwrgoal,  0,        f3_224a, f3, hthero95, ROT0,   "Taito Corporation Japan",   "Taito Power Goal (World)", 0 )
-GAME( 1994, hthero95, pwrgoal,  f3_224a, f3, hthero95, ROT0,   "Taito Corporation",         "Hat Trick Hero '95 (Japan)", 0 )
-GAME( 1994, hthro95u, pwrgoal,  f3_224a, f3, hthero95, ROT0,   "Taito America Corporation", "Hat Trick Hero '95 (US)", 0 )
-GAME( 1994, qtheater, 0,        f3_224c, f3, qtheater, ROT0,   "Taito Corporation",         "Quiz Theater - 3tsu no Monogatari (Japan)", GAME_IMPERFECT_SOUND )
-GAME( 1994, elvactr,  0,        f3,      f3, elvactr,  ROT0,   "Taito Corporation Japan",   "Elevator Action Returns (World)", 0 )
-GAME( 1994, elvactrj, elvactr,  f3,      f3, elvactr,  ROT0,   "Taito Corporation",         "Elevator Action Returns (Japan)", 0 )
-GAME( 1994, elvact2u, elvactr,  f3,      f3, elvactr,  ROT0,   "Taito America Corporation", "Elevator Action 2 (US)", 0 )
-/* There is also a prototype Elevator Action 2 (US) pcb with the graphics in a different rom format (same program code) */
-GAME( 1994, recalh,   0,        f3,      f3, recalh,   ROT0,   "Taito Corporation",         "Recalhorn (Prototype)", 0 )
-GAME( 1995, spcinv95, 0,        f3_224a, f3, spcinv95, ROT270, "Taito Corporation Japan",   "Space Invaders '95 - Attack Of The Lunar Loonies (World)", 0 )
-GAME( 1995, spcnv95u, spcinv95, f3_224a, f3, spcinv95, ROT270, "Taito America Corporation", "Space Invaders '95 - Attack Of The Lunar Loonies (US)", 0 )
-GAME( 1995, akkanvdr, spcinv95, f3_224a, f3, spcinv95, ROT270, "Taito Corporation",         "Akkanvader (Japan)", 0 )
-GAME( 1995, twinqix,  0,        f3_224a, f3, twinqix,  ROT0,   "Taito America Corporation", "Twin Qix (US Prototype)", 0 )
-GAME( 1995, quizhuhu, 0,        f3,      f3, quizhuhu, ROT0,   "Taito Corporation",         "Moriguchi Hiroko no Quiz de Hyuu!Hyuu! (Japan)", 0 )
-GAME( 1995, pbobble2, 0,        f3,      f3, pbobble2, ROT0,   "Taito Corporation Japan",   "Puzzle Bobble 2 (World)", 0 )
-GAME( 1995, pbobbl2j, pbobble2, f3,      f3, pbobble2, ROT0,   "Taito Corporation",         "Puzzle Bobble 2 (Japan)", 0 )
-GAME( 1995, pbobbl2u, pbobble2, f3,      f3, pbobble2, ROT0,   "Taito America Corporation", "Bust-A-Move Again (US)", 0 )
-GAME( 1995, pbobbl2x, pbobble2, f3,      f3, pbobbl2x, ROT0,   "Taito Corporation",         "Puzzle Bobble 2X (Japan)", 0 )
-GAME( 1995, gekirido, 0,        f3,      f3, gekirido, ROT270, "Taito Corporation",         "Gekirindan (Japan)", 0 )
-GAME( 1995, tcobra2,  0,        f3,      f3, ktiger2,  ROT270, "Taito Corporation Japan",   "Twin Cobra 2 (World)", 0 )
-GAME( 1995, tcobra2u, tcobra2,  f3,      f3, ktiger2,  ROT270, "Taito America Corporation", "Twin Cobra 2 (US)", 0 )
-GAME( 1995, ktiger2,  tcobra2,  f3,      f3, ktiger2,  ROT270, "Taito Corporation",         "Kyukyoku Tiger 2 (Japan)", 0 )
-GAME( 1995, bubblem,  0,        f3_224a, f3, bubblem,  ROT0,   "Taito Corporation Japan",   "Bubble Memories - The Story Of Bubble Bobble 3 (World)", 0 )
-GAME( 1995, bubblemj, bubblem,  f3_224a, f3, bubblem,  ROT0,   "Taito Corporation",         "Bubble Memories - The Story Of Bubble Bobble 3 (Japan)", 0 )
-GAME( 1996, cleopatr, 0,        f3_224a, f3, cleopatr, ROT0,   "Taito Corporation",         "Cleopatra Fortune (Japan)", 0 )
-GAME( 1996, pbobble3, 0,        f3,      f3, pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (World)", 0 )
-GAME( 1996, pbobbl3u, pbobble3, f3,      f3, pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (US)", 0 )
-GAME( 1996, pbobbl3j, pbobble3, f3,      f3, pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Japan)", 0 )
-GAME( 1997, arkretrn, 0,        f3,      f3, arkretrn, ROT0,   "Taito Corporation",         "Arkanoid Returns (Japan)", 0 )
-GAME( 1997, kirameki, 0,        f3_224a, f3, kirameki, ROT0,   "Taito Corporation",         "Kirameki Star Road (Japan)", 0 )
-GAME( 1997, puchicar, 0,        f3,      f3, puchicar, ROT0,   "Taito Corporation",         "Puchi Carat (World)", 0 )
-GAME( 1997, puchicrj, puchicar, f3,      f3, puchicar, ROT0,   "Taito Corporation",         "Puchi Carat (Japan)", 0 )
-GAME( 1997, pbobble4, 0,        f3,      f3, pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (World)", 0 )
-GAME( 1997, pbobbl4j, pbobble4, f3,      f3, pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Japan)", 0 )
-GAME( 1997, pbobbl4u, pbobble4, f3,      f3, pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (US)", 0 )
-GAME( 1997, popnpop,  0,        f3,      f3, popnpop,  ROT0,   "Taito Corporation",         "Pop 'N Pop (World)", 0 )
-GAME( 1997, popnpopj, popnpop,  f3,      f3, popnpop,  ROT0,   "Taito Corporation",         "Pop 'N Pop (Japan)", 0 )
-GAME( 1997, popnpopu, popnpop,  f3,      f3, popnpop,  ROT0,   "Taito Corporation",         "Pop 'N Pop (US)", 0 )
-GAME( 1998, landmakr, 0,        f3,      f3, landmakr, ROT0,   "Taito Corporation",         "Land Maker (Japan)", 0 )
-GAME( 1998, landmkrp, landmakr, f3,      f3, landmkrp, ROT0,   "Taito Corporation",         "Land Maker (World Prototype)", 0 )
+GAME( 1993, cupfinal, 0,        f3_224a, f3, cupfinal, ROT0,   "Taito Corporation Japan",   "Taito Cup Finals (Ver 1.0O 1993/02/28)", 0 )
+GAME( 1993, hthero93, cupfinal, f3_224a, f3, cupfinal, ROT0,   "Taito Corporation",         "Hat Trick Hero '93 (Ver 1.0J 1993/02/28)", 0 )
+GAME( 1993, trstar,   0,        f3,      f3, trstaroj, ROT0,   "Taito Corporation Japan",   "Top Ranking Stars (Ver 2.1O 1993/05/21) (New Version)", 0 )
+GAME( 1993, trstarj,  trstar,   f3,      f3, trstaroj, ROT0,   "Taito Corporation",         "Top Ranking Stars (Ver 2.1J 1993/05/21) (New Version)", 0 )
+GAME( 1993, prmtmfgt, trstar,   f3,      f3, trstaroj, ROT0,   "Taito America Corporation", "Prime Time Fighter (Ver 2.1A 1993/05/21) (New Version)", 0 )
+GAME( 1993, trstaro,  trstar,   f3,      f3, trstaroj, ROT0,   "Taito Corporation Japan",   "Top Ranking Stars (Ver 2.1O 1993/05/21) (Old Version)", 0 )
+GAME( 1993, trstaroj, trstar,   f3,      f3, trstaroj, ROT0,   "Taito Corporation",         "Top Ranking Stars (Ver 2.1J 1993/05/21) (Old Version)", 0 )
+GAME( 1993, prmtmfgo, trstar,   f3,      f3, trstaroj, ROT0,   "Taito America Corporation", "Prime Time Fighter (Ver 2.1A 1993/05/21) (Old Version)", 0 )
+GAME( 1993, gunlock,  0,        f3_224a, f3, gunlock,  ROT90,  "Taito Corporation Japan",   "Gunlock (Ver 2.3O 1994/01/20)", 0 )
+GAME( 1993, rayforcj, gunlock,  f3_224a, f3, gunlock,  ROT90,  "Taito Corporation",         "Ray Force (Ver 2.3J 1994/01/20)", 0 )
+GAME( 1993, rayforce, gunlock,  f3_224a, f3, gunlock,  ROT90,  "Taito America Corporation", "Ray Force (Ver 2.3A 1994/01/20)", 0 )
+GAME( 1993, scfinals, 0,        f3_224a, f3, scfinals, ROT0,   "Taito Corporation Japan",   "Super Cup Finals (Ver 2.1O 1993/11/19)", 0 )
+GAME( 1993, dungeonm, 0,        f3_224a, f3, lightbr,  ROT0,   "Taito Corporation Japan",   "Dungeon Magic (Ver 2.1O 1994/02/18)", 0 )
+GAME( 1993, lightbr,  dungeonm, f3_224a, f3, lightbr,  ROT0,   "Taito Corporation",         "Light Bringer (Ver 2.1J 1994/02/18)", 0 )
+GAME( 1993, dungenmu, dungeonm, f3_224a, f3, lightbr,  ROT0,   "Taito America Corporation", "Dungeon Magic (Ver 2.1A 1994/02/18)", 0 )
+GAME( 1994, intcup94, 0,        f3_224a, f3, intcup94, ROT0,   "Taito Corporation Japan",   "International Cup '94 (Ver 2.2O 1994/05/26)", 0 )
+GAME( 1994, hthero94, intcup94, f3_224a, f3, intcup94, ROT0,   "Taito America Corporation", "Hat Trick Hero '94 (Ver 2.2A 1994/05/26)", 0 )
+GAME( 1994, kaiserkn, 0,        f3_224a, kn, kaiserkn, ROT0,   "Taito Corporation Japan",   "Kaiser Knuckle (Ver 2.1O 1994/07/29)", 0 )
+GAME( 1994, kaiserkj, kaiserkn, f3_224a, kn, kaiserkn, ROT0,   "Taito Corporation",         "Kaiser Knuckle (Ver 2.1J 1994/07/29)", 0 )
+GAME( 1994, gblchmp,  kaiserkn, f3_224a, kn, kaiserkn, ROT0,   "Taito America Corporation", "Global Champion (Ver 2.1A 1994/07/29)", 0 )
+GAME( 1994, dankuga,  kaiserkn, f3_224a, kn, kaiserkn, ROT0,   "Taito Corporation",         "Dan-Ku-Ga (Ver 0.0J 1994/12/13) (Prototype)", 0 )
+GAME( 1994, dariusg,  0,        f3,      f3, dariusg,  ROT0,   "Taito Corporation Japan",   "Darius Gaiden - Silver Hawk (Ver 2.5O 1994/09/19)", 0 )
+GAME( 1994, dariusgj, dariusg,  f3,      f3, dariusg,  ROT0,   "Taito Corporation",         "Darius Gaiden - Silver Hawk (Ver 2.5J 1994/09/19)", 0 )
+GAME( 1994, dariusgu, dariusg,  f3,      f3, dariusg,  ROT0,   "Taito America Corporation", "Darius Gaiden - Silver Hawk (Ver 2.5A 1994/09/19)", 0 )
+GAME( 1994, dariusgx, dariusg,  f3,      f3, dariusg,  ROT0,   "Taito Corporation",         "Darius Gaiden - Silver Hawk Extra Version (Ver 2.7J 1995/03/06) (Official Hack)", 0 )
+GAME( 1994, bublbob2, 0,        f3_224a, f3, bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Bobble II (Ver 2.5O 1994/10/05)", 0 )
+GAME( 1994, bubsympe, bublbob2, f3_224a, f3, bubsymph, ROT0,   "Taito Corporation Japan",   "Bubble Symphony (Ver 2.5O 1994/10/05)", 0 )
+GAME( 1994, bubsympu, bublbob2, f3_224a, f3, bubsymph, ROT0,   "Taito America Corporation", "Bubble Symphony (Ver 2.5A 1994/10/05)", 0 )
+GAME( 1994, bubsymph, bublbob2, f3_224a, f3, bubsymph, ROT0,   "Taito Corporation",         "Bubble Symphony (Ver 2.5J 1994/10/05)", 0 )
+GAME( 1994, spcinvdj, spacedx,  f3,      f3, spcinvdj, ROT0,   "Taito Corporation",         "Space Invaders DX (Ver 2.6J 1994/09/14) (F3 Version)", 0 )
+GAME( 1994, pwrgoal,  0,        f3_224a, f3, hthero95, ROT0,   "Taito Corporation Japan",   "Taito Power Goal (Ver 2.5O 1994/11/03)", 0 )
+GAME( 1994, hthero95, pwrgoal,  f3_224a, f3, hthero95, ROT0,   "Taito Corporation",         "Hat Trick Hero '95 (Ver 2.5J 1994/11/03)", 0 )
+GAME( 1994, hthro95u, pwrgoal,  f3_224a, f3, hthero95, ROT0,   "Taito America Corporation", "Hat Trick Hero '95 (Ver 2.5A 1994/11/03)", 0 )
+GAME( 1994, qtheater, 0,        f3_224c, f3, qtheater, ROT0,   "Taito Corporation",         "Quiz Theater - 3tsu no Monogatari (Ver 2.3J 1994/11/10)", GAME_IMPERFECT_SOUND )
+GAME( 1994, elvactr,  0,        f3,      f3, elvactr,  ROT0,   "Taito Corporation Japan",   "Elevator Action Returns (Ver 2.2O 1995/02/20)", 0 )
+GAME( 1994, elvactrj, elvactr,  f3,      f3, elvactr,  ROT0,   "Taito Corporation",         "Elevator Action Returns (Ver 2.2J 1995/02/20)", 0 )
+GAME( 1994, elvact2u, elvactr,  f3,      f3, elvactr,  ROT0,   "Taito America Corporation", "Elevator Action II (Ver 2.2A 1995/02/20)", 0 )
+/* There is also a prototype Elevator Action II (US) pcb with the graphics in a different rom format (same program code) */
+GAME( 1994, recalh,   0,        f3,      f3, recalh,   ROT0,   "Taito Corporation",         "Recalhorn (Ver 1.42J 1994/5/11) (Prototype)", 0 )
+GAME( 1995, spcinv95, 0,        f3_224a, f3, spcinv95, ROT270, "Taito Corporation Japan",   "Space Invaders '95: The Attack Of Lunar Loonies (Ver 2.5O 1995/06/14)", 0 )
+GAME( 1995, spcnv95u, spcinv95, f3_224a, f3, spcinv95, ROT270, "Taito America Corporation", "Space Invaders '95: The Attack Of Lunar Loonies (Ver 2.5A 1995/06/14)", 0 )
+GAME( 1995, akkanvdr, spcinv95, f3_224a, f3, spcinv95, ROT270, "Taito Corporation",         "Akkanbeder (Ver 2.5J 1995/06/14)", 0 )
+GAME( 1995, twinqix,  0,        f3_224a, f3, twinqix,  ROT0,   "Taito America Corporation", "Twin Qix (Ver 1.0A 1995/01/17) (Prototype)", 0 )
+GAME( 1995, quizhuhu, 0,        f3,      f3, quizhuhu, ROT0,   "Taito Corporation",         "Moriguchi Hiroko no Quiz de Hyuu!Hyuu! (Ver 2.2J 1995/05/25)", 0 )
+GAME( 1995, pbobble2, 0,        f3,      f3, pbobble2, ROT0,   "Taito Corporation Japan",   "Puzzle Bobble 2 (Ver 2.2O 1995/07/20)", 0 )
+GAME( 1995, pbobbl2j, pbobble2, f3,      f3, pbobble2, ROT0,   "Taito Corporation",         "Puzzle Bobble 2 (Ver 2.2J 1995/07/20)", 0 )
+GAME( 1995, pbobbl2u, pbobble2, f3,      f3, pbobble2, ROT0,   "Taito America Corporation", "Bust-A-Move Again (Ver 2.3A 1995/07/31)", 0 )
+GAME( 1995, pbobbl2x, pbobble2, f3,      f3, pbobbl2x, ROT0,   "Taito Corporation",         "Puzzle Bobble 2X (Ver 2.2J 1995/11/11)", 0 )
+GAME( 1995, gekirido, 0,        f3,      f3, gekirido, ROT270, "Taito Corporation",         "Gekirindan (Ver 2.3J 1995/09/21)", 0 )
+GAME( 1995, tcobra2,  0,        f3,      f3, ktiger2,  ROT270, "Taito Corporation Japan",   "Twin Cobra II (Ver 2.1O 1995/11/30)", 0 )
+GAME( 1995, tcobra2u, tcobra2,  f3,      f3, ktiger2,  ROT270, "Taito America Corporation", "Twin Cobra II (Ver 2.1A 1995/11/30)", 0 )
+GAME( 1995, ktiger2,  tcobra2,  f3,      f3, ktiger2,  ROT270, "Taito Corporation",         "Kyukyoku Tiger II (Ver 2.1J 1995/11/30)", 0 )
+GAME( 1995, bubblem,  0,        f3_224a, f3, bubblem,  ROT0,   "Taito Corporation Japan",   "Bubble Memories: The Story Of Bubble Bobble III (Ver 2.4O 1996/02/15)", 0 )
+GAME( 1995, bubblemj, bubblem,  f3_224a, f3, bubblem,  ROT0,   "Taito Corporation",         "Bubble Memories: The Story Of Bubble Bobble III (Ver 2.3J 1996/02/07)", 0 )
+GAME( 1996, cleopatr, 0,        f3_224a, f3, cleopatr, ROT0,   "Taito Corporation",         "Cleopatra Fortune (Ver 2.1J 1996/09/05)", 0 )
+GAME( 1996, pbobble3, 0,        f3,      f3, pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Ver 2.1O 1996/09/27)", 0 )
+GAME( 1996, pbobbl3u, pbobble3, f3,      f3, pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Ver 2.1A 1996/09/27)", 0 )
+GAME( 1996, pbobbl3j, pbobble3, f3,      f3, pbobble3, ROT0,   "Taito Corporation",         "Puzzle Bobble 3 (Ver 2.1J 1996/09/27)", 0 )
+GAME( 1997, arkretrn, 0,        f3,      f3, arkretrn, ROT0,   "Taito Corporation",         "Arkanoid Returns (Ver 2.02J 1997/02/10)", 0 )
+GAME( 1997, kirameki, 0,        f3_224a, f3, kirameki, ROT0,   "Taito Corporation",         "Kirameki Star Road (Ver 2.10J 1997/08/29)", 0 )
+GAME( 1997, puchicar, 0,        f3,      f3, puchicar, ROT0,   "Taito Corporation",         "Puchi Carat (Ver 2.02O 1997/10/29)", 0 )
+GAME( 1997, puchicrj, puchicar, f3,      f3, puchicar, ROT0,   "Taito Corporation",         "Puchi Carat (Ver 2.02J 1997/10/29)", 0 )
+GAME( 1997, pbobble4, 0,        f3,      f3, pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Ver 2.04O 1997/12/19)", 0 )
+GAME( 1997, pbobbl4j, pbobble4, f3,      f3, pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Ver 2.04J 1997/12/19)", 0 )
+GAME( 1997, pbobbl4u, pbobble4, f3,      f3, pbobble4, ROT0,   "Taito Corporation",         "Puzzle Bobble 4 (Ver 2.04A 1997/12/19)", 0 )
+GAME( 1997, popnpop,  0,        f3,      f3, popnpop,  ROT0,   "Taito Corporation",         "Pop'n Pop (Ver 2.07O 1998/02/09)", 0 )
+GAME( 1997, popnpopj, popnpop,  f3,      f3, popnpop,  ROT0,   "Taito Corporation",         "Pop'n Pop (Ver 2.07J 1998/02/09)", 0 )
+GAME( 1997, popnpopu, popnpop,  f3,      f3, popnpop,  ROT0,   "Taito Corporation",         "Pop'n Pop (Ver 2.07A 1998/02/09)", 0 )
+GAME( 1998, landmakr, 0,        f3,      f3, landmakr, ROT0,   "Taito Corporation",         "Land Maker (Ver 2.01J 1998/06/01)", 0 )
+GAME( 1998, landmkrp, landmakr, f3,      f3, landmkrp, ROT0,   "Taito Corporation",         "Land Maker (Ver 2.02O 1998/06/02) (Prototype)", 0 )

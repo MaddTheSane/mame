@@ -1,5 +1,6 @@
 #include "driver.h"
 #include "vidhrdw/taitoic.h"
+#include "includes/taito_f2.h"
 
 #define TC0100SCN_GFX_NUM 1
 #define TC0480SCP_GFX_NUM 1
@@ -1061,6 +1062,7 @@ VIDEO_UPDATE( ssi )
 	fillbitmap(priority_bitmap,0,cliprect);
 	fillbitmap(bitmap,Machine->pens[0],cliprect);
 	draw_sprites(bitmap,cliprect,NULL, 0);
+	return 0;
 }
 
 
@@ -1076,6 +1078,7 @@ VIDEO_UPDATE( yesnoj )
 	TC0100SCN_tilemap_draw(bitmap,cliprect,0,TC0100SCN_bottomlayer(0),0,0);
 	TC0100SCN_tilemap_draw(bitmap,cliprect,0,TC0100SCN_bottomlayer(0)^1,0,0);
 	TC0100SCN_tilemap_draw(bitmap,cliprect,0,2,0,0);
+	return 0;
 }
 
 
@@ -1091,6 +1094,7 @@ VIDEO_UPDATE( taitof2 )
 	TC0100SCN_tilemap_draw(bitmap,cliprect,0,TC0100SCN_bottomlayer(0)^1,0,0);
 	draw_sprites(bitmap,cliprect,NULL, 0);
 	TC0100SCN_tilemap_draw(bitmap,cliprect,0,2,0,0);
+	return 0;
 }
 
 
@@ -1124,6 +1128,7 @@ VIDEO_UPDATE( taitof2_pri )
 	TC0100SCN_tilemap_draw(bitmap,cliprect,0,layer[2],0,4);
 
 	draw_sprites(bitmap,cliprect,NULL,1);
+	return 0;
 }
 
 
@@ -1199,6 +1204,7 @@ VIDEO_UPDATE( taitof2_pri_roz )
 	}
 
 	draw_sprites(bitmap,cliprect,NULL,1);
+	return 0;
 }
 
 
@@ -1301,6 +1307,7 @@ VIDEO_UPDATE( thundfox )
 		TC0100SCN_tilemap_draw(bitmap,cliprect,1,layer[1][2],0,0);
 		TC0100SCN_tilemap_draw(bitmap,cliprect,0,layer[0][2],0,0);
 	}
+	return 0;
 }
 
 
@@ -1378,6 +1385,7 @@ VIDEO_UPDATE( metalb )
 	TC0480SCP_tilemap_draw(bitmap,cliprect,layer[4],0,16);
 
 	draw_sprites(bitmap,cliprect,NULL,1);
+	return 0;
 }
 
 
@@ -1444,4 +1452,5 @@ VIDEO_UPDATE( deadconx )
     */
 
 	TC0480SCP_tilemap_draw(bitmap,cliprect,layer[4],0,0);
+	return 0;
 }

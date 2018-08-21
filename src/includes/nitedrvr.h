@@ -17,23 +17,19 @@
 
 /*----------- defined in machine/nitedrvr.c -----------*/
 
-extern unsigned char *nitedrvr_ram;
-
 READ8_HANDLER( nitedrvr_in0_r );
 READ8_HANDLER( nitedrvr_in1_r );
-READ8_HANDLER( nitedrvr_ram_r );
 READ8_HANDLER( nitedrvr_steering_reset_r );
 WRITE8_HANDLER( nitedrvr_steering_reset_w );
 WRITE8_HANDLER( nitedrvr_out0_w );
 WRITE8_HANDLER( nitedrvr_out1_w );
-WRITE8_HANDLER( nitedrvr_ram_w );
 
 void nitedrvr_crash_toggle(int dummy);
 
 
 /*----------- defined in sndhrdw/nitedrvr.c -----------*/
 
-extern struct discrete_sound_block nitedrvr_discrete_interface[];
+extern discrete_sound_block nitedrvr_discrete_interface[];
 
 
 /*----------- defined in vidhrdw/nitedrvr.c -----------*/

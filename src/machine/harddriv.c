@@ -162,6 +162,18 @@ static void duart_callback(int param);
  *
  *************************************/
 
+MACHINE_START( harddriv )
+{
+	/* predetermine memory regions */
+	sim_memory = (UINT16 *)memory_region(REGION_USER1);
+	som_memory = (UINT16 *)auto_malloc(0x8000);
+	sim_memory_size = memory_region_length(REGION_USER1) / 2;
+	adsp_pgm_memory_word = (UINT16 *)((UINT8 *)hdadsp_pgm_memory + 1);
+
+	return 0;
+}
+
+
 MACHINE_RESET( harddriv )
 {
 	/* generic reset */
@@ -177,12 +189,6 @@ MACHINE_RESET( harddriv )
 	/* if we found a 6502, reset the JSA board */
 	if (hdcpu_jsa != -1)
 		atarijsa_reset();
-
-	/* predetermine memory regions */
-	sim_memory = (UINT16 *)memory_region(REGION_USER1);
-	som_memory = (UINT16 *)memory_region(REGION_USER2);
-	sim_memory_size = memory_region_length(REGION_USER1) / 2;
-	adsp_pgm_memory_word = (UINT16 *)((UINT8 *)hdadsp_pgm_memory + 1);
 
 	last_gsp_shiftreg = 0;
 
@@ -726,7 +732,7 @@ WRITE16_HANDLER( hdgsp_io_w )
 
 	/* detect changes to HEBLNK and HSBLNK and force an update before they change */
 	if ((offset == REG_HEBLNK || offset == REG_HSBLNK) && data != tms34010_io_register_r(offset, 0))
-		force_partial_update(cpu_getscanline() - 1);
+		force_partial_update(0, cpu_getscanline() - 1);
 
 	tms34010_io_register_w(offset, data, mem_mask);
 }

@@ -7,6 +7,7 @@
 ***************************************************************************/
 
 #include "driver.h"
+#include "includes/espial.h"
 
 
 UINT8 *espial_videoram;
@@ -257,4 +258,5 @@ VIDEO_UPDATE( espial )
 	tilemap_draw(bitmap,cliprect,bg_tilemap,0,0);
 
 	draw_sprites(bitmap, cliprect);
+	return 0;
 }

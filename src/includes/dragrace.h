@@ -24,4 +24,13 @@
 
 /*----------- defined in sndhrdw/dragrace.c -----------*/
 
-extern struct discrete_sound_block dragrace_discrete_interface[];
+extern discrete_sound_block dragrace_discrete_interface[];
+
+/*----------- defined in vidhrdw/dragrace.c -----------*/
+
+VIDEO_START( dragrace );
+VIDEO_UPDATE( dragrace );
+
+extern UINT8* dragrace_playfield_ram;
+extern UINT8* dragrace_position_ram;
+

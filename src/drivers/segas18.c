@@ -489,9 +489,10 @@ static VIDEO_UPDATE( lghost )
 	int x3 = readinputportbytag("GUNX3");
 	int y3 = readinputportbytag("GUNY3");
 	video_update_system18(screen, bitmap, cliprect);
-	draw_crosshair(bitmap, x1 * (Machine->drv->screen_width - 1) / 255, y1 * (Machine->drv->screen_height - 1) / 255, cliprect, 0);
-	draw_crosshair(bitmap, x2 * (Machine->drv->screen_width - 1) / 255, y2 * (Machine->drv->screen_height - 1) / 255, cliprect, 1);
-	draw_crosshair(bitmap, x3 * (Machine->drv->screen_width - 1) / 255, y3 * (Machine->drv->screen_height - 1) / 255, cliprect, 2);
+	draw_crosshair(bitmap, x1 * (Machine->drv->screen[0].maxwidth - 1) / 255, y1 * (Machine->drv->screen[0].maxheight - 1) / 255, cliprect, 0);
+	draw_crosshair(bitmap, x2 * (Machine->drv->screen[0].maxwidth - 1) / 255, y2 * (Machine->drv->screen[0].maxheight - 1) / 255, cliprect, 1);
+	draw_crosshair(bitmap, x3 * (Machine->drv->screen[0].maxwidth - 1) / 255, y3 * (Machine->drv->screen[0].maxheight - 1) / 255, cliprect, 2);
+	return 0;
 }
 
 
@@ -1346,7 +1347,7 @@ ROM_START( astorm )
 	ROM_LOAD16_BYTE( "epr13181.bin", 0x000001, 0x40000, CRC(78cd3b26) SHA1(a81b807c5da625d8e4648ae80c41e4ca3870c0fa) )
 
 	ROM_REGION( 0x2000, REGION_USER1, 0 )	/* decryption key */
-	/* not dumped */
+	ROM_LOAD( "317-xxxx.key", 0x0000, 0x2000, NO_DUMP )
 
 	ROM_REGION( 0xc0000, REGION_GFX1, ROMREGION_DISPOSE ) /* tiles */
 	ROM_LOAD( "epr13073.bin", 0x00000, 0x40000, CRC(df5d0a61) SHA1(79ad71de348f280bad847566c507b7a31f022292) )
@@ -1927,9 +1928,7 @@ ROM_START( mwalk )
 	ROM_LOAD( "mpr13249.b6", 0x190000, 0x40000, CRC(623edc5d) SHA1(c32d9f818d40f311877fbe6532d9e95b6045c3c4) )
 
 	ROM_REGION( 0x10000, REGION_CPU3, 0 )	/* protection MCU */
-	/* extra byte on the end is security info put there by the eprom reader software.... */
-	/* not verified if mcu is the same on the other sets.. */
-	ROM_LOAD( "315-5437.bin", 0x00000, 0x1001,  CRC(3e2aeb90) SHA1(f889a42cef9a8ddbfa888692b45b74c3cb8fa054) )
+	ROM_LOAD( "315-5437.ic4", 0x00000, 0x1000,  CRC(4bf63bc1) SHA1(2766ab30b466b079febb30c488adad9ea56813f7) )
 ROM_END
 
 /**************************************************************************************************************************
@@ -1967,7 +1966,7 @@ ROM_START( mwalku )
 	ROM_LOAD( "mpr13249.b6", 0x190000, 0x40000, CRC(623edc5d) SHA1(c32d9f818d40f311877fbe6532d9e95b6045c3c4) )
 
 	ROM_REGION( 0x10000, REGION_CPU3, 0 )	/* protection MCU */
-	ROM_LOAD( "315-5437.bin", 0x00000, 0x1001, BAD_DUMP CRC(3e2aeb90) SHA1(f889a42cef9a8ddbfa888692b45b74c3cb8fa054) )
+	ROM_LOAD( "315-5437.ic4", 0x00000, 0x1000,  CRC(4bf63bc1) SHA1(2766ab30b466b079febb30c488adad9ea56813f7) )
 ROM_END
 
 /**************************************************************************************************************************
@@ -2005,9 +2004,8 @@ ROM_START( mwalkj )
 	ROM_LOAD( "mpr13249.b6", 0x190000, 0x40000, CRC(623edc5d) SHA1(c32d9f818d40f311877fbe6532d9e95b6045c3c4) )
 
 	ROM_REGION( 0x10000, REGION_CPU3, 0 )	/* protection MCU */
-	/* extra byte on the end is security info put there by the eprom reader software.... */
-	/* not verified if mcu is the same on the other sets.. */
-	ROM_LOAD( "315-5437.bin", 0x00000, 0x1001, BAD_DUMP CRC(3e2aeb90) SHA1(f889a42cef9a8ddbfa888692b45b74c3cb8fa054) )
+	/* not verified if mcu is the same as the other sets.. */
+	ROM_LOAD( "315-5437.ic4", 0x00000, 0x1000, BAD_DUMP CRC(4bf63bc1) SHA1(2766ab30b466b079febb30c488adad9ea56813f7) )
 ROM_END
 
 

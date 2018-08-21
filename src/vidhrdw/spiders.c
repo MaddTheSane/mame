@@ -10,8 +10,6 @@
 #include "spiders.h"
 #include "vidhrdw/crtc6845.h"
 
-extern int spiders_video_flip;
-
 static UINT8 bitflip[256];
 static int *screenbuffer;
 
@@ -27,7 +25,7 @@ VIDEO_START( spiders )
 	int loop;
 
 	// Use a temp bitmap so user change (dip switches, etc.) does not effect the bitmap
-	if ((tmpbitmap = auto_bitmap_alloc(Machine->drv->screen_width,Machine->drv->screen_height)) == 0)
+	if ((tmpbitmap = auto_bitmap_alloc(Machine->drv->screen[0].maxwidth,Machine->drv->screen[0].maxheight)) == 0)
 		return 1;
 
 	for(loop=0;loop<256;loop++)
@@ -117,5 +115,6 @@ VIDEO_UPDATE( spiders )
 		video_addr+=increment;
 	}
 	/* Now copy the temp bitmap to the screen */
-    copybitmap(bitmap,tmpbitmap,0,0,0,0,&Machine->visible_area,TRANSPARENCY_NONE,0);
+    copybitmap(bitmap,tmpbitmap,0,0,0,0,&Machine->visible_area[0],TRANSPARENCY_NONE,0);
+	return 0;
 }

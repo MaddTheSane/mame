@@ -80,6 +80,18 @@ static int SpriteOffset[4] = {0,0x10,0x20,0x40};
 
 /* To adjust sprites against bitmap */
 
+unsigned char *s2636_1_ram;
+unsigned char *s2636_2_ram;
+unsigned char *s2636_3_ram;
+
+mame_bitmap *s2636_1_bitmap;
+mame_bitmap *s2636_2_bitmap;
+mame_bitmap *s2636_3_bitmap;
+
+unsigned char s2636_1_dirty[4];
+unsigned char s2636_2_dirty[4];
+unsigned char s2636_3_dirty[4];
+
 int s2636_x_offset=0;
 int s2636_y_offset=0;
 
@@ -142,7 +154,7 @@ static int SpriteCheck(int first,int second,unsigned char *workram,int Graphics_
 			            1,
 		                0,0,
 		                fx1,fy1,
-		                &Machine->visible_area, TRANSPARENCY_PEN, 0,
+		                &Machine->visible_area[0], TRANSPARENCY_PEN, 0,
 				        expand1,expand1);
 
             /* Get fingerprint */
@@ -151,10 +163,10 @@ static int SpriteCheck(int first,int second,unsigned char *workram,int Graphics_
 	        {
 		        for (y = fy1; y < fy1 + Machine->gfx[Graphics_Bank]->height; y++)
                 {
-			        if ((x < Machine->visible_area.min_x) ||
-			            (x > Machine->visible_area.max_x) ||
-			            (y < Machine->visible_area.min_y) ||
-			            (y > Machine->visible_area.max_y))
+			        if ((x < Machine->visible_area[0].min_x) ||
+			            (x > Machine->visible_area[0].max_x) ||
+			            (y < Machine->visible_area[0].min_y) ||
+			            (y > Machine->visible_area[0].max_y))
 			        {
 				        continue;
 			        }
@@ -170,7 +182,7 @@ static int SpriteCheck(int first,int second,unsigned char *workram,int Graphics_
 			            0,
 		                0,0,
 				        fx2,fy2,
-		                &Machine->visible_area, TRANSPARENCY_PEN, 0,
+		                &Machine->visible_area[0], TRANSPARENCY_PEN, 0,
 				        expand2,expand2);
 
             /* Remove fingerprint */
@@ -179,10 +191,10 @@ static int SpriteCheck(int first,int second,unsigned char *workram,int Graphics_
 	        {
 		        for (y = fy1; y < fy1 + Machine->gfx[Graphics_Bank]->height; y++)
                 {
-			        if ((x < Machine->visible_area.min_x) ||
-			            (x > Machine->visible_area.max_x) ||
-			            (y < Machine->visible_area.min_y) ||
-			            (y > Machine->visible_area.max_y))
+			        if ((x < Machine->visible_area[0].min_x) ||
+			            (x > Machine->visible_area[0].max_x) ||
+			            (y < Machine->visible_area[0].min_y) ||
+			            (y > Machine->visible_area[0].max_y))
 			        {
 				        continue;
 			        }
@@ -198,7 +210,7 @@ static int SpriteCheck(int first,int second,unsigned char *workram,int Graphics_
 			            0,
 		                0,0,
 		                fx1,fy1,
-		                &Machine->visible_area, TRANSPARENCY_PEN, 0,
+		                &Machine->visible_area[0], TRANSPARENCY_PEN, 0,
 				        expand1,expand1);
             }
     }
@@ -244,7 +256,7 @@ void Update_Bitmap(mame_bitmap *bitmap,unsigned char *workram,unsigned char *dir
 				            colour,
 			                0,0,
 			                bx,by,
-			                &Machine->visible_area,
+			                &Machine->visible_area[0],
 							TRANSPARENCY_BLEND_RAW, 0,
 					        expand,expand);
 
@@ -265,7 +277,7 @@ void Update_Bitmap(mame_bitmap *bitmap,unsigned char *workram,unsigned char *dir
 						                colour,
 				    	                0,0,
 				        	            bx,by,
-				            	        &Machine->visible_area,
+				            	        &Machine->visible_area[0],
 										TRANSPARENCY_BLEND_RAW, 0,
 						        	    expand,expand);
 	                    }

@@ -1,4 +1,5 @@
 #include "driver.h"
+#include "includes/galaga.h"
 
 
 UINT8 *digdug_videoram,*digdug_objram, *digdug_posram, *digdug_flpram;
@@ -320,4 +321,5 @@ VIDEO_UPDATE( digdug )
 	tilemap_draw(bitmap,cliprect,tx_tilemap,0,0);
 
 	draw_sprites(bitmap,cliprect);
+	return 0;
 }

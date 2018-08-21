@@ -174,6 +174,9 @@ mame_file *mame_fopen_error(const char *gamename, const char *filename, int file
 		case FILETYPE_HISTORY:
 		case FILETYPE_LANGUAGE:
 		case FILETYPE_CTRLR:
+#ifdef NEW_RENDER
+		case FILETYPE_FONT:
+#endif
 			if (openforwrite)
 			{
 				logerror("mame_fopen: type %02x write not supported\n", filetype);
@@ -201,6 +204,9 @@ mame_file *mame_fopen_error(const char *gamename, const char *filename, int file
 		case FILETYPE_CTRLR:
 		case FILETYPE_LANGUAGE:
 		case FILETYPE_HIGHSCORE_DB:
+#ifdef NEW_RENDER
+		case FILETYPE_FONT:
+#endif
 			return generic_fopen(filetype, NULL, filename, 0, openforwrite ? FILEFLAG_OPENWRITE : FILEFLAG_OPENREAD, error);
 
 		/* game-specific files that live in a single directory */
@@ -922,6 +928,11 @@ static const char *get_extension_for_filetype(int filetype)
 			break;
 
 		case FILETYPE_ARTWORK:		/* artwork files */
+#ifdef NEW_RENDER
+			extension = "lay";
+			break;
+#endif
+
 		case FILETYPE_SCREENSHOT:	/* screenshot files */
 			extension = "png";
 			break;
@@ -970,6 +981,12 @@ static const char *get_extension_for_filetype(int filetype)
 #ifdef MESS
 		case FILETYPE_HASH:
 			extension = "hsi";
+			break;
+#endif
+
+#ifdef NEW_RENDER
+		case FILETYPE_FONT:
+			extension = "bdf";
 			break;
 #endif
 	}
@@ -1353,7 +1370,7 @@ chd_interface_file *chd_open_cb(const char *filename, const char *mode)
 		const game_driver *drv;
 
 		/* attempt reading up the chain through the parents */
-		for (drv = Machine->gamedrv; drv != NULL; drv = drv->clone_of)
+		for (drv = Machine->gamedrv; drv != NULL; drv = driver_get_clone(drv))
 		{
 			void *file = mame_fopen(drv->name, filename, FILETYPE_IMAGE, 0);
 			if (file != NULL)

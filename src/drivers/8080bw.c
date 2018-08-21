@@ -27,6 +27,23 @@
 /*                                                                          */
 /*  - Phantom II: verify clouds                                             */
 /*                                                                          */
+/*  - Space Chaser (schaser)                                                */
+/*    1. The "missile" sound is incorrect. This is how it should be:        */
+/*       It should be a constant "klunkity-klunk", and should only be       */
+/*       heard while missiles are seen to be moving.  When the red          */
+/*       missiles speed up, there should be more "klunks per second"        */
+/*       with the pitch staying constant.                                   */
+/*    2. If you select Cocktail mode, the screen inverts, but when          */
+/*       it is changed back, the screen won't flip back. You need           */
+/*       to restart MAME to fix it.                                         */
+/*    3. If "Hard" mode is selected, numerous bugs appear which             */
+/*       could be either an emulation fault or a bad rom. Some              */
+/*       bugs are:                                                          */
+/*       a. Graphic error halfway up the left side                          */
+/*       b. Score adds or subtracts random amounts                          */
+/*       c. Score not cleared when starting a new game                      */
+/*       d. Game begins on the wrong level                                  */
+/*                                                                          */
 /*                                                                          */
 /* Change Log:                                                              */
 /* ----------                                                               */
@@ -46,12 +63,21 @@
 /*                                                                          */
 /* 30 Jul 2001 - added sstrngr2                                             */
 /*                                                                          */
+/* 17 Jul 2006 - schaser - connect up prom - fix dipswitches                */
+/*               schasrcv - allow bottom line to show on screen             */
+/*                                                                          */
 /*                                                                          */
 /****************************************************************************/
 
 #include "driver.h"
 #include "8080bw.h"
+#include "includes/circus.h"
 #include "cpu/i8039/i8039.h"
+#include "render.h"
+
+#include "invaders.lh"
+#include "invad2ct.lh"
+#include "invrvnge.lh"
 
 
 /* gmissile and m4 need the RAM mirror */
@@ -1394,10 +1420,10 @@ INPUT_PORTS_START( gunfight )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_START1 )
 
 	PORT_START_TAG("FAKE1")                                        /* Player 2 Gun */
-	PORT_BIT( 0xff, 0x80, IPT_PADDLE ) PORT_MINMAX(1,255) PORT_SENSITIVITY(50) PORT_KEYDELTA(10) PORT_CENTERDELTA(0) PORT_CODE_DEC(KEYCODE_H) PORT_CODE_INC(KEYCODE_Y) PORT_PLAYER(2)
+	PORT_BIT( 0xff, 0x80, IPT_PADDLE ) PORT_MINMAX(1,255) PORT_SENSITIVITY(50) PORT_KEYDELTA(10) PORT_CENTERDELTA(0) PORT_CODE_DEC(KEYCODE_M) PORT_CODE_INC(KEYCODE_J) PORT_PLAYER(2)
 
 	PORT_START_TAG("FAKE2")                                         /* Player 1 Gun */
-	PORT_BIT( 0xff, 0x80, IPT_PADDLE ) PORT_MINMAX(1,255) PORT_SENSITIVITY(50) PORT_KEYDELTA(10) PORT_CENTERDELTA(0) PORT_CODE_DEC(KEYCODE_Z) PORT_CODE_INC(KEYCODE_A)
+	PORT_BIT( 0xff, 0x80, IPT_PADDLE ) PORT_MINMAX(1,255) PORT_SENSITIVITY(50) PORT_KEYDELTA(10) PORT_CENTERDELTA(0) PORT_CODE_DEC(KEYCODE_N) PORT_CODE_INC(KEYCODE_H)
 INPUT_PORTS_END
 
 static MACHINE_DRIVER_START( gunfight )
@@ -1506,10 +1532,10 @@ INPUT_PORTS_START( boothill )
 	PORT_BIT( 0x80, IP_ACTIVE_LOW, IPT_START2 )
 
 	PORT_START_TAG("FAKE1")                                             /* Player 2 Gun */
-	PORT_BIT( 0xff, 0x80, IPT_PADDLE ) PORT_MINMAX(1,255) PORT_SENSITIVITY(50) PORT_KEYDELTA(10) PORT_CODE_DEC(KEYCODE_X) PORT_CODE_INC(KEYCODE_S) PORT_CENTERDELTA(0) PORT_PLAYER(2)
+	PORT_BIT( 0xff, 0x80, IPT_PADDLE ) PORT_MINMAX(1,255) PORT_SENSITIVITY(50) PORT_KEYDELTA(10) PORT_CODE_DEC(KEYCODE_M) PORT_CODE_INC(KEYCODE_J) PORT_CENTERDELTA(0) PORT_PLAYER(2)
 
 	PORT_START_TAG("FAKE2")                                             /* Player 1 Gun */
-	PORT_BIT( 0xff, 0x80, IPT_PADDLE ) PORT_MINMAX(1,255) PORT_SENSITIVITY(50) PORT_KEYDELTA(10) PORT_CODE_DEC(KEYCODE_Z) PORT_CODE_INC(KEYCODE_A) PORT_CENTERDELTA(0)
+	PORT_BIT( 0xff, 0x80, IPT_PADDLE ) PORT_MINMAX(1,255) PORT_SENSITIVITY(50) PORT_KEYDELTA(10) PORT_CODE_DEC(KEYCODE_N) PORT_CODE_INC(KEYCODE_H) PORT_CENTERDELTA(0)
 INPUT_PORTS_END
 
 static MACHINE_DRIVER_START( boothill )
@@ -1556,9 +1582,13 @@ INPUT_PORTS_START( schaser )
 	PORT_BIT( 0x04, IP_ACTIVE_HIGH, IPT_JOYSTICK_DOWN ) PORT_4WAY PORT_PLAYER(2)
 	PORT_BIT( 0x08, IP_ACTIVE_HIGH, IPT_JOYSTICK_RIGHT ) PORT_4WAY PORT_PLAYER(2)
 	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_BUTTON1 ) PORT_PLAYER(2)
-	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_UNKNOWN )
-	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_UNKNOWN )
-	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNKNOWN )
+	PORT_DIPNAME(0x20, 0x20, "Dipswitch 5")
+	PORT_DIPSETTING(    0x20, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_DIPNAME(0x40, 0x40, "Dipswitch 7")
+	PORT_DIPSETTING(    0x40, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
 
 	PORT_START_TAG("IN1")
 	PORT_BIT( 0x01, IP_ACTIVE_HIGH, IPT_JOYSTICK_UP ) PORT_4WAY
@@ -1570,29 +1600,32 @@ INPUT_PORTS_START( schaser )
 	PORT_BIT( 0x40, IP_ACTIVE_HIGH, IPT_START1 )
 	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_COIN1 )
 
-	PORT_START_TAG("DSW0")
+	PORT_START_TAG("DSW0")	// port 2
+	// dipswitch 1 and 2
 	PORT_DIPNAME( 0x03, 0x00, DEF_STR( Lives ) )
 	PORT_DIPSETTING(    0x00, "3" )
 	PORT_DIPSETTING(    0x01, "4" )
 	PORT_DIPSETTING(    0x02, "5" )
 	PORT_DIPSETTING(    0x03, "6" )
-	PORT_DIPNAME( 0x04, 0x00, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x04, DEF_STR( On ) )
+	// dipswitch 3
+	PORT_DIPNAME( 0x04, 0x04, "Dipswitch 3")
+	PORT_DIPSETTING(    0x04, DEF_STR( Off ) )
+	PORT_DIPSETTING(    0x00, DEF_STR( On ) )
+	// dipswitch 4
 	PORT_DIPNAME( 0x08, 0x00, DEF_STR( Difficulty ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Easy ) )
 	PORT_DIPSETTING(    0x08, DEF_STR( Hard ) )
-	PORT_DIPNAME( 0x10, 0x00, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x10, DEF_STR( On ) )
+	// Name Reset - if name of high scorer was rude, owner can press this button
+	PORT_BIT( 0x10, IP_ACTIVE_HIGH, IPT_OTHER ) PORT_NAME("Name Reset") PORT_CODE(KEYCODE_F1)
 	PORT_BIT( 0x20, IP_ACTIVE_HIGH, IPT_TILT )
+	// dipswitch 6
 	PORT_DIPNAME( 0x40, 0x00, "Number of Controllers" )
 	PORT_DIPSETTING(    0x00, "1" )
 	PORT_DIPSETTING(    0x40, "2" )
-	PORT_DIPNAME( 0x80, 0x00, DEF_STR( Unknown ) )
-	PORT_DIPSETTING(    0x00, DEF_STR( Off ) )
-	PORT_DIPSETTING(    0x80, DEF_STR( On ) )
+	PORT_BIT( 0x80, IP_ACTIVE_HIGH, IPT_UNUSED )
 
+	// port 3 (all 8 bits) connected to custom chip MB14241 driven by out port 2 and 4
+	// To get cocktail mode, turn this on, and choose 2 controllers.
 	PORT_START_TAG("FAKE")		/* Dummy port for cocktail mode */
 	PORT_DIPNAME( 0x01, 0x00, DEF_STR( Cabinet ) )
 	PORT_DIPSETTING(    0x00, DEF_STR( Upright ) )
@@ -1685,6 +1718,22 @@ INPUT_PORTS_START( schasrcv )
 	PORT_DIPSETTING(    0x00, DEF_STR( Upright ) )
 	PORT_DIPSETTING(    0x01, DEF_STR( Cocktail ) )
 INPUT_PORTS_END
+
+static MACHINE_DRIVER_START( schasrcv )
+
+	/* basic machine hardware */
+	MDRV_IMPORT_FROM(8080bw)
+	MDRV_CPU_MODIFY("main")
+	MDRV_CPU_PROGRAM_MAP(schaser_readmem,schaser_writemem)
+
+	/* video hardware */
+	MDRV_PALETTE_LENGTH(8)
+	MDRV_PALETTE_INIT(invadpt2)
+	MDRV_VISIBLE_AREA(0*8, 31*8-1, 4*8, 32*8-1)
+
+	/* sound hardware */
+MACHINE_DRIVER_END
+
 
 /*******************************************************/
 /*                                                     */
@@ -3870,7 +3919,7 @@ ROM_START( schaser )
 	ROM_LOAD( "rt21.bin",     0x4000, 0x0400, CRC(b368ac98) SHA1(6860efe0496955db67611183be0efecda92c9c98) )
 	ROM_LOAD( "rt22.bin",     0x4400, 0x0400, CRC(6e060dfb) SHA1(614e2ecf676c3ea2f9ea869125cfffef2f713684) )
 
-	ROM_REGION( 0x0400, REGION_PROMS, 0 )		/* background color map */
+	ROM_REGION( 0x0800, REGION_PROMS, 0 )		/* background color map */
 	ROM_LOAD( "rt06.ic2",     0x0000, 0x0400, CRC(950cf973) SHA1(d22df09b325835a0057ccd0d54f827b374254ac6) )
 ROM_END
 
@@ -4252,7 +4301,7 @@ ROM_END
 /* board #            rom       parent    machine   inp       init (overlay/color hardware setup) */
 
 /* 596 */ GAME( 1976, seawolf,  0,        seawolf,  seawolf,  seawolf,  ROT0,   "Midway", "Sea Wolf", GAME_IMPERFECT_SOUND )
-/* 597 */ GAME( 1975, gunfight, 0,        gunfight, gunfight, gunfight, ROT0,   "Midway", "Gun Fight", GAME_NO_SOUND )
+/* 597 */ GAMEL(1975, gunfight, 0,        gunfight, gunfight, 8080bw,   ROT0,   "Midway", "Gun Fight", GAME_NO_SOUND, layout_hoffff20 )
 /* 605 */ GAME( 1976, tornbase, 0,        8080bw,   tornbase, 8080bw,	ROT0,   "Midway", "Tornado Baseball", GAME_NO_SOUND )
 /* 610 */ GAME( 1976, 280zzzap, 0,        280zzzap, 280zzzap, 8080bw,	ROT0,   "Midway", "Datsun 280 Zzzap", GAME_NO_SOUND )
 /* 611 */ GAME( 1976, maze,     0,        8080bw,   maze,     8080bw,	ROT0,   "Midway", "Amazing Maze", GAME_NO_SOUND )
@@ -4270,32 +4319,32 @@ ROM_END
 /* 643 */ GAME( 1978, shuffle,  0,        shuffle,  shuffle,  8080bw,	ROT90,  "Midway", "Shuffleboard", GAME_NO_SOUND )
 /* 644 */ GAME( 1977, dogpatch, 0,        clowns,   dogpatch, 8080bw,   ROT0,   "Midway", "Dog Patch", GAME_NO_SOUND )
 /* 645 */ GAME( 1980, spcenctr, 0,        spcenctr, spcenctr, 8080bw,	ROT0,   "Midway", "Space Encounters", GAME_NO_SOUND )
-/* 652 */ GAME( 1979, phantom2, 0,        phantom2, phantom2, phantom2, ROT0,   "Midway", "Phantom II", GAME_NO_SOUND )
+/* 652 */ GAMEL(1979, phantom2, 0,        phantom2, phantom2, phantom2, ROT0,   "Midway", "Phantom II", GAME_NO_SOUND, layout_hoa0a0ff )
 /* 730 */ GAME( 1978, bowler,   0,        bowler,   bowler,   bowler,	ROT90,  "Midway", "4 Player Bowling Alley", GAME_NO_SOUND | GAME_NO_COCKTAIL )
-/* 739 */ GAME( 1978, invaders, 0,        invaders, invaders, invaders, ROT270, "Midway", "Space Invaders", 0 )
+/* 739 */ GAMEL(1978, invaders, 0,        invaders, invaders, 8080bw,   ROT270, "Midway", "Space Invaders", 0, layout_invaders )
 /* 742 */ GAME( 1978, blueshrk, 0,        blueshrk, blueshrk, blueshrk, ROT0,   "Midway", "Blue Shark", GAME_NO_SOUND )
 /* 749                                                                          "Midway", "4 Player Bowling Alley (cocktail) "*/
-/* 851 */ GAME( 1980, invad2ct, 0,        invad2ct, invad2ct, invad2ct, ROT90,  "Midway", "Space Invaders II (Midway, cocktail)", 0 )
+/* 851 */ GAMEL(1980, invad2ct, 0,        invad2ct, invad2ct, 8080bw,   ROT90,  "Midway", "Space Invaders II (Midway, cocktail)", 0, layout_invad2ct )
 /* 852 */ GAME( 1980, invaddlx, invadpt2, invaders, invadpt2, invaddlx, ROT270, "Midway", "Space Invaders Deluxe", 0 )
 /* 870                                                                          "Midway", "Space Invaders Deluxe (cocktail) "*/
 
 /* Taito games */
 
-	  GAME( 1978, sitv,     invaders, invaders, sitv,     invaders, ROT270, "Taito", "Space Invaders (TV Version)", 0 )
+	  GAMEL(1978, sitv,     invaders, invaders, sitv,     8080bw,   ROT270, "Taito", "Space Invaders (TV Version)", 0, layout_invaders )
 	  GAME( 1979, sicv,     invaders, invadpt2, invaders, invadpt2, ROT270, "Taito", "Space Invaders (CV Version)", 0 )
 	  GAME( 1978, sisv,     invaders, invadpt2, invaders, invadpt2, ROT270, "Taito", "Space Invaders (SV Version)", 0 )
 	  GAME( 1978, sisv2,    invaders, invadpt2, invaders, invadpt2, ROT270, "Taito", "Space Invaders (SV Version 2)", 0 )
-	  GAME( 1979, galxwars, 0,        invaders, galxwars, invaders, ROT270, "Universal", "Galaxy Wars (Universal set 1)", 0 )
-	  GAME( 1979, galxwar2, galxwars, invaders, galxwars, invaders, ROT270, "Universal", "Galaxy Wars (Universal set 2)", 0 )
-	  GAME( 1979, galxwart, galxwars, invaders, galxwars, invaders, ROT270,	"Taito?", "Galaxy Wars (Taito?)" , 0) /* Copyright Not Displayed */
-	  GAME( 1979, starw,    galxwars, invaders, galxwars, invaders, ROT270, "bootleg", "Star Wars", 0 )
+	  GAMEL(1979, galxwars, 0,        invaders, galxwars, 8080bw,   ROT270, "Universal", "Galaxy Wars (Universal set 1)", 0, layout_invaders )
+	  GAMEL(1979, galxwar2, galxwars, invaders, galxwars, 8080bw,   ROT270, "Universal", "Galaxy Wars (Universal set 2)", 0, layout_invaders )
+	  GAMEL(1979, galxwart, galxwars, invaders, galxwars, 8080bw,   ROT270,	"Taito?", "Galaxy Wars (Taito?)" , 0, layout_invaders) /* Copyright Not Displayed */
+	  GAMEL(1979, starw,    galxwars, invaders, galxwars, 8080bw,   ROT270, "bootleg", "Star Wars", 0, layout_invaders )
 	  GAME( 1979, lrescue,  0,        invadpt2, lrescue,  invadpt2, ROT270, "Taito", "Lunar Rescue", 0 )
 	  GAME( 1979, grescue,  lrescue,  invadpt2, lrescue,  invadpt2, ROT270, "Taito (Universal license?)", "Galaxy Rescue", 0 )
 	  GAME( 1979, desterth, lrescue,  invadpt2, invrvnge, invadpt2, ROT270, "bootleg", "Destination Earth", 0 )
 	  GAME( 1979, invadpt2, 0,        invadpt2, invadpt2, invadpt2, ROT270, "Taito", "Space Invaders Part II (Taito)", 0 )
 	  GAME( 1979, cosmo,    0,        cosmo,    cosmo,    cosmo,    ROT90,  "TDS & Mints", "Cosmo", GAME_NO_SOUND )
 	  GAME( 1979, schaser,  0,        schaser,  schaser,  schaser,  ROT270, "Taito", "Space Chaser", GAME_IMPERFECT_SOUND | GAME_IMPERFECT_COLORS )
-	  GAME( 1979, schasrcv, schaser,  lupin3,   schasrcv, schaser,  ROT270, "Taito", "Space Chaser (CV version)", GAME_NO_SOUND | GAME_IMPERFECT_COLORS | GAME_NO_COCKTAIL )
+	  GAME( 1979, schasrcv, schaser,  schasrcv, schasrcv, schasrcv, ROT270, "Taito", "Space Chaser (CV version)", GAME_NO_SOUND | GAME_IMPERFECT_COLORS | GAME_NO_COCKTAIL )
 	  GAME( 1979, sflush,   0,        sflush,   sflush,   rollingc,	ROT270, "Taito", "Straight Flush",GAME_NO_SOUND| GAME_IMPERFECT_COLORS | GAME_NO_COCKTAIL)
 	  GAME( 1980, lupin3,   0,        lupin3,   lupin3,   lupin3,   ROT270, "Taito", "Lupin III", GAME_NO_SOUND | GAME_NO_COCKTAIL )
 	  GAME( 1980, polaris,  0,        polaris,  polaris,  polaris,  ROT270, "Taito", "Polaris (set 1)", 0 )
@@ -4305,31 +4354,31 @@ ROM_END
 
 /* Misc. manufacturers */
 
-	  GAME( 1980, searthin, invaders, invaders, earthinv, invaders, ROT270, "bootleg", "Super Earth Invasion (set 1)", 0 )
-	  GAME( 1980, searthia, invaders, invaders, earthinv, invaders, ROT270, "bootleg", "Super Earth Invasion (set 2)", 0 )
-	  GAME( 1978, invadrmr, invaders, invaders, invaders, invaders, ROT270, "Model Racing", "Space Invaders (Model Racing)", 0 )
-	  GAME( 1978, spaceatt, invaders, invaders, invaders, invaders, ROT270, "Video Games GMBH", "Space Attack", 0 )
-	  GAME( 1980, spaceat2, invaders, invaders, spaceatt, invaders, ROT270, "Zenitone-Microsec Ltd", "Space Attack II", 0 )
-	  GAME( 19??, sinvzen,  invaders, invaders, spaceatt, invaders, ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Zenitone-Microsec)", 0 )
-	  GAME( 19??, sinvemag, invaders, invaders, sinvemag, invaders, ROT270, "bootleg", "Super Invaders (EMAG)", 0 )
-	  GAME( 19??, tst_invd, invaders, invaders, invaders, invaders, ROT0,   "Test ROM", "Space Invaders Test ROM", 0 )
-	  GAME( 19??, alieninv, invaders, invaders, earthinv, invaders, ROT270, "bootleg", "Alien Invasion Part II", 0 )
-	  GAME( 1978, spceking, invaders, invaders, spceking, invaders, ROT270, "Leijac (Konami)","Space King", 0 )
-	  GAME( 1978, spcewars, invaders, invaders, invadpt2, invaders, ROT270, "Sanritsu", "Space War (Sanritsu)", 0 )
-	  GAME( 1978, spacewr3, invaders, invaders, spacewr3, invaders, ROT270, "bootleg", "Space War Part 3", 0 )
-	  GAME( 1978, invaderl, invaders, invaders, invaders, invaders, ROT270, "bootleg", "Space Invaders (Logitec)", 0 )
-	  GAME( 1978, invader4, invaders, invaders, invaders, invaders, ROT270, "bootleg", "Space Invaders Part Four", 0 )
-	  GAME( 1979, jspecter, invaders, invaders, jspecter, invaders, ROT270, "Jatre", "Jatre Specter (set 1)", 0 )
-	  GAME( 1979, jspectr2, invaders, invaders, jspecter, invaders, ROT270, "Jatre", "Jatre Specter (set 2)", 0 )
-	  GAME( 1979, cosmicmo, invaders, invaders, cosmicmo, invaders, ROT270, "Universal", "Cosmic Monsters", 0 )
-      GAME( 1979, cosmicm2, invaders, invaders, cosmicmo, invaders, ROT270, "Universal", "Cosmic Monsters 2", 0 )
-	  GAME( 19??, superinv, invaders, invaders, invaders, invaders, ROT270, "bootleg", "Super Invaders", 0 )
-	  GAME( 19??, invasion, invaders, invaders, invasion, invaders, ROT270, "Sidam", "Invasion", 0 )
+	  GAMEL(1980, searthin, invaders, invaders, earthinv, 8080bw,   ROT270, "bootleg", "Super Earth Invasion (set 1)", 0, layout_invaders )
+	  GAMEL(1980, searthia, invaders, invaders, earthinv, 8080bw,   ROT270, "bootleg", "Super Earth Invasion (set 2)", 0, layout_invaders )
+	  GAMEL(1978, invadrmr, invaders, invaders, invaders, 8080bw,   ROT270, "Model Racing", "Space Invaders (Model Racing)", 0, layout_invaders )
+	  GAMEL(1978, spaceatt, invaders, invaders, invaders, 8080bw,   ROT270, "Video Games GMBH", "Space Attack", 0, layout_invaders )
+	  GAMEL(1980, spaceat2, invaders, invaders, spaceatt, 8080bw,   ROT270, "Zenitone-Microsec Ltd", "Space Attack II", 0, layout_invaders )
+	  GAMEL(19??, sinvzen,  invaders, invaders, spaceatt, 8080bw,   ROT270, "Zenitone-Microsec Ltd", "Super Invaders (Zenitone-Microsec)", 0, layout_invaders )
+	  GAMEL(19??, sinvemag, invaders, invaders, sinvemag, 8080bw,   ROT270, "bootleg", "Super Invaders (EMAG)", 0, layout_invaders )
+	  GAMEL(19??, tst_invd, invaders, invaders, invaders, 8080bw,   ROT0,   "Test ROM", "Space Invaders Test ROM", 0, layout_invaders )
+	  GAMEL(19??, alieninv, invaders, invaders, earthinv, 8080bw,   ROT270, "bootleg", "Alien Invasion Part II", 0, layout_invaders )
+	  GAMEL(1978, spceking, invaders, invaders, spceking, 8080bw,   ROT270, "Leijac (Konami)","Space King", 0, layout_invaders )
+	  GAMEL(1978, spcewars, invaders, invaders, invadpt2, 8080bw,   ROT270, "Sanritsu", "Space War (Sanritsu)", 0, layout_invaders )
+	  GAMEL(1978, spacewr3, invaders, invaders, spacewr3, 8080bw,   ROT270, "bootleg", "Space War Part 3", 0, layout_invaders )
+	  GAMEL(1978, invaderl, invaders, invaders, invaders, 8080bw,   ROT270, "bootleg", "Space Invaders (Logitec)", 0, layout_invaders )
+	  GAMEL(1978, invader4, invaders, invaders, invaders, 8080bw,   ROT270, "bootleg", "Space Invaders Part Four", 0, layout_invaders )
+	  GAMEL(1979, jspecter, invaders, invaders, jspecter, 8080bw,   ROT270, "Jatre", "Jatre Specter (set 1)", 0, layout_invaders )
+	  GAMEL(1979, jspectr2, invaders, invaders, jspecter, 8080bw,   ROT270, "Jatre", "Jatre Specter (set 2)", 0, layout_invaders )
+	  GAMEL(1979, cosmicmo, invaders, invaders, cosmicmo, 8080bw,   ROT270, "Universal", "Cosmic Monsters", 0, layout_invaders )
+      GAMEL(1979, cosmicm2, invaders, invaders, cosmicmo, 8080bw,   ROT270, "Universal", "Cosmic Monsters 2", 0, layout_invaders )
+	  GAMEL(19??, superinv, invaders, invaders, invaders, 8080bw,   ROT270, "bootleg", "Super Invaders", 0, layout_invaders )
+	  GAMEL(19??, invasion, invaders, invaders, invasion, 8080bw,   ROT270, "Sidam", "Invasion", 0, layout_invaders )
 	  GAME( 1978, sstrangr, 0,		  sstrangr, sstrangr, 8080bw,   ROT270,	"Yachiyo Electronics, Ltd.", "Space Stranger", 0 )
 	  GAME( 1979, sstrngr2, 0,        sstrngr2, sstrngr2, sstrngr2, ROT270, "Yachiyo Electronics, Ltd.", "Space Stranger 2", 0 )
 	  GAME( 1979, moonbase, invadpt2, invadpt2, invadpt2, invadpt2, ROT270, "Nichibutsu", "Moon Base", 0 )
-	  GAME( 19??, invrvnge, 0,        invrvnge, invrvnge, invrvnge, ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge",  GAME_NO_SOUND )
-	  GAME( 19??, invrvnga, invrvnge, invrvnge, invrvnge, invrvnge, ROT270, "Zenitone-Microsec Ltd. (Dutchford license)", "Invader's Revenge (Dutchford)", GAME_NO_SOUND )
+	  GAMEL(19??, invrvnge, 0,        invrvnge, invrvnge, 8080bw,   ROT270, "Zenitone-Microsec Ltd.", "Invader's Revenge",  GAME_NO_SOUND, layout_invrvnge )
+	  GAMEL(19??, invrvnga, invrvnge, invrvnge, invrvnge, 8080bw,   ROT270, "Zenitone-Microsec Ltd. (Dutchford license)", "Invader's Revenge (Dutchford)", GAME_NO_SOUND, layout_invrvnge )
 	  GAME( 1980, spclaser, 0,        invaders, spclaser, invaddlx, ROT270, "GamePlan (Taito)", "Space Laser", 0 )
 	  GAME( 1980, laser,    spclaser, invaders, spclaser, invaddlx, ROT270, "<unknown>", "Laser", 0 )
 	  GAME( 1979, spcewarl, spclaser, invaders, spcewarl, invaddlx, ROT270, "Leijac (Konami)","Space War (Leijac)", 0 )

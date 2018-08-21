@@ -288,7 +288,7 @@
 #include "machine/z80sio.h"
 #include "sndhrdw/mcr.h"
 #include "sound/samples.h"
-#include "artwork.h"
+#include "render.h"
 #include "mcr.h"
 
 
@@ -449,7 +449,9 @@ static WRITE8_HANDLER( dotron_op4_w )
     */
 	/* bit 7 = FL1 (J1-3) on flasher control board */
 	/* bit 6 = FL0 (J1-4) on flasher control board */
-	artwork_show("backdrop", data & 0x40);
+#ifdef NEW_RENDER
+	render_view_item_set_state("backlight", (data >> 6) & 1);
+#endif
 
 	/*
         Lamp Sequencer:
@@ -2329,7 +2331,7 @@ ROM_START( demoderb )
 	ROM_LOAD( "dd_pro1",      0x04000, 0x4000, CRC(4c713bfe) SHA1(493b6ba01e86e7586ad123c53cf7f0a0c191d670) )
 	ROM_LOAD( "dd_pro2",      0x08000, 0x4000, CRC(c2cbd2a4) SHA1(fa642b2f61ff5529ab688a43c1dc14357a4eba6f) )
 
-	ROM_REGION( 0x10000, REGION_CPU2, 0 )	/* 64k for the audio CPU, not populated */
+	ROM_REGION( 0x10000, REGION_CPU2, ROMREGION_ERASE00 )	/* 64k for the audio CPU, not populated */
 
 	ROM_REGION( 0x10000, REGION_CPU3, 0 )	/* 64k for the Turbo Cheap Squeak */
 	ROM_LOAD( "tcs_u5.bin",   0x0c000, 0x2000, CRC(eca33b2c) SHA1(938b021ea3b0f23aed7a98a930a58af371a02303) )

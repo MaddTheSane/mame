@@ -446,12 +446,13 @@ VIDEO_START( coinmstr )
 VIDEO_UPDATE( coinmstr )
 {
 	tilemap_draw(bitmap,cliprect,bg_tilemap,0,0);
+	return 0;
 }
 
 /* Declare PIA structure */
 
 /* PIA 0 */
-static struct pia6821_interface quizmstr_pia_0_intf =
+static const pia6821_interface quizmstr_pia_0_intf =
 {
 	/*inputs : A/B,CA/B1,CA/B2 */ input_port_0_r, 0, 0, 0, 0, 0,
 	/*outputs: A/B,CA/B2       */ 0, 0, 0, 0,
@@ -459,7 +460,7 @@ static struct pia6821_interface quizmstr_pia_0_intf =
 };
 
 /* PIA 1 */
-static struct pia6821_interface quizmstr_pia_1_intf =
+static const pia6821_interface quizmstr_pia_1_intf =
 {
 	/*inputs : A/B,CA/B1,CA/B2 */ 0, 0, 0, 0, 0, 0,
 	/*outputs: A/B,CA/B2       */ 0, 0, 0, 0,
@@ -467,7 +468,7 @@ static struct pia6821_interface quizmstr_pia_1_intf =
 };
 
 /* PIA 2 */
-static struct pia6821_interface quizmstr_pia_2_intf =
+static const pia6821_interface quizmstr_pia_2_intf =
 {
 	/*inputs : A/B,CA/B1,CA/B2 */ input_port_1_r, 0, 0, 0, 0, 0,
 	/*outputs: A/B,CA/B2       */ 0, 0, 0, 0,
@@ -476,7 +477,7 @@ static struct pia6821_interface quizmstr_pia_2_intf =
 
 
 /* PIA 0 */
-static struct pia6821_interface trailblz_pia_0_intf =
+static const pia6821_interface trailblz_pia_0_intf =
 {
 	/*inputs : A/B,CA/B1,CA/B2 */ 0, 0, 0, 0, 0, 0,
 	/*outputs: A/B,CA/B2       */ 0, 0, 0, 0,
@@ -484,7 +485,7 @@ static struct pia6821_interface trailblz_pia_0_intf =
 };
 
 /* PIA 1 */
-static struct pia6821_interface trailblz_pia_1_intf =
+static const pia6821_interface trailblz_pia_1_intf =
 {
 	/*inputs : A/B,CA/B1,CA/B2 */ input_port_1_r, 0, 0, 0, 0, 0,
 	/*outputs: A/B,CA/B2       */ 0, 0, 0, 0,
@@ -492,28 +493,36 @@ static struct pia6821_interface trailblz_pia_1_intf =
 };
 
 /* PIA 2 */
-static struct pia6821_interface trailblz_pia_2_intf =
+static const pia6821_interface trailblz_pia_2_intf =
 {
 	/*inputs : A/B,CA/B1,CA/B2 */ input_port_0_r, 0, 0, 0, 0, 0,
 	/*outputs: A/B,CA/B2       */ 0, 0, 0, 0,
 	/*irqs   : A/B             */ 0, 0
 };
 
-MACHINE_RESET( quizmstr )
+static MACHINE_START( quizmstr )
 {
-	pia_unconfig();
 	pia_config(0, PIA_STANDARD_ORDERING, &quizmstr_pia_0_intf);
 	pia_config(1, PIA_STANDARD_ORDERING, &quizmstr_pia_1_intf);
 	pia_config(2, PIA_STANDARD_ORDERING, &quizmstr_pia_2_intf);
+	return 0;
+}
+
+static MACHINE_RESET( quizmstr )
+{
 	pia_reset();
 }
 
-MACHINE_RESET( trailblz )
+static MACHINE_START( trailblz )
 {
-	pia_unconfig();
 	pia_config(0, PIA_STANDARD_ORDERING, &trailblz_pia_0_intf);
 	pia_config(1, PIA_STANDARD_ORDERING, &trailblz_pia_1_intf);
 	pia_config(2, PIA_STANDARD_ORDERING, &trailblz_pia_2_intf);
+	return 0;
+}
+
+static MACHINE_RESET( trailblz )
+{
 	pia_reset();
 }
 
@@ -553,6 +562,7 @@ static MACHINE_DRIVER_START( quizmstr )
 	MDRV_CPU_MODIFY("cpu")
 	MDRV_CPU_IO_MAP(quizmstr_io_map,0)
 
+	MDRV_MACHINE_START(quizmstr)
 	MDRV_MACHINE_RESET(quizmstr)
 MACHINE_DRIVER_END
 
@@ -561,6 +571,7 @@ static MACHINE_DRIVER_START( trailblz )
 	MDRV_CPU_MODIFY("cpu")
 	MDRV_CPU_IO_MAP(trailblz_io_map,0)
 
+	MDRV_MACHINE_START(trailblz)
 	MDRV_MACHINE_RESET(trailblz)
 MACHINE_DRIVER_END
 
@@ -569,6 +580,7 @@ static MACHINE_DRIVER_START( supnudg2 )
 	MDRV_CPU_MODIFY("cpu")
 	MDRV_CPU_IO_MAP(supnudg2_io_map,0)
 
+	MDRV_MACHINE_START(quizmstr)
 	MDRV_MACHINE_RESET(quizmstr)
 MACHINE_DRIVER_END
 

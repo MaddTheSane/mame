@@ -95,6 +95,7 @@ Todo:
 ***************************************************************************/
 
 #include "driver.h"
+#include "includes/dec0.h"
 
 static tilemap *pf1_tilemap_0,*pf1_tilemap_1,*pf1_tilemap_2;
 static tilemap *pf2_tilemap_0,*pf2_tilemap_1,*pf2_tilemap_2;
@@ -357,6 +358,7 @@ VIDEO_UPDATE( hbarrel )
 
 	dec0_drawsprites(bitmap,cliprect,0x08,0x00);
 	dec0_pf1_draw(bitmap,cliprect,0);
+	return 0;
 }
 
 /******************************************************************************/
@@ -394,6 +396,7 @@ VIDEO_UPDATE( baddudes )
 	}
 
 	dec0_pf1_draw(bitmap,cliprect,0);
+	return 0;
 }
 
 /******************************************************************************/
@@ -438,6 +441,7 @@ VIDEO_UPDATE( robocop )
 		dec0_drawsprites(bitmap,cliprect,0x00,0x00);
 
 	dec0_pf1_draw(bitmap,cliprect,0);
+	return 0;
 }
 
 /******************************************************************************/
@@ -452,6 +456,7 @@ VIDEO_UPDATE( birdtry )
 	dec0_pf2_draw(bitmap,cliprect,0);
 	dec0_drawsprites(bitmap,cliprect,0x00,0x00);
 	dec0_pf1_draw(bitmap,cliprect,0);
+	return 0;
 }
 
 /******************************************************************************/
@@ -473,6 +478,7 @@ VIDEO_UPDATE( hippodrm )
 
 	dec0_drawsprites(bitmap,cliprect,0x00,0x00);
 	dec0_pf1_draw(bitmap,cliprect,0);
+	return 0;
 }
 
 /******************************************************************************/
@@ -491,6 +497,7 @@ VIDEO_UPDATE( slyspy )
 		dec0_pf2_draw(bitmap,cliprect,TILEMAP_FRONT);
 
 	dec0_pf1_draw(bitmap,cliprect,0);
+	return 0;
 }
 
 /******************************************************************************/
@@ -530,6 +537,7 @@ VIDEO_UPDATE( midres )
 		dec0_drawsprites(bitmap,cliprect,0x00,0x00);
 
 	dec0_pf1_draw(bitmap,cliprect,0);
+	return 0;
 }
 
 /******************************************************************************/

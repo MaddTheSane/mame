@@ -49,7 +49,7 @@ endif
 NEW_DEBUGGER = 1
 
 # uncomment next line to use the new rendering system
-# NEW_RENDER = 1
+NEW_RENDER = 1
 
 # uncomment next line to use DRC MIPS3 engine
 X86_MIPS3_DRC = 1
@@ -74,8 +74,8 @@ X86_PPC_DRC = 1
 # PM = 1
 # AMD64 = 1
 
-# uncomment next line to use cygwin compiler
-# COMPILESYSTEM_CYGWIN	= 1
+# uncomment next line if you are building for a 64-bit target
+# PTR64 = 1
 
 # uncomment next line to build expat as part of MAME build
 BUILD_EXPAT = 1
@@ -96,6 +96,18 @@ BUILD_ZLIB = 1
 
 
 #-------------------------------------------------
+# sanity check the configuration
+#-------------------------------------------------
+
+# disable DRC cores for 64-bit builds
+ifdef PTR64
+X86_MIPS3_DRC =
+X86_PPC_DRC =
+endif
+
+
+
+#-------------------------------------------------
 # platform-specific definitions
 #-------------------------------------------------
 
@@ -106,8 +118,6 @@ EXE = .exe
 AR = @ar
 CC = @gcc
 LD = @gcc
-ASM = @nasm
-ASMFLAGS = -f coff
 MD = -mkdir.exe
 RM = @rm -f
 
@@ -119,8 +129,6 @@ RM = @rm -f
 
 ifeq ($(MAMEOS),msdos)
 PREFIX = d
-else
-PREFIX =
 endif
 
 # by default, compile for Pentium target
@@ -172,6 +180,10 @@ OBJ = obj/$(NAME)
 
 DEFS = -DX86_ASM -DLSB_FIRST -DINLINE="static __inline__" -Dasm=__asm__ -DCRLF=3
 
+ifdef PTR64
+DEFS += -DPTR64
+endif
+
 ifdef DEBUG
 DEFS += -DMAME_DEBUG
 endif
@@ -194,7 +206,7 @@ endif
 # compile and linking flags
 #-------------------------------------------------
 
-CFLAGS = -std=gnu89 -Isrc -Isrc/includes -Isrc/$(MAMEOS)
+CFLAGS = -std=gnu89 -Isrc -Isrc/includes -Isrc/$(MAMEOS) -I$(OBJ)/layout
 
 ifdef SYMBOLS
 CFLAGS += -O0 -Wall -Wno-unused -g
@@ -231,11 +243,6 @@ else
 MAPFLAGS =
 endif
 
-ifdef COMPILESYSTEM_CYGWIN
-CFLAGS += -mno-cygwin
-LDFLAGS	+= -mno-cygwin
-endif
-
 
 
 #-------------------------------------------------
@@ -250,12 +257,27 @@ VPATH = src $(wildcard src/cpu/*)
 # define the standard object directories
 #-------------------------------------------------
 
-OBJDIRS = obj $(OBJ) $(OBJ)/cpu $(OBJ)/sound $(OBJ)/$(MAMEOS) \
-	$(OBJ)/drivers $(OBJ)/machine $(OBJ)/vidhrdw $(OBJ)/sndhrdw $(OBJ)/debug
+OBJDIRS = \
+	obj \
+	$(OBJ) \
+	$(OBJ)/cpu \
+	$(OBJ)/sound \
+	$(OBJ)/debug \
+	$(OBJ)/drivers \
+	$(OBJ)/layout \
+	$(OBJ)/machine \
+	$(OBJ)/sndhrdw \
+	$(OBJ)/vidhrdw \
+	$(OBJ)/$(MAMEOS) \
 
 ifdef MESS
-OBJDIRS += $(OBJ)/mess $(OBJ)/mess/systems $(OBJ)/mess/machine \
-	$(OBJ)/mess/vidhrdw $(OBJ)/mess/sndhrdw $(OBJ)/mess/tools
+OBJDIRS += 
+	$(OBJ)/mess \
+	$(OBJ)/mess/systems \
+	$(OBJ)/mess/machine \
+	$(OBJ)/mess/sndhrdw \
+	$(OBJ)/mess/vidhrdw \
+	$(OBJ)/mess/tools
 endif
 
 
@@ -323,7 +345,7 @@ include src/cpu/cpu.mak
 include src/sound/sound.mak
 
 # combine the various definitions to one
-CDEFS = $(DEFS) $(COREDEFS) $(CPUDEFS) $(SOUNDDEFS) $(ASMDEFS)
+CDEFS = $(DEFS) $(COREDEFS) $(CPUDEFS) $(SOUNDDEFS)
 
 
 
@@ -335,7 +357,7 @@ emulator: maketree $(EMULATOR)
 
 extra: $(TOOLS)
 
-maketree: $(sort $(OBJDIRS))
+maketree: $(sort $(OBJDIRS)) $(OSPREBUILD)
 
 clean:
 	@echo Deleting object tree $(OBJ)...
@@ -344,11 +366,6 @@ clean:
 	$(RM) $(EMULATOR)
 	@echo Deleting $(TOOLS)...
 	$(RM) $(TOOLS)
-
-check: $(EMULATOR) xml2info$(EXE)
-	./$(EMULATOR) -listxml > $(NAME).xml
-	./xml2info < $(NAME).xml > $(NAME).lst
-	./xmllint --valid --noout $(NAME).xml
 
 
 
@@ -371,11 +388,21 @@ $(EMULATOR): $(COREOBJS) $(OSOBJS) $(CPULIB) $(SOUNDLIB) $(DRVLIBS) $(EXPAT) $(Z
 	@echo Linking $@...
 	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@ $(MAPFLAGS)
 
+file2str$(EXE): $(OBJ)/file2str.o $(OSDBGOBJS)
+	@echo Linking $@...
+	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
+
 romcmp$(EXE): $(OBJ)/romcmp.o $(OBJ)/unzip.o $(ZLIB) $(OSDBGOBJS)
+	@echo Linking $@...
+	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
 
 chdman$(EXE): $(OBJ)/chdman.o $(OBJ)/chd.o $(OBJ)/chdcd.o $(OBJ)/cdrom.o $(OBJ)/md5.o $(OBJ)/sha1.o $(OBJ)/version.o $(ZLIB) $(OSTOOLOBJS) $(OSDBGOBJS)
+	@echo Linking $@...
+	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
 
-xml2info$(EXE): $(OBJ)/xml2info.o $(EXPAT) $(OSDBGOBJS)
+jedutil$(EXE): $(OBJ)/jedutil.o $(OBJ)/jedparse.o $(OSDBGOBJS)
+	@echo Linking $@...
+	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
 
 
 
@@ -415,11 +442,15 @@ $(OBJ)/%.pp: src/%.c
 	@echo Compiling $<...
 	$(CC) $(CDEFS) $(CFLAGS) -E $< -o $@
 
+$(OBJ)/%.s: src/%.c
+	@echo Compiling $<...
+	$(CC) $(CDEFS) $(CFLAGS) -S $< -o $@
+
+$(OBJ)/%.lh: src/%.lay file2str$(EXE)
+	@echo Converting $<...
+	@file2str$(EXE) $< $@ layout_$(basename $(notdir $<))
+
 $(OBJ)/%.a:
 	@echo Archiving $@...
 	$(RM) $@
-	$(AR) cr $@ $^
-	
-%$(EXE):
-	@echo Linking $@...
-	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
+	$(AR) -cr $@ $^

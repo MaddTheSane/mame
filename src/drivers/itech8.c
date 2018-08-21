@@ -504,7 +504,7 @@ static const rectangle *visarea;
 static WRITE8_HANDLER( pia_porta_out );
 static WRITE8_HANDLER( pia_portb_out );
 
-static struct pia6821_interface pia_interface =
+static const pia6821_interface pia_interface =
 {
 	0, ticket_dispenser_r, 0, 0, 0, 0,		/* PIA inputs: A, B, CA1, CB1, CA2, CB2 */
 	pia_porta_out, pia_portb_out, 0, 0,		/* PIA outputs: A, B, CA2, CB2 */
@@ -609,6 +609,12 @@ static void generate_sound_irq(int state)
  *
  *************************************/
 
+static MACHINE_START( itech8 )
+{
+	pia_config(0, PIA_STANDARD_ORDERING, &pia_interface);
+	return 0;
+}
+
 static MACHINE_RESET( itech8 )
 {
 	/* make sure bank 0 is selected */
@@ -616,8 +622,6 @@ static MACHINE_RESET( itech8 )
 		memory_set_bankptr(1, &memory_region(REGION_CPU1)[0x4000]);
 
 	/* reset the PIA (if used) */
-	pia_unconfig();
-	pia_config(0, PIA_STANDARD_ORDERING, &pia_interface);
 	pia_reset();
 
 	/* reset the VIA chip (if used) */
@@ -634,7 +638,7 @@ static MACHINE_RESET( itech8 )
 	/* set the visible area */
 	if (visarea)
 	{
-		set_visible_area(visarea->min_x, visarea->max_x, visarea->min_y, visarea->max_y);
+		set_visible_area(0, visarea->min_x, visarea->max_x, visarea->min_y, visarea->max_y);
 		visarea = NULL;
 	}
 }
@@ -653,7 +657,7 @@ static void behind_the_beam_update(int scanline_plus_interval)
 	int interval = scanline_plus_interval & 0xff;
 
 	/* force a partial update to the current scanline */
-	force_partial_update(scanline);
+	force_partial_update(0, scanline);
 
 	/* advance by the interval, and wrap to 0 */
 	scanline += interval;
@@ -1755,6 +1759,7 @@ static MACHINE_DRIVER_START( itech8_core_lo )
 	MDRV_FRAMES_PER_SECOND(60)
 	MDRV_VBLANK_DURATION((int)(((263. - 240.) / 263.) * 1000000. / 60.))
 
+	MDRV_MACHINE_START(itech8)
 	MDRV_MACHINE_RESET(itech8)
 	MDRV_NVRAM_HANDLER(itech8)
 
@@ -2122,6 +2127,9 @@ ROM_START( gtg2t )
 
 	ROM_REGION( 0x20000, REGION_SOUND1, 0 )
 	ROM_LOAD( "srom00.bin", 0x00000, 0x20000, CRC(4dd4db42) SHA1(0dffb51e8de36d8747f443fd65fe9927815eaff0) )
+
+	ROM_REGION( 0x0200, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "tibpal16l8.u11", 0x0000, 0x0104, CRC(9bf5a75f) SHA1(79786f7ce656f30a33a92887a290b767a7cbbf31) )
 ROM_END
 
 
@@ -2144,6 +2152,9 @@ ROM_START( gtg2j )
 
 	ROM_REGION( 0x20000, REGION_SOUND1, 0 )
 	ROM_LOAD( "srom0.bin", 0x00000, 0x20000, CRC(1cccbfdf) SHA1(546059fea2e7cd5627a666d80b1fc3ed8fcc0762) )
+
+	ROM_REGION( 0x0200, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "tibpal16l8.u11", 0x0000, 0x0104, CRC(9bf5a75f) SHA1(79786f7ce656f30a33a92887a290b767a7cbbf31) )
 ROM_END
 
 
@@ -2305,6 +2316,9 @@ ROM_START( hstennis )
 
 	ROM_REGION( 0x20000, REGION_SOUND1, 0 )
 	ROM_LOAD( "srom0.bin", 0x00000, 0x20000, CRC(d9ce58c3) SHA1(92574e60497d86b8608fba6278ccfc9036cb7f22) )
+
+	ROM_REGION( 0x0200, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8-itvs.u11", 0x0000, 0x0104, CRC(fee03727) SHA1(e784ff18505cdccc1020dbe5cb0e7cc9efc068a4) )
 ROM_END
 
 
@@ -2326,6 +2340,9 @@ ROM_START( hstenn10 )
 
 	ROM_REGION( 0x20000, REGION_SOUND1, 0 )
 	ROM_LOAD( "srom0.bin", 0x00000, 0x20000, CRC(d9ce58c3) SHA1(92574e60497d86b8608fba6278ccfc9036cb7f22) )
+
+	ROM_REGION( 0x0200, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8-itvs.u11", 0x0000, 0x0104, CRC(fee03727) SHA1(e784ff18505cdccc1020dbe5cb0e7cc9efc068a4) )
 ROM_END
 
 
@@ -2430,6 +2447,11 @@ ROM_START( rimrockn )
 
 	ROM_REGION( 0x40000, REGION_SOUND1, 0 )
 	ROM_LOAD( "srom0", 0x00000, 0x40000, CRC(7ad42be0) SHA1(c9b519bad3c5c9a3315d1bf3292cc30ee0771db7) )
+
+	ROM_REGION( 0x0600, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "pal16l8.u14", 0x0000, 0x0104, NO_DUMP ) /* PAL is read protected */
+	ROM_LOAD( "pal16r4.u45", 0x0200, 0x0104, NO_DUMP ) /* PAL is read protected */
+	ROM_LOAD( "pal16l8.u29", 0x0400, 0x0104, NO_DUMP ) /* PAL is read protected */
 ROM_END
 
 
@@ -2569,6 +2591,9 @@ ROM_START( gtg2 )
 
 	ROM_REGION( 0x20000, REGION_SOUND1, 0 )
 	ROM_LOAD( "srom00.bin", 0x00000, 0x20000, CRC(4dd4db42) SHA1(0dffb51e8de36d8747f443fd65fe9927815eaff0) )
+
+	ROM_REGION( 0x0200, REGION_PLDS, ROMREGION_DISPOSE )
+	ROM_LOAD( "tibpal16l8.u29", 0x0000, 0x0104, NO_DUMP ) /* PAL is read protected */
 ROM_END
 
 

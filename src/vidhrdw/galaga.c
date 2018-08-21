@@ -7,7 +7,7 @@
 ***************************************************************************/
 
 #include "driver.h"
-
+#include "includes/galaga.h"
 
 
 #define MAX_STARS 252
@@ -17,11 +17,6 @@ UINT8 *galaga_videoram;
 UINT8 *galaga_ram1,*galaga_ram2,*galaga_ram3;
 UINT8 galaga_starcontrol[6];
 static UINT32 stars_scrollx,stars_scrolly;
-
-struct star
-{
-	int x,y,col,set;
-};
 
 static INT32 galaga_gfxbank; // used by catsbee
 
@@ -582,7 +577,7 @@ static void draw_stars( mame_bitmap *bitmap, const rectangle *cliprect )
 
 
 
-				if (y >= Machine->visible_area.min_y && y <= Machine->visible_area.max_y)
+				if (y >= Machine->visible_area[0].min_y && y <= Machine->visible_area[0].max_y)
 				{
 					if (read_pixel(bitmap, x, y) == bpen)
 						plot_pixel(bitmap, x, y, STARS_COLOR_BASE + star_seed_tab[ star_cntr ].col);
@@ -600,6 +595,7 @@ VIDEO_UPDATE( galaga )
 	tilemap_draw(bitmap,cliprect,tx_tilemap,0,0);
 
 	draw_stars(bitmap,cliprect);
+	return 0;
 }
 
 

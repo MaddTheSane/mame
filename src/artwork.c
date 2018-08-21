@@ -793,6 +793,9 @@ void artwork_update_visible_area(mame_display *display)
 		piece->bounds.max_y = (int)((piece->bottom - min_y) * (double)(original_height * gamescale) + 0.5) - 1;
 	}
 
+	/* set UI visible area */
+	ui_set_visible_area(screenrect.min_x, screenrect.min_y, screenrect.max_x, screenrect.max_y);
+
 	artwork_prep();
 }
 
@@ -1004,8 +1007,8 @@ void artwork_get_screensize(int *width, int *height)
 	}
 	else
 	{
-		*width = Machine->drv->screen_width;
-		*height = Machine->drv->screen_height;
+		*width = Machine->drv->screen[0].maxwidth;
+		*height = Machine->drv->screen[0].maxheight;
 	}
 }
 
@@ -2054,7 +2057,7 @@ mame_file *artwork_load_artwork_file(const game_driver **driver)
 			if (artfile)
 				break;
 		}
-		*driver = (*driver)->clone_of;
+		*driver = driver_get_clone(*driver);
 	}
 	return artfile;
 }

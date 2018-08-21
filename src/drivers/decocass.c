@@ -340,33 +340,44 @@ static const gfx_layout tilelayout =
 	2*16*16 /* every tile takes 64 consecutive bytes */
 };
 
+static const UINT32 objlayout_planes[1] =
+	{ 0 };
+
+static const UINT32 objlayout_xoffset[64] =
+{
+	7*8+0,7*8+1,7*8+2,7*8+3,7*8+4,7*8+5,7*8+6,7*8+7,
+	6*8+0,6*8+1,6*8+2,6*8+3,6*8+4,6*8+5,6*8+6,6*8+7,
+	5*8+0,5*8+1,5*8+2,5*8+3,5*8+4,5*8+5,5*8+6,5*8+7,
+	4*8+0,4*8+1,4*8+2,4*8+3,4*8+4,4*8+5,4*8+6,4*8+7,
+	3*8+0,3*8+1,3*8+2,3*8+3,3*8+4,3*8+5,3*8+6,3*8+7,
+	2*8+0,2*8+1,2*8+2,2*8+3,2*8+4,2*8+5,2*8+6,2*8+7,
+	1*8+0,1*8+1,1*8+2,1*8+3,1*8+4,1*8+5,1*8+6,1*8+7,
+	0*8+0,0*8+1,0*8+2,0*8+3,0*8+4,0*8+5,0*8+6,0*8+7
+};
+
+static const UINT32 objlayout_yoffset[64] =
+{
+	63*2*64,62*2*64,61*2*64,60*2*64,59*2*64,58*2*64,57*2*64,56*2*64,
+	55*2*64,54*2*64,53*2*64,52*2*64,51*2*64,50*2*64,49*2*64,48*2*64,
+	47*2*64,46*2*64,45*2*64,44*2*64,43*2*64,42*2*64,41*2*64,40*2*64,
+	39*2*64,38*2*64,37*2*64,36*2*64,35*2*64,34*2*64,33*2*64,32*2*64,
+	31*2*64,30*2*64,29*2*64,28*2*64,27*2*64,26*2*64,25*2*64,24*2*64,
+	23*2*64,22*2*64,21*2*64,20*2*64,19*2*64,18*2*64,17*2*64,16*2*64,
+	15*2*64,14*2*64,13*2*64,12*2*64,11*2*64,10*2*64, 9*2*64, 8*2*64,
+	 7*2*64, 6*2*64, 5*2*64, 4*2*64, 3*2*64, 2*2*64, 1*2*64, 0*2*64
+};
+
 static const gfx_layout objlayout =
 {
 	64,64,	/* 64x64 object */
 	2,		/* 2 objects */
 	1,		/* 1 bits per pixel */
 	{ 0 },
-	{
-		7*8+0,7*8+1,7*8+2,7*8+3,7*8+4,7*8+5,7*8+6,7*8+7,
-		6*8+0,6*8+1,6*8+2,6*8+3,6*8+4,6*8+5,6*8+6,6*8+7,
-		5*8+0,5*8+1,5*8+2,5*8+3,5*8+4,5*8+5,5*8+6,5*8+7,
-		4*8+0,4*8+1,4*8+2,4*8+3,4*8+4,4*8+5,4*8+6,4*8+7,
-		3*8+0,3*8+1,3*8+2,3*8+3,3*8+4,3*8+5,3*8+6,3*8+7,
-		2*8+0,2*8+1,2*8+2,2*8+3,2*8+4,2*8+5,2*8+6,2*8+7,
-		1*8+0,1*8+1,1*8+2,1*8+3,1*8+4,1*8+5,1*8+6,1*8+7,
-		0*8+0,0*8+1,0*8+2,0*8+3,0*8+4,0*8+5,0*8+6,0*8+7
-	},
-	{
-		63*2*64,62*2*64,61*2*64,60*2*64,59*2*64,58*2*64,57*2*64,56*2*64,
-		55*2*64,54*2*64,53*2*64,52*2*64,51*2*64,50*2*64,49*2*64,48*2*64,
-		47*2*64,46*2*64,45*2*64,44*2*64,43*2*64,42*2*64,41*2*64,40*2*64,
-		39*2*64,38*2*64,37*2*64,36*2*64,35*2*64,34*2*64,33*2*64,32*2*64,
-		31*2*64,30*2*64,29*2*64,28*2*64,27*2*64,26*2*64,25*2*64,24*2*64,
-		23*2*64,22*2*64,21*2*64,20*2*64,19*2*64,18*2*64,17*2*64,16*2*64,
-		15*2*64,14*2*64,13*2*64,12*2*64,11*2*64,10*2*64, 9*2*64, 8*2*64,
-		 7*2*64, 6*2*64, 5*2*64, 4*2*64, 3*2*64, 2*2*64, 1*2*64, 0*2*64
-	},
-	8*8 /* object takes 8 consecutive bytes */
+	EXTENDED_XOFFS,
+	EXTENDED_YOFFS,
+	8*8, /* object takes 8 consecutive bytes */
+	objlayout_xoffset,
+	objlayout_yoffset
 };
 
 static const gfx_layout missilelayout =
@@ -463,6 +474,14 @@ static MACHINE_DRIVER_START( ctsttape )
 	/* basic machine hardware */
 	MDRV_IMPORT_FROM(decocass)
 	MDRV_MACHINE_RESET(ctsttape)
+MACHINE_DRIVER_END
+
+
+static MACHINE_DRIVER_START( chwy )
+
+	/* basic machine hardware */
+	MDRV_IMPORT_FROM(decocass)
+	MDRV_MACHINE_RESET(chwy)
 MACHINE_DRIVER_END
 
 
@@ -731,6 +750,17 @@ ROM_START( ctsttape )
 	ROM_LOAD( "testtape.cas", 0x0000, 0x2000, CRC(4f9d8efb) SHA1(5b77747dad1033e5703f06c0870441b54b4256c5) )
 ROM_END
 
+ROM_START( chwy )
+	DECOCASS_COMMON_ROMS
+
+	ROM_REGION( 0x00020, REGION_USER1, 0 )	  /* dongle data */
+	/* The dongle data is reverse engineered from manual decryption */
+	ROM_LOAD( "chwy.pro",   0x0000, 0x0020, BAD_DUMP CRC(2fae678e) SHA1(4a7de851442d4c1d690de03262f0e136a52fca35) )
+
+	ROM_REGION( 0x10000, REGION_USER2, 0 )	  /* (max) 64k for cassette image */
+	ROM_LOAD( "chwy.cas",   0x0000, 0x8000, CRC(68a48064) SHA1(7e389737972fd0c54f398d296159c561f5ec3a93) )
+ROM_END
+
 ROM_START( clocknch )
 	DECOCASS_COMMON_ROMS
 
@@ -833,7 +863,8 @@ ROM_START( cexplore )
 	DECOCASS_COMMON_ROMS
 
 	ROM_REGION( 0x00020, REGION_USER1, 0 )	  /* dongle data */
-	ROM_LOAD( "de-0061.pro", 0x0000, 0x0020, CRC(e09ae5de) SHA1(7dec067d0739a6dad2607132641b66880a5b7751) )
+	/* The dongle data is reverse engineered by table analysis */
+	ROM_LOAD( "cexplore.pro", 0x0000, 0x0020, BAD_DUMP CRC(c7a9ac8f) SHA1(b0a566d948f71a4eddcde0dd5e9e69ca96f71c36) )
 
 	ROM_REGION( 0x10000, REGION_USER2, 0 )	  /* (max) 64k for cassette image */
 	ROM_LOAD( "cexplore.cas", 0x0000, 0x8000, CRC(fae49c66) SHA1(4ae69e2f706fdf30204f0aa1277619395cacc21b) )
@@ -1108,20 +1139,11 @@ ROM_END
 /* The Following have unknown Dongles
     (dongle data not read)       */
 
-ROM_START( chwy )
-	DECOCASS_COMMON_ROMS
-
-	/* no dumped dongle data, type1? its an early game if its highway chase */
-
-	ROM_REGION( 0x10000, REGION_USER2, 0 )	  /* (max) 64k for cassette image */
-	ROM_LOAD( "chwy.cas",   0x0000, 0x8000, CRC(68a48064) SHA1(7e389737972fd0c54f398d296159c561f5ec3a93) )
-ROM_END
-
 ROM_START( czeroize )
 	DECOCASS_COMMON_ROMS
 
 	ROM_REGION( 0x01000, REGION_USER1, 0 )	  /* dongle data */
-	/* missing dongle data */
+	ROM_LOAD( "czeroize.pro",  0x0000, 0x1000, NO_DUMP )
 
 	ROM_REGION( 0x10000, REGION_USER2, 0 )	  /* (max) 64k for cassette image */
 	ROM_LOAD( "czeroize.cas",   0x0000, 0x10000, CRC(3ef0a406) SHA1(645b34cd477e0bb5539c8fe937a7a2dbd8369003) )
@@ -1179,6 +1201,7 @@ static DRIVER_INIT( decocrom )
 
 GAMEB( 1981, decocass, 0,        decocass, decocass, decocass, decocass, ROT270, "Data East Corporation", "Cassette System", NOT_A_DRIVER )
 GAMEB( 1981, ctsttape, decocass, decocass, ctsttape, decocass, decocass, ROT270, "Data East Corporation", "Test Tape (Cassette)", 0 )
+GAMEB( 1980, chwy,     decocass, decocass, chwy,     decocass, decocass, ROT270, "Data East Corporation", "Highway Chase (Cassette)", 0 )
 GAMEB( 1981, clocknch, decocass, decocass, clocknch, decocass, decocass, ROT270, "Data East Corporation", "Lock'n'Chase (Cassette)", 0 )
 GAMEB( 1981, ctisland, decocass, decocass, ctisland, decocass, decocrom, ROT270, "Data East Corporation", "Treasure Island (Cassette, set 1)", 0 )
 GAMEB( 1981, ctislnd2, ctisland, decocass, ctisland, decocass, decocrom, ROT270, "Data East Corporation", "Treasure Island (Cassette, set 2)", 0 )
@@ -1214,6 +1237,3 @@ GAMEB( 1984, cscrtry,  decocass, decocass, cscrtry,  decocass, decocass, ROT270,
 GAMEB( 1984, cscrtry2, cscrtry,  decocass, cscrtry,  decocass, decocass, ROT270, "Data East Corporation", "Scrum Try (Cassette, set 2)", 0 )
 GAMEB( 1985, cflyball, decocass, decocass, cflyball, decocass, decocass, ROT270, "Data East Corporation", "Flying Ball (Cassette)", GAME_NO_SOUND )
 GAMEB( 1985, cbdash,   decocass, decocass, cbdash,   decocass, decocass, ROT270, "Data East Corporation", "Boulder Dash (Cassette)", 0 )
-
-/* The following may be missing dongle data if they're not Type 1 */
-GAMEB( 1985, chwy,     decocass, decocass, decocass, decocass, decocass, ROT270, "Data East Corporation", "Highway Chase? (Cassette)", GAME_NOT_WORKING )

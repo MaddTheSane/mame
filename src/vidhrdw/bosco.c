@@ -7,6 +7,7 @@
 ***************************************************************************/
 
 #include "driver.h"
+#include "includes/galaga.h"
 
 
 #define MAX_STARS 252
@@ -19,22 +20,11 @@ static INT32 bosco_starcontrol,bosco_starblink[2];
 
 static tilemap *bg_tilemap,*fg_tilemap;
 
-
-struct star
-{
-	int x,y,col,set;
-};
-
-
 #define VIDEO_RAM_SIZE 0x400
 
 UINT8 *bosco_videoram;
 UINT8 *bosco_radarattr;
 static UINT8 *bosco_radarx,*bosco_radary;
-
-/* see Galaga.c for starfield locations data */
-
-extern struct star star_seed_tab[];
 
 
 PALETTE_INIT( bosco )
@@ -301,7 +291,7 @@ static void draw_stars( mame_bitmap *bitmap, const rectangle *cliprect )
 
 					if (flip_screen) x += 64;
 
-					if (y >= Machine->visible_area.min_y && y <= Machine->visible_area.max_y)
+					if (y >= Machine->visible_area[0].min_y && y <= Machine->visible_area[0].max_y)
 					{
 						if (read_pixel(bitmap, x, y) == bpen)
    							plot_pixel(bitmap, x, y, STARS_COLOR_BASE + star_seed_tab[star_cntr].col );
@@ -345,6 +335,7 @@ VIDEO_UPDATE( bosco )
 	draw_bullets(bitmap,cliprect);
 
 	draw_stars(bitmap,cliprect);
+	return 0;
 }
 
 

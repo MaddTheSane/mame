@@ -75,6 +75,7 @@ static quark_table *description_table;
 static quark_table *roms_table;
 static quark_table *inputs_table;
 static quark_table *defstr_table;
+static int total_drivers;
 
 
 
@@ -210,20 +211,32 @@ static void build_quarks(void)
 static int validate_driver(int drivnum, const machine_config *drv)
 {
 	const game_driver *driver = drivers[drivnum];
+	const game_driver *clone_of;
 	quark_entry *entry;
 	int error = FALSE;
 	const char *s;
 	UINT32 crc;
 
+	/* determine the clone */
+	clone_of = driver_get_clone(driver);
+
+	/* if we have at least 100 drivers, validate the clone */
+	/* (100 is arbitrary, but tries to avoid tiny.mak dependencies) */
+	if (total_drivers > 100 && !clone_of && strcmp(driver->parent, "0"))
+	{
+		printf("%s: %s is a non-existant clone\n", driver->source_file, driver->parent);
+		error = TRUE;
+	}
+
 	/* look for recursive cloning */
-	if (driver->clone_of == driver)
+	if (clone_of == driver)
 	{
 		printf("%s: %s is set as a clone of itself\n", driver->source_file, driver->name);
 		error = TRUE;
 	}
 
 	/* look for clones that are too deep */
-	if (driver->clone_of && driver->clone_of->clone_of && (driver->clone_of->clone_of->flags & NOT_A_DRIVER) == 0)
+	if (clone_of != NULL && (clone_of = driver_get_clone(clone_of)) != NULL && (clone_of->flags & NOT_A_DRIVER) == 0)
 	{
 		printf("%s: %s is a clone of a clone\n", driver->source_file, driver->name);
 		error = TRUE;
@@ -316,6 +329,7 @@ static int validate_roms(int drivnum, const machine_config *drv, UINT32 *region_
 	const char *last_name = "???";
 	int cur_region = -1;
 	int error = FALSE;
+	int items_since_region = 1;
 
 	/* reset region info */
 	memset(region_length, 0, REGION_MAX * sizeof(*region_length));
@@ -327,6 +341,11 @@ static int validate_roms(int drivnum, const machine_config *drv, UINT32 *region_
 		if (ROMENTRY_ISREGION(romp))
 		{
 			int type = ROMREGION_GETTYPE(romp);
+
+			/* if we haven't seen any items since the last region, print a warning */
+			if (items_since_region == 0)
+				printf("%s: %s has empty ROM region (warning)\n", driver->source_file, driver->name);
+			items_since_region = (ROMREGION_ISERASE(romp) || ROMREGION_ISDISPOSE(romp)) ? 1 : 0;
 
 			/* check for an invalid region */
 			if (type >= REGION_MAX || type <= REGION_INVALID)
@@ -358,6 +377,8 @@ static int validate_roms(int drivnum, const machine_config *drv, UINT32 *region_
 			const char *hash;
 			const char *s;
 
+			items_since_region++;
+
 			/* track the last filename we found */
 			last_name = ROM_GETNAME(romp);
 
@@ -380,12 +401,21 @@ static int validate_roms(int drivnum, const machine_config *drv, UINT32 *region_
 		}
 
 		/* for any non-region ending entries, make sure they don't extend past the end */
-		if (!ROMENTRY_ISREGIONEND(romp) && cur_region != -1 && ROM_GETOFFSET(romp) + ROM_GETLENGTH(romp) > region_length[cur_region])
+		if (!ROMENTRY_ISREGIONEND(romp) && cur_region != -1)
 		{
-			printf("%s: %s has ROM %s extending past the defined memory region\n", driver->source_file, driver->name, last_name);
-			error = TRUE;
+			items_since_region++;
+
+			if (ROM_GETOFFSET(romp) + ROM_GETLENGTH(romp) > region_length[cur_region])
+			{
+				printf("%s: %s has ROM %s extending past the defined memory region\n", driver->source_file, driver->name, last_name);
+				error = TRUE;
+			}
 		}
 	}
+
+	/* final check for empty regions */
+	if (items_since_region == 0)
+		printf("%s: %s has empty ROM region (warning)\n", driver->source_file, driver->name);
 
 	return error;
 }
@@ -562,7 +592,7 @@ static int validate_display(int drivnum, const machine_config *drv)
 	}
 
 	/* sanity check dimensions */
-	if ((drv->screen_width <= 0) || (drv->screen_height <= 0))
+	if ((drv->screen[0].maxwidth <= 0) || (drv->screen[0].maxheight <= 0))
 	{
 		printf("%s: %s has invalid display dimensions\n", driver->source_file, driver->name);
 		error = TRUE;
@@ -571,10 +601,10 @@ static int validate_display(int drivnum, const machine_config *drv)
 	/* sanity check display area */
 	if (!(drv->video_attributes & VIDEO_TYPE_VECTOR))
 	{
-		if ((drv->default_visible_area.max_x < drv->default_visible_area.min_x)
-			|| (drv->default_visible_area.max_y < drv->default_visible_area.min_y)
-			|| (drv->default_visible_area.max_x >= drv->screen_width)
-			|| (drv->default_visible_area.max_y >= drv->screen_height))
+		if ((drv->screen[0].default_visible_area.max_x < drv->screen[0].default_visible_area.min_x)
+			|| (drv->screen[0].default_visible_area.max_y < drv->screen[0].default_visible_area.min_y)
+			|| (drv->screen[0].default_visible_area.max_x >= drv->screen[0].maxwidth)
+			|| (drv->screen[0].default_visible_area.max_y >= drv->screen[0].maxheight))
 		{
 			printf("%s: %s has an invalid display area\n", driver->source_file, driver->name);
 			error = TRUE;
@@ -614,7 +644,7 @@ static int validate_gfx(int drivnum, const machine_config *drv, const UINT32 *re
 			int len, avail, plane, start;
 
 			/* determine which plane is the largest */
-			start = 0;
+ 			start = 0;
 			for (plane = 0; plane < MAX_GFX_PLANES; plane++)
 				if (gfx->gfxlayout->planeoffset[plane] > start)
 					start = gfx->gfxlayout->planeoffset[plane];
@@ -932,6 +962,11 @@ int mame_validitychecks(int game)
 	if (sizeof(INT64)  != 8)	{ printf("INT64 must be 64 bits\n"); error = TRUE; }
 	if (sizeof(UINT64) != 8)	{ printf("UINT64 must be 64 bits\n"); error = TRUE; }
 
+	/* make sure the CPU and sound interfaces are up and running */
+	cpuintrf_init();
+	sndintrf_init();
+
+	init_resource_tracking();
 	begin_resource_tracking();
 	osd_profiling_ticks();
 
@@ -939,6 +974,10 @@ int mame_validitychecks(int game)
 	prep -= osd_profiling_ticks();
 	build_quarks();
 	prep += osd_profiling_ticks();
+
+	/* count drivers first */
+	for (drivnum = 0; drivers[drivnum]; drivnum++) ;
+	total_drivers = drivnum;
 
 	/* iterate over all drivers */
 	for (drivnum = 0; drivers[drivnum]; drivnum++)
@@ -1018,6 +1057,7 @@ int mame_validitychecks(int game)
 #endif
 
 	end_resource_tracking();
+	exit_resource_tracking();
 
 	return error;
 }

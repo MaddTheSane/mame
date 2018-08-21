@@ -46,9 +46,9 @@ VIDEO_UPDATE( missb2 )
 	/* the background character columns is stored in the area dd00-dd3f */
 
 	/* This clears & redraws the entire screen each pass */
-	fillbitmap(bitmap,Machine->pens[255],&Machine->visible_area);
+	fillbitmap(bitmap,Machine->pens[255],&Machine->visible_area[0]);
 
-	if (!bublbobl_video_enable) return;
+	if (!bublbobl_video_enable) return 0;
 
 	/* background map register */
 	//ui_popup("%02x",(*missb2_bgvram) & 0x1f);
@@ -59,7 +59,7 @@ VIDEO_UPDATE( missb2 )
 				1,
 				0,0,
 				0,(bg_offs & 0xf) * 0x10,
-				&Machine->visible_area,TRANSPARENCY_NONE,0xff);
+				&Machine->visible_area[0],TRANSPARENCY_NONE,0xff);
 	}
 
 
@@ -119,12 +119,13 @@ VIDEO_UPDATE( missb2 )
 						0,
 						flipx,flipy,
 						x,y,
-						&Machine->visible_area,TRANSPARENCY_PEN,0xff);
+						&Machine->visible_area[0],TRANSPARENCY_PEN,0xff);
 			}
 		}
 
 		sx += 16;
 	}
+	return 0;
 }
 
 INLINE void bg_changecolor_RRRRGGGGBBBBxxxx(pen_t color,int data)
@@ -291,13 +292,8 @@ static const gfx_layout charlayout =
 	16*8
 };
 
-static const gfx_layout bglayout =
+static const UINT32 bglayout_xoffset[256] =
 {
-	256,16,
-	RGN_FRAC(1,1),
-	8,
-	{ 0,1,2,3,4,5,6,7 },
-	{
 		0*8,      1*8, 2048*8, 2049*8,    8*8,    9*8, 2056*8, 2057*8,
 		4*8,      5*8, 2052*8, 2053*8,   12*8,   13*8, 2060*8, 2061*8,
 		256*8 , 257*8, 2304*8, 2305*8,  264*8,  265*8, 2312*8, 2313*8,
@@ -330,9 +326,19 @@ static const gfx_layout bglayout =
 	   1542*8, 1543*8, 3590*8, 3591*8, 1550*8, 1551*8, 3598*8, 3599*8,
 	   1794*8, 1795*8, 3842*8, 3843*8, 1802*8, 1803*8, 3850*8, 3851*8,
 	   1798*8, 1799*8, 3846*8, 3847*8, 1806*8, 1807*8, 3854*8, 3855*8
-	  },
+};
+
+static const gfx_layout bglayout =
+{
+	256,16,
+	RGN_FRAC(1,1),
+	8,
+	{ 0,1,2,3,4,5,6,7 },
+	EXTENDED_XOFFS,
 	{ 0*128, 1*128, 2*128, 3*128, 4*128, 5*128, 6*128, 7*128, 8*128, 9*128, 10*128, 11*128, 12*128, 13*128, 14*128, 15*128 },
-	256*128
+	256*128,
+	bglayout_xoffset,
+	NULL
 };
 
 /* Graphics Decode Information */

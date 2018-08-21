@@ -20,24 +20,19 @@ int has_TC0480SCP(void);
 int PC080SN_vh_start(int chips,int gfxnum,int x_offset,int y_offset,int y_invert,int opaque,int dblwidth);
 READ16_HANDLER ( PC080SN_word_0_r );
 WRITE16_HANDLER( PC080SN_word_0_w );
-READ16_HANDLER ( PC080SN_xscroll_word_0_r );
 WRITE16_HANDLER( PC080SN_xscroll_word_0_w );
-READ16_HANDLER ( PC080SN_yscroll_word_0_r );
 WRITE16_HANDLER( PC080SN_yscroll_word_0_w );
-READ16_HANDLER ( PC080SN_ctrl_word_0_r );
 WRITE16_HANDLER( PC080SN_ctrl_word_0_w );
 READ16_HANDLER ( PC080SN_word_1_r );
 WRITE16_HANDLER( PC080SN_word_1_w );
-READ16_HANDLER ( PC080SN_xscroll_word_1_r );
 WRITE16_HANDLER( PC080SN_xscroll_word_1_w );
-READ16_HANDLER ( PC080SN_yscroll_word_1_r );
 WRITE16_HANDLER( PC080SN_yscroll_word_1_w );
-READ16_HANDLER ( PC080SN_ctrl_word_1_r );
 WRITE16_HANDLER( PC080SN_ctrl_word_1_w );
 void PC080SN_set_scroll(int chip,int tilemap_num,int scrollx,int scrolly);
 void PC080SN_set_trans_pen(int chip,int tilemap_num,int pen);
 void PC080SN_tilemap_update(void);
 void PC080SN_tilemap_draw(mame_bitmap *bitmap,const rectangle *cliprect,int chip,int layer,int flags,UINT32 priority);
+void PC080SN_tilemap_draw_offset(mame_bitmap *bitmap,const rectangle *cliprect,int chip,int layer,int flags,UINT32 priority,int xoffs,int yoffs);
 
 /* For Topspeed */
 void PC080SN_tilemap_draw_special(mame_bitmap *bitmap,const rectangle *cliprect,int chip,int layer,int flags,UINT32 priority,UINT16 *ram);
@@ -65,7 +60,6 @@ WRITE16_HANDLER( TC0080VCO_word_w );
 
 void TC0080VCO_tilemap_update(void);
 void TC0080VCO_tilemap_draw(mame_bitmap *bitmap,const rectangle *cliprect,int layer,int flags,UINT32 priority);
-void TC0080VCO_draw_sprites(void);
 
 
 /***************************************************************************/
@@ -231,7 +225,7 @@ READ16_HANDLER ( TC0510NIO_halfword_wordswap_r );
 WRITE16_HANDLER( TC0510NIO_halfword_wordswap_w );
 
 READ8_HANDLER ( TC0640FIO_r );
-WRITE8_HANDLER( TC0640FIO_W );
+WRITE8_HANDLER( TC0640FIO_w );
 
 READ16_HANDLER ( TC0640FIO_halfword_r );
 WRITE16_HANDLER( TC0640FIO_halfword_w );

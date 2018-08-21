@@ -85,7 +85,7 @@
 #include "driver.h"
 #include "machine/z80ctc.h"
 #include "sndhrdw/mcr.h"
-#include "artwork.h"
+#include "render.h"
 #include "mcr.h"
 
 
@@ -398,7 +398,9 @@ static WRITE8_HANDLER( spyhunt_op4_w )
 		/* bit 2 -> J1-11 (A2) */
 		/* bit 1 -> J1-10 (A1) */
 		/* bit 0 -> J1-12 (A0) */
-		artwork_show(lampname[data & 7], (data >> 3) & 1);
+#ifdef NEW_RENDER
+		render_view_item_set_state(lampname[data & 7], (data >> 3) & 1);
+#endif
 	}
 	last_op4 = data;
 
@@ -987,21 +989,30 @@ INPUT_PORTS_END
  *
  *************************************/
 
+static const UINT32 spyhunt_charlayout_xoffset[64] =
+{
+	   0,  0,  2,  2,  4,  4,  6,  6,  8,  8, 10, 10, 12, 12, 14, 14,
+	  16, 16, 18, 18, 20, 20, 22, 22, 24, 24, 26, 26, 28, 28, 30, 30,
+	  32, 32, 34, 34, 36, 36, 38, 38, 40, 40, 42, 42, 44, 44, 46, 46,
+	  48, 48, 50, 50, 52, 52, 54, 54, 56, 56, 58, 58, 60, 60, 62, 62
+};
+
 static const gfx_layout spyhunt_charlayout =
 {
 	64,32,
 	RGN_FRAC(1,2),
 	4,
 	{ RGN_FRAC(1,2), RGN_FRAC(1,2)+1, 0, 1 },
-	{  0,  0,  2,  2,  4,  4,  6,  6,  8,  8, 10, 10, 12, 12, 14, 14,
-	  16, 16, 18, 18, 20, 20, 22, 22, 24, 24, 26, 26, 28, 28, 30, 30,
-	  32, 32, 34, 34, 36, 36, 38, 38, 40, 40, 42, 42, 44, 44, 46, 46,
-	  48, 48, 50, 50, 52, 52, 54, 54, 56, 56, 58, 58, 60, 60, 62, 62 },
-	{ 0*32,  0*32,  2*32,  2*32,  4*32,  4*32,  6*32,  6*32,
-	  8*32,  8*32, 10*32, 10*32, 12*32, 12*32, 14*32, 14*32,
-	 16*32, 16*32, 18*32, 18*32, 20*32, 20*32, 22*32, 22*32,
-	 24*32, 24*32, 26*32, 26*32, 28*32, 28*32, 30*32, 30*32 },
-	128*8
+	EXTENDED_XOFFS,
+	{
+		  0*32,  0*32,  2*32,  2*32,  4*32,  4*32,  6*32,  6*32,
+		  8*32,  8*32, 10*32, 10*32, 12*32, 12*32, 14*32, 14*32,
+		 16*32, 16*32, 18*32, 18*32, 20*32, 20*32, 22*32, 22*32,
+		 24*32, 24*32, 26*32, 26*32, 28*32, 28*32, 30*32, 30*32
+	},
+	128*8,
+	spyhunt_charlayout_xoffset,
+	NULL
 };
 
 
@@ -1401,8 +1412,6 @@ ROM_START( turbotag )
 	ROM_LOAD( "ttprog4.bin",  0x8000, 0x2000, CRC(8c5bc1a4) SHA1(c38d7aa2639945e705856cf1449faf51a7c82ff0) )
 	ROM_LOAD( "ttprog5.bin",  0xa000, 0x2000, CRC(11e62fe4) SHA1(72897702c61486b654e4b4a3f6560c144c862e1f) )
 	ROM_RELOAD(               0xc000, 0x2000 )
-
-	ROM_REGION( 0x10000, REGION_CPU2, 0 )	/* 64k for the audio CPU, not populated */
 
 	ROM_REGION( 0x8000, REGION_CPU3, 0 )  /* 32k for the Chip Squeak Deluxe */
 	ROM_LOAD16_BYTE( "ttu7.bin",  0x00000, 0x2000, CRC(8ebb3302) SHA1(c516abdae6eea524a6d2a039ed9bd7dff72ab986) )

@@ -299,7 +299,7 @@ static void DebugMeshInit( void )
 	m_b_debugclear = 1;
 	m_n_debugcoord = 0;
 	m_n_debugskip = 0;
-	debugmesh = auto_bitmap_alloc_depth( Machine->drv->screen_width, Machine->drv->screen_height, 16 );
+	debugmesh = auto_bitmap_alloc_depth( Machine->drv->screen[0].maxwidth, Machine->drv->screen[0].maxheight, 16 );
 }
 
 static void DebugMesh( int n_coordx, int n_coordy )
@@ -402,8 +402,8 @@ static void DebugMesh( int n_coordx, int n_coordy )
 		{
 			if( (INT16)n_x.w.h >= 0 &&
 				(INT16)n_y.w.h >= 0 &&
-				(INT16)n_x.w.h <= Machine->drv->screen_width - 1 &&
-				(INT16)n_y.w.h <= Machine->drv->screen_height - 1 )
+				(INT16)n_x.w.h <= Machine->drv->screen[0].maxwidth - 1 &&
+				(INT16)n_y.w.h <= Machine->drv->screen[0].maxheight - 1 )
 			{
 				if( read_pixel( debugmesh, n_x.w.h, n_y.w.h ) != 0xffff )
 				{
@@ -434,11 +434,11 @@ static void DebugCheckKeys( void )
 	}
 	if( m_b_debugmesh || m_b_debugtexture )
 	{
-		set_visible_area( 0, Machine->drv->screen_width - 1, 0, Machine->drv->screen_height - 1 );
+		set_visible_area(0,  0, Machine->drv->screen[0].maxwidth - 1, 0, Machine->drv->screen[0].maxheight - 1 );
 	}
 	else
 	{
-		set_visible_area( 0, m_n_screenwidth - 1, 0, m_n_screenheight - 1 );
+		set_visible_area(0,  0, m_n_screenwidth - 1, 0, m_n_screenheight - 1 );
 	}
 
 	if( code_pressed_memory( KEYCODE_I ) )
@@ -530,14 +530,14 @@ static int DebugTextureDisplay( mame_bitmap *bitmap )
 
 	if( m_b_debugtexture )
 	{
-		for( n_y = 0; n_y < Machine->drv->screen_height; n_y++ )
+		for( n_y = 0; n_y < Machine->drv->screen[0].maxheight; n_y++ )
 		{
 			int n_x;
 			int n_xi;
 			int n_yi;
 			unsigned short p_n_interleave[ 1024 ];
 
-			for( n_x = 0; n_x < Machine->drv->screen_width; n_x++ )
+			for( n_x = 0; n_x < Machine->drv->screen[0].maxwidth; n_x++ )
 			{
 				if( m_n_debuginterleave == 0 )
 				{
@@ -556,7 +556,7 @@ static int DebugTextureDisplay( mame_bitmap *bitmap )
 				}
 				p_n_interleave[ n_x ] = m_p_p_vram[ n_yi ][ n_xi ];
 			}
-			draw_scanline16( bitmap, 0, n_y, Machine->drv->screen_width, p_n_interleave, Machine->pens, -1 );
+			draw_scanline16( bitmap, 0, n_y, Machine->drv->screen[0].maxwidth, p_n_interleave, Machine->pens, -1 );
 		}
 	}
 	return m_b_debugtexture;
@@ -569,7 +569,7 @@ static void updatevisiblearea( void )
 	if( ( m_n_gpustatus & ( 1 << 0x14 ) ) != 0 )
 	{
 		/* pal */
-		set_refresh_rate( 50 );
+		set_refresh_rate( 0, 50 );
 		switch( ( m_n_gpustatus >> 0x13 ) & 1 )
 		{
 		case 0:
@@ -583,7 +583,7 @@ static void updatevisiblearea( void )
 	else
 	{
 		/* ntsc */
-		set_refresh_rate( 60 );
+		set_refresh_rate( 0, 60 );
 		switch( ( m_n_gpustatus >> 0x13 ) & 1 )
 		{
 		case 0:
@@ -625,7 +625,7 @@ static void updatevisiblearea( void )
 		m_n_screenwidth = 640;
 		break;
 	}
-	set_visible_area( 0, m_n_screenwidth - 1, 0, m_n_screenheight - 1 );
+	set_visible_area(0,  0, m_n_screenwidth - 1, 0, m_n_screenheight - 1 );
 }
 
 static int psx_gpu_init( void )
@@ -646,13 +646,13 @@ static int psx_gpu_init( void )
 	m_n_lightgun_x = 0;
 	m_n_lightgun_y = 0;
 
-	m_n_vram_size = Machine->drv->screen_width * Machine->drv->screen_height;
+	m_n_vram_size = Machine->drv->screen[0].maxwidth * Machine->drv->screen[0].maxheight;
 	m_p_vram = auto_malloc( m_n_vram_size * 2 );
 	memset( m_p_vram, 0x00, m_n_vram_size * 2 );
 
 	for( n_line = 0; n_line < 1024; n_line++ )
 	{
-		m_p_p_vram[ n_line ] = &m_p_vram[ ( n_line % Machine->drv->screen_height ) * Machine->drv->screen_width ];
+		m_p_p_vram[ n_line ] = &m_p_vram[ ( n_line % Machine->drv->screen[0].maxheight ) * Machine->drv->screen[0].maxwidth ];
 	}
 
 	for( n_level = 0; n_level < MAX_LEVEL; n_level++ )
@@ -815,11 +815,11 @@ VIDEO_UPDATE( psx )
 #if defined( MAME_DEBUG )
 	if( DebugMeshDisplay( bitmap, cliprect ) )
 	{
-		return;
+		return 0;
 	}
 	if( DebugTextureDisplay( bitmap ) )
 	{
-		return;
+		return 0;
 	}
 #endif
 
@@ -941,6 +941,7 @@ VIDEO_UPDATE( psx )
 			}
 		}
 	}
+	return 0;
 }
 
 #define WRITE_PIXEL( p ) *( p_vram ) = p
@@ -1508,6 +1509,9 @@ static void FlatPolygon( int n_points )
 
 	n_cmd = BGR_C( m_packet.FlatPolygon.n_bgr );
 
+	n_cx1.d = 0;
+	n_cx2.d = 0;
+
 	SOLIDSETUP
 
 	n_r.w.h = BGR_R( m_packet.FlatPolygon.n_bgr ); n_r.w.l = 0;
@@ -1680,6 +1684,16 @@ static void FlatTexturedPolygon( int n_points )
 
 	n_clutx = ( m_packet.FlatTexturedPolygon.vertex[ 0 ].n_texture.w.h & 0x3f ) << 4;
 	n_cluty = ( m_packet.FlatTexturedPolygon.vertex[ 0 ].n_texture.w.h >> 6 ) & 0x3ff;
+
+	n_r.d = 0;
+	n_g.d = 0;
+	n_b.d = 0;
+	n_cx1.d = 0;
+	n_cu1.d = 0;
+	n_cv1.d = 0;
+	n_cx2.d = 0;
+	n_cu2.d = 0;
+	n_cv2.d = 0;
 
 	decode_tpage( &psxgpu, m_packet.FlatTexturedPolygon.vertex[ 1 ].n_texture.w.h );
 	TEXTURESETUP
@@ -1886,6 +1900,15 @@ static void GouraudPolygon( int n_points )
 #endif
 
 	n_cmd = BGR_C( m_packet.GouraudPolygon.vertex[ 0 ].n_bgr );
+
+	n_cx1.d = 0;
+	n_cr1.d = 0;
+	n_cg1.d = 0;
+	n_cb1.d = 0;
+	n_cx2.d = 0;
+	n_cr2.d = 0;
+	n_cg2.d = 0;
+	n_cb2.d = 0;
 
 	SOLIDSETUP
 
@@ -2111,6 +2134,19 @@ static void GouraudTexturedPolygon( int n_points )
 
 	n_clutx = ( m_packet.GouraudTexturedPolygon.vertex[ 0 ].n_texture.w.h & 0x3f ) << 4;
 	n_cluty = ( m_packet.GouraudTexturedPolygon.vertex[ 0 ].n_texture.w.h >> 6 ) & 0x3ff;
+
+	n_cx1.d = 0;
+	n_cr1.d = 0;
+	n_cg1.d = 0;
+	n_cb1.d = 0;
+	n_cu1.d = 0;
+	n_cv1.d = 0;
+	n_cx2.d = 0;
+	n_cr2.d = 0;
+	n_cg2.d = 0;
+	n_cb2.d = 0;
+	n_cu2.d = 0;
+	n_cv2.d = 0;
 
 	decode_tpage( &psxgpu, m_packet.GouraudTexturedPolygon.vertex[ 1 ].n_texture.w.h );
 	TEXTURESETUP
@@ -2832,6 +2868,10 @@ static void FlatTexturedRectangle( void )
 	n_clutx = ( m_packet.FlatTexturedRectangle.n_texture.w.h & 0x3f ) << 4;
 	n_cluty = ( m_packet.FlatTexturedRectangle.n_texture.w.h >> 6 ) & 0x3ff;
 
+	n_r.d = 0;
+	n_g.d = 0;
+	n_b.d = 0;
+
 	TEXTURESETUP
 	SPRITESETUP
 
@@ -2926,6 +2966,10 @@ static void Sprite8x8( void )
 	n_clutx = ( m_packet.Sprite8x8.n_texture.w.h & 0x3f ) << 4;
 	n_cluty = ( m_packet.Sprite8x8.n_texture.w.h >> 6 ) & 0x3ff;
 
+	n_r.d = 0;
+	n_g.d = 0;
+	n_b.d = 0;
+
 	TEXTURESETUP
 	SPRITESETUP
 
@@ -3019,6 +3063,10 @@ static void Sprite16x16( void )
 
 	n_clutx = ( m_packet.Sprite16x16.n_texture.w.h & 0x3f ) << 4;
 	n_cluty = ( m_packet.Sprite16x16.n_texture.w.h >> 6 ) & 0x3ff;
+
+	n_r.d = 0;
+	n_g.d = 0;
+	n_b.d = 0;
 
 	TEXTURESETUP
 	SPRITESETUP

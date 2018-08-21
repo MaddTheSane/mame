@@ -5,6 +5,7 @@
 ***************************************************************************/
 
 #include "driver.h"
+#include "includes/nitedrvr.h"
 
 UINT8 *nitedrvr_hvc;
 
@@ -84,4 +85,5 @@ VIDEO_UPDATE( nitedrvr )
 {
 	tilemap_draw(bitmap, cliprect, bg_tilemap, 0, 0);
 	nitedrvr_draw_roadway(bitmap);
+	return 0;
 }

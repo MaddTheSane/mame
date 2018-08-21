@@ -52,20 +52,29 @@ static const char *mame_default_text[] =
 	"Relative",
 	"ALL CHANNELS",
 	"Brightness",
+	"Contrast",
 	"Gamma",
 	"Vector Flicker",
-	"Vector Intensity",
 	"Overclock",
 	"ALL CPUS",
 	HISTORYNAME " not available",
 
 	/* special characters */
+#ifndef NEW_RENDER
 	"\x11",
 	"\x10",
 	"\x18",
 	"\x19",
 	"\x1a",
 	"\x1b",
+#else
+	"\xab",
+	"\xbb",
+	"(more)",
+	"(more)",
+	"",
+	"",
+#endif
 
 	/* known problems */
 	"There are known problems with this " GAMENOUN,
@@ -75,7 +84,7 @@ static const char *mame_default_text[] =
 	"The sound emulation isn't 100% accurate.",
 	"The game lacks sound.",
 	"Screen flipping in cocktail mode is not supported.",
-	"THIS " CAPGAMENOUN " DOESN'T WORK PROPERLY",
+	"THIS " CAPGAMENOUN " DOESN'T WORK. You won't be able to make it work correctly.  Don't bother.",
 	"The game has protection which isn't fully emulated.",
 	"There are working clones of this game. They are:",
 	"One or more ROMs/CHDs for this game are incorrect. The " GAMENOUN " may not run correctly.",
@@ -198,6 +207,15 @@ static const char *mame_default_text[] =
 	/* refresh rate */
 	"Refresh rate",
 	"Decoding Graphics",
+
+#ifdef NEW_RENDER
+	"Video Options",
+	"Screen #",
+	"Rotate Clockwise",
+	"Rotate Counter-clockwise",
+	"Flip X",
+	"Flip Y",
+#endif
 
 	NULL
 };

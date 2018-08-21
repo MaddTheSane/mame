@@ -6,6 +6,7 @@
 
 #include "driver.h"
 #include "machine/atarigen.h"
+#include "includes/thunderj.h"
 
 
 
@@ -300,4 +301,5 @@ VIDEO_UPDATE( thunderj )
 					mo[x] = 0;
 				}
 		}
+	return 0;
 }

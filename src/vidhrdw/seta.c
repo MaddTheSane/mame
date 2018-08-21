@@ -213,6 +213,7 @@ static struct x_offset game_offsets[] =
 	{ "zombraid", {  0,  0 }, { -2, -2 } },	// correct for normal, flip screen not working yet
 	{ "madshark", {  0,  0 }, {  0,  0 } },	// unknown (wrong when flipped, but along y)
 	{ "utoukond", {  0,  0 }, { -2,  0 } }, // unknown (wrong when flipped, but along y)
+	{ "crazyfgt", {  0,  0 }, { -2,  0 } }, // wrong (empty background column in title screen, but aligned sprites in screen select)
 	{ NULL }
 };
 
@@ -787,7 +788,7 @@ static void seta_draw_sprites(mame_bitmap *bitmap,const rectangle *cliprect)
 
 		if (flip)
 		{
-			y = (0x100 - Machine->drv->screen_height) + max_y - y;
+			y = (0x100 - Machine->drv->screen[0].maxheight) + max_y - y;
 			flipx = !flipx;
 			flipy = !flipy;
 		}
@@ -835,6 +836,7 @@ VIDEO_UPDATE( seta_no_layers )
 {
 	fillbitmap(bitmap,Machine->pens[0x1f0],cliprect);
 	seta_draw_sprites(bitmap,cliprect);
+	return 0;
 }
 
 
@@ -847,7 +849,7 @@ VIDEO_UPDATE( seta )
 	int order	= 	0;
 	int flip	=	(spriteram16[ 0x600/2 ] & 0x40) >> 6;
 
-	int vis_dimy = Machine->visible_area.max_y - Machine->visible_area.min_y + 1;
+	int vis_dimy = Machine->visible_area[0].max_y - Machine->visible_area[0].min_y + 1;
 
 	flip ^= tilemaps_flip;
 
@@ -975,4 +977,5 @@ if (code_pressed(KEYCODE_Z))
 	{
 		zombraid_drawcrosshairs(bitmap,cliprect);
 	}
+	return 0;
 }

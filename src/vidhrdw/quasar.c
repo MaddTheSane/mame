@@ -39,19 +39,10 @@
 VIDEO_START( cvs );
 
 extern unsigned char *bullet_ram;
-extern unsigned char *s2636_1_ram;
-extern unsigned char *s2636_2_ram;
-extern unsigned char *s2636_3_ram;
 
-extern mame_bitmap *s2636_1_bitmap;
-extern mame_bitmap *s2636_2_bitmap;
-extern mame_bitmap *s2636_3_bitmap;
 extern mame_bitmap *collision_bitmap;
 extern mame_bitmap *collision_background;
 
-extern unsigned char s2636_1_dirty[4];
-extern unsigned char s2636_2_dirty[4];
-extern unsigned char s2636_3_dirty[4];
 
 extern int CollisionRegister;
 
@@ -151,7 +142,7 @@ VIDEO_START( quasar )
 
 	memset(effectdirty,0,sizeof(effectdirty));
 
-	if ((effect_bitmap = auto_bitmap_alloc(Machine->drv->screen_width,Machine->drv->screen_height)) == 0)
+	if ((effect_bitmap = auto_bitmap_alloc(Machine->drv->screen[0].maxwidth,Machine->drv->screen[0].maxheight)) == 0)
 		return 1;
 
 	return video_start_cvs();
@@ -223,8 +214,8 @@ VIDEO_UPDATE( quasar )
 
     /* Update screen */
 
-	copybitmap(bitmap,effect_bitmap,0,0,0,0,&Machine->visible_area,TRANSPARENCY_NONE,0);
-	copybitmap(bitmap,tmpbitmap,0,0,0,0,&Machine->visible_area,TRANSPARENCY_PEN,0);
+	copybitmap(bitmap,effect_bitmap,0,0,0,0,&Machine->visible_area[0],TRANSPARENCY_NONE,0);
+	copybitmap(bitmap,tmpbitmap,0,0,0,0,&Machine->visible_area[0],TRANSPARENCY_PEN,0);
 
     /* 2636's */
 
@@ -356,4 +347,5 @@ VIDEO_UPDATE( quasar )
             }
         }
     }
+	return 0;
 }

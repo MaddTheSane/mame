@@ -7,6 +7,7 @@
 *******************************************************************************/
 
 #include "driver.h"
+#include "includes/wwfwfest.h"
 
 static tilemap *fg0_tilemap, *bg0_tilemap, *bg1_tilemap;
 int wwfwfest_pri;
@@ -294,4 +295,5 @@ VIDEO_UPDATE( wwfwfest )
 		wwfwfest_drawsprites(bitmap,cliprect);
 		tilemap_draw(bitmap,cliprect,fg0_tilemap,0,0);
 	}
+	return 0;
 }

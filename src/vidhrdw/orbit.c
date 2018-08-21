@@ -5,6 +5,7 @@ Atari Orbit video emulation
 ***************************************************************************/
 
 #include "driver.h"
+#include "includes/orbit.h"
 
 UINT8* orbit_playfield_ram;
 UINT8* orbit_sprite_ram;
@@ -116,4 +117,5 @@ VIDEO_UPDATE( orbit )
 	tilemap_draw(bitmap, cliprect, bg_tilemap, 0, 0);
 
 	orbit_draw_sprites(bitmap, cliprect);
+	return 0;
 }

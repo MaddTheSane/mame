@@ -5,6 +5,7 @@ Atari Poolshark video emulation
 ***************************************************************************/
 
 #include "driver.h"
+#include "includes/poolshrk.h"
 
 UINT8* poolshrk_playfield_ram;
 UINT8* poolshrk_hpos_ram;
@@ -61,4 +62,5 @@ VIDEO_UPDATE( poolshrk )
 	/* draw playfield */
 
 	tilemap_draw(bitmap, cliprect, bg_tilemap, 0, 0);
+	return 0;
 }

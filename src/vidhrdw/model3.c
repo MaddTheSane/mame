@@ -60,8 +60,9 @@ extern int model3_irq_state;
 extern int model3_step;
 extern int model3_draw_crosshair;
 
+extern UINT32 *model3_vrom;
+
 UINT64 *paletteram64;
-static UINT32 *vrom;
 
 static UINT8 model3_layer_enable = 0;
 static UINT32 layer_modulate_r;
@@ -119,13 +120,12 @@ static float ambient_light_intensity;
 VIDEO_START( model3 )
 {
 	int j,t;
-	vrom = (UINT32*)memory_region(REGION_USER2);
 
-	bitmap3d = auto_bitmap_alloc(Machine->drv->screen_width, Machine->drv->screen_height);
+	bitmap3d = auto_bitmap_alloc(Machine->drv->screen[0].maxwidth, Machine->drv->screen[0].maxheight);
 	if (!bitmap3d)
 		return 1;
 
-	zbuffer = auto_bitmap_alloc_depth(Machine->drv->screen_width, Machine->drv->screen_height, 32);
+	zbuffer = auto_bitmap_alloc_depth(Machine->drv->screen[0].maxwidth, Machine->drv->screen[0].maxheight, 32);
 	if (!zbuffer)
 		return 1;
 
@@ -435,6 +435,7 @@ VIDEO_UPDATE( model3 )
 	//draw_texture_sheet(bitmap, cliprect);
 
 	real3d_display_list = 0;
+	return 0;
 }
 
 
@@ -692,7 +693,6 @@ void real3d_vrom_texture_dma(UINT32 src, UINT32 dst, int length, int byteswap)
 	if((dst & 0xff) == 0) {
 
 		UINT32 address, header;
-		UINT32 *rom;
 
 		if (byteswap) {
 			address = BYTE_REVERSE32(program_read_dword_64le((src+0)^4));
@@ -701,8 +701,7 @@ void real3d_vrom_texture_dma(UINT32 src, UINT32 dst, int length, int byteswap)
 			address = program_read_dword_64le((src+0)^4);
 			header = program_read_dword_64le((src+4)^4);
 		}
-		rom = (UINT32*)memory_region(REGION_USER2);
-		real3d_upload_texture(header, (UINT32*)&rom[address]);
+		real3d_upload_texture(header, (UINT32*)&model3_vrom[address]);
 	}
 }
 
@@ -1360,7 +1359,7 @@ static void traverse_list4(UINT32 address)
 
 	if ((link & 0xffffff) > 0x100000)		/* VROM model */
 	{
-		draw_model(&vrom[link & 0xffffff]);
+		draw_model(&model3_vrom[link & 0xffffff]);
 	}
 	else {		/* model in polygon ram */
 		/* TODO: polygon ram actually overrides the lowest 4MB of VROM.
@@ -1448,7 +1447,7 @@ static void traverse_node(UINT32 address)
 					case 0x03:		/* both of these link to models, is there any difference ? */
 						if ((link & 0xffffff) > 0x100000)		/* VROM model */
 						{
-							draw_model(&vrom[link & 0xffffff]);
+							draw_model(&model3_vrom[link & 0xffffff]);
 						}
 						else {		/* model in polygon ram */
 							/* TODO: polygon ram actually overrides the lowest 4MB of VROM.

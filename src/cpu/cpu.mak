@@ -666,6 +666,8 @@ $(M68000_GENERATED_FILES) $(M68000_GENERATED_HEADERS): $(OBJ)/cpu/m68000/m68kmak
 
 # rule to build the generator
 $(OBJ)/cpu/m68000/m68kmake$(EXE): $(OBJ)/cpu/m68000/m68kmake.o $(OSDBGOBJS)
+	@echo Linking $@...
+	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
 
 # rule to ensure we build the header before building the core CPU file
 $(OBJ)/cpu/m68000/m68kcpu.o: $(M68000_GENERATED_HEADERS)
@@ -939,6 +941,21 @@ OBJDIRS += $(OBJ)/cpu/tms32031
 CPUOBJS += $(OBJ)/cpu/tms32031/tms32031.o
 DBGOBJS += $(OBJ)/cpu/tms32031/dis32031.o
 $(OBJ)/cpu/tms32031/tms32031.o: tms32031.c tms32031.h
+endif
+
+
+
+#-------------------------------------------------
+# Texas Instruments TMS3205x DSP
+#-------------------------------------------------
+
+CPUDEFS += -DHAS_TMS32051=$(if $(filter TMS32051,$(CPUS)),1,0)
+
+ifneq ($(filter TMS32051,$(CPUS)),)
+OBJDIRS += $(OBJ)/cpu/tms32051
+CPUOBJS += $(OBJ)/cpu/tms32051/tms32051.o
+DBGOBJS += $(OBJ)/cpu/tms32051/dis32051.o
+$(OBJ)/cpu/tms32051/tms32051.o: tms32051.c tms32051.h
 endif
 
 

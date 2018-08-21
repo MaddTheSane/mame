@@ -8,13 +8,11 @@
 
 #include "driver.h"
 #include "res_net.h"
-
-/* from sndhrdw/pleiads.c */
-WRITE8_HANDLER( pleiads_sound_control_c_w );
+#include "includes/phoenix.h"
 
 unsigned char *naughtyb_videoram2;
 
-int videoreg;
+static int videoreg;
 
 /* use these to draw charset B */
 unsigned char *naughtyb_scrollreg;
@@ -338,4 +336,5 @@ VIDEO_UPDATE( naughtyb )
 		scrollx = ( naughtyb_cocktail ) ? *naughtyb_scrollreg - 239 : -*naughtyb_scrollreg + 16;
 		copyscrollbitmap(bitmap,tmpbitmap,1,&scrollx,0,0,&scrollvisiblearea,TRANSPARENCY_NONE,0);
 	}
+	return 0;
 }
