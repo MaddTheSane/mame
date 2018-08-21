@@ -4,6 +4,9 @@
 
     Generic MAME hard disk implementation, with differencing files
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
 #pragma once
@@ -11,7 +14,7 @@
 #ifndef __HARDDISK_H__
 #define __HARDDISK_H__
 
-#include "driver.h"
+#include "mamecore.h"
 #include "chd.h"
 
 

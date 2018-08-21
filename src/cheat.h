@@ -4,6 +4,9 @@
 
     Cheat system.
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 *********************************************************************/
 
 #pragma once
@@ -14,10 +17,8 @@
 extern int he_did_cheat;
 
 void cheat_init(void);
-void cheat_exit(void);
 
 int cheat_menu(int selection);
-void cheat_periodic(void);
 
 void cheat_display_watches(void);
 

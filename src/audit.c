@@ -4,11 +4,14 @@
 
     ROM set auditing functions.
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
-#include "driver.h"
 #include <stdarg.h>
-#include <string.h>
+#include "driver.h"
+#include "hash.h"
 #include "audit.h"
 #include "harddisk.h"
 #include "sound/samples.h"

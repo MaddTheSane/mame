@@ -2,6 +2,9 @@
 
     MAME Compressed Hunks of Data file format
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
 #pragma once
@@ -164,7 +167,6 @@ struct _chd_header
 typedef struct _chd_header chd_header;
 
 
-typedef struct _chd_file chd_file;
 typedef struct _chd_exfile chd_exfile;
 typedef struct _chd_interface_file chd_interface_file;
 

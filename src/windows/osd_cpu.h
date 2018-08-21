@@ -1,3 +1,12 @@
+//============================================================
+//
+//  osd_cpu.h - Win32 CPU-specific data types
+//
+//  Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+//  Visit http://mamedev.org for licensing and usage restrictions.
+//
+//============================================================
+
 /*******************************************************************************
 *                                                                              *
 *   Define size independent data types and operations.                         *
@@ -20,15 +29,10 @@
 *                    Each type is one of: U8,8,U16,16,U32,32,U64,64            *
 *                                                                              *
 *******************************************************************************/
-
+#pragma once
 
 #ifndef OSD_CPU_H
 #define OSD_CPU_H
-
-#ifdef __MWERKS__
-#define INLINE static inline
-#define __extension__
-#endif
 
 /* The Win32 port requires this constant for variable arg routines. */
 #ifndef CLIB_DECL

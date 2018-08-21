@@ -5,6 +5,9 @@
     Functions used to retrieve text used by MAME, to aid in
     translation.
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
 #pragma once
@@ -12,7 +15,7 @@
 #ifndef __UI_TEXT_H__
 #define __UI_TEXT_H__
 
-#include "driver.h"
+#include "mamecore.h"
 
 /* Important: this must match the default_text list in ui_text.c! */
 enum

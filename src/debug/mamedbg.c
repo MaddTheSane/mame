@@ -1,28 +1,31 @@
 /****************************************************************************
- *  MAME debugger V0.54
- *  Juergen Buchmueller <pullmoll@t-online.de>
- *
- *  Based on code found in the preivous version of the MAME debugger
- *  written by: Martin Scragg, John Butler, Mirko Buffoni
- *  Chris Moore, Aaron Giles, Ernesto Corvi
- *
- *  Online help is available by pressing F1 (context sensitive!)
- *
- *  TODO:
- *  - Add more display modes for the memory windows (binary? octal? decimal?)
- *
- ****************************************************************************/
 
-#include <stdio.h>
+    mamedbg.c
 
-#ifdef MAME_DEBUG
-#include <stdlib.h>
-#include <string.h>
+    MAME debugger V0.54
+    Juergen Buchmueller <pullmoll@t-online.de>
+
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
+    Based on code found in the preivous version of the MAME debugger
+    written by: Martin Scragg, John Butler, Mirko Buffoni
+    Chris Moore, Aaron Giles, Ernesto Corvi
+
+    Online help is available by pressing F1 (context sensitive!)
+
+    TODO:
+    - Add more display modes for the memory windows (binary? octal? decimal?)
+
+****************************************************************************/
+
 #include <stdarg.h>
 #include <ctype.h>
 #include "driver.h"
-#include "vidhrdw/generic.h"
+#include "osdepend.h"
 #include "mamedbg.h"
+#include "debugger.h"
+#include "eainfo.h"
 #include "window.h"
 
 
@@ -539,7 +542,7 @@ rgb_t debugger_palette[] = {
 };
 
 
-#include "dbgfonts/m0813fnt.c"
+#include "m0813fnt.c"
 
 
 gfx_element *build_debugger_font(void)
@@ -1154,127 +1157,6 @@ INLINE unsigned xtou( char **parg, int *size)
 	return val;
 }
 
-#ifndef NEW_DEBUGGER
-const char *set_ea_info( int what, unsigned value, int size, int access )
-{
-	static char buffer[8][63+1];
-	static int which = 0;
-	const char *sign = "";
-	unsigned width, result;
-
-	which = (which+1) % 8;
-
-	if( access == EA_REL_PC )
-		/* PC relative calls set_ea_info with value = PC and size = offset */
-		result = value + size;
-	else
-		result = value;
-
-	/* set source EA? */
-	if( what == EA_SRC )
-	{
-		DBGDASM.src_ea_access = access;
-		DBGDASM.src_ea_value = result;
-		DBGDASM.src_ea_size = size;
-	}
-	else
-	if( what == EA_DST )
-	{
-		DBGDASM.dst_ea_access = access;
-		DBGDASM.dst_ea_value = result;
-		DBGDASM.dst_ea_size = size;
-	}
-	else
-	{
-		return "set_ea_info: invalid <what>!";
-	}
-
-	switch( access )
-	{
-	case EA_VALUE:	/* Immediate value */
-		switch( size )
-		{
-		case EA_INT8:
-		case EA_UINT8:
-			width = 2;
-			break;
-		case EA_INT16:
-		case EA_UINT16:
-			width = 4;
-			break;
-		case EA_INT32:
-		case EA_UINT32:
-			width = 8;
-			break;
-		default:
-			return "set_ea_info: invalid <size>!";
-		}
-
-		switch( size )
-		{
-		case EA_INT8:
-		case EA_INT16:
-		case EA_INT32:
-			if( result & (1 << ((width * 4) - 1)) )
-			{
-				sign = "-";
-				result = (unsigned)-result;
-			}
-			break;
-		}
-
-		if (width < 8)
-			result &= (1 << (width * 4)) - 1;
-		break;
-
-	case EA_ZPG_RD:
-	case EA_ZPG_WR:
-	case EA_ZPG_RDWR:
-		result &= 0xff;
-		width = 2;
-		break;
-
-	case EA_ABS_PC: /* Absolute program counter change */
-		result &= AMASK;
-		if( size == EA_INT8 || size == EA_UINT8 )
-			width = 2;
-		else
-		if( size == EA_INT16 || size == EA_UINT16 )
-			width = 4;
-		else
-		if( size == EA_INT32 || size == EA_UINT32 )
-			width = 8;
-		else
-			width = (ABITS + 3) / 4;
-		break;
-
-	case EA_REL_PC: /* Relative program counter change */
-		if( dbg_dasm_relative_jumps )
-		{
-			if( size == 0 )
-				return "$";
-			if( size < 0 )
-			{
-				sign = "-";
-				result = (unsigned) -size;
-			}
-			else
-			{
-				sign = "+";
-				result = (unsigned) size;
-			}
-			sprintf( buffer[which], "$%s%u", sign, result );
-			return buffer[which];
-		}
-		/* fall through */
-	default:
-		result &= AMASK;
-		width = (ABITS + 3) / 4;
-	}
-	sprintf( buffer[which], "%s$%0*X", sign, width, result );
-	return buffer[which];
-}
-#endif /*NEW_DEBUGGER*/
 /**************************************************************************
  * lower
  * Convert string into all lower case.
@@ -1529,7 +1411,7 @@ static unsigned get_register_id( char **parg, int *size )
 	for( i = 0; i < DBGREGS.count; i++ )
 	{
 		l = strlen( DBGREGS.name[i] );
-		if( l > 0 && !strnicmp( *parg, DBGREGS.name[i], l ) )
+		if( l > 0 && !mame_strnicmp( *parg, DBGREGS.name[i], l ) )
 		{
 			if( !isalnum( (*parg)[l] ) )
 			{
@@ -1695,12 +1577,18 @@ static void trace_output( void )
 			if( TRACE.regs[0] )
 			{
 				for( i = 0; i < MAX_REGS && TRACE.regs[i]; i++ )
-					dst += sprintf( dst, "%s ", activecpu_reg_string(TRACE.regs[i]) );
+				{
+					const char *result = activecpu_reg_string(TRACE.regs[i]);
+					if( result && *result == '~' )
+						result++;
+					dst += sprintf( dst, "%s ", result);
+				}
 			}
 			dst += sprintf( dst, "%0*X: ", addr_width, pc );
 			activecpu_dasm( dst, pc );
 			strcat( dst, "\n" );
 			fprintf( TRACE.file, "%s", buffer);
+			fflush( TRACE.file );
 			memmove(
 				&TRACE.last_pc[0],
 				&TRACE.last_pc[1],
@@ -2399,8 +2287,12 @@ static void dump_regs( void )
 				continue;		/* skip row breaks */
 
 			result=activecpu_reg_string(reg[i]);
-			if (result)
+			if( result )
+			{
+				if (*result == '~')
+					result++;
 				width = strlen( result );
+			}
 
 			if( width >= regs->max_width )
 				regs->max_width = width + 1;
@@ -2510,6 +2402,8 @@ static void dump_regs( void )
 			name = activecpu_reg_string(*reg);
 			if( !name || *name == '\0' )
 				continue;
+			if( *name == '~' )
+				name++;
 
 			regs->id[j] = *reg;
 			*val = activecpu_get_reg(regs->id[j]);
@@ -5208,6 +5102,8 @@ void CLIB_DECL mame_debug_trace_write (int cpunum, const char *fmt, ...)
  *  This function is called from cpu_run to startup the debugger
  **************************************************************************/
 #ifndef NEW_DEBUGGER
+void mame_debug_exit(void);
+
 void mame_debug_init(void)
 {
 	char filename[127+1];
@@ -5308,6 +5204,8 @@ void mame_debug_init(void)
 	debug_key_pressed = 1;
 
 	first_time = 1;
+
+	add_exit_callback(mame_debug_exit);
 }
 
 /**************************************************************************
@@ -5320,14 +5218,19 @@ void mame_debug_exit(void)
 	mame_debug_reset_statics();
 }
 
+void mame_debug_break(void)
+{
+	debug_key_pressed = 1;
+}
+
 /**************************************************************************
  **************************************************************************
  *      MAME_Debug
  *      This function is called from within an execution loop of a
- *      CPU core whenever mame_debug is non zero
+ *      CPU core whenever Machine->debug_mode is non zero
  **************************************************************************
  **************************************************************************/
-void MAME_Debug(void)
+void mame_debug_hook(void)
 {
 	if( ++debug_key_delay == 0x7fff )
 	{
@@ -5497,5 +5400,3 @@ void MAME_Debug(void)
 	}
 }
 #endif /* NEW_DEBUGGER */
-#endif /* MAME_DEBUG */
-

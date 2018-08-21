@@ -4,11 +4,13 @@
 
     Configuration file I/O.
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
 #include "driver.h"
 #include "config.h"
-#include "common.h"
 #include "xmlfile.h"
 
 
@@ -32,6 +34,7 @@
  *
  *************************************/
 
+typedef struct _config_type config_type;
 struct _config_type
 {
 	struct _config_type *	next;				/* next in line */
@@ -39,7 +42,6 @@ struct _config_type
 	config_callback			load;				/* load callback */
 	config_callback			save;				/* save callback */
 };
-typedef struct _config_type config_type;
 
 
 
@@ -74,10 +76,9 @@ void config_init(void)
 {
 	typelist = NULL;
 
-	/* load input ports settings (keys, dip switches, and so on) */
-	config_register("input", input_port_load, input_port_save);
-	config_register("counters", counters_load, counters_save);
-	config_register("mixer", sndintrf_load, sndintrf_save);
+#ifdef MESS
+	mess_config_init();
+#endif
 }
 
 
@@ -130,11 +131,11 @@ int config_load_settings(void)
 		/* open the config file */
 		file = mame_fopen(NULL, options.controller, FILETYPE_CTRLR, 0);
 		if (!file)
-			osd_die("Could not load controller file %s.cfg\n", options.controller);
+			fatalerror("Could not load controller file %s.cfg", options.controller);
 
 		/* load the XML */
 		if (!config_load_xml(file, CONFIG_TYPE_CONTROLLER))
-			osd_die("Could not load controller file %s.cfg\n", options.controller);
+			fatalerror("Could not load controller file %s.cfg", options.controller);
 		mame_fclose(file);
 	}
 
@@ -210,7 +211,7 @@ static int config_load_xml(mame_file *file, int which_type)
 	int version, count;
 
 	/* read the file */
-	root = xml_file_read(file);
+	root = xml_file_read(file, NULL);
 	if (!root)
 		goto error;
 

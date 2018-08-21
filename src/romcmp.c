@@ -1,6 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+/***************************************************************************
+
+    romcmp.c
+
+    ROM comparison utility program.
+
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
+***************************************************************************/
+
 #include "unzip.h"
 #include "osdepend.h"	/* for CLIB_DECL */
 #include "fileio.h"

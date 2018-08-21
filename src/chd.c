@@ -2,12 +2,15 @@
 
     MAME Compressed Hunks of Data file format
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
 #include "chd.h"
 #include "md5.h"
 #include "sha1.h"
-#include "zlib.h"
+#include <zlib.h>
 #include <time.h>
 
 

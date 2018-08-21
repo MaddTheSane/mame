@@ -4,6 +4,9 @@
 
     Handle input from the user.
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
 #pragma once
@@ -11,6 +14,7 @@
 #ifndef __INPUT_H__
 #define __INPUT_H__
 
+#include "mamecore.h"
 
 
 /*************************************
@@ -490,24 +494,11 @@ enum
  *
  *************************************/
 
-typedef UINT32 input_code;
-typedef UINT32 os_code;
-
-
 struct _input_seq
 {
 	input_code code[SEQ_MAX];
 };
 typedef struct _input_seq input_seq;
-
-
-struct _os_code_info
-{
-	char *			name;			/* OS dependant name; 0 terminates the list */
-	os_code		oscode;			/* OS dependant code */
-	input_code	inputcode;		/* CODE_xxx equivalent from list below, or one of CODE_OTHER_* if n/a */
-};
-typedef struct _os_code_info os_code_info;
 
 
 
@@ -536,7 +527,6 @@ typedef struct _os_code_info os_code_info;
 
 /* single code functions */
 int code_init(void);
-void code_exit(void);
 
 INT32 code_analog_value(input_code code);
 int code_pressed(input_code code);

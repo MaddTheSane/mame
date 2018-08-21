@@ -1,16 +1,17 @@
-/** \file
- *
- * MAME XML to INFO converter.
- *
- * This file is Public Domain.
- */
+/***************************************************************************
+
+    xml2info.h
+
+    MAME XML to INFO converter.
+
+    This file is Public Domain.
+
+***************************************************************************/
 
 /****************************************************************************/
 /* libexpat */
 
-/* Use the system libexpat library */
-#include "expat.h"
-
+#include <expat.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>

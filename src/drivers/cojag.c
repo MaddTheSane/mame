@@ -17,8 +17,82 @@
     To do:
         * map out unused RAM per-game via MRA8_NOP/MWA8_NOP
 
-    Note: There is believed to be a 68020 version of Maximum Force (not confirmed or dumped)
+    Note: There is believed to be a 68020 version of Maximum Force
+            (not confirmed or dumped)
 
+****************************************************************************
+
+    Area51/Maximum Force (c)1997 Atari Games
+    Maximum Force
+    A055451
+
+    Components:
+    sdt79r3041-20j
+    Atari Jaguar CPU V1.0 6sc880hf106
+    Atari Jaguar DSP V1.0 sc414201ft (has Motorolla logo)
+    Altera epm7128elc84-15 marked A-21652
+    VIA vt83c461 IDE controller
+    Actel a1010b marked A-22096 near IDE and gun inputs
+    Dallas ds1232s watchdog
+    52MHz osc near Altera PLCC
+    40MHz osc near 79R3041
+    14.318180MHz osc near Jag DSP
+    12x hm514260cj7 RAM (near Jaguar CPU/DSP)
+    4x  sdt71256 RAM (near Boot ROMs's)
+    Atmel atf16v8b marked a-21647 (near Jag CPU)
+    Altera ep22lc-10 marked A-21648 (near Jag DSP)
+    ICT 22cv10aj marked A-21649 (near Jag CPU)
+    ICT 22cv10aj marked A-21650 (near Jag CPU)
+    ICT 22cv10aj marked A-21651 (near Jag CPU)
+    tea6320t
+    AKM ak4310vm
+    tda1554q amplifier
+    Microchip 28c16a-15 BRAM
+
+    ROM's:
+    27c4001
+    R3K MAX/A51 KIT
+    LL
+    (c)1997 Atari
+    V 1.0
+
+    27c4001
+    R3K MAX/A51 KIT
+    LH
+    (c)1997 Atari
+    V 1.0
+
+    27c4001
+    R3K MAX/A51 KIT
+    HL
+    (c)1997 Atari
+    V 1.0
+
+    27c4001
+    R3K MAX/A51 KIT
+    HH
+    (c)1997 Atari
+    V 1.0
+
+    Jumpers:
+    jsp1 (1/2 connected= w/sub 2/3 connected= normal speaker)
+    jsp2 (1/2 connected= w/sub 2/3 connected= normal speaker)
+    jamaud (1/2 connected=stereo 2/3 connected=mono)
+    jimpr (1/2 connected=hi video R impedance 2/3 connected=lo)
+    jimpg (1/2 connected=hi video G impedance 2/3 connected=lo)
+    jimpb (1/2 connected=hi video B impedance 2/3 connected=lo)
+
+    Connectors:
+    idea  standard IDE connector
+    ideb laptop size IDE connector
+    jgun1 8 pin gun input
+    jgun2 8 pin gun input
+    xtracoin 1 6 pin (coin3/4 bills?)
+    jvupdn 3 pin (?)
+    jsync 3 pin (?)
+    JAMMA
+    jspkr left/right/subwoofer output
+    hdpower 4 pin PC power connector for HD
 
 ****************************************************************************
 
@@ -102,22 +176,12 @@ static struct ide_interface ide_intf =
  *
  *************************************/
 
-static MACHINE_INIT( cojag )
+static MACHINE_RESET( cojag )
 {
 	/* 68020 only: copy the interrupt vectors into RAM */
 	if (!cojag_is_r3000)
 		memcpy(jaguar_shared_ram, rom_base, 0x10);
 
-#if 0
-	/* set up main CPU RAM/ROM banks */
-	memory_set_bankptr(3, jaguar_gpu_ram);
-
-	/* set up DSP RAM/ROM banks */
-	memory_set_bankptr(10, jaguar_shared_ram);
-	memory_set_bankptr(11, jaguar_gpu_clut);
-	memory_set_bankptr(12, jaguar_gpu_ram);
-	memory_set_bankptr(13, jaguar_dsp_ram);
-#endif
 	/* clear any spinuntil stuff */
 	jaguar_gpu_resume();
 	jaguar_dsp_resume();
@@ -739,7 +803,7 @@ MACHINE_DRIVER_START( cojagr3k )
 	MDRV_FRAMES_PER_SECOND(60)
 	MDRV_VBLANK_DURATION(DEFAULT_REAL_60HZ_VBLANK_DURATION)
 
-	MDRV_MACHINE_INIT(cojag)
+	MDRV_MACHINE_RESET(cojag)
 	MDRV_NVRAM_HANDLER(generic_1fill)
 
 	/* video hardware */
@@ -787,7 +851,7 @@ MACHINE_DRIVER_START( cojag68k )
 	MDRV_FRAMES_PER_SECOND(60)
 	MDRV_VBLANK_DURATION(DEFAULT_REAL_60HZ_VBLANK_DURATION)
 
-	MDRV_MACHINE_INIT(cojag)
+	MDRV_MACHINE_RESET(cojag)
 	MDRV_NVRAM_HANDLER(generic_1fill)
 
 	/* video hardware */
@@ -937,7 +1001,7 @@ ROM_END
  *
  *************************************/
 
-static void common_init(UINT8 crosshair, UINT16 gpu_jump_offs, UINT16 spin_pc)
+static void cojag_common_init(UINT8 crosshair, UINT16 gpu_jump_offs, UINT16 spin_pc)
 {
 	/* copy over the ROM */
 	cojag_is_r3000 = (Machine->drv->cpu[0].cpu_type == CPU_R3000BE);
@@ -962,7 +1026,7 @@ static void common_init(UINT8 crosshair, UINT16 gpu_jump_offs, UINT16 spin_pc)
 
 static DRIVER_INIT( area51a )
 {
-	common_init(1, 0x5c4, 0x5a0);
+	cojag_common_init(1, 0x5c4, 0x5a0);
 
 #if ENABLE_SPEEDUP_HACKS
 	/* install speedup for main CPU */
@@ -973,7 +1037,7 @@ static DRIVER_INIT( area51a )
 
 static DRIVER_INIT( area51 )
 {
- common_init(1, 0x0c0, 0x09e);
+	cojag_common_init(1, 0x0c0, 0x09e);
 
 #if ENABLE_SPEEDUP_HACKS
 	/* install speedup for main CPU */
@@ -984,7 +1048,7 @@ static DRIVER_INIT( area51 )
 
 static DRIVER_INIT( maxforce )
 {
-	common_init(1, 0x0c0, 0x09e);
+	cojag_common_init(1, 0x0c0, 0x09e);
 
 	/* patch the protection */
 	rom_base[0x220/4] = 0x03e00008;
@@ -999,7 +1063,7 @@ static DRIVER_INIT( maxforce )
 
 static DRIVER_INIT( area51mx )
 {
-	common_init(1, 0x0c0, 0x09e);
+	cojag_common_init(1, 0x0c0, 0x09e);
 
 	/* patch the protection */
 	rom_base[0x418/4] = 0x4e754e75;
@@ -1013,7 +1077,7 @@ static DRIVER_INIT( area51mx )
 
 static DRIVER_INIT( a51mxr3k )
 {
-	common_init(1, 0x0c0, 0x09e);
+	cojag_common_init(1, 0x0c0, 0x09e);
 
 	/* patch the protection */
 	rom_base[0x220/4] = 0x03e00008;
@@ -1028,7 +1092,7 @@ static DRIVER_INIT( a51mxr3k )
 
 static DRIVER_INIT( vcircle )
 {
-	common_init(0, 0x5c0, 0x5a0);
+	cojag_common_init(0, 0x5c0, 0x5a0);
 
 #if ENABLE_SPEEDUP_HACKS
 	/* install speedup for main CPU */

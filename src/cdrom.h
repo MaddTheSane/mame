@@ -4,6 +4,9 @@
 
     Generic MAME cd-rom implementation
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
 #pragma once
@@ -11,8 +14,9 @@
 #ifndef __CDROM_H__
 #define __CDROM_H__
 
-#include "driver.h"
+#include "mamecore.h"
 #include "chd.h"
+#include "streams.h"
 
 typedef struct _cdrom_file cdrom_file;
 

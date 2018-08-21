@@ -4,6 +4,9 @@
 
     PNG file management.
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
 #pragma once
@@ -11,6 +14,7 @@
 #ifndef __PNG_H__
 #define __PNG_H__
 
+#include "mamecore.h"
 
 #define PNG_Signature       "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A"
 #define MNG_Signature       "\x8A\x4D\x4E\x47\x0D\x0A\x1A\x0A"

@@ -4,6 +4,9 @@
 
     Function to handle hash functions (checksums)
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
     Started by Farfetch'd
 
 *********************************************************************/
@@ -115,15 +118,12 @@
 
 #include <stddef.h>
 #include <ctype.h>
-#include <string.h>
-#include <stdlib.h>
 #include <zlib.h>
 #include "hash.h"
 #include "md5.h"
 #include "sha1.h"
-#include "osd_cpu.h"
 #include "mame.h"
-#include "common.h"
+#include "romload.h"
 
 #define ASSERT(x)
 
@@ -185,13 +185,13 @@ static const hash_function_desc hash_descs[HASH_NUM_FUNCTIONS] =
 	},
 };
 
-const char* info_strings[] =
+static const char* info_strings[] =
 {
 	"$ND$",       // No dump
 	"$BD$"        // Bad dump
 };
 
-static const char* binToStr = "0123456789abcdef";
+static const char binToStr[] = "0123456789abcdef";
 
 
 static const hash_function_desc* hash_get_function_desc(unsigned int function)

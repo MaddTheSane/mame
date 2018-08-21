@@ -4,6 +4,9 @@
 
     Functions to manipulate data within ZIP files.
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 ***************************************************************************/
 
 #pragma once
@@ -11,9 +14,7 @@
 #ifndef __UNZIP_H__
 #define __UNZIP_H__
 
-#include "osd_cpu.h"
 #include "osdepend.h"
-#include <stdio.h>
 
 /***************************************************************************
  * Support for retrieving files from zipfiles

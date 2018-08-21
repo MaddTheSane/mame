@@ -4,12 +4,17 @@
 
     Second generation artwork implementation.
 
+    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Visit http://mamedev.org for licensing and usage restrictions.
+
 *********************************************************************/
 
 #pragma once
 
 #ifndef __ARTWORK_H__
 #define __ARTWORK_H__
+
+#include "mamecore.h"
 
 
 /***************************************************************************

@@ -2,6 +2,9 @@
 //
 //  video.h - Win32 implementation of MAME video routines
 //
+//  Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+//  Visit http://mamedev.org for licensing and usage restrictions.
+//
 //============================================================
 
 #ifndef __WIN_VIDEO__
@@ -22,10 +25,6 @@
 //  GLOBAL VARIABLES
 //============================================================
 
-// current frameskip/autoframeskip settings
-extern int			frameskip;
-extern int			autoframeskip;
-
 // speed throttling
 extern int			throttle;
 
@@ -45,7 +44,10 @@ extern UINT8		blit_swapxy;
 //  PROTOTYPES
 //============================================================
 
+void win_pause(int pause);
 void win_orient_rect(rectangle *rect);
 void win_disorient_rect(rectangle *rect);
+void win_set_frameskip(int frameskip);		// <0 = auto
+int win_get_frameskip(void);				// <0 = auto
 
 #endif

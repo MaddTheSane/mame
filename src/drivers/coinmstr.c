@@ -16,9 +16,6 @@
     0x4000 or 0x8000 bytes long. This check is done with the 1st read
     from the rom (I think from offset 0) and if it's 0x10, it means a
     0x4000 bytes eprom or if it's 0x20, it means a 0x8000 one.
-    I guess there's something like a protection / encryption between
-    the question roms and their reading, because we have only 0x8000
-    bytes question roms which have 0x10 as the 1st byte.
     Also supnudg2 only tests 0x20 as 1st byte, so accepting only
     the 2nd type of eproms.
 
@@ -28,7 +25,6 @@
 #include "driver.h"
 #include "machine/6821pia.h"
 #include "vidhrdw/crtc6845.h"
-#include "vidhrdw/generic.h"
 #include "sound/ay8910.h"
 
 
@@ -503,7 +499,7 @@ static struct pia6821_interface trailblz_pia_2_intf =
 	/*irqs   : A/B             */ 0, 0
 };
 
-MACHINE_INIT( quizmstr )
+MACHINE_RESET( quizmstr )
 {
 	pia_unconfig();
 	pia_config(0, PIA_STANDARD_ORDERING, &quizmstr_pia_0_intf);
@@ -512,7 +508,7 @@ MACHINE_INIT( quizmstr )
 	pia_reset();
 }
 
-MACHINE_INIT( trailblz )
+MACHINE_RESET( trailblz )
 {
 	pia_unconfig();
 	pia_config(0, PIA_STANDARD_ORDERING, &trailblz_pia_0_intf);
@@ -557,7 +553,7 @@ static MACHINE_DRIVER_START( quizmstr )
 	MDRV_CPU_MODIFY("cpu")
 	MDRV_CPU_IO_MAP(quizmstr_io_map,0)
 
-	MDRV_MACHINE_INIT(quizmstr)
+	MDRV_MACHINE_RESET(quizmstr)
 MACHINE_DRIVER_END
 
 static MACHINE_DRIVER_START( trailblz )
@@ -565,7 +561,7 @@ static MACHINE_DRIVER_START( trailblz )
 	MDRV_CPU_MODIFY("cpu")
 	MDRV_CPU_IO_MAP(trailblz_io_map,0)
 
-	MDRV_MACHINE_INIT(trailblz)
+	MDRV_MACHINE_RESET(trailblz)
 MACHINE_DRIVER_END
 
 static MACHINE_DRIVER_START( supnudg2 )
@@ -573,7 +569,7 @@ static MACHINE_DRIVER_START( supnudg2 )
 	MDRV_CPU_MODIFY("cpu")
 	MDRV_CPU_IO_MAP(supnudg2_io_map,0)
 
-	MDRV_MACHINE_INIT(quizmstr)
+	MDRV_MACHINE_RESET(quizmstr)
 MACHINE_DRIVER_END
 
 /*
@@ -701,35 +697,23 @@ ROM_END
 
 DRIVER_INIT( coinmstr )
 {
-	/*
+	UINT8 *rom = memory_region(REGION_USER1);
+	int length = memory_region_length(REGION_USER1);
+	UINT8 *buf = malloc(length);
+	int i;
 
-      The question roms check in the games works this way:
-      they do a sum of the whole rom except what should be
-      offset 2, then they invert the sum, add 1 and they check
-      if the sum is equal to the byte read from that offset 2
-
-    */
-
-
-	UINT8 *questions = memory_region(REGION_USER1);
-	int sums[20];
-	int i,j;
-	for(i = 0; i < 20; i++)
-		sums[i] = 0;
-
-	for(i = 0; i < 0xa0000; i += 0x8000)
+	if (buf)
 	{
-		for(j = 0; j < 0x8000; j++)
-		{
-			if(j != 2)
-			{
-				sums[i >> 15] = (questions[i + j] + sums[i >> 15]) & 0xff;
-			}
-		}
-	}
+		memcpy(buf,rom,length);
 
-	for(i = 0; i < 20; i++)
-		printf("checksum #%02d = %02X, inverted %02X, inverted + 1 = %02X\n",i+1, sums[i],sums[i] ^ 0xff,((sums[i] ^ 0xff) + 1) & 0xff);
+		for(i = 0; i < length; i++)
+		{
+			int adr = BITSWAP24(i, 23,22,21,20,19,18,17,16,15, 14,8,7,2,5,12,10,9,11,13,3,6,0,1,4);
+			rom[i] = BITSWAP8(buf[adr],3,2,4,1,5,0,6,7);
+		}
+
+		free(buf);
+	}
 }
 
 
