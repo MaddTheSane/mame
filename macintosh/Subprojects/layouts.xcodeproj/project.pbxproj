@@ -51,7 +51,7 @@
 			isEditable = 1;
 			outputFiles = (
 			);
-			script = "";
+			script = "# @file2str$(EXE) $< $@ layout_$(basename $(notdir $<))\n";
 		};
 /* End PBXBuildRule section */
 
