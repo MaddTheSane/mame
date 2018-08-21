@@ -1,0 +1,169 @@
+#define kShortVersionString "0.103u2"
+#define kLongVersionString "0.103u2, Copyright 1997-2006, The MAME Team"
+
+plist
+{
+	dictionary
+	{
+		key "CFBundleVersion" value string kShortVersionString
+		key "CFBundleShortVersionString" value string kShortVersionString
+		key "CFBundleLongVersionString" value string kLongVersionString
+		key "CFBundleGetInfoString" value string kLongVersionString
+		
+		key "CFBundleName" value string __OUTPUT_FILENAME__
+		key "CFBundleExecutable" value string __OUTPUT_FILENAME__
+		key "CFBundleSignature" value string __OUTPUT_CREATOR__
+		key "CFBundlePackageType" value string __OUTPUT_TYPE__
+		
+		key "CFBundleIconFile" value string "MacMAME.icns"
+		key "CFBundleIdentifier" value string "org.macmame.macmame"
+		
+		key "CFBundleDocumentTypes" value array
+		[
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME ROM zip"
+				key "CFBundleTypeIconFile" value string "ROM.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeOSTypes" value array
+				[
+					string 'pZIP'
+					string 'ZIP '
+				]
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'zip'
+				]
+				key "CFBundleTypeMIMETypes" value array
+				[
+					string "application/zip"
+					string "application/x-zip"
+					string "application/x-zip-compressed"
+				]
+			}
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME High Score File"
+				key "CFBundleTypeIconFile" value string "Score.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeOSTypes" value array
+				[
+					string '.HI '
+				]
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'hi'
+				]
+			}
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME Config File"
+				key "CFBundleTypeIconFile" value string "Config.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeOSTypes" value array
+				[
+					string '.CFG'
+				]
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'cfg'
+				]
+			}
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME NVRAM File"
+				key "CFBundleTypeIconFile" value string "NVRAM.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeOSTypes" value array
+				[
+					string '.NV '
+				]
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'nv'
+				]
+			}
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME Replay File"
+				key "CFBundleTypeIconFile" value string "Replay.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeOSTypes" value array
+				[
+					string '.INP'
+				]
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'inp'
+				]
+			}
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME Memcard File"
+				key "CFBundleTypeIconFile" value string "Memcard.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeOSTypes" value array
+				[
+					string '.MEM'
+				]
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'mem'
+				]
+			}
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME Save State File"
+				key "CFBundleTypeIconFile" value string "SaveState.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeOSTypes" value array
+				[
+					string 'Save'
+				]
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'sta'
+				]
+			}
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME Language File"
+				key "CFBundleTypeIconFile" value string "Language.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'lng'
+				]
+			}
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME CHD File"
+				key "CFBundleTypeIconFile" value string "CHD.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'chd'
+				]
+			}
+			dictionary
+			{
+				key "CFBundleTypeName" value string "MacMAME CHD Diff File"
+				key "CFBundleTypeIconFile" value string "CHD_Diff.icns"
+				key "CFBundleTypeRole" value string "Viewer"
+				key "CFBundleTypeOSTypes" value array
+				[
+					string '.DIF'
+				]
+				key "CFBundleTypeExtensions" value array
+				[
+					string 'dif'
+				]
+			}
+		]
+		
+		key "CFBundleDevelopmentRegion" value string "en"
+		key "CFBundleInfoDictionaryVersion" value string "6.0"
+		key "LSRequiresCarbon" value boolean true
+		key "NSAppleScriptEnabled" value boolean true
+	}
+}

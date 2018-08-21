@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>zip</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>ROM.icns</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/zip</string>
+				<string>application/x-zip</string>
+				<string>application/x-zip-compressed</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME ROM zip</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>pZIP</string>
+				<string>ZIP </string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>hi</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>Score.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME High Score File</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>.HI</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>cfg</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>Config.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME Config File</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>.CFG</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>nv</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>NVRAM.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME NVRAM File</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>.NV </string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>inp</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>Replay.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME Replay File</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>.INP</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>nv</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>NVRAM.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME NVRAM File</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>.NV </string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>mem</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>Memcard.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME Memcard File</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>.MEM</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>sta</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>SaveState.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME Save State File</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>Save</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>lng</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>Language.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME Language File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>chd</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>CHD.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME CHD File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>dif</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>CHD_Diff.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>MacMAME CHD Diff File</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>.DIF</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+		</dict>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>MacMAME</string>
+	<key>CFBundleGetInfoString</key>
+	<string>0.103u2 (gcc), Copyright 1997-2006, The MAME Team</string>
+	<key>CFBundleLongVersionString</key>
+	<string>0.103u2 (gcc), Copyright 1997-2006, The MAME Team</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.103u2 (gcc)</string>
+	<key>CFBundleVersion</key>
+	<string>0.103u2 (gcc)</string>
+	<key>CFBundleIconFile</key>
+	<string>MacMAME.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.macmame.macmame</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>MacMAME</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>eMuL</string>
+	<key>LSRequiresCarbon</key>
+	<true/>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
+</dict>
+</plist>

@@ -489,7 +489,7 @@ void adder2_decode_char_roms(void)
 				x = 0;
 				while ( x < 64 )
 				{
-					char *src = s + (y*256*8)+(x*4);
+					UINT8 *src = s + (y*256*8)+(x*4);
 
 					*p++ = src[0*256+0];*p++ = src[0*256+1];*p++ = src[0*256+2];*p++ = src[0*256+3];
 					*p++ = src[1*256+0];*p++ = src[1*256+1];*p++ = src[1*256+2];*p++ = src[1*256+3];

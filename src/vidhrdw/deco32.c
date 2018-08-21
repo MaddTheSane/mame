@@ -1100,7 +1100,7 @@ VIDEO_START( nslasher )
 	deco32_raster_display_list=0;
 	deco32_pf2_colourbank=16;
 	deco32_pf4_colourbank=16;
-	state_save_register_UINT32("deco32", 0, "pri", &deco32_pri, 1);
+	state_save_register_int("deco32", 0, "pri", &deco32_pri);
 	alpha_set_level(0x80);
 	has_ace_ram=1;
 

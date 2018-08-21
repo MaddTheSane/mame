@@ -1,0 +1,29 @@
+/*##########################################################################
+
+  MacMAMEXcode.pch
+
+  Precompiled header file that sets things up for the Carbon debug 
+  build of MacMAME. Most of the work is done in MacMAME.h, however.
+
+##########################################################################*/
+
+#define TARGET_API_MAC_CARBON	1
+#define TARGET_RT_MAC_MACHO		1
+
+#undef DEBUG
+#undef MAME_DEBUG
+
+/*##########################################################################
+	CORE MacMAME INCLUDES
+##########################################################################*/
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "MacMAME.h"
+
+#ifdef __cplusplus
+}
+#endif
+#include "mach_fixup.h"

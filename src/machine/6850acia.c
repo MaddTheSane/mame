@@ -7,6 +7,10 @@
 
 **********************************************************************/
 #include "6850acia.h"
+
+extern UINT8 m6850_irq_state; // referenced from machine/mpu4.c
+void update_mpu68_interrupts(void); // referenced from machine/mpu4.c
+
 #define LOG_SERIAL	  // log serial communication
 #define  UART_LOG //enable UART data logging
 #define LOG_CTRL	  // log serial communication

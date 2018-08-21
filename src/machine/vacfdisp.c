@@ -223,7 +223,7 @@ UINT16 *vfd_get_segments(int id)
 
 char  *vfd_get_string( int id)
 {
-  return vfds[id].string;
+  return (char *)vfds[id].string;
 }
 ///////////////////////////////////////////////////////////////////////////
 

@@ -1,0 +1,12 @@
+Build Notes
+-----------
+
+There are 2 main project files:
+
+MacMAME.mcp (for CodeWarrior 9.x)
+MacMAME.xcodeproj (for Xcode 2.2)
+
+Both assume the 10.3.9 SDK is being used.
+
+The distribution of MacMAME is built with CodeWarrior 9.6 under 10.4.3,
+targetting the 10.3.9 SDK.
