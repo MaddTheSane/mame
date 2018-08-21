@@ -1,3 +1,6 @@
 [submodule "Vendor/HIDUtilities"]
 	path = Vendor/HIDUtilities
 	url = git@github.com:MaddTheSane/HIDUtilities.git
+[submodule "Vendor/oldMacHeaders"]
+	path = Vendor/oldMacHeaders
+	url = https://github.com/MaddTheSane/oldMacHeaders.git

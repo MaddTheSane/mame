@@ -42,7 +42,7 @@
 // Including these in the pre-compiled header set is a nice speed-up
 #include <Carbon/Carbon.h>
 #include <QuickTime/QuickTime.h>
-#include </Users/cwbetts/makestuff/rivenx/Vendor/oldMacHeaders/OldCarbHeaders.h>
+#include "OldCarbHeaders.h"
 
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>

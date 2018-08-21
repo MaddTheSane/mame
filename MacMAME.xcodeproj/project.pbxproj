@@ -674,6 +674,13 @@
 			remoteGlobalIDString = 55A4AF44212BCD1D009FABC1;
 			remoteInfo = layouts;
 		};
+		55A4AFAE212BCF58009FABC1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55A4AF8D212BCD80009FABC1 /* layouts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55A4AFA6212BCF51009FABC1;
+			remoteInfo = file2str;
+		};
 		55FF0000212A267000EB17F5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9B364F7D07C96CB3001B6B36 /*  sndhrdw.xcodeproj */;
@@ -836,6 +843,7 @@
 		55A4AF36212BC9F7009FABC1 /* 8201dasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = 8201dasm.c; path = alph8201/8201dasm.c; sourceTree = "<group>"; };
 		55A4AF37212BC9F7009FABC1 /* alph8201.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alph8201.h; sourceTree = "<group>"; };
 		55A4AF8D212BCD80009FABC1 /* layouts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = layouts.xcodeproj; path = macintosh/Subprojects/layouts.xcodeproj; sourceTree = "<group>"; };
+		55A4AFC0212BD1E9009FABC1 /* osd_cpu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = osd_cpu.h; path = macintosh/Source/osd_cpu.h; sourceTree = SOURCE_ROOT; };
 		55DE7E82212159BC009FBDBB /* libexpat.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libexpat.tbd; path = usr/lib/libexpat.tbd; sourceTree = SDKROOT; };
 		55DE7E84212159CF009FBDBB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55DE7E9521215D9C009FBDBB /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; lineEnding = 0; name = en; path = en.lproj/mamelang.r; sourceTree = "<group>"; };
@@ -1084,7 +1092,6 @@
 		F501989E070CFCF5009C5423 /* maclists.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = maclists.c; sourceTree = "<group>"; };
 		F501989F070CFCF5009C5423 /* mactext.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = mactext.c; sourceTree = "<group>"; };
 		F50198A0070CFCF5009C5423 /* macoptions.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = macoptions.c; sourceTree = "<group>"; };
-		F50198A8070CFD08009C5423 /* libWASTE.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWASTE.a; sourceTree = "<group>"; };
 		F50198AB070CFD2E009C5423 /* MacAppleEvents.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = MacAppleEvents.c; sourceTree = "<group>"; };
 		F50198AC070CFD2E009C5423 /* mac.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = mac.c; sourceTree = "<group>"; };
 		F50198B0070CFD55009C5423 /* MacFiles.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MacFiles.cpp; sourceTree = "<group>"; };
@@ -1440,6 +1447,7 @@
 			isa = PBXGroup;
 			children = (
 				55A4AF92212BCD80009FABC1 /* liblayouts.a */,
+				55A4AFAF212BCF58009FABC1 /* file2str */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1637,7 +1645,6 @@
 				F501989F070CFCF5009C5423 /* mactext.c */,
 				F5AD660409557516004AEC57 /* datafile.h */,
 				F5AD660309557516004AEC57 /* datafile.c */,
-				F50198A8070CFD08009C5423 /* libWASTE.a */,
 			);
 			name = frontend;
 			sourceTree = "<group>";
@@ -1672,6 +1679,7 @@
 		F5EB2C1A057F2C33004EB9EC /* MAME Core */ = {
 			isa = PBXGroup;
 			children = (
+				55A4AFC0212BD1E9009FABC1 /* osd_cpu.h */,
 				9BA3267C07DC0C4C005B373A /* Debugger */,
 				F5EB2C21057F2C33004EB9EC /* artwork.c */,
 				55FFFF062129ECF900EB17F5 /* artwork.h */,
@@ -2169,6 +2177,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CMAME;
+				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0940;
 				TargetAttributes = {
 					F5EB2BD0057F2C33004EB9EC = {
@@ -2251,6 +2260,13 @@
 			fileType = archive.ar;
 			path = liblayouts.a;
 			remoteRef = 55A4AF91212BCD80009FABC1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		55A4AFAF212BCF58009FABC1 /* file2str */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = file2str;
+			remoteRef = 55A4AFAE212BCF58009FABC1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9B364F7F07C96CB3001B6B36 /* libsndhrdw_macho.a */ = {
@@ -3243,7 +3259,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(HOME)/oldQTFrameworks";
+				FRAMEWORK_SEARCH_PATHS = Vendor/oldMacHeaders;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -3263,11 +3279,11 @@
 					src/includes,
 					src/debug,
 					macintosh/Source,
-					src/expat,
 					src/cpu/m68000,
 					macintosh/Source/WASTE,
 					"macintosh/Source/HID\\ Utilities",
 					macintosh,
+					Vendor/oldMacHeaders,
 				);
 				INFOPLIST_FILE = macintosh/Source/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
@@ -3315,7 +3331,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(HOME)/oldQTFrameworks";
+				FRAMEWORK_SEARCH_PATHS = Vendor/oldMacHeaders;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -3333,11 +3349,11 @@
 					src/includes,
 					src/debug,
 					macintosh/Source,
-					src/expat,
 					src/cpu/m68000,
 					macintosh/Source/WASTE,
 					"macintosh/Source/HID\\ Utilities",
 					macintosh,
+					Vendor/oldMacHeaders,
 				);
 				INFOPLIST_FILE = macintosh/Source/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
