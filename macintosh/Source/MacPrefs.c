@@ -1,5 +1,5 @@
 #include "MacPrefs.h"
-#include "MacReports.h" // ¥¥¥¥¥¥ FRONTEND
+#include "macreports.h" // ¥¥¥¥¥¥ FRONTEND
 
 PrefsRec gPrefs;
 FEPrefsRec gFEPrefs;
@@ -150,6 +150,35 @@ void GetPrefAsAlias (AliasHandle *outValue, CFStringRef inKey)
 		*outValue = NULL;
 }
 
+void GetPrefAsCFURL (CFURLRef *outValue, CFStringRef inKey)
+{
+	CFPropertyListRef tempData;
+	
+	tempData = CFPreferencesCopyAppValue (inKey, sPrefID);
+	if (tempData != NULL)
+	{
+		if (CFGetTypeID (tempData) == CFDataGetTypeID())
+		{
+			CFURLRef aRef = CFURLCreateByResolvingBookmarkData(NULL, (CFDataRef) tempData, 0, NULL, NULL, NULL, NULL);
+			if (!aRef) {
+				CFDataRef newDat = CFURLCreateBookmarkDataFromAliasRecord(NULL, tempData);
+				aRef = CFURLCreateByResolvingBookmarkData(NULL, (CFDataRef) newDat, 0, NULL, NULL, NULL, NULL);
+				CFRelease(newDat);
+			}
+			*outValue = aRef;
+		}
+		else
+		{
+			// The data is not what we expected so remove it from the prefs.
+			// This could happen if the structures of the pref data changes.
+			CFPreferencesSetAppValue (inKey, NULL, sPrefID);
+			*outValue = NULL;
+		}
+		CFRelease (tempData);
+	}
+	else
+		*outValue = NULL;
+}
 
 void GetPrefAsStr255 (StringPtr outValue, CFStringRef inKey)
 {

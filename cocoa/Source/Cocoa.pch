@@ -1,0 +1,75 @@
+//
+//  Cocoa.pch
+//  MacMAME
+//
+//  Created by C.W. Betts on 8/19/18.
+//
+
+#ifndef Cocoa_pch
+#define Cocoa_pch
+
+#ifdef DEBUG
+#define MAME_DEBUG 		1
+#else
+#undef MAME_DEBUG
+#endif
+
+
+#define kCreator	'eMuL'
+#define kAppName	"MacMAME"
+
+#define kComponentSignatureString	kAppName
+#define COMPONENT_SIGNATURE			kCreator
+
+// a useful speedup
+#pragma once //on
+
+#if defined(__GNUC__)
+#define MAC_XCODE 1
+//#include <ppc_intrinsics.h>
+#endif
+
+#define TARGET_RT_MAC_MACHO		1
+#define TARGET_API_MAC_CARBON	1
+
+#define __CF_USE_FRAMEWORK_INCLUDES__ 1
+
+#include <math.h>
+//#include <tgmath.h>
+#include <stdio.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#endif
+
+#define strnicmp strncasecmp
+
+#define PI 				M_PI
+
+// For fileio.c:
+// 1 = CR only
+// 2 = LF only (the OSX default)
+// 3 = CR+LF
+#define CRLF 2
+
+#ifndef INLINE
+#define INLINE static inline
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "CocoaCoreDefines.h"
+#include "driver.h"
+	
+#ifdef __cplusplus
+}
+#endif
+
+#include "mach_fixup.h"
+
+#endif /* Cocoa_pch */

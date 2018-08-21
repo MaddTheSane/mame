@@ -1,0 +1,3 @@
+[submodule "Vendor/HIDUtilities"]
+	path = Vendor/HIDUtilities
+	url = git@github.com:MaddTheSane/HIDUtilities.git

@@ -223,11 +223,11 @@ OSErr ShowSplashMovie(void)
 
 	// look for a file named macmame.mov in Screenshots folder
 
-	require_noerr( err = GetFSRefForMAMEFolder (MAC_FILETYPE_SUPPORT, &folderRef), cantGetMAMEFolder );
+	__Require_noErr( err = GetFSRefForMAMEFolder (MAC_FILETYPE_SUPPORT, &folderRef), cantGetMAMEFolder );
 
 	name.length = ConvertCStringToUnicode ("MacMAME.mov", name.unicode);
 	if (name.length == 0) goto bail;
-	require_noerr_quiet( err = FSMakeFSRefUnicode (&folderRef, name.length, name.unicode, kTextEncodingUnknown, &fileRef), cantMakeFSRef );
+	__Require_noErr_Quiet( err = FSMakeFSRefUnicode (&folderRef, name.length, name.unicode, kTextEncodingUnknown, &fileRef), cantMakeFSRef );
 
 	err = FSGetCatalogInfo (&fileRef, kFSCatInfoNone, NULL, NULL, &movieSpec, NULL );
 	if (err) return err;

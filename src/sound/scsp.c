@@ -407,7 +407,7 @@ static void SCSP_Init(struct _SCSP *SCSP, const struct SCSPinterface *intf)
 
 	// get SCSP RAM
 	{
-		memset(SCSP,0,sizeof(SCSP));
+		memset(SCSP,0,sizeof(*SCSP));
 
 		if (!i)
 		{

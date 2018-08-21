@@ -4,7 +4,7 @@
 
 	Handles the "info" tab of the main frontend dialog.
 
-	¥¥¥ÊWe use WASTE now instead of TextEdit because styled TextEdit is
+	â€¢â€¢â€¢Â We use WASTE now instead of TextEdit because styled TextEdit is
 	broken quite badly in OSX (go figure).
 
 ##########################################################################*/
@@ -26,6 +26,7 @@
 #include "macutils.h"
 
 #if USE_WASTE
+	//#include <WASTE/WASTE.h>
 	#include "WASTE.h"
 #endif
 
@@ -149,7 +150,7 @@ static void 		InfoTextInputs2(const game_driver *inGame);*/
 
 
 
-#pragma mark ¥ Main Interface Functions
+#pragma mark â€¢ Main Interface Functions
 
 //===============================================================================
 //	InfoInitializeUserPane
@@ -710,7 +711,7 @@ OSStatus InfoHandleMouseWheelMoved(DialogRef inDialog, DialogItemIndex inBaseIte
 }
 
 #pragma mark -
-#pragma mark ¥ÊScreenshot Routines
+#pragma mark â€¢Â Screenshot Routines
 
 static OSErr GetScaledPicture(PicHandle srcPic, PicHandle *dstPic, const Rect *dstRect,
 	const Rect *frame)
@@ -1296,7 +1297,7 @@ static OSErr FSpGetFolderDirID(const FSSpec *spec, long *dirID)
 
 
 #pragma mark -
-#pragma mark ¥ Info UserPane
+#pragma mark â€¢ Info UserPane
 
 
 //===============================================================================
@@ -1822,6 +1823,7 @@ static void txtFont(StringPtr name)
 	{
 		GetFNum(name, &style.tsFont);
 #if USE_WASTE
+		//WESetProperty(<#OSType inPropertyCreator#>, <#OSType inPropertyTag#>, <#ByteCount inPropertySize#>, <#const void *inPropertyBuffer#>, <#WEReference inWE#>)
 		(void)WESetStyle(weDoFont, &style, sInfoTE);
 #else
 		TESetStyle(doFont, &style, false, sInfoTE);
@@ -2547,7 +2549,7 @@ static void InfoTextMiniAudit(const game_driver *inGame)
 				txtprint("%s: 0x%06x\n", GetIndCString (rStrings, kInfoBadLength, "bad length"), aud->length);
 				txtprint("                    %s: 0x%06x\n", GetIndCString (rStrings, kInfoExpected, "expected"), aud->explength);
 				break;
-// ¥¥¥ AUD_DISK_BAD_MD5 ?
+// â€¢â€¢â€¢ AUD_DISK_BAD_MD5 ?
 //			case AUD_DISK_OLD_CHD:
 //				txtprint("%s\n",
 //					GetIndCString (rStrings, kInfoOldCHD, "CHD is old version"));

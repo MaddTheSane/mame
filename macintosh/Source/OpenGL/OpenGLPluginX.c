@@ -738,7 +738,7 @@ h -= kHack;
 			//Now the glViewport is relative to the buffer rect, so it is simply the dest size of the game
 			glViewport ( 0, 0, dbounds.right, dbounds.bottom);
 		{
-			long swap = pContextInfo->prefs.vblsync;
+			GLint swap = pContextInfo->prefs.vblsync;
 			if (!aglSetInteger (ctx->aglContext, AGL_SWAP_INTERVAL, &swap))
 				aglReportError ();
 		}
@@ -1145,7 +1145,7 @@ void LoadOverlayMenu(ControlRef control)
 	CFStringRef overlayPrefString;
 	MenuItemIndex itemNum;
 	
-	verify_action(menu, return);
+	__Verify_Action(menu, return);
 	
 	DeleteMenuItems (menu, 1, CountMenuItems (menu));
 	AppendMenuItemTextWithCFString (menu, CFSTR("Default"), 0, 0, 0);
@@ -1154,7 +1154,7 @@ void LoadOverlayMenu(ControlRef control)
 
 	SetPrefID_App ();
 	GetPrefAsCFString (&overlayPrefString, CFSTR("openGL_Overlay"), CFSTR("Default"));
-	require(overlayPrefString, cantParseDirectory);
+	__Require(overlayPrefString, cantParseDirectory);
 	
 	// Add any valid textures found in the "OpenGL Overlays" folder
 	if (pathURL)	
@@ -1165,10 +1165,10 @@ void LoadOverlayMenu(ControlRef control)
 		FSSpec		fsSpec;
 		HFSUniStr255 fileName;
 
-		require(CFURLGetFSRef (pathURL, &pathRef), cantParseDirectory);
+		__Require(CFURLGetFSRef (pathURL, &pathRef), cantParseDirectory);
 		
 		err = FSOpenIterator (&pathRef, kFSIterateFlat, &fsIterator);
-		require_noerr(err, cantParseDirectory);
+		__Require_noErr(err, cantParseDirectory);
 		
 		// Given a list of files in this directory, see which are valid texture types.
 		while (1)
@@ -1180,7 +1180,7 @@ void LoadOverlayMenu(ControlRef control)
 			{
 				MenuItemIndex newItemNum;
 				CFStringRef fileString = CFStringCreateWithCharacters (kCFAllocatorDefault, fileName.unicode, fileName.length);
-				verify_action(fileString, continue);
+				__Verify_Action(fileString, continue);
 				
 				// This file is a valid texture, add it to the menu.
 				AppendMenuItemTextWithCFString (menu, fileString, 0, 0, &newItemNum);
@@ -1335,7 +1335,7 @@ static void ConfigureOpenGLToPrefs(pRecContext c)
 		glTexParameteri(c->screenTexture.target, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	}	
 	
-	long swap = ctx->prefs.vblsync;
+	GLint swap = ctx->prefs.vblsync;
 	if (!aglSetInteger (ctx->aglContext, AGL_SWAP_INTERVAL, &swap))
 		aglReportError ();
 }

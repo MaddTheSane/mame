@@ -114,6 +114,7 @@ void GetPrefAsUInt8 (UInt8 *outValue, CFStringRef inKey, UInt8 inDefault);
 void GetPrefAsUInt32 (UInt32 *outValue, CFStringRef inKey, UInt32 inDefault);
 void GetPrefAsFSSpec (FSSpecPtr outValue, CFStringRef inKey);
 void GetPrefAsAlias (AliasHandle *outValue, CFStringRef inKey);
+void GetPrefAsCFURL (CFURLRef *outValue, CFStringRef inKey);
 void GetPrefAsStr255 (StringPtr outValue, CFStringRef inKey);
 void SetPrefAsCFString (CFStringRef inValue, CFStringRef inKey);
 void SetPrefAsInt (int inValue, CFStringRef inKey);

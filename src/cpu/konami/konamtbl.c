@@ -267,7 +267,7 @@ INLINE void subd_ix(void);
 INLINE void swi(void);
 INLINE void swi2(void);
 INLINE void swi3(void);
-INLINE void sync(void);
+INLINE void sync_(void);
 INLINE void tfr(void);
 INLINE void tst_di(void);
 INLINE void tst_ex(void);

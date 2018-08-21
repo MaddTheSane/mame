@@ -16,11 +16,11 @@
 #define COMPONENT_SIGNATURE			kCreator
 
 // a useful speedup
-#pragma once on
+#pragma once //on
 
 #if defined(__GNUC__)
 	#define MAC_XCODE 1
-	#include <ppc_intrinsics.h>
+	//#include <ppc_intrinsics.h>
 #endif
 
 #define TARGET_RT_MAC_MACHO		1
@@ -42,6 +42,11 @@
 // Including these in the pre-compiled header set is a nice speed-up
 #include <Carbon/Carbon.h>
 #include <QuickTime/QuickTime.h>
+#include </Users/cwbetts/makestuff/rivenx/Vendor/oldMacHeaders/OldCarbHeaders.h>
+
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#endif
 
 #define kIOHIDUsageTables_h	<Kernel/IOKit/hidsystem/IOHIDUsageTables.h>
 #if !defined(__MSL__)
@@ -149,5 +154,9 @@ struct _osd_file
 
 #include "Source/MacCoreDefines.h"
 #include "driver.h"
+
+#ifndef __ppc__
+#include "MacMAME-ppcemu.h"
+#endif
 
 #endif

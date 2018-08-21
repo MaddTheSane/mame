@@ -1561,8 +1561,8 @@ void ErrorAlert (CFStringRef inString, Boolean inQuit)
 	CFStringRef errorString = NULL;
 	CFStringRef detailString = NULL;
 
-	require ( errorString = CFCopyLocalizedString(CFSTR("ErrorText"), NULL), cantGetErrorString );
-	require ( detailString = CFCopyLocalizedString(inString, NULL), cantCreateDetailString );
+	__Require ( errorString = CFCopyLocalizedString(CFSTR("ErrorText"), NULL), cantGetErrorString );
+	__Require ( detailString = CFCopyLocalizedString(inString, NULL), cantCreateDetailString );
 	
 	DialogRef dialog;
 	DialogItemIndex itemIndex;
