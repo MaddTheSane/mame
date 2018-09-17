@@ -7,37 +7,64 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5597FE2C21505F6C00AE12AB /* abaseb.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1021505F4300AE12AB /* abaseb.lay */; };
+		5597FE2D21505F6C00AE12AB /* ampoker.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2021505F4400AE12AB /* ampoker.lay */; };
+		5597FE2E21505F6C00AE12AB /* atarifb.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2421505F4400AE12AB /* atarifb.lay */; };
+		5597FE2F21505F6C00AE12AB /* atarifb4.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1A21505F4400AE12AB /* atarifb4.lay */; };
+		5597FE3021505F6C00AE12AB /* bfm_sc2.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2321505F4400AE12AB /* bfm_sc2.lay */; };
+		5597FE3121505F6C00AE12AB /* buckrog.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1E21505F4400AE12AB /* buckrog.lay */; };
+		5597FE3221505F6C00AE12AB /* cardline.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0821505F4200AE12AB /* cardline.lay */; };
+		5597FE3321505F6C00AE12AB /* clowns.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0B21505F4200AE12AB /* clowns.lay */; };
+		5597FE3421505F6C00AE12AB /* connect4.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0F21505F4300AE12AB /* connect4.lay */; };
+		5597FE3521505F6C00AE12AB /* crash.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2921505F4500AE12AB /* crash.lay */; };
+		5597FE3621505F6C00AE12AB /* dlair.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1421505F4300AE12AB /* dlair.lay */; };
+		5597FE3721505F6C00AE12AB /* firebeat.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1621505F4300AE12AB /* firebeat.lay */; };
+		5597FE3821505F6C00AE12AB /* funworld.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0321505F4200AE12AB /* funworld.lay */; };
+		5597FE3921505F6C00AE12AB /* gldncrwn.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1B21505F4400AE12AB /* gldncrwn.lay */; };
+		5597FE3A21505F6C00AE12AB /* goldnpkr.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1F21505F4400AE12AB /* goldnpkr.lay */; };
+		5597FE3B21505F6C00AE12AB /* maxaflex.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2521505F4500AE12AB /* maxaflex.lay */; };
+		5597FE3C21505F6C00AE12AB /* mpu4.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2621505F4500AE12AB /* mpu4.lay */; };
+		5597FE3D21505F6C00AE12AB /* paradice.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1D21505F4400AE12AB /* paradice.lay */; };
+		5597FE3E21505F6C00AE12AB /* pe_bjack.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0C21505F4200AE12AB /* pe_bjack.lay */; };
+		5597FE3F21505F6C00AE12AB /* pe_keno.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0E21505F4300AE12AB /* pe_keno.lay */; };
+		5597FE4021505F6C00AE12AB /* pe_poker.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1121505F4300AE12AB /* pe_poker.lay */; };
+		5597FE4121505F6C00AE12AB /* pe_schip.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2B21505F4500AE12AB /* pe_schip.lay */; };
+		5597FE4221505F6C00AE12AB /* pe_slots.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0421505F4200AE12AB /* pe_slots.lay */; };
+		5597FE4321505F6C00AE12AB /* peplus.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1221505F4300AE12AB /* peplus.lay */; };
+		5597FE4421505F6C00AE12AB /* pmpoker.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0521505F4200AE12AB /* pmpoker.lay */; };
+		5597FE4521505F6C00AE12AB /* pokio.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1C21505F4400AE12AB /* pokio.lay */; };
+		5597FE4621505F6C00AE12AB /* pottnpkr.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1321505F4300AE12AB /* pottnpkr.lay */; };
+		5597FE4721505F6C00AE12AB /* pyramid.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0721505F4200AE12AB /* pyramid.lay */; };
+		5597FE4821505F6C00AE12AB /* quintoon.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1921505F4400AE12AB /* quintoon.lay */; };
+		5597FE4921505F6C00AE12AB /* sidewndr.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2821505F4500AE12AB /* sidewndr.lay */; };
+		5597FE4A21505F6C00AE12AB /* sigmapkr.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1721505F4300AE12AB /* sigmapkr.lay */; };
+		5597FE4B21505F6C00AE12AB /* slots.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0621505F4200AE12AB /* slots.lay */; };
+		5597FE4C21505F6C00AE12AB /* sltblgpo.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2A21505F4500AE12AB /* sltblgpo.lay */; };
+		5597FE4D21505F6C00AE12AB /* sltblgtk.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2121505F4400AE12AB /* sltblgtk.lay */; };
+		5597FE4E21505F6C00AE12AB /* sspeedr.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2221505F4400AE12AB /* sspeedr.lay */; };
+		5597FE4F21505F6C00AE12AB /* subroc3d.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0A21505F4200AE12AB /* subroc3d.lay */; };
+		5597FE5021505F6C00AE12AB /* tceptor2.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0921505F4200AE12AB /* tceptor2.lay */; };
+		5597FE5121505F6C00AE12AB /* tenpindx.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE1821505F4300AE12AB /* tenpindx.lay */; };
+		5597FE5221505F6C00AE12AB /* turbo.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE2721505F4500AE12AB /* turbo.lay */; };
+		5597FE5321505F6C00AE12AB /* videopin.lay in Sources */ = {isa = PBXBuildFile; fileRef = 5597FE0D21505F4200AE12AB /* videopin.lay */; };
 		55A4AF6D212BCD45009FABC1 /* deadeye.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF4D212BCD37009FABC1 /* deadeye.lay */; };
-		55A4AF6E212BCD45009FABC1 /* horizont.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF4E212BCD37009FABC1 /* horizont.lay */; };
 		55A4AF6F212BCD45009FABC1 /* sbrkout.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF4F212BCD37009FABC1 /* sbrkout.lay */; };
 		55A4AF70212BCD45009FABC1 /* invaders.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF50212BCD37009FABC1 /* invaders.lay */; };
 		55A4AF71212BCD45009FABC1 /* nbmj8688.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF51212BCD37009FABC1 /* nbmj8688.lay */; };
-		55A4AF72212BCD45009FABC1 /* voffff20.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF52212BCD37009FABC1 /* voffff20.lay */; };
 		55A4AF73212BCD45009FABC1 /* geebee.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF53212BCD37009FABC1 /* geebee.lay */; };
 		55A4AF74212BCD45009FABC1 /* solarq.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF54212BCD37009FABC1 /* solarq.lay */; };
-		55A4AF75212BCD45009FABC1 /* hoffff20.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF55212BCD37009FABC1 /* hoffff20.lay */; };
-		55A4AF76212BCD45009FABC1 /* ho88ffff.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF56212BCD37009FABC1 /* ho88ffff.lay */; };
-		55A4AF77212BCD45009FABC1 /* hoa0a0ff.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF57212BCD37009FABC1 /* hoa0a0ff.lay */; };
 		55A4AF78212BCD45009FABC1 /* lazercmd.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF58212BCD37009FABC1 /* lazercmd.lay */; };
 		55A4AF79212BCD45009FABC1 /* starcas.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF59212BCD37009FABC1 /* starcas.lay */; };
-		55A4AF7A212BCD45009FABC1 /* triphsxs.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF5A212BCD37009FABC1 /* triphsxs.lay */; };
 		55A4AF7B212BCD45009FABC1 /* bzone.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF5B212BCD37009FABC1 /* bzone.lay */; };
 		55A4AF7C212BCD45009FABC1 /* circus.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF5C212BCD37009FABC1 /* circus.lay */; };
-		55A4AF7D212BCD45009FABC1 /* dualhsxs.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF5D212BCD37009FABC1 /* dualhsxs.lay */; };
-		55A4AF7E212BCD45009FABC1 /* vertical.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF5E212BCD37009FABC1 /* vertical.lay */; };
-		55A4AF7F212BCD45009FABC1 /* ho2eff2e.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF5F212BCD37009FABC1 /* ho2eff2e.lay */; };
 		55A4AF80212BCD45009FABC1 /* invad2ct.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF60212BCD37009FABC1 /* invad2ct.lay */; };
-		55A4AF81212BCD45009FABC1 /* ho20ffff.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF61212BCD37009FABC1 /* ho20ffff.lay */; };
 		55A4AF82212BCD45009FABC1 /* invrvnge.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF62212BCD37009FABC1 /* invrvnge.lay */; };
-		55A4AF83212BCD45009FABC1 /* hoffe457.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF63212BCD37009FABC1 /* hoffe457.lay */; };
 		55A4AF84212BCD45009FABC1 /* tinv2650.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF64212BCD37009FABC1 /* tinv2650.lay */; };
 		55A4AF85212BCD45009FABC1 /* rocknms.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF65212BCD37009FABC1 /* rocknms.lay */; };
-		55A4AF86212BCD45009FABC1 /* dualhuov.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF66212BCD37009FABC1 /* dualhuov.lay */; };
 		55A4AF87212BCD45009FABC1 /* gypsyjug.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF67212BCD37009FABC1 /* gypsyjug.lay */; };
 		55A4AF88212BCD45009FABC1 /* sos.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF68212BCD37009FABC1 /* sos.lay */; };
 		55A4AF89212BCD45009FABC1 /* darius.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF69212BCD37009FABC1 /* darius.lay */; };
 		55A4AF8A212BCD45009FABC1 /* copsnrob.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF6A212BCD37009FABC1 /* copsnrob.lay */; };
-		55A4AF8B212BCD45009FABC1 /* dualhovu.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF6B212BCD37009FABC1 /* dualhovu.lay */; };
 		55A4AF8C212BCD45009FABC1 /* avalnche.lay in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF6C212BCD37009FABC1 /* avalnche.lay */; };
 		55A4AFBC212BCF8F009FABC1 /* file2str.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AFBB212BCF8F009FABC1 /* file2str.c */; };
 /* End PBXBuildFile section */
@@ -78,41 +105,69 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5597FE0321505F4200AE12AB /* funworld.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = funworld.lay; sourceTree = "<group>"; };
+		5597FE0421505F4200AE12AB /* pe_slots.lay */ = {isa = PBXFileReference; lastKnownFileType = text; path = pe_slots.lay; sourceTree = "<group>"; };
+		5597FE0521505F4200AE12AB /* pmpoker.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = pmpoker.lay; sourceTree = "<group>"; };
+		5597FE0621505F4200AE12AB /* slots.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = slots.lay; sourceTree = "<group>"; };
+		5597FE0721505F4200AE12AB /* pyramid.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = pyramid.lay; sourceTree = "<group>"; };
+		5597FE0821505F4200AE12AB /* cardline.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = cardline.lay; sourceTree = "<group>"; };
+		5597FE0921505F4200AE12AB /* tceptor2.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = tceptor2.lay; sourceTree = "<group>"; };
+		5597FE0A21505F4200AE12AB /* subroc3d.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = subroc3d.lay; sourceTree = "<group>"; };
+		5597FE0B21505F4200AE12AB /* clowns.lay */ = {isa = PBXFileReference; lastKnownFileType = text; path = clowns.lay; sourceTree = "<group>"; };
+		5597FE0C21505F4200AE12AB /* pe_bjack.lay */ = {isa = PBXFileReference; lastKnownFileType = text; path = pe_bjack.lay; sourceTree = "<group>"; };
+		5597FE0D21505F4200AE12AB /* videopin.lay */ = {isa = PBXFileReference; lastKnownFileType = text; path = videopin.lay; sourceTree = "<group>"; };
+		5597FE0E21505F4300AE12AB /* pe_keno.lay */ = {isa = PBXFileReference; lastKnownFileType = text; path = pe_keno.lay; sourceTree = "<group>"; };
+		5597FE0F21505F4300AE12AB /* connect4.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = connect4.lay; sourceTree = "<group>"; };
+		5597FE1021505F4300AE12AB /* abaseb.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = abaseb.lay; sourceTree = "<group>"; };
+		5597FE1121505F4300AE12AB /* pe_poker.lay */ = {isa = PBXFileReference; lastKnownFileType = text; path = pe_poker.lay; sourceTree = "<group>"; };
+		5597FE1221505F4300AE12AB /* peplus.lay */ = {isa = PBXFileReference; lastKnownFileType = text; path = peplus.lay; sourceTree = "<group>"; };
+		5597FE1321505F4300AE12AB /* pottnpkr.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = pottnpkr.lay; sourceTree = "<group>"; };
+		5597FE1421505F4300AE12AB /* dlair.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = dlair.lay; sourceTree = "<group>"; };
+		5597FE1521505F4300AE12AB /* deadeye.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = deadeye.lay; sourceTree = "<group>"; };
+		5597FE1621505F4300AE12AB /* firebeat.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = firebeat.lay; sourceTree = "<group>"; };
+		5597FE1721505F4300AE12AB /* sigmapkr.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = sigmapkr.lay; sourceTree = "<group>"; };
+		5597FE1821505F4300AE12AB /* tenpindx.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = tenpindx.lay; sourceTree = "<group>"; };
+		5597FE1921505F4400AE12AB /* quintoon.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = quintoon.lay; sourceTree = "<group>"; };
+		5597FE1A21505F4400AE12AB /* atarifb4.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = atarifb4.lay; sourceTree = "<group>"; };
+		5597FE1B21505F4400AE12AB /* gldncrwn.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = gldncrwn.lay; sourceTree = "<group>"; };
+		5597FE1C21505F4400AE12AB /* pokio.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = pokio.lay; sourceTree = "<group>"; };
+		5597FE1D21505F4400AE12AB /* paradice.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = paradice.lay; sourceTree = "<group>"; };
+		5597FE1E21505F4400AE12AB /* buckrog.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = buckrog.lay; sourceTree = "<group>"; };
+		5597FE1F21505F4400AE12AB /* goldnpkr.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = goldnpkr.lay; sourceTree = "<group>"; };
+		5597FE2021505F4400AE12AB /* ampoker.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ampoker.lay; sourceTree = "<group>"; };
+		5597FE2121505F4400AE12AB /* sltblgtk.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = sltblgtk.lay; sourceTree = "<group>"; };
+		5597FE2221505F4400AE12AB /* sspeedr.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = sspeedr.lay; sourceTree = "<group>"; };
+		5597FE2321505F4400AE12AB /* bfm_sc2.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = bfm_sc2.lay; sourceTree = "<group>"; };
+		5597FE2421505F4400AE12AB /* atarifb.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = atarifb.lay; sourceTree = "<group>"; };
+		5597FE2521505F4500AE12AB /* maxaflex.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = maxaflex.lay; sourceTree = "<group>"; };
+		5597FE2621505F4500AE12AB /* mpu4.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = mpu4.lay; sourceTree = "<group>"; };
+		5597FE2721505F4500AE12AB /* turbo.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = turbo.lay; sourceTree = "<group>"; };
+		5597FE2821505F4500AE12AB /* sidewndr.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = sidewndr.lay; sourceTree = "<group>"; };
+		5597FE2921505F4500AE12AB /* crash.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = crash.lay; sourceTree = "<group>"; };
+		5597FE2A21505F4500AE12AB /* sltblgpo.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = sltblgpo.lay; sourceTree = "<group>"; };
+		5597FE2B21505F4500AE12AB /* pe_schip.lay */ = {isa = PBXFileReference; lastKnownFileType = text; path = pe_schip.lay; sourceTree = "<group>"; };
 		55A4AF45212BCD1D009FABC1 /* liblayouts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblayouts.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		55A4AF4D212BCD37009FABC1 /* deadeye.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = deadeye.lay; sourceTree = "<group>"; };
-		55A4AF4E212BCD37009FABC1 /* horizont.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = horizont.lay; sourceTree = "<group>"; };
 		55A4AF4F212BCD37009FABC1 /* sbrkout.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = sbrkout.lay; sourceTree = "<group>"; };
 		55A4AF50212BCD37009FABC1 /* invaders.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = invaders.lay; sourceTree = "<group>"; };
 		55A4AF51212BCD37009FABC1 /* nbmj8688.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = nbmj8688.lay; sourceTree = "<group>"; };
-		55A4AF52212BCD37009FABC1 /* voffff20.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = voffff20.lay; sourceTree = "<group>"; };
 		55A4AF53212BCD37009FABC1 /* geebee.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = geebee.lay; sourceTree = "<group>"; };
 		55A4AF54212BCD37009FABC1 /* solarq.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = solarq.lay; sourceTree = "<group>"; };
-		55A4AF55212BCD37009FABC1 /* hoffff20.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = hoffff20.lay; sourceTree = "<group>"; };
-		55A4AF56212BCD37009FABC1 /* ho88ffff.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ho88ffff.lay; sourceTree = "<group>"; };
-		55A4AF57212BCD37009FABC1 /* hoa0a0ff.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = hoa0a0ff.lay; sourceTree = "<group>"; };
 		55A4AF58212BCD37009FABC1 /* lazercmd.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = lazercmd.lay; sourceTree = "<group>"; };
 		55A4AF59212BCD37009FABC1 /* starcas.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = starcas.lay; sourceTree = "<group>"; };
-		55A4AF5A212BCD37009FABC1 /* triphsxs.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = triphsxs.lay; sourceTree = "<group>"; };
 		55A4AF5B212BCD37009FABC1 /* bzone.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = bzone.lay; sourceTree = "<group>"; };
 		55A4AF5C212BCD37009FABC1 /* circus.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = circus.lay; sourceTree = "<group>"; };
-		55A4AF5D212BCD37009FABC1 /* dualhsxs.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = dualhsxs.lay; sourceTree = "<group>"; };
-		55A4AF5E212BCD37009FABC1 /* vertical.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = vertical.lay; sourceTree = "<group>"; };
-		55A4AF5F212BCD37009FABC1 /* ho2eff2e.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ho2eff2e.lay; sourceTree = "<group>"; };
 		55A4AF60212BCD37009FABC1 /* invad2ct.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = invad2ct.lay; sourceTree = "<group>"; };
-		55A4AF61212BCD37009FABC1 /* ho20ffff.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ho20ffff.lay; sourceTree = "<group>"; };
 		55A4AF62212BCD37009FABC1 /* invrvnge.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = invrvnge.lay; sourceTree = "<group>"; };
-		55A4AF63212BCD37009FABC1 /* hoffe457.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = hoffe457.lay; sourceTree = "<group>"; };
 		55A4AF64212BCD37009FABC1 /* tinv2650.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = tinv2650.lay; sourceTree = "<group>"; };
 		55A4AF65212BCD37009FABC1 /* rocknms.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = rocknms.lay; sourceTree = "<group>"; };
-		55A4AF66212BCD37009FABC1 /* dualhuov.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = dualhuov.lay; sourceTree = "<group>"; };
 		55A4AF67212BCD37009FABC1 /* gypsyjug.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = gypsyjug.lay; sourceTree = "<group>"; };
 		55A4AF68212BCD37009FABC1 /* sos.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = sos.lay; sourceTree = "<group>"; };
 		55A4AF69212BCD37009FABC1 /* darius.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = darius.lay; sourceTree = "<group>"; };
 		55A4AF6A212BCD37009FABC1 /* copsnrob.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = copsnrob.lay; sourceTree = "<group>"; };
-		55A4AF6B212BCD37009FABC1 /* dualhovu.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = dualhovu.lay; sourceTree = "<group>"; };
 		55A4AF6C212BCD37009FABC1 /* avalnche.lay */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = avalnche.lay; sourceTree = "<group>"; };
 		55A4AFB4212BCF70009FABC1 /* file2str */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = file2str; sourceTree = BUILT_PRODUCTS_DIR; };
-		55A4AFBB212BCF8F009FABC1 /* file2str.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = file2str.c; path = ../../../src/file2str.c; sourceTree = "<group>"; };
+		55A4AFBB212BCF8F009FABC1 /* file2str.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = file2str.c; path = ../../src/build/file2str.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,41 +209,69 @@
 		55A4AF4C212BCD37009FABC1 /* layout */ = {
 			isa = PBXGroup;
 			children = (
-				55A4AF4D212BCD37009FABC1 /* deadeye.lay */,
-				55A4AF4E212BCD37009FABC1 /* horizont.lay */,
-				55A4AF4F212BCD37009FABC1 /* sbrkout.lay */,
-				55A4AF50212BCD37009FABC1 /* invaders.lay */,
-				55A4AF51212BCD37009FABC1 /* nbmj8688.lay */,
-				55A4AF52212BCD37009FABC1 /* voffff20.lay */,
-				55A4AF53212BCD37009FABC1 /* geebee.lay */,
-				55A4AF54212BCD37009FABC1 /* solarq.lay */,
-				55A4AF55212BCD37009FABC1 /* hoffff20.lay */,
-				55A4AF56212BCD37009FABC1 /* ho88ffff.lay */,
-				55A4AF57212BCD37009FABC1 /* hoa0a0ff.lay */,
-				55A4AF58212BCD37009FABC1 /* lazercmd.lay */,
-				55A4AF59212BCD37009FABC1 /* starcas.lay */,
-				55A4AF5A212BCD37009FABC1 /* triphsxs.lay */,
-				55A4AF5B212BCD37009FABC1 /* bzone.lay */,
-				55A4AF5C212BCD37009FABC1 /* circus.lay */,
-				55A4AF5D212BCD37009FABC1 /* dualhsxs.lay */,
-				55A4AF5E212BCD37009FABC1 /* vertical.lay */,
-				55A4AF5F212BCD37009FABC1 /* ho2eff2e.lay */,
-				55A4AF60212BCD37009FABC1 /* invad2ct.lay */,
-				55A4AF61212BCD37009FABC1 /* ho20ffff.lay */,
-				55A4AF62212BCD37009FABC1 /* invrvnge.lay */,
-				55A4AF63212BCD37009FABC1 /* hoffe457.lay */,
-				55A4AF64212BCD37009FABC1 /* tinv2650.lay */,
-				55A4AF65212BCD37009FABC1 /* rocknms.lay */,
-				55A4AF66212BCD37009FABC1 /* dualhuov.lay */,
-				55A4AF67212BCD37009FABC1 /* gypsyjug.lay */,
-				55A4AF68212BCD37009FABC1 /* sos.lay */,
-				55A4AF69212BCD37009FABC1 /* darius.lay */,
-				55A4AF6A212BCD37009FABC1 /* copsnrob.lay */,
-				55A4AF6B212BCD37009FABC1 /* dualhovu.lay */,
+				5597FE1021505F4300AE12AB /* abaseb.lay */,
+				5597FE2021505F4400AE12AB /* ampoker.lay */,
+				5597FE2421505F4400AE12AB /* atarifb.lay */,
+				5597FE1A21505F4400AE12AB /* atarifb4.lay */,
 				55A4AF6C212BCD37009FABC1 /* avalnche.lay */,
+				5597FE2321505F4400AE12AB /* bfm_sc2.lay */,
+				5597FE1E21505F4400AE12AB /* buckrog.lay */,
+				55A4AF5B212BCD37009FABC1 /* bzone.lay */,
+				5597FE0821505F4200AE12AB /* cardline.lay */,
+				55A4AF5C212BCD37009FABC1 /* circus.lay */,
+				5597FE0B21505F4200AE12AB /* clowns.lay */,
+				5597FE0F21505F4300AE12AB /* connect4.lay */,
+				55A4AF6A212BCD37009FABC1 /* copsnrob.lay */,
+				5597FE2921505F4500AE12AB /* crash.lay */,
+				55A4AF69212BCD37009FABC1 /* darius.lay */,
+				5597FE1521505F4300AE12AB /* deadeye.lay */,
+				5597FE1421505F4300AE12AB /* dlair.lay */,
+				5597FE1621505F4300AE12AB /* firebeat.lay */,
+				5597FE0321505F4200AE12AB /* funworld.lay */,
+				55A4AF53212BCD37009FABC1 /* geebee.lay */,
+				5597FE1B21505F4400AE12AB /* gldncrwn.lay */,
+				5597FE1F21505F4400AE12AB /* goldnpkr.lay */,
+				55A4AF67212BCD37009FABC1 /* gypsyjug.lay */,
+				55A4AF60212BCD37009FABC1 /* invad2ct.lay */,
+				55A4AF50212BCD37009FABC1 /* invaders.lay */,
+				55A4AF62212BCD37009FABC1 /* invrvnge.lay */,
+				55A4AF58212BCD37009FABC1 /* lazercmd.lay */,
+				5597FE2521505F4500AE12AB /* maxaflex.lay */,
+				5597FE2621505F4500AE12AB /* mpu4.lay */,
+				55A4AF51212BCD37009FABC1 /* nbmj8688.lay */,
+				5597FE1D21505F4400AE12AB /* paradice.lay */,
+				5597FE0C21505F4200AE12AB /* pe_bjack.lay */,
+				5597FE0E21505F4300AE12AB /* pe_keno.lay */,
+				5597FE1121505F4300AE12AB /* pe_poker.lay */,
+				5597FE2B21505F4500AE12AB /* pe_schip.lay */,
+				5597FE0421505F4200AE12AB /* pe_slots.lay */,
+				5597FE1221505F4300AE12AB /* peplus.lay */,
+				5597FE0521505F4200AE12AB /* pmpoker.lay */,
+				5597FE1C21505F4400AE12AB /* pokio.lay */,
+				5597FE1321505F4300AE12AB /* pottnpkr.lay */,
+				5597FE0721505F4200AE12AB /* pyramid.lay */,
+				5597FE1921505F4400AE12AB /* quintoon.lay */,
+				55A4AF65212BCD37009FABC1 /* rocknms.lay */,
+				55A4AF4F212BCD37009FABC1 /* sbrkout.lay */,
+				5597FE2821505F4500AE12AB /* sidewndr.lay */,
+				5597FE1721505F4300AE12AB /* sigmapkr.lay */,
+				5597FE0621505F4200AE12AB /* slots.lay */,
+				5597FE2A21505F4500AE12AB /* sltblgpo.lay */,
+				5597FE2121505F4400AE12AB /* sltblgtk.lay */,
+				55A4AF54212BCD37009FABC1 /* solarq.lay */,
+				55A4AF68212BCD37009FABC1 /* sos.lay */,
+				5597FE2221505F4400AE12AB /* sspeedr.lay */,
+				55A4AF59212BCD37009FABC1 /* starcas.lay */,
+				5597FE0A21505F4200AE12AB /* subroc3d.lay */,
+				5597FE0921505F4200AE12AB /* tceptor2.lay */,
+				5597FE1821505F4300AE12AB /* tenpindx.lay */,
+				55A4AF64212BCD37009FABC1 /* tinv2650.lay */,
+				5597FE2721505F4500AE12AB /* turbo.lay */,
+				5597FE0D21505F4200AE12AB /* videopin.lay */,
+				55A4AF4D212BCD37009FABC1 /* deadeye.lay */,
 			);
 			name = layout;
-			path = ../../src/layout;
+			path = ../../src/mame/layout;
 			sourceTree = "<group>";
 		};
 		55A4AFB5212BCF70009FABC1 /* file2str */ = {
@@ -196,7 +279,7 @@
 			children = (
 				55A4AFBB212BCF8F009FABC1 /* file2str.c */,
 			);
-			path = file2str;
+			name = file2str;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,37 +372,64 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5597FE2C21505F6C00AE12AB /* abaseb.lay in Sources */,
+				5597FE2D21505F6C00AE12AB /* ampoker.lay in Sources */,
+				5597FE2E21505F6C00AE12AB /* atarifb.lay in Sources */,
+				5597FE2F21505F6C00AE12AB /* atarifb4.lay in Sources */,
+				5597FE3021505F6C00AE12AB /* bfm_sc2.lay in Sources */,
+				5597FE3121505F6C00AE12AB /* buckrog.lay in Sources */,
+				5597FE3221505F6C00AE12AB /* cardline.lay in Sources */,
+				5597FE3321505F6C00AE12AB /* clowns.lay in Sources */,
+				5597FE3421505F6C00AE12AB /* connect4.lay in Sources */,
+				5597FE3521505F6C00AE12AB /* crash.lay in Sources */,
 				55A4AF6D212BCD45009FABC1 /* deadeye.lay in Sources */,
-				55A4AF6E212BCD45009FABC1 /* horizont.lay in Sources */,
+				5597FE3621505F6C00AE12AB /* dlair.lay in Sources */,
+				5597FE3721505F6C00AE12AB /* firebeat.lay in Sources */,
+				5597FE3821505F6C00AE12AB /* funworld.lay in Sources */,
+				5597FE3921505F6C00AE12AB /* gldncrwn.lay in Sources */,
+				5597FE3A21505F6C00AE12AB /* goldnpkr.lay in Sources */,
+				5597FE3B21505F6C00AE12AB /* maxaflex.lay in Sources */,
+				5597FE3C21505F6C00AE12AB /* mpu4.lay in Sources */,
+				5597FE3D21505F6C00AE12AB /* paradice.lay in Sources */,
+				5597FE3E21505F6C00AE12AB /* pe_bjack.lay in Sources */,
+				5597FE3F21505F6C00AE12AB /* pe_keno.lay in Sources */,
+				5597FE4021505F6C00AE12AB /* pe_poker.lay in Sources */,
+				5597FE4121505F6C00AE12AB /* pe_schip.lay in Sources */,
+				5597FE4221505F6C00AE12AB /* pe_slots.lay in Sources */,
+				5597FE4321505F6C00AE12AB /* peplus.lay in Sources */,
+				5597FE4421505F6C00AE12AB /* pmpoker.lay in Sources */,
+				5597FE4521505F6C00AE12AB /* pokio.lay in Sources */,
+				5597FE4621505F6C00AE12AB /* pottnpkr.lay in Sources */,
+				5597FE4721505F6C00AE12AB /* pyramid.lay in Sources */,
+				5597FE4821505F6C00AE12AB /* quintoon.lay in Sources */,
+				5597FE4921505F6C00AE12AB /* sidewndr.lay in Sources */,
+				5597FE4A21505F6C00AE12AB /* sigmapkr.lay in Sources */,
+				5597FE4B21505F6C00AE12AB /* slots.lay in Sources */,
+				5597FE4C21505F6C00AE12AB /* sltblgpo.lay in Sources */,
+				5597FE4D21505F6C00AE12AB /* sltblgtk.lay in Sources */,
+				5597FE4E21505F6C00AE12AB /* sspeedr.lay in Sources */,
+				5597FE4F21505F6C00AE12AB /* subroc3d.lay in Sources */,
+				5597FE5021505F6C00AE12AB /* tceptor2.lay in Sources */,
+				5597FE5121505F6C00AE12AB /* tenpindx.lay in Sources */,
+				5597FE5221505F6C00AE12AB /* turbo.lay in Sources */,
+				5597FE5321505F6C00AE12AB /* videopin.lay in Sources */,
 				55A4AF6F212BCD45009FABC1 /* sbrkout.lay in Sources */,
 				55A4AF70212BCD45009FABC1 /* invaders.lay in Sources */,
 				55A4AF71212BCD45009FABC1 /* nbmj8688.lay in Sources */,
-				55A4AF72212BCD45009FABC1 /* voffff20.lay in Sources */,
 				55A4AF73212BCD45009FABC1 /* geebee.lay in Sources */,
 				55A4AF74212BCD45009FABC1 /* solarq.lay in Sources */,
-				55A4AF75212BCD45009FABC1 /* hoffff20.lay in Sources */,
-				55A4AF76212BCD45009FABC1 /* ho88ffff.lay in Sources */,
-				55A4AF77212BCD45009FABC1 /* hoa0a0ff.lay in Sources */,
 				55A4AF78212BCD45009FABC1 /* lazercmd.lay in Sources */,
 				55A4AF79212BCD45009FABC1 /* starcas.lay in Sources */,
-				55A4AF7A212BCD45009FABC1 /* triphsxs.lay in Sources */,
 				55A4AF7B212BCD45009FABC1 /* bzone.lay in Sources */,
 				55A4AF7C212BCD45009FABC1 /* circus.lay in Sources */,
-				55A4AF7D212BCD45009FABC1 /* dualhsxs.lay in Sources */,
-				55A4AF7E212BCD45009FABC1 /* vertical.lay in Sources */,
-				55A4AF7F212BCD45009FABC1 /* ho2eff2e.lay in Sources */,
 				55A4AF80212BCD45009FABC1 /* invad2ct.lay in Sources */,
-				55A4AF81212BCD45009FABC1 /* ho20ffff.lay in Sources */,
 				55A4AF82212BCD45009FABC1 /* invrvnge.lay in Sources */,
-				55A4AF83212BCD45009FABC1 /* hoffe457.lay in Sources */,
 				55A4AF84212BCD45009FABC1 /* tinv2650.lay in Sources */,
 				55A4AF85212BCD45009FABC1 /* rocknms.lay in Sources */,
-				55A4AF86212BCD45009FABC1 /* dualhuov.lay in Sources */,
 				55A4AF87212BCD45009FABC1 /* gypsyjug.lay in Sources */,
 				55A4AF88212BCD45009FABC1 /* sos.lay in Sources */,
 				55A4AF89212BCD45009FABC1 /* darius.lay in Sources */,
 				55A4AF8A212BCD45009FABC1 /* copsnrob.lay in Sources */,
-				55A4AF8B212BCD45009FABC1 /* dualhovu.lay in Sources */,
 				55A4AF8C212BCD45009FABC1 /* avalnche.lay in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

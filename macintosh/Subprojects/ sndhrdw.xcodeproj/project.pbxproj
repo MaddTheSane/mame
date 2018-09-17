@@ -56,7 +56,6 @@
 		F5019805070CF8DC009C5423 /* snes.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B3070CF8DC009C5423 /* snes.c */; };
 		F5019807070CF8DC009C5423 /* seibu.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B5070CF8DC009C5423 /* seibu.c */; };
 		F5019809070CF8DC009C5423 /* segasnd.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B7070CF8DC009C5423 /* segasnd.c */; };
-		F501980A070CF8DC009C5423 /* segar.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B8070CF8DC009C5423 /* segar.c */; };
 		F501980B070CF8DC009C5423 /* sega.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197B9070CF8DC009C5423 /* sega.c */; };
 		F501980C070CF8DC009C5423 /* scramble.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197BA070CF8DC009C5423 /* scramble.c */; };
 		F501980E070CF8DC009C5423 /* cage.c in Sources */ = {isa = PBXBuildFile; fileRef = F50197BC070CF8DC009C5423 /* cage.c */; };
@@ -171,7 +170,6 @@
 		F50197B3070CF8DC009C5423 /* snes.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = snes.c; sourceTree = "<group>"; };
 		F50197B5070CF8DC009C5423 /* seibu.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = seibu.c; sourceTree = "<group>"; };
 		F50197B7070CF8DC009C5423 /* segasnd.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = segasnd.c; sourceTree = "<group>"; };
-		F50197B8070CF8DC009C5423 /* segar.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = segar.c; sourceTree = "<group>"; };
 		F50197B9070CF8DC009C5423 /* sega.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = sega.c; sourceTree = "<group>"; };
 		F50197BA070CF8DC009C5423 /* scramble.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = scramble.c; sourceTree = "<group>"; };
 		F50197BC070CF8DC009C5423 /* cage.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = cage.c; sourceTree = "<group>"; };
@@ -328,7 +326,6 @@
 				F50197CF070CF8DC009C5423 /* rockola.c */,
 				F50197BA070CF8DC009C5423 /* scramble.c */,
 				F50197B9070CF8DC009C5423 /* sega.c */,
-				F50197B8070CF8DC009C5423 /* segar.c */,
 				F50197B7070CF8DC009C5423 /* segasnd.c */,
 				F52DB777095F3821003C45C4 /* segasnd.h */,
 				F50197B5070CF8DC009C5423 /* seibu.c */,
@@ -365,7 +362,7 @@
 				F50197A4070CF8DC009C5423 /* zaxxon.c */,
 			);
 			name = Source;
-			path = ../../src/sndhrdw;
+			path = ../../src/mame/audio;
 			sourceTree = "<group>";
 		};
 		F544A80E057F292100B8C187 = {
@@ -503,7 +500,6 @@
 				F5019805070CF8DC009C5423 /* snes.c in Sources */,
 				F5019807070CF8DC009C5423 /* seibu.c in Sources */,
 				F5019809070CF8DC009C5423 /* segasnd.c in Sources */,
-				F501980A070CF8DC009C5423 /* segar.c in Sources */,
 				F501980B070CF8DC009C5423 /* sega.c in Sources */,
 				F501980C070CF8DC009C5423 /* scramble.c in Sources */,
 				F501980E070CF8DC009C5423 /* cage.c in Sources */,

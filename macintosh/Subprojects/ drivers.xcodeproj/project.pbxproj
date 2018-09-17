@@ -47,7 +47,6 @@
 		9BEAB55707CB151900B14C06 /* gunpey.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAB53D07CB151900B14C06 /* gunpey.c */; };
 		9BEAB55807CB151900B14C06 /* laserbas.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAB53E07CB151900B14C06 /* laserbas.c */; };
 		9BEAB55907CB151900B14C06 /* model3.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAB53F07CB151900B14C06 /* model3.c */; };
-		9BEAB55A07CB151900B14C06 /* monzagp.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAB54007CB151900B14C06 /* monzagp.c */; };
 		9BEAB55C07CB151900B14C06 /* segahang.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAB54207CB151900B14C06 /* segahang.c */; };
 		9BEAB55D07CB151900B14C06 /* segaorun.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAB54307CB151900B14C06 /* segaorun.c */; };
 		9BEAB55E07CB151900B14C06 /* segas16a.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BEAB54407CB151900B14C06 /* segas16a.c */; };
@@ -121,7 +120,6 @@
 		F50194A6070CF3B0009C5423 /* tumblep.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191A0070CF3AE009C5423 /* tumblep.c */; };
 		F50194A7070CF3B0009C5423 /* tugboat.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191A1070CF3AE009C5423 /* tugboat.c */; };
 		F50194A8070CF3B0009C5423 /* tubep.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191A2070CF3AE009C5423 /* tubep.c */; };
-		F50194A9070CF3B0009C5423 /* ttmahjng.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191A3070CF3AE009C5423 /* ttmahjng.c */; };
 		F50194AA070CF3B0009C5423 /* tsamurai.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191A4070CF3AE009C5423 /* tsamurai.c */; };
 		F50194AB070CF3B0009C5423 /* tryout.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191A5070CF3AE009C5423 /* tryout.c */; };
 		F50194AD070CF3B0009C5423 /* trucocl.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191A7070CF3AE009C5423 /* trucocl.c */; };
@@ -179,7 +177,6 @@
 		F50194E2070CF3B0009C5423 /* taito_b.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191DC070CF3AE009C5423 /* taito_b.c */; };
 		F50194E3070CF3B0009C5423 /* tail2nos.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191DD070CF3AE009C5423 /* tail2nos.c */; };
 		F50194E4070CF3B0009C5423 /* tagteam.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191DE070CF3AE009C5423 /* tagteam.c */; };
-		F50194E6070CF3B0009C5423 /* system24.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191E0070CF3AE009C5423 /* system24.c */; };
 		F50194E7070CF3B0009C5423 /* system18.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191E1070CF3AE009C5423 /* system18.c */; };
 		F50194E8070CF3B0009C5423 /* system16.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191E2070CF3AE009C5423 /* system16.c */; };
 		F50194E9070CF3B0009C5423 /* system1.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191E3070CF3AE009C5423 /* system1.c */; };
@@ -197,7 +194,6 @@
 		F50194F5070CF3B0009C5423 /* suna8.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191EF070CF3AE009C5423 /* suna8.c */; };
 		F50194F6070CF3B0009C5423 /* suna16.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191F0070CF3AE009C5423 /* suna16.c */; };
 		F50194F7070CF3B0009C5423 /* subs.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191F1070CF3AE009C5423 /* subs.c */; };
-		F50194F8070CF3B0009C5423 /* stvhacks.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191F2070CF3AE009C5423 /* stvhacks.c */; };
 		F50194F9070CF3B0009C5423 /* stv.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191F3070CF3AE009C5423 /* stv.c */; };
 		F50194FB070CF3B0009C5423 /* strnskil.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191F5070CF3AE009C5423 /* strnskil.c */; };
 		F50194FC070CF3B0009C5423 /* stlforce.c in Sources */ = {isa = PBXBuildFile; fileRef = F50191F6070CF3AE009C5423 /* stlforce.c */; };
@@ -273,10 +269,7 @@
 		F5019545070CF3B1009C5423 /* sengokmj.c in Sources */ = {isa = PBXBuildFile; fileRef = F501923F070CF3AE009C5423 /* sengokmj.c */; };
 		F5019546070CF3B1009C5423 /* seicross.c in Sources */ = {isa = PBXBuildFile; fileRef = F5019240070CF3AE009C5423 /* seicross.c */; };
 		F5019547070CF3B1009C5423 /* seibuspi.c in Sources */ = {isa = PBXBuildFile; fileRef = F5019241070CF3AE009C5423 /* seibuspi.c */; };
-		F5019548070CF3B1009C5423 /* sega.c in Sources */ = {isa = PBXBuildFile; fileRef = F5019242070CF3AE009C5423 /* sega.c */; };
 		F5019549070CF3B1009C5423 /* seattle.c in Sources */ = {isa = PBXBuildFile; fileRef = F5019243070CF3AE009C5423 /* seattle.c */; };
-		F501954A070CF3B1009C5423 /* segasyse.c in Sources */ = {isa = PBXBuildFile; fileRef = F5019244070CF3AE009C5423 /* segasyse.c */; };
-		F501954B070CF3B1009C5423 /* segar.c in Sources */ = {isa = PBXBuildFile; fileRef = F5019245070CF3AE009C5423 /* segar.c */; };
 		F501954C070CF3B1009C5423 /* segac2.c in Sources */ = {isa = PBXBuildFile; fileRef = F5019246070CF3AE009C5423 /* segac2.c */; };
 		F501954D070CF3B1009C5423 /* scregg.c in Sources */ = {isa = PBXBuildFile; fileRef = F5019247070CF3AE009C5423 /* scregg.c */; };
 		F501954E070CF3B1009C5423 /* scramble.c in Sources */ = {isa = PBXBuildFile; fileRef = F5019248070CF3AE009C5423 /* scramble.c */; };
@@ -815,7 +808,6 @@
 		F5019772070CF3B3009C5423 /* ccastles.c in Sources */ = {isa = PBXBuildFile; fileRef = F501946C070CF3AF009C5423 /* ccastles.c */; };
 		F5110F5009650245006A8F51 /* cardline.c in Sources */ = {isa = PBXBuildFile; fileRef = F5110F4D09650245006A8F51 /* cardline.c */; };
 		F5110F5109650245006A8F51 /* go2000.c in Sources */ = {isa = PBXBuildFile; fileRef = F5110F4E09650245006A8F51 /* go2000.c */; };
-		F511A88E081F49D600A83BF6 /* cwbbc97.c in Sources */ = {isa = PBXBuildFile; fileRef = F511A887081F49D600A83BF6 /* cwbbc97.c */; };
 		F511A88F081F49D600A83BF6 /* dietgo.c in Sources */ = {isa = PBXBuildFile; fileRef = F511A888081F49D600A83BF6 /* dietgo.c */; };
 		F511A890081F49D600A83BF6 /* dreamwld.c in Sources */ = {isa = PBXBuildFile; fileRef = F511A889081F49D600A83BF6 /* dreamwld.c */; };
 		F511A891081F49D600A83BF6 /* drtomy.c in Sources */ = {isa = PBXBuildFile; fileRef = F511A88A081F49D600A83BF6 /* drtomy.c */; };
@@ -865,7 +857,6 @@
 		F5AD6656095575F7004AEC57 /* puckpkmn.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD662C095575F7004AEC57 /* puckpkmn.c */; };
 		F5AD6657095575F7004AEC57 /* rcasino.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD662D095575F7004AEC57 /* rcasino.c */; };
 		F5AD6658095575F7004AEC57 /* sderby.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD662E095575F7004AEC57 /* sderby.c */; };
-		F5AD6659095575F7004AEC57 /* starspnr.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD662F095575F7004AEC57 /* starspnr.c */; };
 		F5AD665A095575F7004AEC57 /* taitowlf.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD6630095575F7004AEC57 /* taitowlf.c */; };
 		F5AD665B095575F7004AEC57 /* tattack.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD6631095575F7004AEC57 /* tattack.c */; };
 		F5AD665C095575F7004AEC57 /* topshoot.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD6632095575F7004AEC57 /* topshoot.c */; };
@@ -873,7 +864,6 @@
 		F5AD665E095575F7004AEC57 /* ttchamp.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD6634095575F7004AEC57 /* ttchamp.c */; };
 		F5AD665F095575F7004AEC57 /* tumbleb.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD6635095575F7004AEC57 /* tumbleb.c */; };
 		F5AD6660095575F7004AEC57 /* vertigo.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD6636095575F7004AEC57 /* vertigo.c */; };
-		F5AD6661095575F7004AEC57 /* vp906iii.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD6637095575F7004AEC57 /* vp906iii.c */; };
 		F5AD6662095575F7004AEC57 /* vroulet.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD6638095575F7004AEC57 /* vroulet.c */; };
 		F5AD6663095575F7004AEC57 /* wheelfir.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD6639095575F7004AEC57 /* wheelfir.c */; };
 		F5AD6664095575F7004AEC57 /* witch.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD663A095575F7004AEC57 /* witch.c */; };
@@ -924,7 +914,6 @@
 		9BEAB53D07CB151900B14C06 /* gunpey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gunpey.c; sourceTree = "<group>"; };
 		9BEAB53E07CB151900B14C06 /* laserbas.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = laserbas.c; sourceTree = "<group>"; };
 		9BEAB53F07CB151900B14C06 /* model3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = model3.c; sourceTree = "<group>"; };
-		9BEAB54007CB151900B14C06 /* monzagp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = monzagp.c; sourceTree = "<group>"; };
 		9BEAB54207CB151900B14C06 /* segahang.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = segahang.c; sourceTree = "<group>"; };
 		9BEAB54307CB151900B14C06 /* segaorun.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = segaorun.c; sourceTree = "<group>"; };
 		9BEAB54407CB151900B14C06 /* segas16a.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = segas16a.c; sourceTree = "<group>"; };
@@ -998,7 +987,6 @@
 		F50191A0070CF3AE009C5423 /* tumblep.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tumblep.c; sourceTree = "<group>"; };
 		F50191A1070CF3AE009C5423 /* tugboat.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tugboat.c; sourceTree = "<group>"; };
 		F50191A2070CF3AE009C5423 /* tubep.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tubep.c; sourceTree = "<group>"; };
-		F50191A3070CF3AE009C5423 /* ttmahjng.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = ttmahjng.c; sourceTree = "<group>"; };
 		F50191A4070CF3AE009C5423 /* tsamurai.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tsamurai.c; sourceTree = "<group>"; };
 		F50191A5070CF3AE009C5423 /* tryout.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tryout.c; sourceTree = "<group>"; };
 		F50191A7070CF3AE009C5423 /* trucocl.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = trucocl.c; sourceTree = "<group>"; };
@@ -1056,7 +1044,6 @@
 		F50191DC070CF3AE009C5423 /* taito_b.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = taito_b.c; sourceTree = "<group>"; };
 		F50191DD070CF3AE009C5423 /* tail2nos.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tail2nos.c; sourceTree = "<group>"; };
 		F50191DE070CF3AE009C5423 /* tagteam.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tagteam.c; sourceTree = "<group>"; };
-		F50191E0070CF3AE009C5423 /* system24.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = system24.c; sourceTree = "<group>"; };
 		F50191E1070CF3AE009C5423 /* system18.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = system18.c; sourceTree = "<group>"; };
 		F50191E2070CF3AE009C5423 /* system16.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = system16.c; sourceTree = "<group>"; };
 		F50191E3070CF3AE009C5423 /* system1.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = system1.c; sourceTree = "<group>"; };
@@ -1074,7 +1061,6 @@
 		F50191EF070CF3AE009C5423 /* suna8.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = suna8.c; sourceTree = "<group>"; };
 		F50191F0070CF3AE009C5423 /* suna16.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = suna16.c; sourceTree = "<group>"; };
 		F50191F1070CF3AE009C5423 /* subs.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = subs.c; sourceTree = "<group>"; };
-		F50191F2070CF3AE009C5423 /* stvhacks.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = stvhacks.c; sourceTree = "<group>"; };
 		F50191F3070CF3AE009C5423 /* stv.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = stv.c; sourceTree = "<group>"; };
 		F50191F5070CF3AE009C5423 /* strnskil.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = strnskil.c; sourceTree = "<group>"; };
 		F50191F6070CF3AE009C5423 /* stlforce.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = stlforce.c; sourceTree = "<group>"; };
@@ -1150,10 +1136,7 @@
 		F501923F070CF3AE009C5423 /* sengokmj.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = sengokmj.c; sourceTree = "<group>"; };
 		F5019240070CF3AE009C5423 /* seicross.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = seicross.c; sourceTree = "<group>"; };
 		F5019241070CF3AE009C5423 /* seibuspi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = seibuspi.c; sourceTree = "<group>"; };
-		F5019242070CF3AE009C5423 /* sega.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = sega.c; sourceTree = "<group>"; };
 		F5019243070CF3AE009C5423 /* seattle.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = seattle.c; sourceTree = "<group>"; };
-		F5019244070CF3AE009C5423 /* segasyse.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = segasyse.c; sourceTree = "<group>"; };
-		F5019245070CF3AE009C5423 /* segar.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = segar.c; sourceTree = "<group>"; };
 		F5019246070CF3AE009C5423 /* segac2.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = segac2.c; sourceTree = "<group>"; };
 		F5019247070CF3AE009C5423 /* scregg.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = scregg.c; sourceTree = "<group>"; };
 		F5019248070CF3AE009C5423 /* scramble.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = scramble.c; sourceTree = "<group>"; };
@@ -1693,7 +1676,6 @@
 		F501978A070CF7F3009C5423 /* libdrivers_macho.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdrivers_macho.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5110F4D09650245006A8F51 /* cardline.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = cardline.c; sourceTree = "<group>"; };
 		F5110F4E09650245006A8F51 /* go2000.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = go2000.c; sourceTree = "<group>"; };
-		F511A887081F49D600A83BF6 /* cwbbc97.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = cwbbc97.c; sourceTree = "<group>"; };
 		F511A888081F49D600A83BF6 /* dietgo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = dietgo.c; sourceTree = "<group>"; };
 		F511A889081F49D600A83BF6 /* dreamwld.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = dreamwld.c; sourceTree = "<group>"; };
 		F511A88A081F49D600A83BF6 /* drtomy.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = drtomy.c; sourceTree = "<group>"; };
@@ -1743,7 +1725,6 @@
 		F5AD662C095575F7004AEC57 /* puckpkmn.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = puckpkmn.c; sourceTree = "<group>"; };
 		F5AD662D095575F7004AEC57 /* rcasino.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rcasino.c; sourceTree = "<group>"; };
 		F5AD662E095575F7004AEC57 /* sderby.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = sderby.c; sourceTree = "<group>"; };
-		F5AD662F095575F7004AEC57 /* starspnr.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = starspnr.c; sourceTree = "<group>"; };
 		F5AD6630095575F7004AEC57 /* taitowlf.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = taitowlf.c; sourceTree = "<group>"; };
 		F5AD6631095575F7004AEC57 /* tattack.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tattack.c; sourceTree = "<group>"; };
 		F5AD6632095575F7004AEC57 /* topshoot.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = topshoot.c; sourceTree = "<group>"; };
@@ -1751,7 +1732,6 @@
 		F5AD6634095575F7004AEC57 /* ttchamp.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = ttchamp.c; sourceTree = "<group>"; };
 		F5AD6635095575F7004AEC57 /* tumbleb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tumbleb.c; sourceTree = "<group>"; };
 		F5AD6636095575F7004AEC57 /* vertigo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = vertigo.c; sourceTree = "<group>"; };
-		F5AD6637095575F7004AEC57 /* vp906iii.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = vp906iii.c; sourceTree = "<group>"; };
 		F5AD6638095575F7004AEC57 /* vroulet.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = vroulet.c; sourceTree = "<group>"; };
 		F5AD6639095575F7004AEC57 /* wheelfir.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = wheelfir.c; sourceTree = "<group>"; };
 		F5AD663A095575F7004AEC57 /* witch.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = witch.c; sourceTree = "<group>"; };
@@ -1933,7 +1913,6 @@
 				F50193DD070CF3AF009C5423 /* cshooter.c */,
 				F5AD6616095575F7004AEC57 /* csk.c */,
 				F50193DC070CF3AF009C5423 /* cvs.c */,
-				F511A887081F49D600A83BF6 /* cwbbc97.c */,
 				F50193DB070CF3AF009C5423 /* cyberbal.c */,
 				F56EC1E60866771600FF69E1 /* cybertnk.c */,
 				9BEAB53A07CB151900B14C06 /* dacholer.c */,
@@ -2232,7 +2211,6 @@
 				F50192DD070CF3AE009C5423 /* mogura.c */,
 				F50192DC070CF3AE009C5423 /* mole.c */,
 				F50192DB070CF3AE009C5423 /* momoko.c */,
-				9BEAB54007CB151900B14C06 /* monzagp.c */,
 				F50192DA070CF3AE009C5423 /* moo.c */,
 				F50192D9070CF3AE009C5423 /* mosaic.c */,
 				F50192D8070CF3AE009C5423 /* mouser.c */,
@@ -2395,16 +2373,13 @@
 				F5019247070CF3AE009C5423 /* scregg.c */,
 				F5AD662E095575F7004AEC57 /* sderby.c */,
 				F5019243070CF3AE009C5423 /* seattle.c */,
-				F5019242070CF3AE009C5423 /* sega.c */,
 				F5019246070CF3AE009C5423 /* segac2.c */,
 				9BEAB54207CB151900B14C06 /* segahang.c */,
 				9BEAB54307CB151900B14C06 /* segaorun.c */,
-				F5019245070CF3AE009C5423 /* segar.c */,
 				9BEAB54407CB151900B14C06 /* segas16a.c */,
 				9BEAB54507CB151900B14C06 /* segas16b.c */,
 				9BEAB54607CB151900B14C06 /* segas18.c */,
 				9BEAB54707CB151900B14C06 /* segas32.c */,
-				F5019244070CF3AE009C5423 /* segasyse.c */,
 				9BEAB54807CB151900B14C06 /* segaxbd.c */,
 				9BA323BC07DBAA4E005B373A /* segaybd.c */,
 				F5019241070CF3AE009C5423 /* seibuspi.c */,
@@ -2478,7 +2453,6 @@
 				F50191FC070CF3AE009C5423 /* starcrus.c */,
 				F50191FB070CF3AE009C5423 /* starfire.c */,
 				F50191FA070CF3AE009C5423 /* starshp1.c */,
-				F5AD662F095575F7004AEC57 /* starspnr.c */,
 				F50191F9070CF3AE009C5423 /* starwars.c */,
 				F50191F8070CF3AE009C5423 /* statriv2.c */,
 				55A4AF03212BC86A009FABC1 /* stepstag.c */,
@@ -2486,7 +2460,6 @@
 				F50191F6070CF3AE009C5423 /* stlforce.c */,
 				F50191F5070CF3AE009C5423 /* strnskil.c */,
 				F50191F3070CF3AE009C5423 /* stv.c */,
-				F50191F2070CF3AE009C5423 /* stvhacks.c */,
 				F50191F1070CF3AE009C5423 /* subs.c */,
 				F50191EF070CF3AE009C5423 /* suna8.c */,
 				F50191F0070CF3AE009C5423 /* suna16.c */,
@@ -2504,7 +2477,6 @@
 				F50191E3070CF3AE009C5423 /* system1.c */,
 				F50191E2070CF3AE009C5423 /* system16.c */,
 				F50191E1070CF3AE009C5423 /* system18.c */,
-				F50191E0070CF3AE009C5423 /* system24.c */,
 				F50191DE070CF3AE009C5423 /* tagteam.c */,
 				F50191DD070CF3AE009C5423 /* tail2nos.c */,
 				F50191DC070CF3AE009C5423 /* taito_b.c */,
@@ -2571,7 +2543,6 @@
 				F50191A5070CF3AE009C5423 /* tryout.c */,
 				F50191A4070CF3AE009C5423 /* tsamurai.c */,
 				F5AD6634095575F7004AEC57 /* ttchamp.c */,
-				F50191A3070CF3AE009C5423 /* ttmahjng.c */,
 				F50191A2070CF3AE009C5423 /* tubep.c */,
 				F50191A1070CF3AE009C5423 /* tugboat.c */,
 				F5AD6635095575F7004AEC57 /* tumbleb.c */,
@@ -2603,7 +2574,6 @@
 				F501918B070CF3AE009C5423 /* vindictr.c */,
 				F501918A070CF3AE009C5423 /* vmetal.c */,
 				F5019189070CF3AE009C5423 /* volfied.c */,
-				F5AD6637095575F7004AEC57 /* vp906iii.c */,
 				F5AD6638095575F7004AEC57 /* vroulet.c */,
 				F5019188070CF3AE009C5423 /* vsnes.c */,
 				F5019187070CF3AE009C5423 /* vulgus.c */,
@@ -2651,7 +2621,7 @@
 				F5019167070CF3AD009C5423 /* zr107.c */,
 			);
 			name = Source;
-			path = ../../src/drivers;
+			path = ../../src/mame/drivers;
 			sourceTree = "<group>";
 		};
 		F54D4060057F10F6000FD134 = {
@@ -2811,7 +2781,6 @@
 				F50194A6070CF3B0009C5423 /* tumblep.c in Sources */,
 				F50194A7070CF3B0009C5423 /* tugboat.c in Sources */,
 				F50194A8070CF3B0009C5423 /* tubep.c in Sources */,
-				F50194A9070CF3B0009C5423 /* ttmahjng.c in Sources */,
 				F50194AA070CF3B0009C5423 /* tsamurai.c in Sources */,
 				F50194AB070CF3B0009C5423 /* tryout.c in Sources */,
 				F50194AD070CF3B0009C5423 /* trucocl.c in Sources */,
@@ -2871,7 +2840,6 @@
 				F50194E2070CF3B0009C5423 /* taito_b.c in Sources */,
 				F50194E3070CF3B0009C5423 /* tail2nos.c in Sources */,
 				F50194E4070CF3B0009C5423 /* tagteam.c in Sources */,
-				F50194E6070CF3B0009C5423 /* system24.c in Sources */,
 				F50194E7070CF3B0009C5423 /* system18.c in Sources */,
 				F50194E8070CF3B0009C5423 /* system16.c in Sources */,
 				F50194E9070CF3B0009C5423 /* system1.c in Sources */,
@@ -2889,7 +2857,6 @@
 				F50194F5070CF3B0009C5423 /* suna8.c in Sources */,
 				F50194F6070CF3B0009C5423 /* suna16.c in Sources */,
 				F50194F7070CF3B0009C5423 /* subs.c in Sources */,
-				F50194F8070CF3B0009C5423 /* stvhacks.c in Sources */,
 				F50194F9070CF3B0009C5423 /* stv.c in Sources */,
 				F50194FB070CF3B0009C5423 /* strnskil.c in Sources */,
 				F50194FC070CF3B0009C5423 /* stlforce.c in Sources */,
@@ -2966,10 +2933,7 @@
 				F5019545070CF3B1009C5423 /* sengokmj.c in Sources */,
 				F5019546070CF3B1009C5423 /* seicross.c in Sources */,
 				F5019547070CF3B1009C5423 /* seibuspi.c in Sources */,
-				F5019548070CF3B1009C5423 /* sega.c in Sources */,
 				F5019549070CF3B1009C5423 /* seattle.c in Sources */,
-				F501954A070CF3B1009C5423 /* segasyse.c in Sources */,
-				F501954B070CF3B1009C5423 /* segar.c in Sources */,
 				F501954C070CF3B1009C5423 /* segac2.c in Sources */,
 				55A4AF0A212BC898009FABC1 /* sangho.c in Sources */,
 				F501954D070CF3B1009C5423 /* scregg.c in Sources */,
@@ -3536,7 +3500,6 @@
 				9BEAB55707CB151900B14C06 /* gunpey.c in Sources */,
 				9BEAB55807CB151900B14C06 /* laserbas.c in Sources */,
 				9BEAB55907CB151900B14C06 /* model3.c in Sources */,
-				9BEAB55A07CB151900B14C06 /* monzagp.c in Sources */,
 				9BEAB55C07CB151900B14C06 /* segahang.c in Sources */,
 				9BEAB55D07CB151900B14C06 /* segaorun.c in Sources */,
 				9BEAB55E07CB151900B14C06 /* segas16a.c in Sources */,
@@ -3558,7 +3521,6 @@
 				9B8ACBBE07DDB49200C8C9D5 /* pipeline.c in Sources */,
 				9B2BDD2307F7D64B004C810B /* bestleag.c in Sources */,
 				9B2BDD2407F7D64B004C810B /* tx1.c in Sources */,
-				F511A88E081F49D600A83BF6 /* cwbbc97.c in Sources */,
 				F511A88F081F49D600A83BF6 /* dietgo.c in Sources */,
 				F511A890081F49D600A83BF6 /* dreamwld.c in Sources */,
 				F511A891081F49D600A83BF6 /* drtomy.c in Sources */,
@@ -3603,7 +3565,6 @@
 				F5AD6656095575F7004AEC57 /* puckpkmn.c in Sources */,
 				F5AD6657095575F7004AEC57 /* rcasino.c in Sources */,
 				F5AD6658095575F7004AEC57 /* sderby.c in Sources */,
-				F5AD6659095575F7004AEC57 /* starspnr.c in Sources */,
 				F5AD665A095575F7004AEC57 /* taitowlf.c in Sources */,
 				F5AD665B095575F7004AEC57 /* tattack.c in Sources */,
 				F5AD665C095575F7004AEC57 /* topshoot.c in Sources */,
@@ -3611,7 +3572,6 @@
 				F5AD665E095575F7004AEC57 /* ttchamp.c in Sources */,
 				F5AD665F095575F7004AEC57 /* tumbleb.c in Sources */,
 				F5AD6660095575F7004AEC57 /* vertigo.c in Sources */,
-				F5AD6661095575F7004AEC57 /* vp906iii.c in Sources */,
 				F5AD6662095575F7004AEC57 /* vroulet.c in Sources */,
 				F5AD6663095575F7004AEC57 /* wheelfir.c in Sources */,
 				F5AD6664095575F7004AEC57 /* witch.c in Sources */,
