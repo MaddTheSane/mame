@@ -144,7 +144,6 @@
 		F5029B1C057F27F6002511AA /* decocass.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A72057F27F6002511AA /* decocass.c */; };
 		F5029B1D057F27F6002511AA /* astrocde.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A58057F27F6002511AA /* astrocde.c */; };
 		F5029B1E057F27F6002511AA /* atari_vg.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A59057F27F6002511AA /* atari_vg.c */; };
-		F5029B20057F27F6002511AA /* turbo.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AE2057F27F6002511AA /* turbo.c */; };
 		F5029B22057F27F6002511AA /* retofinv.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029ABE057F27F6002511AA /* retofinv.c */; };
 		F5029B23057F27F6002511AA /* tait8741.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AD7057F27F6002511AA /* tait8741.c */; };
 		F5029B26057F27F6002511AA /* arkanoid.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A54057F27F6002511AA /* arkanoid.c */; };
@@ -483,7 +482,6 @@
 		F5029ADD057F27F6002511AA /* tmp68301.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tmp68301.c; sourceTree = "<group>"; };
 		F5029ADF057F27F6002511AA /* tnzs.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = tnzs.c; sourceTree = "<group>"; };
 		F5029AE0057F27F6002511AA /* toaplan1.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = toaplan1.c; sourceTree = "<group>"; };
-		F5029AE2057F27F6002511AA /* turbo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = turbo.c; sourceTree = "<group>"; };
 		F5029AE3057F27F6002511AA /* twincobr.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = twincobr.c; sourceTree = "<group>"; };
 		F5029AE4057F27F6002511AA /* volfied.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = volfied.c; sourceTree = "<group>"; };
 		F5029AE5057F27F6002511AA /* vsnes.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = vsnes.c; sourceTree = "<group>"; };
@@ -620,7 +618,6 @@
 				55FFFF852129FB5600EB17F5 /* timekpr.h */,
 				F5029ADD057F27F6002511AA /* tmp68301.c */,
 				55FFFF932129FB5800EB17F5 /* tmp68301.h */,
-				F5029AE2057F27F6002511AA /* turbo.c */,
 				F5D8C4410974F4DA0081EC9A /* vacfdisp.c */,
 				55FFFFA62129FB5A00EB17F5 /* vacfdisp.h */,
 				55A4AEDE212BC6F7009FABC1 /* z80ctc.c */,
@@ -1008,7 +1005,6 @@
 				F5029B1C057F27F6002511AA /* decocass.c in Sources */,
 				F5029B1D057F27F6002511AA /* astrocde.c in Sources */,
 				F5029B1E057F27F6002511AA /* atari_vg.c in Sources */,
-				F5029B20057F27F6002511AA /* turbo.c in Sources */,
 				F5029B22057F27F6002511AA /* retofinv.c in Sources */,
 				F5029B23057F27F6002511AA /* tait8741.c in Sources */,
 				F5029B26057F27F6002511AA /* arkanoid.c in Sources */,
@@ -1197,17 +1193,21 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(HOME)/oldQTFrameworks";
+				FRAMEWORK_SEARCH_PATHS = ../../Vendor/oldMacHeaders;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
-					../../src,
-					../../src/includes,
+					../../src/mame,
+					../../src/mame/includes,
+					../../src/emu,
+					../../src/osd,
+					../../src/lib/util,
 					../../src/debug,
 					../Source,
 					../,
+					../../Vendor/oldMacHeaders,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PREBINDING = NO;
@@ -1220,17 +1220,21 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DEAD_CODE_STRIPPING = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(HOME)/oldQTFrameworks";
+				FRAMEWORK_SEARCH_PATHS = ../../Vendor/oldMacHeaders;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = (
-					../../src,
-					../../src/includes,
+					../../src/mame,
+					../../src/mame/includes,
+					../../src/emu,
+					../../src/osd,
+					../../src/lib/util,
 					../../src/debug,
 					../Source,
 					../,
+					../../Vendor/oldMacHeaders,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PREBINDING = NO;
