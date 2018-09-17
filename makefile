@@ -4,10 +4,11 @@
 #
 #   Core makefile for building MAME and derivatives
 #
-#   Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+#   Copyright (c) 1996-2007, Nicola Salmoria and the MAME Team.
 #   Visit http://mamedev.org for licensing and usage restrictions.
 #
 ###########################################################################
+
 
 
 ###########################################################################
@@ -16,24 +17,74 @@
 
 
 #-------------------------------------------------
-# specify core target: mame, mess, tiny, etc.
-# build rules will be included from $(TARGET).mak
+# specify core target: mame, mess, etc.
+# specify subtarget: mame, mess, tiny, etc.
+# build rules will be included from 
+# src/$(TARGET)/$(SUBTARGET).mak
 #-------------------------------------------------
 
 ifndef TARGET
 TARGET = mame
 endif
 
-
-
-#-------------------------------------------------
-# specify operating system: windows, msdos, etc.
-# build rules will be includes from $(MAMEOS)/$(MAMEOS).mak
-#-------------------------------------------------
-
-ifndef MAMEOS
-MAMEOS = windows
+ifndef SUBTARGET
+SUBTARGET = $(TARGET)
 endif
+
+
+
+#-------------------------------------------------
+# specify OSD layer: windows, sdl, etc.
+# build rules will be included from 
+# src/osd/$(OSD)/$(OSD).mak
+#-------------------------------------------------
+
+ifndef OSD
+OSD = windows
+endif
+
+
+
+#-------------------------------------------------
+# specify OS target, which further differentiates
+# the underlying OS; supported values are:
+# win32, unix, macosx, os2
+#-------------------------------------------------
+
+ifndef TARGETOS
+ifeq ($(OSD),windows)
+TARGETOS = win32
+else
+TARGETOS = unix
+endif
+endif
+
+
+
+#-------------------------------------------------
+# configure name of final executable
+#-------------------------------------------------
+
+# uncomment and specify prefix to be added to the name
+# PREFIX =
+
+# uncomment and specify suffix to be added to the name
+# SUFFIX =
+
+
+
+#-------------------------------------------------
+# specify architecture-specific optimizations
+#-------------------------------------------------
+
+# uncomment and specify architecture-specific optimizations here
+# some examples:
+#   optimize for I686:   ARCHOPTS = -march=pentiumpro
+#   optimize for Core 2: ARCHOPTS = -march=pentium-m -msse3
+#   optimize for G4:     ARCHOPTS = -mcpu=G4
+# note that we leave this commented by default so that you can
+# configure this in your environment and never have to think about it
+# ARCHOPTS =
 
 
 
@@ -45,20 +96,14 @@ endif
 # uncomment next line to include the debugger
 # DEBUG = 1
 
-# uncomment next line to use the new multiwindow debugger
-NEW_DEBUGGER = 1
-
-# uncomment next line to use the new rendering system
-NEW_RENDER = 1
+# uncomment next line to include the internal profiler
+# PROFILER = 1
 
 # uncomment next line to use DRC MIPS3 engine
 X86_MIPS3_DRC = 1
 
 # uncomment next line to use DRC PowerPC engine
 X86_PPC_DRC = 1
-
-# uncomment next line to use DRC Voodoo rasterizers
-# X86_VOODOO_DRC = 1
 
 
 
@@ -67,15 +112,11 @@ X86_PPC_DRC = 1
 # for details
 #-------------------------------------------------
 
-# uncomment one of the next lines to build a target-optimized build
-# ATHLON = 1
-# I686 = 1
-# P4 = 1
-# PM = 1
-# AMD64 = 1
-
 # uncomment next line if you are building for a 64-bit target
 # PTR64 = 1
+
+# uncomment next line if you are building for a big-endian target
+# BIGENDIAN = 1
 
 # uncomment next line to build expat as part of MAME build
 BUILD_EXPAT = 1
@@ -86,8 +127,15 @@ BUILD_ZLIB = 1
 # uncomment next line to include the symbols
 # SYMBOLS = 1
 
+# uncomment next line to include profiling information from the compiler
+# PROFILE = 1
+
 # uncomment next line to generate a link map for exception handling in windows
 # MAP = 1
+
+# specify optimization level or leave commented to use the default
+# (default is OPTIMIZE = 3 normally, or OPTIMIZE = 0 with symbols)
+# OPTIMIZE = 3
 
 
 ###########################################################################
@@ -101,8 +149,23 @@ BUILD_ZLIB = 1
 
 # disable DRC cores for 64-bit builds
 ifdef PTR64
-X86_MIPS3_DRC =
 X86_PPC_DRC =
+endif
+
+# specify a default optimization level if none explicitly stated
+ifndef OPTIMIZE
+ifndef SYMBOLS
+OPTIMIZE = 3
+else
+OPTIMIZE = 0
+endif
+endif
+
+# profiler defaults to on for DEBUG builds
+ifdef DEBUG
+ifndef PROFILER
+PROFILER = 1
+endif
 endif
 
 
@@ -112,13 +175,20 @@ endif
 #-------------------------------------------------
 
 # extension for executables
+EXE = 
+
+ifeq ($(TARGETOS),win32)
 EXE = .exe
+endif
+ifeq ($(TARGETOS),os2)
+EXE = .exe
+endif
 
 # compiler, linker and utilities
 AR = @ar
 CC = @gcc
 LD = @gcc
-MD = -mkdir.exe
+MD = -mkdir$(EXE)
 RM = @rm -f
 
 
@@ -127,50 +197,36 @@ RM = @rm -f
 # form the name of the executable
 #-------------------------------------------------
 
-ifeq ($(MAMEOS),msdos)
-PREFIX = d
-endif
-
-# by default, compile for Pentium target
-NAME = $(PREFIX)$(TARGET)
-ARCH = -march=pentium
-
-# architecture-specific builds get extra options
-ifdef ATHLON
-NAME = $(PREFIX)$(TARGET)at
-ARCH = -march=athlon
-endif
-
-ifdef I686
-NAME = $(PREFIX)$(TARGET)pp
-ARCH = -march=pentiumpro
-endif
-
-ifdef P4
-NAME = $(PREFIX)$(TARGET)p4
-ARCH = -march=pentium4
-endif
-
-ifdef AMD64
-NAME = $(PREFIX)$(TARGET)64
-ARCH = -march=athlon64
-endif
-
-ifdef PM
-NAME = $(PREFIX)$(TARGET)pm
-ARCH = -march=pentium3 -msse2
-endif
-
 # debug builds just get the 'd' suffix and nothing more
 ifdef DEBUG
-NAME = $(PREFIX)$(TARGET)d
+DEBUGSUFFIX = d
 endif
 
-EMULATOR = $(NAME)$(EXE)
+# the name is just 'target' if no subtarget; otherwise it is
+# the concatenation of the two (e.g., mametiny)
+ifeq ($(TARGET),$(SUBTARGET))
+NAME = $(TARGET)
+else
+NAME = $(TARGET)$(SUBTARGET)
+endif
 
-# build the targets in different object dirs, since mess changes
-# some structures and thus they can't be linked against each other.
-OBJ = obj/$(NAME)
+# fullname is prefix+name+suffix+debugsuffix
+FULLNAME = $(PREFIX)$(NAME)$(SUFFIX)$(DEBUGSUFFIX)
+
+# add an EXE suffix to get the final emulator name
+EMULATOR = $(FULLNAME)$(EXE)
+
+
+
+#-------------------------------------------------
+# source and object locations
+#-------------------------------------------------
+
+# all sources are under the src/ directory
+SRC = src
+
+# build the targets in different object dirs, so they can co-exist
+OBJ = obj/$(OSD)/$(FULLNAME)
 
 
 
@@ -178,44 +234,61 @@ OBJ = obj/$(NAME)
 # compile-time definitions
 #-------------------------------------------------
 
-DEFS = -DX86_ASM -DLSB_FIRST -DINLINE="static __inline__" -Dasm=__asm__ -DCRLF=3
+# CR/LF setup: use both on win32/os2, CR only on everything else
+DEFS = -DCRLF=2
 
+ifeq ($(TARGETOS),win32)
+DEFS = -DCRLF=3
+endif
+ifeq ($(TARGETOS),os2)
+DEFS = -DCRLF=3
+endif
+
+# map the INLINE to something digestible by GCC
+DEFS += -DINLINE="static __inline__"
+
+# define LSB_FIRST if we are a little-endian target
+ifndef BIGENDIAN
+DEFS += -DLSB_FIRST
+endif
+
+# define PTR64 if we are a 64-bit target
 ifdef PTR64
 DEFS += -DPTR64
 endif
 
+# define MAME_DEBUG if we are a debugging build
 ifdef DEBUG
 DEFS += -DMAME_DEBUG
-endif
-
-ifdef NEW_DEBUGGER
-DEFS += -DNEW_DEBUGGER
-endif
-
-ifdef NEW_RENDER
-DEFS += -DNEW_RENDER
-endif
-
-ifdef X86_VOODOO_DRC
-DEFS += -DVOODOO_DRC
-endif
-
-
-
-#-------------------------------------------------
-# compile and linking flags
-#-------------------------------------------------
-
-CFLAGS = -std=gnu89 -Isrc -Isrc/includes -Isrc/$(MAMEOS) -I$(OBJ)/layout
-
-ifdef SYMBOLS
-CFLAGS += -O0 -Wall -Wno-unused -g
 else
-CFLAGS += -DNDEBUG \
-	$(ARCH) -O3 -fno-strict-aliasing \
-	-Werror -Wall \
-	-Wno-sign-compare \
-	-Wno-unused-functions \
+DEFS += -DNDEBUG 
+endif
+
+# define MAME_PROFILER if we are a profiling build
+ifdef PROFILER
+DEFS += -DMAME_PROFILER
+endif
+
+
+
+#-------------------------------------------------
+# compile flags
+#-------------------------------------------------
+
+# we compile to C89 standard with GNU extensions
+CFLAGS = -std=gnu89
+
+# this speeds it up a bit by piping between the preprocessor/compiler/assembler
+CFLAGS += -pipe
+
+# add -g if we need symbols
+ifdef SYMBOLS
+CFLAGS += -g
+endif
+
+# add a basic set of warnings
+CFLAGS += \
+	-Wall \
 	-Wpointer-arith \
 	-Wbad-function-cast \
 	-Wcast-align \
@@ -223,62 +296,92 @@ CFLAGS += -DNDEBUG \
 	-Wundef \
 	-Wformat-security \
 	-Wwrite-strings \
-	-Wdeclaration-after-statement
+
+# add profiling information for the compiler
+ifdef PROFILE
+CFLAGS += -pg
 endif
 
-# extra options needed *only* for the osd files
-CFLAGSOSDEPEND = $(CFLAGS)
+# this warning is not supported on the os2 compilers
+ifneq ($(TARGETOS),os2)
+CFLAGS += -Wdeclaration-after-statement
+endif
 
-LDFLAGS = -WO
+# add the optimization flag
+CFLAGS += -O$(OPTIMIZE)
 
+# if we are optimizing, include optimization options
+# and make all errors into warnings
+ifneq ($(OPTIMIZE),0)
+CFLAGS += -Werror $(ARCHOPTS) -fno-strict-aliasing
+#CFLAGS += $(ARCHOPTS) -fno-strict-aliasing
+endif
+
+# if symbols are on, make sure we have frame pointers
 ifdef SYMBOLS
-LDFLAGS =
-else
+CFLAGS += -fno-omit-frame-pointer
+endif
+
+
+
+#-------------------------------------------------
+# include paths
+#-------------------------------------------------
+
+# add core include paths
+CFLAGS += \
+	-I$(SRC)/$(TARGET) \
+	-I$(SRC)/$(TARGET)/includes \
+	-I$(OBJ)/$(TARGET)/layout \
+	-I$(SRC)/emu \
+	-I$(OBJ)/emu \
+	-I$(OBJ)/emu/layout \
+	-I$(SRC)/lib/util \
+	-I$(SRC)/osd \
+	-I$(SRC)/osd/$(OSD) \
+
+
+
+#-------------------------------------------------
+# linking flags
+#-------------------------------------------------
+
+# LDFLAGS are used generally; LDFLAGSEMULATOR are additional
+# flags only used when linking the core emulator
+LDFLAGS = -Wl,--warn-common
+LDFLAGSEMULATOR =
+
+# add profiling information for the linker
+ifdef PROFILE
+LDFLAGS += -pg
+endif
+
+# strip symbols and other metadata in non-symbols and non profiling builds
+ifndef SYMBOLS
+ifndef PROFILE
 LDFLAGS += -s
 endif
+endif
 
+# output a map file (emulator only)
 ifdef MAP
-MAPFLAGS = -Wl,-Map,$(NAME).map
-else
-MAPFLAGS =
+LDFLAGSEMULATOR += -Wl,-Map,$(FULLNAME).map
+endif
+
+# any reason why this doesn't work for all cases?
+ifeq ($(TARGETOS),macosx)
+LDFLAGSEMULATOR += -Xlinker -all_load
 endif
 
 
 
 #-------------------------------------------------
-# define the dependency search paths
+# define the standard object directory; other
+# projects can add their object directories to
+# this variable
 #-------------------------------------------------
 
-VPATH = src $(wildcard src/cpu/*)
-
-
-
-#-------------------------------------------------
-# define the standard object directories
-#-------------------------------------------------
-
-OBJDIRS = \
-	obj \
-	$(OBJ) \
-	$(OBJ)/cpu \
-	$(OBJ)/sound \
-	$(OBJ)/debug \
-	$(OBJ)/drivers \
-	$(OBJ)/layout \
-	$(OBJ)/machine \
-	$(OBJ)/sndhrdw \
-	$(OBJ)/vidhrdw \
-	$(OBJ)/$(MAMEOS) \
-
-ifdef MESS
-OBJDIRS += 
-	$(OBJ)/mess \
-	$(OBJ)/mess/systems \
-	$(OBJ)/mess/machine \
-	$(OBJ)/mess/sndhrdw \
-	$(OBJ)/mess/vidhrdw \
-	$(OBJ)/mess/tools
-endif
+OBJDIRS = $(OBJ)
 
 
 
@@ -286,9 +389,14 @@ endif
 # define standard libarires for CPU and sounds
 #-------------------------------------------------
 
-CPULIB = $(OBJ)/libcpu.a
+LIBEMU = $(OBJ)/libemu.a
+LIBCPU = $(OBJ)/libcpu.a
+LIBSOUND = $(OBJ)/libsound.a
+LIBUTIL = $(OBJ)/libutil.a
+LIBOCORE = $(OBJ)/libocore.a
+LIBOSD = $(OBJ)/libosd.a
 
-SOUNDLIB = $(OBJ)/libsound.a
+VERSIONOBJ = $(OBJ)/version.o
 
 
 
@@ -302,8 +410,7 @@ LIBS =
 
 # add expat XML library
 ifdef BUILD_EXPAT
-CFLAGS += -Isrc/expat
-OBJDIRS += $(OBJ)/expat
+CFLAGS += -I$(SRC)/lib/expat
 EXPAT = $(OBJ)/libexpat.a
 else
 LIBS += -lexpat
@@ -312,8 +419,7 @@ endif
 
 # add ZLIB compression library
 ifdef BUILD_ZLIB
-CFLAGS += -Isrc/zlib
-OBJDIRS += $(OBJ)/zlib
+CFLAGS += -I$(SRC)/lib/zlib
 ZLIB = $(OBJ)/libz.a
 else
 LIBS += -lz
@@ -327,7 +433,7 @@ endif
 # include files which define additional targets
 #-------------------------------------------------
 
-all: maketree emulator extra
+all: maketree buildtools emulator tools
 
 
 
@@ -335,14 +441,15 @@ all: maketree emulator extra
 # include the various .mak files
 #-------------------------------------------------
 
-# include OS-specific rules first
-include src/$(MAMEOS)/$(MAMEOS).mak
+# include OSD-specific rules first
+include $(SRC)/osd/$(OSD)/$(OSD).mak
 
 # then the various core pieces
-include src/core.mak
-include src/$(TARGET).mak
-include src/cpu/cpu.mak
-include src/sound/sound.mak
+include $(SRC)/$(TARGET)/$(SUBTARGET).mak
+include $(SRC)/emu/emu.mak
+include $(SRC)/lib/lib.mak
+include $(SRC)/build/build.mak
+include $(SRC)/tools/tools.mak
 
 # combine the various definitions to one
 CDEFS = $(DEFS) $(COREDEFS) $(CPUDEFS) $(SOUNDDEFS)
@@ -353,11 +460,13 @@ CDEFS = $(DEFS) $(COREDEFS) $(CPUDEFS) $(SOUNDDEFS)
 # primary targets
 #-------------------------------------------------
 
-emulator: maketree $(EMULATOR)
+emulator: maketree $(BUILD) $(EMULATOR)
 
-extra: $(TOOLS)
+buildtools: maketree $(BUILD)
 
-maketree: $(sort $(OBJDIRS)) $(OSPREBUILD)
+tools: maketree $(TOOLS)
+
+maketree: $(sort $(OBJDIRS))
 
 clean:
 	@echo Deleting object tree $(OBJ)...
@@ -366,6 +475,10 @@ clean:
 	$(RM) $(EMULATOR)
 	@echo Deleting $(TOOLS)...
 	$(RM) $(TOOLS)
+ifdef MAP
+	@echo Deleting $(FULLNAME).map...
+	$(RM) $(FULLNAME).map
+endif
 
 
 
@@ -374,7 +487,7 @@ clean:
 #-------------------------------------------------
 
 $(sort $(OBJDIRS)):
-	$(MD) $@
+	$(MD) -p $@
 
 
 
@@ -382,47 +495,15 @@ $(sort $(OBJDIRS)):
 # executable targets and dependencies
 #-------------------------------------------------
 
-$(EMULATOR): $(COREOBJS) $(OSOBJS) $(CPULIB) $(SOUNDLIB) $(DRVLIBS) $(EXPAT) $(ZLIB) $(OSDBGOBJS)
+ifndef EXECUTABLE_DEFINED
+
+$(EMULATOR): $(VERSIONOBJ) $(DRVLIBS) $(LIBOSD) $(LIBEMU) $(LIBCPU) $(LIBSOUND) $(LIBUTIL) $(EXPAT) $(ZLIB) $(LIBOCORE) $(RESFILE)
 # always recompile the version string
-	$(CC) $(CDEFS) $(CFLAGS) -c src/version.c -o $(OBJ)/version.o
+	$(CC) $(CDEFS) $(CFLAGS) -c $(SRC)/version.c -o $(VERSIONOBJ)
 	@echo Linking $@...
-	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@ $(MAPFLAGS)
+	$(LD) $(LDFLAGS) $(LDFLAGSEMULATOR) $^ $(LIBS) -o $@
 
-file2str$(EXE): $(OBJ)/file2str.o $(OSDBGOBJS)
-	@echo Linking $@...
-	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
-
-romcmp$(EXE): $(OBJ)/romcmp.o $(OBJ)/unzip.o $(ZLIB) $(OSDBGOBJS)
-	@echo Linking $@...
-	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
-
-chdman$(EXE): $(OBJ)/chdman.o $(OBJ)/chd.o $(OBJ)/chdcd.o $(OBJ)/cdrom.o $(OBJ)/md5.o $(OBJ)/sha1.o $(OBJ)/version.o $(ZLIB) $(OSTOOLOBJS) $(OSDBGOBJS)
-	@echo Linking $@...
-	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
-
-jedutil$(EXE): $(OBJ)/jedutil.o $(OBJ)/jedparse.o $(OSDBGOBJS)
-	@echo Linking $@...
-	$(LD) $(LDFLAGS) $(OSDBGLDFLAGS) $^ $(LIBS) -o $@
-
-
-
-#-------------------------------------------------
-# library targets and dependencies
-#-------------------------------------------------
-
-$(CPULIB): $(CPUOBJS)
-
-ifdef DEBUG
-$(CPULIB): $(DBGOBJS)
 endif
-
-$(SOUNDLIB): $(SOUNDOBJS)
-
-$(OBJ)/libexpat.a: $(OBJ)/expat/xmlparse.o $(OBJ)/expat/xmlrole.o $(OBJ)/expat/xmltok.o
-
-$(OBJ)/libz.a: $(OBJ)/zlib/adler32.o $(OBJ)/zlib/compress.o $(OBJ)/zlib/crc32.o $(OBJ)/zlib/deflate.o \
-				$(OBJ)/zlib/gzio.o $(OBJ)/zlib/inffast.o $(OBJ)/zlib/inflate.o $(OBJ)/zlib/infback.o \
-				$(OBJ)/zlib/inftrees.o $(OBJ)/zlib/trees.o $(OBJ)/zlib/uncompr.o $(OBJ)/zlib/zutil.o
 
 
 
@@ -430,27 +511,34 @@ $(OBJ)/libz.a: $(OBJ)/zlib/adler32.o $(OBJ)/zlib/compress.o $(OBJ)/zlib/crc32.o 
 # generic rules
 #-------------------------------------------------
 
-$(OBJ)/$(MAMEOS)/%.o: src/$(MAMEOS)/%.c
-	@echo Compiling $<...
-	$(CC) $(CDEFS) $(CFLAGSOSDEPEND) -c $< -o $@
-
-$(OBJ)/%.o: src/%.c
+$(OBJ)/%.o: $(SRC)/%.c | $(OSPREBUILD)
 	@echo Compiling $<...
 	$(CC) $(CDEFS) $(CFLAGS) -c $< -o $@
 
-$(OBJ)/%.pp: src/%.c
+$(OBJ)/%.pp: $(SRC)/%.c | $(OSPREBUILD)
 	@echo Compiling $<...
 	$(CC) $(CDEFS) $(CFLAGS) -E $< -o $@
 
-$(OBJ)/%.s: src/%.c
+$(OBJ)/%.s: $(SRC)/%.c | $(OSPREBUILD)
 	@echo Compiling $<...
 	$(CC) $(CDEFS) $(CFLAGS) -S $< -o $@
 
-$(OBJ)/%.lh: src/%.lay file2str$(EXE)
+$(OBJ)/%.lh: $(SRC)/%.lay $(FILE2STR)
 	@echo Converting $<...
-	@file2str$(EXE) $< $@ layout_$(basename $(notdir $<))
+	@$(FILE2STR) $< $@ layout_$(basename $(notdir $<))
+
+$(OBJ)/%.fh: $(SRC)/%.png $(PNG2BDC) $(FILE2STR)
+	@echo Converting $<...
+	@$(PNG2BDC) $< $(OBJ)/temp.bdc
+	@$(FILE2STR) $(OBJ)/temp.bdc $@ font_$(basename $(notdir $<)) UINT8
 
 $(OBJ)/%.a:
 	@echo Archiving $@...
 	$(RM) $@
 	$(AR) -cr $@ $^
+
+ifeq ($(TARGETOS),macosx)
+$(OBJ)/%.o: $(SRC)/%.m | $(OSPREBUILD)
+	@echo Objective-C compiling $<...
+	$(CC) $(CDEFS) $(CFLAGS) -c $< -o $@
+endif

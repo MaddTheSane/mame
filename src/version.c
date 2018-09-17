@@ -4,9 +4,9 @@
 
     Version string source file for MAME.
 
-    Copyright (c) 1996-2006, Nicola Salmoria and the MAME Team.
+    Copyright (c) 1996-2007, Nicola Salmoria and the MAME Team.
     Visit http://mamedev.org for licensing and usage restrictions.
 
 ***************************************************************************/
 
-char build_version[] = "0.106u13 ("__DATE__")";
+const char build_version[] = "0.122 ("__DATE__")";
