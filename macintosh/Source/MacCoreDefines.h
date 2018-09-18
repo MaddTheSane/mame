@@ -217,3 +217,8 @@
 #define HAS_VOTRAX		1
 #define HAS_ES8712		1
 #define HAS_RF5C400		1
+#define HAS_SPEAKER		1
+#define HAS_BEEP		1
+#define HAS_WAVE		1
+#define HAS_SID6581		1
+#define HAS_SID8580		1

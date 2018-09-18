@@ -4048,7 +4048,6 @@
 		55370026212A28720081F61B /* CocoaInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CocoaInput.mm; sourceTree = "<group>"; };
 		55370028212A298D0081F61B /* Cocoa.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cocoa.pch; sourceTree = "<group>"; };
 		55370029212A2B930081F61B /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		5537002B212A2C3C0081F61B /* CocoaCoreDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaCoreDefines.h; sourceTree = "<group>"; };
 		5537002C212A2F0C0081F61B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5537002E212A2F6E0081F61B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		55370030212A2F7F0081F61B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -7928,7 +7927,6 @@
 		55370024212A28720081F61B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				5537002B212A2C3C0081F61B /* CocoaCoreDefines.h */,
 				55370025212A28720081F61B /* CocoaInput.h */,
 				55370026212A28720081F61B /* CocoaInput.mm */,
 				557086B2212B53110065B854 /* CocoaInput.swift */,

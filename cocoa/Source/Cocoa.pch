@@ -70,7 +70,7 @@
 extern "C" {
 #endif
 
-#include "CocoaCoreDefines.h"
+#include "../../macintosh/Source/MacCoreDefines.h"
 #include "osdcomm.h"
 //#include "mame.h"
 
