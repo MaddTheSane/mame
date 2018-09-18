@@ -59,11 +59,12 @@
 #define HAS_S2650		1
 #define HAS_TMS34010	1
 #define HAS_TMS34020	1
-//#define HAS_TMS9900		0
-//#define HAS_TMS9940		0
+#define HAS_TMS9900		1
+#define HAS_TMS9940		1
+#define HAS_TI990_10	1
 #define HAS_TMS9980		1
-//#define HAS_TMS9985		0
-//#define HAS_TMS9989		0
+#define HAS_TMS9985		1
+#define HAS_TMS9989		1
 #define HAS_TMS9995		1
 //#define HAS_TMS99105A	0
 //#define HAS_TMS99110A	0

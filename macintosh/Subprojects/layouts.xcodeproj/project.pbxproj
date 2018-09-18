@@ -77,8 +77,9 @@
 			fileType = pattern.proxy;
 			isEditable = 1;
 			outputFiles = (
+				"$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).lh",
 			);
-			script = "# @file2str$(EXE) $< $@ layout_$(basename $(notdir $<))\n";
+			script = "${TARGET_BUILD_DIR}/file2str \"${INPUT_FILE_PATH}\" ${DERIVED_FILE_DIR}/${INPUT_FILE_BASE}.lh layout_$(basename $(notdir \"${INPUT_FILE_PATH}\"))\n";
 		};
 /* End PBXBuildRule section */
 
