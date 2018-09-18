@@ -514,8 +514,8 @@
 					../../Vendor/oldMacHeaders,
 					../Source,
 					..,
-					../../src,
-					../../src/includes,
+					../../src/mame,
+					../../src/mame/includes,
 					../../src/debug,
 				);
 			};
@@ -575,8 +575,8 @@
 					../../Vendor/oldMacHeaders,
 					../Source,
 					..,
-					../../src,
-					../../src/includes,
+					../../src/mame,
+					../../src/mame/includes,
 					../../src/debug,
 				);
 			};

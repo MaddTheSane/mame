@@ -127,6 +127,32 @@
 		552875E621507811001D2CFD /* f8.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875E021507811001D2CFD /* f8.c */; };
 		552875E721507811001D2CFD /* f8dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875E221507811001D2CFD /* f8dasm.c */; };
 		552875E821507811001D2CFD /* f8dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875E221507811001D2CFD /* f8dasm.c */; };
+		552875FC21507E97001D2CFD /* beep.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875FB21507E97001D2CFD /* beep.c */; };
+		552875FD21507E97001D2CFD /* beep.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875FB21507E97001D2CFD /* beep.c */; };
+		5528760021507EBD001D2CFD /* cdp1869.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875FE21507EBA001D2CFD /* cdp1869.c */; };
+		5528760121507EBD001D2CFD /* cdp1869.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875FE21507EBA001D2CFD /* cdp1869.c */; };
+		5528760421507EE9001D2CFD /* m58817.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528760221507EE6001D2CFD /* m58817.c */; };
+		5528760521507EE9001D2CFD /* m58817.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528760221507EE6001D2CFD /* m58817.c */; };
+		5528760821507F00001D2CFD /* s14001a.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528760621507F00001D2CFD /* s14001a.c */; };
+		5528760921507F00001D2CFD /* s14001a.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528760621507F00001D2CFD /* s14001a.c */; };
+		5528760D21507F18001D2CFD /* scspdsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528760A21507F17001D2CFD /* scspdsp.c */; };
+		5528760E21507F18001D2CFD /* scspdsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528760A21507F17001D2CFD /* scspdsp.c */; };
+		5528761C21507F3A001D2CFD /* sid6581.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528761121507F37001D2CFD /* sid6581.c */; };
+		5528761D21507F3A001D2CFD /* sid6581.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528761121507F37001D2CFD /* sid6581.c */; };
+		5528761E21507F3A001D2CFD /* sidvoice.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528761421507F38001D2CFD /* sidvoice.c */; };
+		5528761F21507F3A001D2CFD /* sidvoice.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528761421507F38001D2CFD /* sidvoice.c */; };
+		5528762021507F3A001D2CFD /* sid.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528761721507F39001D2CFD /* sid.c */; };
+		5528762121507F3A001D2CFD /* sid.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528761721507F39001D2CFD /* sid.c */; };
+		5528762221507F3A001D2CFD /* sidenvel.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528761B21507F3A001D2CFD /* sidenvel.c */; };
+		5528762321507F3A001D2CFD /* sidenvel.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528761B21507F3A001D2CFD /* sidenvel.c */; };
+		5528762821507F52001D2CFD /* sp0256.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528762521507F51001D2CFD /* sp0256.c */; };
+		5528762921507F52001D2CFD /* sp0256.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528762521507F51001D2CFD /* sp0256.c */; };
+		5528762A21507F52001D2CFD /* speaker.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528762721507F51001D2CFD /* speaker.c */; };
+		5528762B21507F52001D2CFD /* speaker.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528762721507F51001D2CFD /* speaker.c */; };
+		5528763421507F6C001D2CFD /* tms3615.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528762E21507F6C001D2CFD /* tms3615.c */; };
+		5528763521507F6C001D2CFD /* tms3615.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528762E21507F6C001D2CFD /* tms3615.c */; };
+		5528763921507F90001D2CFD /* wave.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528763621507F90001D2CFD /* wave.c */; };
+		5528763A21507F90001D2CFD /* wave.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528763621507F90001D2CFD /* wave.c */; };
 		55370023212A27E40081F61B /* mamelang.r in Rez */ = {isa = PBXBuildFile; fileRef = 55DE7E8B21215BFC009FBDBC /* mamelang.r */; };
 		55370027212A28720081F61B /* CocoaInput.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55370026212A28720081F61B /* CocoaInput.mm */; };
 		5537002A212A2B930081F61B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55370029212A2B930081F61B /* MainMenu.xib */; };
@@ -1249,6 +1275,43 @@
 		552875E92150782C001D2CFD /* e132xsop.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = e132xsop.c; sourceTree = "<group>"; };
 		552875EA2150782C001D2CFD /* e132xs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = e132xs.h; sourceTree = "<group>"; };
 		552875F421507D9A001D2CFD /* m68kops.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = m68kops.h; sourceTree = "<group>"; };
+		552875F521507E89001D2CFD /* disc_dev.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = disc_dev.c; sourceTree = "<group>"; };
+		552875F621507E8A001D2CFD /* disc_flt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = disc_flt.c; sourceTree = "<group>"; };
+		552875F721507E8A001D2CFD /* disc_mth.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = disc_mth.c; sourceTree = "<group>"; };
+		552875F821507E8A001D2CFD /* disc_inp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = disc_inp.c; sourceTree = "<group>"; };
+		552875F921507E8A001D2CFD /* disc_wav.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = disc_wav.c; sourceTree = "<group>"; };
+		552875FA21507E96001D2CFD /* beep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = beep.h; sourceTree = "<group>"; };
+		552875FB21507E97001D2CFD /* beep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = beep.c; sourceTree = "<group>"; };
+		552875FE21507EBA001D2CFD /* cdp1869.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cdp1869.c; sourceTree = "<group>"; };
+		552875FF21507EBB001D2CFD /* cdp1869.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdp1869.h; sourceTree = "<group>"; };
+		5528760221507EE6001D2CFD /* m58817.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = m58817.c; sourceTree = "<group>"; };
+		5528760321507EE7001D2CFD /* m58817.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = m58817.h; sourceTree = "<group>"; };
+		5528760621507F00001D2CFD /* s14001a.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = s14001a.c; sourceTree = "<group>"; };
+		5528760721507F00001D2CFD /* s14001a.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = s14001a.h; sourceTree = "<group>"; };
+		5528760A21507F17001D2CFD /* scspdsp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scspdsp.c; sourceTree = "<group>"; };
+		5528760B21507F17001D2CFD /* scsplfo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scsplfo.c; sourceTree = "<group>"; };
+		5528760C21507F18001D2CFD /* scspdsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scspdsp.h; sourceTree = "<group>"; };
+		5528761121507F37001D2CFD /* sid6581.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sid6581.c; sourceTree = "<group>"; };
+		5528761221507F37001D2CFD /* sid6581.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sid6581.h; sourceTree = "<group>"; };
+		5528761321507F38001D2CFD /* sidenvel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sidenvel.h; sourceTree = "<group>"; };
+		5528761421507F38001D2CFD /* sidvoice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sidvoice.c; sourceTree = "<group>"; };
+		5528761521507F38001D2CFD /* side6581.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = side6581.h; sourceTree = "<group>"; };
+		5528761621507F38001D2CFD /* sidw8580.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sidw8580.h; sourceTree = "<group>"; };
+		5528761721507F39001D2CFD /* sid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sid.c; sourceTree = "<group>"; };
+		5528761821507F39001D2CFD /* sidw6581.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sidw6581.h; sourceTree = "<group>"; };
+		5528761921507F39001D2CFD /* sid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sid.h; sourceTree = "<group>"; };
+		5528761A21507F39001D2CFD /* sidvoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sidvoice.h; sourceTree = "<group>"; };
+		5528761B21507F3A001D2CFD /* sidenvel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sidenvel.c; sourceTree = "<group>"; };
+		5528762421507F50001D2CFD /* speaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = speaker.h; sourceTree = "<group>"; };
+		5528762521507F51001D2CFD /* sp0256.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sp0256.c; sourceTree = "<group>"; };
+		5528762621507F51001D2CFD /* sp0256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sp0256.h; sourceTree = "<group>"; };
+		5528762721507F51001D2CFD /* speaker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = speaker.c; sourceTree = "<group>"; };
+		5528762C21507F6B001D2CFD /* tms5220r.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tms5220r.c; sourceTree = "<group>"; };
+		5528762D21507F6C001D2CFD /* tms5110r.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tms5110r.c; sourceTree = "<group>"; };
+		5528762E21507F6C001D2CFD /* tms3615.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tms3615.c; sourceTree = "<group>"; };
+		5528762F21507F6C001D2CFD /* tms3615.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tms3615.h; sourceTree = "<group>"; };
+		5528763621507F90001D2CFD /* wave.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wave.c; sourceTree = "<group>"; };
+		5528763721507F90001D2CFD /* wave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wave.h; sourceTree = "<group>"; };
 		55370025212A28720081F61B /* CocoaInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaInput.h; sourceTree = "<group>"; };
 		55370026212A28720081F61B /* CocoaInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CocoaInput.mm; sourceTree = "<group>"; };
 		55370028212A298D0081F61B /* Cocoa.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cocoa.pch; sourceTree = "<group>"; };
@@ -1524,7 +1587,7 @@
 		9BA323F807DBAC0E005B373A /* flt_rc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flt_rc.c; sourceTree = "<group>"; };
 		9BA323F907DBAC0E005B373A /* flt_vol.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flt_vol.c; sourceTree = "<group>"; };
 		9BA323FA07DBAC0E005B373A /* okim6295.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = okim6295.c; sourceTree = "<group>"; };
-		9BA324D907DBCB5D005B373A /* wavwrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = wavwrite.c; path = emu/sound/wavwrite.c; sourceTree = "<group>"; };
+		9BA324D907DBCB5D005B373A /* wavwrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wavwrite.c; sourceTree = "<group>"; };
 		9BADA1F607CB2393005FC26A /* arm7.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = arm7.c; sourceTree = "<group>"; };
 		9BADA1FE07CB23C3005FC26A /* i8051.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = i8051.c; sourceTree = "<group>"; };
 		9BADA20407CB23F1005FC26A /* mc68hc11.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mc68hc11.c; sourceTree = "<group>"; };
@@ -3170,7 +3233,6 @@
 				55FFFF072129ECF900EB17F5 /* chdcd.h */,
 				55A4AEF9212BC7C2009FABC1 /* jedutil.c */,
 				F5EB2C63057F2C34004EB9EC /* version.c */,
-				9BA324D907DBCB5D005B373A /* wavwrite.c */,
 			);
 			name = "MAME Core";
 			path = src;
@@ -3290,6 +3352,8 @@
 				55FFFF522129EE4300EB17F5 /* astrocde.h */,
 				F5EB2CFF057F2C34004EB9EC /* ay8910.c */,
 				55FFFF3A2129EE3D00EB17F5 /* ay8910.h */,
+				552875FB21507E97001D2CFD /* beep.c */,
+				552875FA21507E96001D2CFD /* beep.h */,
 				F5EB2D01057F2C34004EB9EC /* bsmt2000.c */,
 				55FFFF512129EE4300EB17F5 /* bsmt2000.h */,
 				F5EB2D03057F2C34004EB9EC /* c140.c */,
@@ -3300,12 +3364,19 @@
 				55FFFF412129EE3F00EB17F5 /* c6280.h */,
 				9BE44D80069760D400500138 /* cdda.c */,
 				55FFFF282129EE3900EB17F5 /* cdda.h */,
+				552875FE21507EBA001D2CFD /* cdp1869.c */,
+				552875FF21507EBB001D2CFD /* cdp1869.h */,
 				F5EB2D07057F2C34004EB9EC /* cem3394.c */,
 				55FFFF1B2129EE3600EB17F5 /* cem3394.h */,
 				9BA323F707DBAC0E005B373A /* custom.c */,
 				55FFFF2E2129EE3A00EB17F5 /* custom.h */,
 				F5EB2D09057F2C34004EB9EC /* dac.c */,
 				55FFFF342129EE3C00EB17F5 /* dac.h */,
+				552875F521507E89001D2CFD /* disc_dev.c */,
+				552875F621507E8A001D2CFD /* disc_flt.c */,
+				552875F821507E8A001D2CFD /* disc_inp.c */,
+				552875F721507E8A001D2CFD /* disc_mth.c */,
+				552875F921507E8A001D2CFD /* disc_wav.c */,
 				F5EB2D0B057F2C34004EB9EC /* discrete.c */,
 				55FFFF1D2129EE3700EB17F5 /* discrete.h */,
 				9BE44D910697612700500138 /* dmadac.c */,
@@ -3344,6 +3415,8 @@
 				55FFFF182129EE3500EB17F5 /* k053260.h */,
 				F5EB2D23057F2C34004EB9EC /* k054539.c */,
 				55FFFF4B2129EE4200EB17F5 /* k054539.h */,
+				5528760221507EE6001D2CFD /* m58817.c */,
+				5528760321507EE7001D2CFD /* m58817.h */,
 				F5EB2D27057F2C34004EB9EC /* msm5205.c */,
 				55FFFF552129EE4400EB17F5 /* msm5205.h */,
 				F5EB2D29057F2C34004EB9EC /* msm5232.c */,
@@ -3373,20 +3446,40 @@
 				55FFFF2A2129EE3900EB17F5 /* rf5c68.h */,
 				F5AD66D709557C1D004AEC57 /* rf5c400.c */,
 				55FFFF152129EE3500EB17F5 /* rf5c400.h */,
+				5528760621507F00001D2CFD /* s14001a.c */,
+				5528760721507F00001D2CFD /* s14001a.h */,
 				F5EB2D39057F2C34004EB9EC /* saa1099.c */,
 				55FFFF322129EE3B00EB17F5 /* saa1099.h */,
 				F5EB2D3B057F2C34004EB9EC /* samples.c */,
 				55FFFF5C2129EE4600EB17F5 /* samples.h */,
 				F5EB2D3D057F2C34004EB9EC /* scsp.c */,
 				55FFFF392129EE3D00EB17F5 /* scsp.h */,
+				5528760A21507F17001D2CFD /* scspdsp.c */,
+				5528760C21507F18001D2CFD /* scspdsp.h */,
+				5528760B21507F17001D2CFD /* scsplfo.c */,
 				F5EB2D3F057F2C34004EB9EC /* segapcm.c */,
 				55FFFF622129EE4800EB17F5 /* segapcm.h */,
+				5528761721507F39001D2CFD /* sid.c */,
+				5528761921507F39001D2CFD /* sid.h */,
+				5528761121507F37001D2CFD /* sid6581.c */,
+				5528761221507F37001D2CFD /* sid6581.h */,
+				5528761521507F38001D2CFD /* side6581.h */,
+				5528761B21507F3A001D2CFD /* sidenvel.c */,
+				5528761321507F38001D2CFD /* sidenvel.h */,
+				5528761421507F38001D2CFD /* sidvoice.c */,
+				5528761A21507F39001D2CFD /* sidvoice.h */,
+				5528761821507F39001D2CFD /* sidw6581.h */,
+				5528761621507F38001D2CFD /* sidw8580.h */,
 				F5EB2D41057F2C34004EB9EC /* sn76477.c */,
 				55FFFF482129EE4100EB17F5 /* sn76477.h */,
 				F5EB2D43057F2C34004EB9EC /* sn76496.c */,
 				55FFFF312129EE3B00EB17F5 /* sn76496.h */,
 				F5EB2D45057F2C34004EB9EC /* sp0250.c */,
 				55FFFF2B2129EE3A00EB17F5 /* sp0250.h */,
+				5528762521507F51001D2CFD /* sp0256.c */,
+				5528762621507F51001D2CFD /* sp0256.h */,
+				5528762721507F51001D2CFD /* speaker.c */,
+				5528762421507F50001D2CFD /* speaker.h */,
 				9BE44DD2069762C600500138 /* st0016.c */,
 				55FFFF3C2129EE3E00EB17F5 /* st0016.h */,
 				F5EB2D49057F2C34004EB9EC /* tiaintf.c */,
@@ -3395,10 +3488,14 @@
 				55FFFF5F2129EE4700EB17F5 /* tiasound.h */,
 				F5EB2D4D057F2C34004EB9EC /* tms36xx.c */,
 				55FFFF442129EE4000EB17F5 /* tms36xx.h */,
+				5528762E21507F6C001D2CFD /* tms3615.c */,
+				5528762F21507F6C001D2CFD /* tms3615.h */,
 				F5EB2D4F057F2C34004EB9EC /* tms5110.c */,
 				55FFFF1E2129EE3700EB17F5 /* tms5110.h */,
+				5528762D21507F6C001D2CFD /* tms5110r.c */,
 				F5EB2D51057F2C34004EB9EC /* tms5220.c */,
 				55FFFF4E2129EE4200EB17F5 /* tms5220.h */,
+				5528762C21507F6B001D2CFD /* tms5220r.c */,
 				F5EB2D53057F2C34004EB9EC /* upd7759.c */,
 				55FFFF602129EE4700EB17F5 /* upd7759.h */,
 				F5EB2D55057F2C34004EB9EC /* vlm5030.c */,
@@ -3406,6 +3503,9 @@
 				F5EB2D57057F2C34004EB9EC /* votrax.c */,
 				9BADA23407CB24F0005FC26A /* vrender0.c */,
 				55FFFF4F2129EE4300EB17F5 /* vrender0.h */,
+				5528763621507F90001D2CFD /* wave.c */,
+				5528763721507F90001D2CFD /* wave.h */,
+				9BA324D907DBCB5D005B373A /* wavwrite.c */,
 				55FFFF632129EE4800EB17F5 /* wavwrite.h */,
 				F5EB2D58057F2C34004EB9EC /* x1_010.c */,
 				55FFFF172129EE3500EB17F5 /* x1_010.h */,
@@ -3750,6 +3850,7 @@
 				55FF0006212A267000EB17F5 /* audit.c in Sources */,
 				55FF0007212A267000EB17F5 /* cheat.c in Sources */,
 				55FF0008212A267000EB17F5 /* romload.c in Sources */,
+				5528761F21507F3A001D2CFD /* sidvoice.c in Sources */,
 				55FF0009212A267000EB17F5 /* cpuintrf.c in Sources */,
 				55FF000A212A267000EB17F5 /* drawgfx.c in Sources */,
 				55FF000C212A267000EB17F5 /* inptport.c in Sources */,
@@ -3815,6 +3916,7 @@
 				55FF0038212A267000EB17F5 /* k005289.c in Sources */,
 				55A4AF2E212BC998009FABC1 /* rsp.c in Sources */,
 				552874612150703C001D2CFD /* cdp1802.c in Sources */,
+				5528760121507EBD001D2CFD /* cdp1869.c in Sources */,
 				55FF0039212A267000EB17F5 /* k051649.c in Sources */,
 				5597FE772150602600AE12AB /* corefile.c in Sources */,
 				55FF003A212A267000EB17F5 /* k053260.c in Sources */,
@@ -3830,6 +3932,7 @@
 				55FF0040212A267000EB17F5 /* rf5c68.c in Sources */,
 				55FF0041212A267000EB17F5 /* samples.c in Sources */,
 				55FF0042212A267000EB17F5 /* segapcm.c in Sources */,
+				5528762121507F3A001D2CFD /* sid.c in Sources */,
 				55FF0043212A267000EB17F5 /* sn76477.c in Sources */,
 				55FF0044212A267000EB17F5 /* sn76496.c in Sources */,
 				55FF0045212A267000EB17F5 /* streams.c in Sources */,
@@ -3841,6 +3944,7 @@
 				55A4AECE212BC64A009FABC1 /* rendfont.c in Sources */,
 				552875472150759A001D2CFD /* minx.c in Sources */,
 				55FF0048212A267000EB17F5 /* upd7759.c in Sources */,
+				5528760921507F00001D2CFD /* s14001a.c in Sources */,
 				55FF0049212A267000EB17F5 /* vlm5030.c in Sources */,
 				552875A421507735001D2CFD /* drcfe.c in Sources */,
 				55FF004A212A267000EB17F5 /* votrax.c in Sources */,
@@ -3853,6 +3957,7 @@
 				55FF004E212A267000EB17F5 /* ymz280b.c in Sources */,
 				55FF004F212A267000EB17F5 /* 5110intf.c in Sources */,
 				5597FEA5215060EE00AE12AB /* attotime.c in Sources */,
+				5528760E21507F18001D2CFD /* scspdsp.c in Sources */,
 				55E852F4212B422300AD7CB6 /* CMAMEAppDelegate.m in Sources */,
 				5597FEA3215060EE00AE12AB /* rendutil.c in Sources */,
 				55FF0050212A267000EB17F5 /* tms5110.c in Sources */,
@@ -3890,6 +3995,7 @@
 				55FF006A212A267000EB17F5 /* 34010fld.c in Sources */,
 				552874AC2150728B001D2CFD /* 7000dasm.c in Sources */,
 				55FF006B212A267000EB17F5 /* dsp32.c in Sources */,
+				5528760521507EE9001D2CFD /* m58817.c in Sources */,
 				552874592150703C001D2CFD /* cop420ds.c in Sources */,
 				5528752921507510001D2CFD /* necdasm.c in Sources */,
 				55FF006C212A267000EB17F5 /* ymf278b.c in Sources */,
@@ -3904,6 +4010,7 @@
 				55FF0073212A267000EB17F5 /* gaelco.c in Sources */,
 				55FF0074212A267000EB17F5 /* fileio.c in Sources */,
 				55FF0075212A267000EB17F5 /* x1_010.c in Sources */,
+				5528761D21507F3A001D2CFD /* sid6581.c in Sources */,
 				55FF0076212A267000EB17F5 /* mips3.c in Sources */,
 				55FF0077212A267000EB17F5 /* pic16c5x.c in Sources */,
 				55FF0078212A267000EB17F5 /* c6280.c in Sources */,
@@ -3940,6 +4047,7 @@
 				55FF0091212A267000EB17F5 /* ics2115.c in Sources */,
 				55A4AEFE212BC7C3009FABC1 /* jedutil.c in Sources */,
 				55FF0092212A267000EB17F5 /* n63701x.c in Sources */,
+				5528762321507F3A001D2CFD /* sidenvel.c in Sources */,
 				55FF0093212A267000EB17F5 /* namco52.c in Sources */,
 				55FF0095212A267000EB17F5 /* psx.c in Sources */,
 				55FF0096212A267000EB17F5 /* st0016.c in Sources */,
@@ -3949,11 +4057,13 @@
 				55FF0099212A267000EB17F5 /* hd6309.c in Sources */,
 				55FF009A212A267000EB17F5 /* m37710o1.c in Sources */,
 				55FF009B212A267000EB17F5 /* m37710o3.c in Sources */,
+				5528762B21507F52001D2CFD /* speaker.c in Sources */,
 				55FF009C212A267000EB17F5 /* m37710o0.c in Sources */,
 				55A4AEFC212BC7C3009FABC1 /* jedparse.c in Sources */,
 				552874532150703C001D2CFD /* cop410.c in Sources */,
 				5597FE7F2150602600AE12AB /* astring.c in Sources */,
 				55FF009D212A267000EB17F5 /* m37710o2.c in Sources */,
+				5528763A21507F90001D2CFD /* wave.c in Sources */,
 				55FF009E212A267000EB17F5 /* m37710.c in Sources */,
 				55FF009F212A267000EB17F5 /* ppc.c in Sources */,
 				55FF00A0212A267000EB17F5 /* h83002.c in Sources */,
@@ -4033,6 +4143,7 @@
 				55FF00ED212A267000EB17F5 /* hc11dasm.c in Sources */,
 				55FF00EE212A267000EB17F5 /* i386dasm.c in Sources */,
 				55FF00EF212A267000EB17F5 /* i960dis.c in Sources */,
+				552875FD21507E97001D2CFD /* beep.c in Sources */,
 				55FF00F0212A267000EB17F5 /* jagdasm.c in Sources */,
 				55FF00F1212A267000EB17F5 /* knmidasm.c in Sources */,
 				55FF00F2212A267000EB17F5 /* m68kdasm.c in Sources */,
@@ -4053,6 +4164,7 @@
 				55FF00FC212A267000EB17F5 /* v60d.c in Sources */,
 				55A4AF30212BC998009FABC1 /* rsp_dasm.c in Sources */,
 				55FF00FD212A267000EB17F5 /* v810dasm.c in Sources */,
+				5528763521507F6C001D2CFD /* tms3615.c in Sources */,
 				55FF00FE212A267000EB17F5 /* z180dasm.c in Sources */,
 				55FF00FF212A267000EB17F5 /* z80dasm.c in Sources */,
 				55FF0100212A267000EB17F5 /* z80daisy.c in Sources */,
@@ -4062,6 +4174,7 @@
 				55FF0103212A267000EB17F5 /* dsp56dsm.c in Sources */,
 				552874EC21507346001D2CFD /* readpc.c in Sources */,
 				55FF0104212A267000EB17F5 /* validity.c in Sources */,
+				5528762921507F52001D2CFD /* sp0256.c in Sources */,
 				55FF0105212A267000EB17F5 /* xmlfile.c in Sources */,
 				55FF0106212A267000EB17F5 /* namcona_mac.c in Sources */,
 				55FF0107212A267000EB17F5 /* rf5c400.c in Sources */,
@@ -4171,15 +4284,19 @@
 				F5EB2E62057F2C34004EB9EC /* iremga20.c in Sources */,
 				F5EB2E64057F2C34004EB9EC /* k054539.c in Sources */,
 				F5EB2E66057F2C34004EB9EC /* saa1099.c in Sources */,
+				5528760D21507F18001D2CFD /* scspdsp.c in Sources */,
 				F5EB2E68057F2C34004EB9EC /* asap.c in Sources */,
+				5528760821507F00001D2CFD /* s14001a.c in Sources */,
 				F5EB2E6B057F2C34004EB9EC /* discrete.c in Sources */,
 				F5EB2E6D057F2C34004EB9EC /* es5506.c in Sources */,
 				F5EB2E6F057F2C34004EB9EC /* 2413intf.c in Sources */,
 				F5EB2E71057F2C34004EB9EC /* filter.c in Sources */,
+				5528762221507F3A001D2CFD /* sidenvel.c in Sources */,
 				F5EB2E73057F2C34004EB9EC /* tms9995.c in Sources */,
 				55A4AF27212BC983009FABC1 /* 32051ops.c in Sources */,
 				552874602150703C001D2CFD /* cdp1802.c in Sources */,
 				F5EB2E74057F2C34004EB9EC /* upd7810.c in Sources */,
+				5528760421507EE9001D2CFD /* m58817.c in Sources */,
 				F5EB2E76057F2C34004EB9EC /* i8x41.c in Sources */,
 				F5EB2E7A057F2C34004EB9EC /* cpuexec.c in Sources */,
 				F5EB2E7D057F2C34004EB9EC /* v60.c in Sources */,
@@ -4189,6 +4306,7 @@
 				F5EB2E85057F2C34004EB9EC /* msm5232.c in Sources */,
 				F5EB2E87057F2C34004EB9EC /* memory.c in Sources */,
 				5528753A21507551001D2CFD /* mips3fe.c in Sources */,
+				5528760021507EBD001D2CFD /* cdp1869.c in Sources */,
 				F5EB2E89057F2C34004EB9EC /* arm.c in Sources */,
 				F5EB2E8C057F2C34004EB9EC /* cpuint.c in Sources */,
 				F5EB2E99057F2C34004EB9EC /* driver.c in Sources */,
@@ -4213,6 +4331,7 @@
 				F5EB2ECA057F2C34004EB9EC /* ymf262.c in Sources */,
 				F5EB2ECC057F2C34004EB9EC /* gaelco.c in Sources */,
 				F5EB2ECE057F2C34004EB9EC /* fileio.c in Sources */,
+				5528762021507F3A001D2CFD /* sid.c in Sources */,
 				F5EB2ED0057F2C34004EB9EC /* x1_010.c in Sources */,
 				F5EB2ED2057F2C34004EB9EC /* mips3.c in Sources */,
 				5528745A2150703C001D2CFD /* 1610dasm.c in Sources */,
@@ -4235,6 +4354,7 @@
 				F5EB2EF4057F2C34004EB9EC /* g65816o1.c in Sources */,
 				F5EB2EF5057F2C34004EB9EC /* g65816o4.c in Sources */,
 				F5EB2EF6057F2C34004EB9EC /* g65816o0.c in Sources */,
+				5528761C21507F3A001D2CFD /* sid6581.c in Sources */,
 				55A4AED4212BC675009FABC1 /* options.c in Sources */,
 				5528757F2150766F001D2CFD /* m4510.c in Sources */,
 				55287559215075C6001D2CFD /* mb86233.c in Sources */,
@@ -4256,6 +4376,7 @@
 				5528753C21507551001D2CFD /* mips3drc.c in Sources */,
 				5597FE742150602600AE12AB /* corestr.c in Sources */,
 				55A4AECD212BC64A009FABC1 /* rendfont.c in Sources */,
+				5528762821507F52001D2CFD /* sp0256.c in Sources */,
 				9BE44D88069760F500500138 /* cdrom.c in Sources */,
 				552875462150759A001D2CFD /* minx.c in Sources */,
 				9BE44D8D0697610700500138 /* chdcd.c in Sources */,
@@ -4299,10 +4420,12 @@
 				F5019897070CFCAC009C5423 /* OpenGLPluginX.c in Sources */,
 				F5019898070CFCAC009C5423 /* OpenGLUtils.c in Sources */,
 				F50198A2070CFCF6009C5423 /* macfrontend.c in Sources */,
+				5528763921507F90001D2CFD /* wave.c in Sources */,
 				F50198A3070CFCF6009C5423 /* macinfo.c in Sources */,
 				F50198A4070CFCF6009C5423 /* macreports.c in Sources */,
 				F50198A5070CFCF6009C5423 /* maclists.c in Sources */,
 				F50198A6070CFCF6009C5423 /* mactext.c in Sources */,
+				5528761E21507F3A001D2CFD /* sidvoice.c in Sources */,
 				F50198A7070CFCF6009C5423 /* macoptions.c in Sources */,
 				F50198AE070CFD2E009C5423 /* MacAppleEvents.c in Sources */,
 				F50198AF070CFD2E009C5423 /* mac.c in Sources */,
@@ -4346,6 +4469,7 @@
 				F5855EFC086001C5006D0B61 /* sharc.c in Sources */,
 				F5855F01086001D9006D0B61 /* sharcdsm.c in Sources */,
 				F56EC1AE0866749900FF69E1 /* 2100dasm.c in Sources */,
+				5528763421507F6C001D2CFD /* tms3615.c in Sources */,
 				F56EC1B0086674AD00FF69E1 /* 16c5xdsm.c in Sources */,
 				F56EC1B2086674AD00FF69E1 /* 2650dasm.c in Sources */,
 				F56EC1B3086674AD00FF69E1 /* 32010dsm.c in Sources */,
@@ -4357,6 +4481,7 @@
 				F56EC1B9086674AD00FF69E1 /* 6502dasm.c in Sources */,
 				5528751D215074BB001D2CFD /* tx0.c in Sources */,
 				F56EC1BA086674AD00FF69E1 /* 6800dasm.c in Sources */,
+				5528762A21507F52001D2CFD /* speaker.c in Sources */,
 				F56EC1BB086674AD00FF69E1 /* 6805dasm.c in Sources */,
 				F56EC1BC086674AD00FF69E1 /* 6809dasm.c in Sources */,
 				F56EC1BD086674AD00FF69E1 /* 7810dasm.c in Sources */,
@@ -4388,6 +4513,7 @@
 				5528751121507499001D2CFD /* ppcdrc.c in Sources */,
 				F56EC1D4086674AD00FF69E1 /* mipsdasm.c in Sources */,
 				F56EC1D5086674AD00FF69E1 /* ppc_dasm.c in Sources */,
+				552875FC21507E97001D2CFD /* beep.c in Sources */,
 				F56EC1D6086674AD00FF69E1 /* r3kdasm.c in Sources */,
 				55A4AEFB212BC7C3009FABC1 /* jedparse.c in Sources */,
 				F56EC1D7086674AD00FF69E1 /* se3208dis.c in Sources */,
@@ -4646,6 +4772,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					macintosh/Source/WASTE,
+					macintosh/Source,
+					macintosh,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CFLAGS = "";
@@ -4675,6 +4803,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					macintosh/Source/WASTE,
+					macintosh/Source,
+					macintosh,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CFLAGS = (
@@ -4734,11 +4864,8 @@
 					src/mame,
 					src/mame/includes,
 					src/debug,
-					macintosh/Source,
+					src/emu,
 					src/emu/cpu/m68000,
-					macintosh/Source/WASTE,
-					"macintosh/Source/HID\\ Utilities",
-					macintosh,
 					Vendor/oldMacHeaders,
 				);
 				INFOPLIST_FILE = macintosh/Source/Info.plist;
@@ -4804,11 +4931,8 @@
 					src/mame,
 					src/mame/includes,
 					src/debug,
-					macintosh/Source,
+					src/emu,
 					src/emu/cpu/m68000,
-					macintosh/Source/WASTE,
-					"macintosh/Source/HID\\ Utilities",
-					macintosh,
 					Vendor/oldMacHeaders,
 				);
 				INFOPLIST_FILE = macintosh/Source/Info.plist;

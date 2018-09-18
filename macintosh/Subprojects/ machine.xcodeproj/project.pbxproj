@@ -7,6 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5528764F2150830D001D2CFD /* bfm_bd1.h in Headers */ = {isa = PBXBuildFile; fileRef = 5528764D2150830C001D2CFD /* bfm_bd1.h */; };
+		552876502150830D001D2CFD /* bfm_bd1.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528764E2150830C001D2CFD /* bfm_bd1.c */; };
+		55287668215083B1001D2CFD /* mb14241.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287651215083AB001D2CFD /* mb14241.c */; };
+		55287669215083B1001D2CFD /* snesdsp1.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287652215083AC001D2CFD /* snesdsp1.c */; };
+		5528766A215083B1001D2CFD /* mb14241.h in Headers */ = {isa = PBXBuildFile; fileRef = 55287653215083AC001D2CFD /* mb14241.h */; };
+		5528766B215083B1001D2CFD /* konamiic.h in Headers */ = {isa = PBXBuildFile; fileRef = 55287654215083AC001D2CFD /* konamiic.h */; };
+		5528766C215083B1001D2CFD /* mc8123.h in Headers */ = {isa = PBXBuildFile; fileRef = 55287655215083AC001D2CFD /* mc8123.h */; };
+		5528766D215083B1001D2CFD /* stvprot.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287656215083AC001D2CFD /* stvprot.c */; };
+		5528766E215083B1001D2CFD /* namco50.h in Headers */ = {isa = PBXBuildFile; fileRef = 55287657215083AD001D2CFD /* namco50.h */; };
+		5528766F215083B1001D2CFD /* stvprot.h in Headers */ = {isa = PBXBuildFile; fileRef = 55287658215083AD001D2CFD /* stvprot.h */; };
+		55287670215083B1001D2CFD /* fddebug.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287659215083AD001D2CFD /* fddebug.c */; };
+		55287671215083B1001D2CFD /* meters.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528765A215083AD001D2CFD /* meters.c */; };
+		55287672215083B1001D2CFD /* cps2crpt.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528765B215083AE001D2CFD /* cps2crpt.c */; };
+		55287673215083B1001D2CFD /* konamiic.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528765C215083AE001D2CFD /* konamiic.c */; };
+		55287674215083B1001D2CFD /* cclimber.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528765D215083AE001D2CFD /* cclimber.c */; };
+		55287675215083B1001D2CFD /* mw8080bw.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528765E215083AE001D2CFD /* mw8080bw.c */; };
+		55287676215083B1001D2CFD /* zs01.h in Headers */ = {isa = PBXBuildFile; fileRef = 5528765F215083AF001D2CFD /* zs01.h */; };
+		55287677215083B1001D2CFD /* segag80.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287660215083AF001D2CFD /* segag80.c */; };
+		55287678215083B1001D2CFD /* namco50.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287661215083AF001D2CFD /* namco50.c */; };
+		55287679215083B1001D2CFD /* segas24.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287662215083AF001D2CFD /* segas24.c */; };
+		5528767A215083B1001D2CFD /* galaxian.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287663215083B0001D2CFD /* galaxian.c */; };
+		5528767B215083B1001D2CFD /* dc.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287664215083B0001D2CFD /* dc.c */; };
+		5528767C215083B1001D2CFD /* zs01.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287665215083B0001D2CFD /* zs01.c */; };
+		5528767D215083B1001D2CFD /* cubocd32.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287666215083B0001D2CFD /* cubocd32.c */; };
+		5528767E215083B1001D2CFD /* meters.h in Headers */ = {isa = PBXBuildFile; fileRef = 55287667215083B0001D2CFD /* meters.h */; };
 		55A4AEE3212BC6F7009FABC1 /* z80pio.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AEDD212BC6F7009FABC1 /* z80pio.c */; };
 		55A4AEE4212BC6F7009FABC1 /* z80ctc.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AEDE212BC6F7009FABC1 /* z80ctc.c */; };
 		55A4AEE5212BC6F7009FABC1 /* z80sio.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AEDF212BC6F7009FABC1 /* z80sio.c */; };
@@ -29,7 +54,6 @@
 		55FFFFB12129FB5B00EB17F5 /* asic65.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF702129FB5300EB17F5 /* asic65.h */; };
 		55FFFFB22129FB5B00EB17F5 /* eeprom.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF712129FB5300EB17F5 /* eeprom.h */; };
 		55FFFFB32129FB5B00EB17F5 /* idectrl.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF722129FB5300EB17F5 /* idectrl.h */; };
-		55FFFFB42129FB5B00EB17F5 /* mmtr.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF732129FB5300EB17F5 /* mmtr.h */; };
 		55FFFFB52129FB5B00EB17F5 /* stvcd.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF742129FB5300EB17F5 /* stvcd.h */; };
 		55FFFFB62129FB5B00EB17F5 /* decocass.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF752129FB5300EB17F5 /* decocass.h */; };
 		55FFFFB72129FB5B00EB17F5 /* scudsp.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF762129FB5300EB17F5 /* scudsp.h */; };
@@ -40,7 +64,6 @@
 		55FFFFBC2129FB5B00EB17F5 /* nmk004.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF7B2129FB5400EB17F5 /* nmk004.h */; };
 		55FFFFBD2129FB5B00EB17F5 /* segaic16.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF7C2129FB5400EB17F5 /* segaic16.h */; };
 		55FFFFBE2129FB5B00EB17F5 /* 8255ppi.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF7D2129FB5400EB17F5 /* 8255ppi.h */; };
-		55FFFFBF2129FB5B00EB17F5 /* lamps.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF7E2129FB5500EB17F5 /* lamps.h */; };
 		55FFFFC02129FB5B00EB17F5 /* 74123.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF7F2129FB5500EB17F5 /* 74123.h */; };
 		55FFFFC12129FB5B00EB17F5 /* 6850acia.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF802129FB5500EB17F5 /* 6850acia.h */; };
 		55FFFFC22129FB5B00EB17F5 /* pcshare.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFF812129FB5500EB17F5 /* pcshare.h */; };
@@ -78,7 +101,6 @@
 		55FFFFE42129FB5B00EB17F5 /* smc91c9x.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFFA32129FB5A00EB17F5 /* smc91c9x.h */; };
 		55FFFFE52129FB5B00EB17F5 /* pit8253.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFFA42129FB5A00EB17F5 /* pit8253.h */; };
 		55FFFFE62129FB5B00EB17F5 /* am53cf96.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFFA52129FB5A00EB17F5 /* am53cf96.h */; };
-		55FFFFE72129FB5B00EB17F5 /* vacfdisp.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFFA62129FB5A00EB17F5 /* vacfdisp.h */; };
 		55FFFFE82129FB5B00EB17F5 /* pckeybrd.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFFA72129FB5A00EB17F5 /* pckeybrd.h */; };
 		55FFFFE92129FB5B00EB17F5 /* midwayic.h in Headers */ = {isa = PBXBuildFile; fileRef = 55FFFFA82129FB5B00EB17F5 /* midwayic.h */; };
 		9B2BDD3607F7D6FE004C810B /* nmk004.c in Sources */ = {isa = PBXBuildFile; fileRef = 9B2BDD3207F7D6FE004C810B /* nmk004.c */; };
@@ -117,12 +139,9 @@
 		F5029AF0057F27F6002511AA /* stfight.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029ACF057F27F6002511AA /* stfight.c */; };
 		F5029AF2057F27F6002511AA /* system16.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AD5057F27F6002511AA /* system16.c */; };
 		F5029AF3057F27F6002511AA /* asic65.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A55057F27F6002511AA /* asic65.c */; };
-		F5029AF5057F27F6002511AA /* berzerk.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A62057F27F6002511AA /* berzerk.c */; };
 		F5029AF6057F27F6002511AA /* lkage.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A93057F27F6002511AA /* lkage.c */; };
 		F5029AF7057F27F6002511AA /* segacrpt.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AC4057F27F6002511AA /* segacrpt.c */; };
 		F5029AF9057F27F6002511AA /* bonzeadv.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A64057F27F6002511AA /* bonzeadv.c */; };
-		F5029AFB057F27F6002511AA /* 8080bw.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A4D057F27F6002511AA /* 8080bw.c */; };
-		F5029AFC057F27F6002511AA /* segar.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AC6057F27F6002511AA /* segar.c */; };
 		F5029B00057F27F6002511AA /* dec0.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A71057F27F6002511AA /* dec0.c */; };
 		F5029B01057F27F6002511AA /* mexico86.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A9F057F27F6002511AA /* mexico86.c */; };
 		F5029B02057F27F6002511AA /* mathbox.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A99057F27F6002511AA /* mathbox.c */; };
@@ -138,11 +157,9 @@
 		F5029B14057F27F6002511AA /* flstory.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A7D057F27F6002511AA /* flstory.c */; };
 		F5029B15057F27F6002511AA /* atarifb.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A5B057F27F6002511AA /* atarifb.c */; };
 		F5029B16057F27F6002511AA /* 6522via.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A3F057F27F6002511AA /* 6522via.c */; };
-		F5029B19057F27F6002511AA /* neogeo.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AAD057F27F6002511AA /* neogeo.c */; };
 		F5029B1A057F27F6002511AA /* nitedrvr.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AAE057F27F6002511AA /* nitedrvr.c */; };
 		F5029B1B057F27F6002511AA /* gaplus.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A80057F27F6002511AA /* gaplus.c */; };
 		F5029B1C057F27F6002511AA /* decocass.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A72057F27F6002511AA /* decocass.c */; };
-		F5029B1D057F27F6002511AA /* astrocde.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A58057F27F6002511AA /* astrocde.c */; };
 		F5029B1E057F27F6002511AA /* atari_vg.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A59057F27F6002511AA /* atari_vg.c */; };
 		F5029B22057F27F6002511AA /* retofinv.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029ABE057F27F6002511AA /* retofinv.c */; };
 		F5029B23057F27F6002511AA /* tait8741.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AD7057F27F6002511AA /* tait8741.c */; };
@@ -170,7 +187,6 @@
 		F5029B3E057F27F6002511AA /* slikshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029ACA057F27F6002511AA /* slikshot.c */; };
 		F5029B40057F27F6002511AA /* balsente.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A60057F27F6002511AA /* balsente.c */; };
 		F5029B41057F27F6002511AA /* cchip.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A6D057F27F6002511AA /* cchip.c */; };
-		F5029B42057F27F6002511AA /* grchamp.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A82057F27F6002511AA /* grchamp.c */; };
 		F5029B44057F27F6002511AA /* bublbobl.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A68057F27F6002511AA /* bublbobl.c */; };
 		F5029B45057F27F6002511AA /* tnzs.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029ADF057F27F6002511AA /* tnzs.c */; };
 		F5029B46057F27F6002511AA /* toaplan1.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AE0057F27F6002511AA /* toaplan1.c */; };
@@ -189,8 +205,6 @@
 		F5029B5C057F27F6002511AA /* jumpshot.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A8B057F27F6002511AA /* jumpshot.c */; };
 		F5029B5F057F27F6002511AA /* atarigen.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A5C057F27F6002511AA /* atarigen.c */; };
 		F5029B62057F27F6002511AA /* harddriv.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A84057F27F6002511AA /* harddriv.c */; };
-		F5029B63057F27F6002511AA /* avalnche.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A5E057F27F6002511AA /* avalnche.c */; };
-		F5029B64057F27F6002511AA /* spiders.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029ACC057F27F6002511AA /* spiders.c */; };
 		F5029B65057F27F6002511AA /* mcr.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A9D057F27F6002511AA /* mcr.c */; };
 		F5029B67057F27F6002511AA /* simpsons.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AC7057F27F6002511AA /* simpsons.c */; };
 		F5029B69057F27F6002511AA /* kabuki.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A8C057F27F6002511AA /* kabuki.c */; };
@@ -209,8 +223,6 @@
 		F5029B7A057F27F7002511AA /* equites.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A7B057F27F6002511AA /* equites.c */; };
 		F5029B7B057F27F7002511AA /* carpolo.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A6B057F27F6002511AA /* carpolo.c */; };
 		F5029B7C057F27F7002511AA /* pgmcrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AB3057F27F6002511AA /* pgmcrypt.c */; };
-		F5029B7D057F27F7002511AA /* clayshoo.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A6F057F27F6002511AA /* clayshoo.c */; };
-		F5029B7E057F27F7002511AA /* leprechn.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A92057F27F6002511AA /* leprechn.c */; };
 		F5029B7F057F27F7002511AA /* 74148.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029A47057F27F6002511AA /* 74148.c */; };
 		F5029B84057F27F7002511AA /* nycaptor.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AAF057F27F6002511AA /* nycaptor.c */; };
 		F5029B87057F27F7002511AA /* midyunit.c in Sources */ = {isa = PBXBuildFile; fileRef = F5029AA5057F27F6002511AA /* midyunit.c */; };
@@ -255,13 +267,35 @@
 		F5AD668009557638004AEC57 /* vertigo.c in Sources */ = {isa = PBXBuildFile; fileRef = F5AD667609557638004AEC57 /* vertigo.c */; };
 		F5D8C4420974F4DA0081EC9A /* 6840ptm.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8C43B0974F4DA0081EC9A /* 6840ptm.c */; };
 		F5D8C4430974F4DA0081EC9A /* 6850acia.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8C43C0974F4DA0081EC9A /* 6850acia.c */; };
-		F5D8C4440974F4DA0081EC9A /* lamps.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8C43D0974F4DA0081EC9A /* lamps.c */; };
-		F5D8C4450974F4DA0081EC9A /* mmtr.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8C43E0974F4DA0081EC9A /* mmtr.c */; };
 		F5D8C4470974F4DA0081EC9A /* steppers.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8C4400974F4DA0081EC9A /* steppers.c */; };
-		F5D8C4480974F4DA0081EC9A /* vacfdisp.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D8C4410974F4DA0081EC9A /* vacfdisp.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5528764D2150830C001D2CFD /* bfm_bd1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bfm_bd1.h; sourceTree = "<group>"; };
+		5528764E2150830C001D2CFD /* bfm_bd1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bfm_bd1.c; sourceTree = "<group>"; };
+		55287651215083AB001D2CFD /* mb14241.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mb14241.c; sourceTree = "<group>"; };
+		55287652215083AC001D2CFD /* snesdsp1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = snesdsp1.c; sourceTree = "<group>"; };
+		55287653215083AC001D2CFD /* mb14241.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mb14241.h; sourceTree = "<group>"; };
+		55287654215083AC001D2CFD /* konamiic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = konamiic.h; sourceTree = "<group>"; };
+		55287655215083AC001D2CFD /* mc8123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mc8123.h; sourceTree = "<group>"; };
+		55287656215083AC001D2CFD /* stvprot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stvprot.c; sourceTree = "<group>"; };
+		55287657215083AD001D2CFD /* namco50.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = namco50.h; sourceTree = "<group>"; };
+		55287658215083AD001D2CFD /* stvprot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stvprot.h; sourceTree = "<group>"; };
+		55287659215083AD001D2CFD /* fddebug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fddebug.c; sourceTree = "<group>"; };
+		5528765A215083AD001D2CFD /* meters.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = meters.c; sourceTree = "<group>"; };
+		5528765B215083AE001D2CFD /* cps2crpt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cps2crpt.c; sourceTree = "<group>"; };
+		5528765C215083AE001D2CFD /* konamiic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = konamiic.c; sourceTree = "<group>"; };
+		5528765D215083AE001D2CFD /* cclimber.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cclimber.c; sourceTree = "<group>"; };
+		5528765E215083AE001D2CFD /* mw8080bw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mw8080bw.c; sourceTree = "<group>"; };
+		5528765F215083AF001D2CFD /* zs01.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zs01.h; sourceTree = "<group>"; };
+		55287660215083AF001D2CFD /* segag80.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = segag80.c; sourceTree = "<group>"; };
+		55287661215083AF001D2CFD /* namco50.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = namco50.c; sourceTree = "<group>"; };
+		55287662215083AF001D2CFD /* segas24.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = segas24.c; sourceTree = "<group>"; };
+		55287663215083B0001D2CFD /* galaxian.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = galaxian.c; sourceTree = "<group>"; };
+		55287664215083B0001D2CFD /* dc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dc.c; sourceTree = "<group>"; };
+		55287665215083B0001D2CFD /* zs01.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zs01.c; sourceTree = "<group>"; };
+		55287666215083B0001D2CFD /* cubocd32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubocd32.c; sourceTree = "<group>"; };
+		55287667215083B0001D2CFD /* meters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meters.h; sourceTree = "<group>"; };
 		55A4AEDD212BC6F7009FABC1 /* z80pio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = z80pio.c; sourceTree = "<group>"; };
 		55A4AEDE212BC6F7009FABC1 /* z80ctc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = z80ctc.c; sourceTree = "<group>"; };
 		55A4AEDF212BC6F7009FABC1 /* z80sio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = z80sio.c; sourceTree = "<group>"; };
@@ -284,7 +318,6 @@
 		55FFFF702129FB5300EB17F5 /* asic65.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asic65.h; sourceTree = "<group>"; };
 		55FFFF712129FB5300EB17F5 /* eeprom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eeprom.h; sourceTree = "<group>"; };
 		55FFFF722129FB5300EB17F5 /* idectrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = idectrl.h; sourceTree = "<group>"; };
-		55FFFF732129FB5300EB17F5 /* mmtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mmtr.h; sourceTree = "<group>"; };
 		55FFFF742129FB5300EB17F5 /* stvcd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stvcd.h; sourceTree = "<group>"; };
 		55FFFF752129FB5300EB17F5 /* decocass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decocass.h; sourceTree = "<group>"; };
 		55FFFF762129FB5300EB17F5 /* scudsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scudsp.h; sourceTree = "<group>"; };
@@ -295,7 +328,6 @@
 		55FFFF7B2129FB5400EB17F5 /* nmk004.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nmk004.h; sourceTree = "<group>"; };
 		55FFFF7C2129FB5400EB17F5 /* segaic16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = segaic16.h; sourceTree = "<group>"; };
 		55FFFF7D2129FB5400EB17F5 /* 8255ppi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 8255ppi.h; sourceTree = "<group>"; };
-		55FFFF7E2129FB5500EB17F5 /* lamps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lamps.h; sourceTree = "<group>"; };
 		55FFFF7F2129FB5500EB17F5 /* 74123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 74123.h; sourceTree = "<group>"; };
 		55FFFF802129FB5500EB17F5 /* 6850acia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 6850acia.h; sourceTree = "<group>"; };
 		55FFFF812129FB5500EB17F5 /* pcshare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pcshare.h; sourceTree = "<group>"; };
@@ -333,7 +365,6 @@
 		55FFFFA32129FB5A00EB17F5 /* smc91c9x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smc91c9x.h; sourceTree = "<group>"; };
 		55FFFFA42129FB5A00EB17F5 /* pit8253.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pit8253.h; sourceTree = "<group>"; };
 		55FFFFA52129FB5A00EB17F5 /* am53cf96.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = am53cf96.h; sourceTree = "<group>"; };
-		55FFFFA62129FB5A00EB17F5 /* vacfdisp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vacfdisp.h; sourceTree = "<group>"; };
 		55FFFFA72129FB5A00EB17F5 /* pckeybrd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pckeybrd.h; sourceTree = "<group>"; };
 		55FFFFA82129FB5B00EB17F5 /* midwayic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = midwayic.h; sourceTree = "<group>"; };
 		9B2BDD3207F7D6FE004C810B /* nmk004.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nmk004.c; sourceTree = "<group>"; };
@@ -374,22 +405,18 @@
 		F5029A47057F27F6002511AA /* 74148.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = 74148.c; sourceTree = "<group>"; };
 		F5029A49057F27F6002511AA /* 74153.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = 74153.c; sourceTree = "<group>"; };
 		F5029A4B057F27F6002511AA /* 7474.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = 7474.c; sourceTree = "<group>"; };
-		F5029A4D057F27F6002511AA /* 8080bw.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = 8080bw.c; sourceTree = "<group>"; };
 		F5029A50057F27F6002511AA /* 8255ppi.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = 8255ppi.c; sourceTree = "<group>"; };
 		F5029A52057F27F6002511AA /* acitya.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = acitya.c; sourceTree = "<group>"; };
 		F5029A53057F27F6002511AA /* ajax.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = ajax.c; sourceTree = "<group>"; };
 		F5029A54057F27F6002511AA /* arkanoid.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = arkanoid.c; sourceTree = "<group>"; };
 		F5029A55057F27F6002511AA /* asic65.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = asic65.c; sourceTree = "<group>"; };
 		F5029A57057F27F6002511AA /* asteroid.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = asteroid.c; sourceTree = "<group>"; };
-		F5029A58057F27F6002511AA /* astrocde.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = astrocde.c; sourceTree = "<group>"; };
 		F5029A59057F27F6002511AA /* atari_vg.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = atari_vg.c; sourceTree = "<group>"; };
 		F5029A5B057F27F6002511AA /* atarifb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = atarifb.c; sourceTree = "<group>"; };
 		F5029A5C057F27F6002511AA /* atarigen.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = atarigen.c; sourceTree = "<group>"; };
-		F5029A5E057F27F6002511AA /* avalnche.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = avalnche.c; sourceTree = "<group>"; };
 		F5029A5F057F27F6002511AA /* bagman.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = bagman.c; sourceTree = "<group>"; };
 		F5029A60057F27F6002511AA /* balsente.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = balsente.c; sourceTree = "<group>"; };
 		F5029A61057F27F6002511AA /* beezer.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = beezer.c; sourceTree = "<group>"; };
-		F5029A62057F27F6002511AA /* berzerk.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = berzerk.c; sourceTree = "<group>"; };
 		F5029A63057F27F6002511AA /* bigevglf.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = bigevglf.c; sourceTree = "<group>"; };
 		F5029A64057F27F6002511AA /* bonzeadv.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = bonzeadv.c; sourceTree = "<group>"; };
 		F5029A66057F27F6002511AA /* bsktball.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = bsktball.c; sourceTree = "<group>"; };
@@ -400,7 +427,6 @@
 		F5029A6C057F27F6002511AA /* cchasm.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = cchasm.c; sourceTree = "<group>"; };
 		F5029A6D057F27F6002511AA /* cchip.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = cchip.c; sourceTree = "<group>"; };
 		F5029A6E057F27F6002511AA /* chaknpop.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = chaknpop.c; sourceTree = "<group>"; };
-		F5029A6F057F27F6002511AA /* clayshoo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = clayshoo.c; sourceTree = "<group>"; };
 		F5029A70057F27F6002511AA /* copsnrob.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = copsnrob.c; sourceTree = "<group>"; };
 		F5029A71057F27F6002511AA /* dec0.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = dec0.c; sourceTree = "<group>"; };
 		F5029A72057F27F6002511AA /* decocass.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = decocass.c; sourceTree = "<group>"; };
@@ -413,7 +439,6 @@
 		F5029A7D057F27F6002511AA /* flstory.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = flstory.c; sourceTree = "<group>"; };
 		F5029A7E057F27F6002511AA /* gaelco2.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = gaelco2.c; sourceTree = "<group>"; };
 		F5029A80057F27F6002511AA /* gaplus.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = gaplus.c; sourceTree = "<group>"; };
-		F5029A82057F27F6002511AA /* grchamp.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = grchamp.c; sourceTree = "<group>"; };
 		F5029A84057F27F6002511AA /* harddriv.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = harddriv.c; sourceTree = "<group>"; };
 		F5029A85057F27F6002511AA /* idectrl.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = idectrl.c; sourceTree = "<group>"; };
 		F5029A87057F27F6002511AA /* irem_cpu.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = irem_cpu.c; sourceTree = "<group>"; };
@@ -424,7 +449,6 @@
 		F5029A8D057F27F6002511AA /* konami.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = konami.c; sourceTree = "<group>"; };
 		F5029A8E057F27F6002511AA /* konamigx.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = konamigx.c; sourceTree = "<group>"; };
 		F5029A91057F27F6002511AA /* leland.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = leland.c; sourceTree = "<group>"; };
-		F5029A92057F27F6002511AA /* leprechn.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = leprechn.c; sourceTree = "<group>"; };
 		F5029A93057F27F6002511AA /* lkage.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lkage.c; sourceTree = "<group>"; };
 		F5029A94057F27F6002511AA /* lsasquad.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lsasquad.c; sourceTree = "<group>"; };
 		F5029A95057F27F6002511AA /* m68kfmly.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = m68kfmly.c; sourceTree = "<group>"; };
@@ -444,7 +468,6 @@
 		F5029AAA057F27F6002511AA /* namcos2.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = namcos2.c; sourceTree = "<group>"; };
 		F5029AAB057F27F6002511AA /* nb1413m3.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = nb1413m3.c; sourceTree = "<group>"; };
 		F5029AAC057F27F6002511AA /* neocrypt.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = neocrypt.c; sourceTree = "<group>"; };
-		F5029AAD057F27F6002511AA /* neogeo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = neogeo.c; sourceTree = "<group>"; };
 		F5029AAE057F27F6002511AA /* nitedrvr.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = nitedrvr.c; sourceTree = "<group>"; };
 		F5029AAF057F27F6002511AA /* nycaptor.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = nycaptor.c; sourceTree = "<group>"; };
 		F5029AB0057F27F6002511AA /* pacplus.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = pacplus.c; sourceTree = "<group>"; };
@@ -461,13 +484,11 @@
 		F5029AC1057F27F6002511AA /* sbrkout.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = sbrkout.c; sourceTree = "<group>"; };
 		F5029AC2057F27F6002511AA /* scramble.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = scramble.c; sourceTree = "<group>"; };
 		F5029AC4057F27F6002511AA /* segacrpt.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = segacrpt.c; sourceTree = "<group>"; };
-		F5029AC6057F27F6002511AA /* segar.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = segar.c; sourceTree = "<group>"; };
 		F5029AC7057F27F6002511AA /* simpsons.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = simpsons.c; sourceTree = "<group>"; };
 		F5029AC8057F27F6002511AA /* slapfght.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = slapfght.c; sourceTree = "<group>"; };
 		F5029AC9057F27F6002511AA /* slapstic.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = slapstic.c; sourceTree = "<group>"; };
 		F5029ACA057F27F6002511AA /* slikshot.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = slikshot.c; sourceTree = "<group>"; };
 		F5029ACB057F27F6002511AA /* snes.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = snes.c; sourceTree = "<group>"; };
-		F5029ACC057F27F6002511AA /* spiders.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = spiders.c; sourceTree = "<group>"; };
 		F5029ACD057F27F6002511AA /* stactics.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = stactics.c; sourceTree = "<group>"; };
 		F5029ACE057F27F6002511AA /* starwars.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = starwars.c; sourceTree = "<group>"; };
 		F5029ACF057F27F6002511AA /* stfight.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = stfight.c; sourceTree = "<group>"; };
@@ -511,10 +532,7 @@
 		F5AD667609557638004AEC57 /* vertigo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = vertigo.c; sourceTree = "<group>"; };
 		F5D8C43B0974F4DA0081EC9A /* 6840ptm.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = 6840ptm.c; sourceTree = "<group>"; };
 		F5D8C43C0974F4DA0081EC9A /* 6850acia.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = 6850acia.c; sourceTree = "<group>"; };
-		F5D8C43D0974F4DA0081EC9A /* lamps.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lamps.c; sourceTree = "<group>"; };
-		F5D8C43E0974F4DA0081EC9A /* mmtr.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = mmtr.c; sourceTree = "<group>"; };
 		F5D8C4400974F4DA0081EC9A /* steppers.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = steppers.c; sourceTree = "<group>"; };
-		F5D8C4410974F4DA0081EC9A /* vacfdisp.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = vacfdisp.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -549,7 +567,6 @@
 				55FFFF952129FB5800EB17F5 /* 7474.h */,
 				F5AD666D09557638004AEC57 /* 8042kbdc.c */,
 				55FFFF8F2129FB5700EB17F5 /* 8042kbdc.h */,
-				F5029A4D057F27F6002511AA /* 8080bw.c */,
 				F5AD666E09557638004AEC57 /* 8237dma.c */,
 				55FFFF782129FB5400EB17F5 /* 8237dma.h */,
 				F5029A50057F27F6002511AA /* 8255ppi.c */,
@@ -566,12 +583,8 @@
 				55FFFF8C2129FB5700EB17F5 /* adc083x.h */,
 				9BE44AEF06966DCC00500138 /* am53cf96.c */,
 				55FFFFA52129FB5A00EB17F5 /* am53cf96.h */,
-				F5029A58057F27F6002511AA /* astrocde.c */,
 				9BE44AF506966DDF00500138 /* at28c16.c */,
 				55FFFF6B2129FB4100EB17F5 /* at28c16.h */,
-				F5029A5E057F27F6002511AA /* avalnche.c */,
-				F5029A62057F27F6002511AA /* berzerk.c */,
-				F5029A6F057F27F6002511AA /* clayshoo.c */,
 				9BEAB58807CB17FE00B14C06 /* ds1302.c */,
 				55FFFF692129FB3C00EB17F5 /* ds1302.h */,
 				9BE44AFB06966DF500500138 /* ds2404.c */,
@@ -580,23 +593,16 @@
 				55FFFF712129FB5300EB17F5 /* eeprom.h */,
 				55A4AEEB212BC74B009FABC1 /* generic.c */,
 				55A4AEEC212BC74C009FABC1 /* generic.h */,
-				F5029A82057F27F6002511AA /* grchamp.c */,
 				F5029A85057F27F6002511AA /* idectrl.c */,
 				55FFFF722129FB5300EB17F5 /* idectrl.h */,
 				9BE44B0106966E1300500138 /* intelfsh.c */,
 				55FFFF6C2129FB4200EB17F5 /* intelfsh.h */,
-				F5D8C43D0974F4DA0081EC9A /* lamps.c */,
-				55FFFF7E2129FB5500EB17F5 /* lamps.h */,
-				F5029A92057F27F6002511AA /* leprechn.c */,
 				9BE44B0706966E2B00500138 /* mb3773.c */,
 				55FFFF902129FB5700EB17F5 /* mb3773.h */,
 				F5029A9B057F27F6002511AA /* mb87078.c */,
 				55FFFF972129FB5800EB17F5 /* mb87078.h */,
 				F5AD666F09557638004AEC57 /* mc146818.c */,
 				55FFFF9C2129FB5900EB17F5 /* mc146818.h */,
-				F5D8C43E0974F4DA0081EC9A /* mmtr.c */,
-				55FFFF732129FB5300EB17F5 /* mmtr.h */,
-				F5029AAD057F27F6002511AA /* neogeo.c */,
 				F5AD667109557638004AEC57 /* pci.c */,
 				55FFFF832129FB5500EB17F5 /* pci.h */,
 				F5029AB1057F27F6002511AA /* pd4990a.c */,
@@ -610,16 +616,12 @@
 				9B2BDD3307F7D6FE004C810B /* scsicd.c */,
 				55FFFF872129FB5600EB17F5 /* scsidev.h */,
 				9B2BDD3407F7D6FE004C810B /* scsihd.c */,
-				F5029AC6057F27F6002511AA /* segar.c */,
 				9BE44B1C06966E9200500138 /* smc91c9x.c */,
 				55FFFFA32129FB5A00EB17F5 /* smc91c9x.h */,
-				F5029ACC057F27F6002511AA /* spiders.c */,
 				9BA323CF07DBAB51005B373A /* timekpr.c */,
 				55FFFF852129FB5600EB17F5 /* timekpr.h */,
 				F5029ADD057F27F6002511AA /* tmp68301.c */,
 				55FFFF932129FB5800EB17F5 /* tmp68301.h */,
-				F5D8C4410974F4DA0081EC9A /* vacfdisp.c */,
-				55FFFFA62129FB5A00EB17F5 /* vacfdisp.h */,
 				55A4AEDE212BC6F7009FABC1 /* z80ctc.c */,
 				55A4AEE1212BC6F7009FABC1 /* z80ctc.h */,
 				55A4AEDD212BC6F7009FABC1 /* z80pio.c */,
@@ -650,6 +652,8 @@
 				F5029A5F057F27F6002511AA /* bagman.c */,
 				F5029A60057F27F6002511AA /* balsente.c */,
 				F5029A61057F27F6002511AA /* beezer.c */,
+				5528764E2150830C001D2CFD /* bfm_bd1.c */,
+				5528764D2150830C001D2CFD /* bfm_bd1.h */,
 				F5029A63057F27F6002511AA /* bigevglf.c */,
 				F5029A64057F27F6002511AA /* bonzeadv.c */,
 				F5029A66057F27F6002511AA /* bsktball.c */,
@@ -659,9 +663,13 @@
 				F5029A6B057F27F6002511AA /* carpolo.c */,
 				F5029A6C057F27F6002511AA /* cchasm.c */,
 				F5029A6D057F27F6002511AA /* cchip.c */,
+				5528765D215083AE001D2CFD /* cclimber.c */,
 				F5029A6E057F27F6002511AA /* chaknpop.c */,
 				F5029A70057F27F6002511AA /* copsnrob.c */,
+				5528765B215083AE001D2CFD /* cps2crpt.c */,
+				55287666215083B0001D2CFD /* cubocd32.c */,
 				55A4AEEF212BC765009FABC1 /* daikaiju.c */,
+				55287664215083B0001D2CFD /* dc.c */,
 				F5029A71057F27F6002511AA /* dec0.c */,
 				F511A89E081F4A2700A83BF6 /* deco102.c */,
 				F5914111089F448B00C2EFF5 /* deco156.c */,
@@ -676,8 +684,10 @@
 				9BEAB58907CB17FE00B14C06 /* fd1089.c */,
 				9BEAADD107C98A3900B14C06 /* fd1094.c */,
 				55FFFFA12129FB5A00EB17F5 /* fd1094.h */,
+				55287659215083AD001D2CFD /* fddebug.c */,
 				F5029A7D057F27F6002511AA /* flstory.c */,
 				F5029A7E057F27F6002511AA /* gaelco2.c */,
+				55287663215083B0001D2CFD /* galaxian.c */,
 				F5029A80057F27F6002511AA /* gaplus.c */,
 				F5029A84057F27F6002511AA /* harddriv.c */,
 				F5029A87057F27F6002511AA /* irem_cpu.c */,
@@ -691,6 +701,8 @@
 				F5029A8D057F27F6002511AA /* konami.c */,
 				F5029A8E057F27F6002511AA /* konamigx.c */,
 				55FFFF8D2129FB5700EB17F5 /* konamigx.h */,
+				5528765C215083AE001D2CFD /* konamiic.c */,
+				55287654215083AC001D2CFD /* konamiic.h */,
 				F5855EF10860016E006D0B61 /* konppc.c */,
 				55FFFF6D2129FB5200EB17F5 /* konppc.h */,
 				F5029A91057F27F6002511AA /* leland.c */,
@@ -701,8 +713,13 @@
 				F5029A97057F27F6002511AA /* maniach.c */,
 				F5029A99057F27F6002511AA /* mathbox.c */,
 				55FFFF922129FB5700EB17F5 /* mathbox.h */,
+				55287651215083AB001D2CFD /* mb14241.c */,
+				55287653215083AC001D2CFD /* mb14241.h */,
 				9BEAB58A07CB17FE00B14C06 /* mc8123.c */,
+				55287655215083AC001D2CFD /* mc8123.h */,
 				F5029A9D057F27F6002511AA /* mcr.c */,
+				5528765A215083AD001D2CFD /* meters.c */,
+				55287667215083B0001D2CFD /* meters.h */,
 				F5029A9F057F27F6002511AA /* mexico86.c */,
 				F5029AA0057F27F6002511AA /* mhavoc.c */,
 				F5029AA1057F27F6002511AA /* midtunit.c */,
@@ -713,7 +730,10 @@
 				9BE44B0C06966E4300500138 /* model1.c */,
 				9BEAB58B07CB17FE00B14C06 /* model3.c */,
 				F5029AA7057F27F6002511AA /* mspacman.c */,
+				5528765E215083AE001D2CFD /* mw8080bw.c */,
 				55A4AEE9212BC72F009FABC1 /* n64.c */,
+				55287661215083AF001D2CFD /* namco50.c */,
+				55287657215083AD001D2CFD /* namco50.h */,
 				9BE44B0F06966E4E00500138 /* namcoio.c */,
 				55FFFF912129FB5700EB17F5 /* namcoio.h */,
 				F5029AA8057F27F6002511AA /* namcond1.c */,
@@ -752,8 +772,10 @@
 				55FFFF762129FB5300EB17F5 /* scudsp.h */,
 				F5029AC4057F27F6002511AA /* segacrpt.c */,
 				55FFFF842129FB5500EB17F5 /* segacrpt.h */,
+				55287660215083AF001D2CFD /* segag80.c */,
 				9BEAB58E07CB17FE00B14C06 /* segaic16.c */,
 				55FFFF7C2129FB5400EB17F5 /* segaic16.h */,
+				55287662215083AF001D2CFD /* segas24.c */,
 				9BEAB58F07CB17FE00B14C06 /* segas32.c */,
 				9BE44B1906966E8200500138 /* seibuspi.c */,
 				F5029AC7057F27F6002511AA /* simpsons.c */,
@@ -761,6 +783,7 @@
 				F5029AC9057F27F6002511AA /* slapstic.c */,
 				F5029ACA057F27F6002511AA /* slikshot.c */,
 				F5029ACB057F27F6002511AA /* snes.c */,
+				55287652215083AC001D2CFD /* snesdsp1.c */,
 				9BE44B2106966EB700500138 /* spisprit.c */,
 				F5029ACD057F27F6002511AA /* stactics.c */,
 				F5029ACE057F27F6002511AA /* starwars.c */,
@@ -770,6 +793,8 @@
 				F5029AD0057F27F6002511AA /* strtheat.c */,
 				F5029AD1057F27F6002511AA /* stvcd.c */,
 				55FFFF742129FB5300EB17F5 /* stvcd.h */,
+				55287656215083AC001D2CFD /* stvprot.c */,
+				55287658215083AD001D2CFD /* stvprot.h */,
 				F5029AD3057F27F6002511AA /* subs.c */,
 				F5029AD5057F27F6002511AA /* system16.c */,
 				F5029AD7057F27F6002511AA /* tait8741.c */,
@@ -791,6 +816,8 @@
 				F5029AE8057F27F6002511AA /* xevious.c */,
 				9B6F2BC10698BBA40003FB88 /* znsec.c */,
 				55FFFF6F2129FB5200EB17F5 /* znsec.h */,
+				55287665215083B0001D2CFD /* zs01.c */,
+				5528765F215083AF001D2CFD /* zs01.h */,
 			);
 			name = mame;
 			path = ../../src/mame/machine;
@@ -831,6 +858,7 @@
 				55FFFFB52129FB5B00EB17F5 /* stvcd.h in Headers */,
 				55FFFFE52129FB5B00EB17F5 /* pit8253.h in Headers */,
 				55FFFFE12129FB5B00EB17F5 /* 6532riot.h in Headers */,
+				5528766E215083B1001D2CFD /* namco50.h in Headers */,
 				55FFFFB62129FB5B00EB17F5 /* decocass.h in Headers */,
 				55FFFFCE2129FB5B00EB17F5 /* konamigx.h in Headers */,
 				55FFFFCF2129FB5B00EB17F5 /* 74181.h in Headers */,
@@ -838,17 +866,20 @@
 				55FFFFB02129FB5B00EB17F5 /* znsec.h in Headers */,
 				55A4AEE8212BC6F7009FABC1 /* z80pio.h in Headers */,
 				55FFFFD32129FB5B00EB17F5 /* mathbox.h in Headers */,
+				5528766B215083B1001D2CFD /* konamiic.h in Headers */,
 				55FFFFE22129FB5B00EB17F5 /* fd1094.h in Headers */,
+				55287676215083B1001D2CFD /* zs01.h in Headers */,
 				55FFFFE42129FB5B00EB17F5 /* smc91c9x.h in Headers */,
 				55FFFFBD2129FB5B00EB17F5 /* segaic16.h in Headers */,
-				55FFFFBF2129FB5B00EB17F5 /* lamps.h in Headers */,
 				55FFFFDE2129FB5B00EB17F5 /* 74153.h in Headers */,
 				55A4AEF3212BC77F009FABC1 /* 6526cia.h in Headers */,
 				55FFFFC02129FB5B00EB17F5 /* 74123.h in Headers */,
 				55FFFFC22129FB5B00EB17F5 /* pcshare.h in Headers */,
+				5528764F2150830D001D2CFD /* bfm_bd1.h in Headers */,
 				55FFFFD02129FB5B00EB17F5 /* 8042kbdc.h in Headers */,
 				55FFFFD82129FB5B00EB17F5 /* mb87078.h in Headers */,
 				55FFFFBC2129FB5B00EB17F5 /* nmk004.h in Headers */,
+				5528766F215083B1001D2CFD /* stvprot.h in Headers */,
 				55FFFFB82129FB5B00EB17F5 /* pic8259.h in Headers */,
 				55FFFFB12129FB5B00EB17F5 /* asic65.h in Headers */,
 				55FFFFE92129FB5B00EB17F5 /* midwayic.h in Headers */,
@@ -858,6 +889,7 @@
 				55FFFFB72129FB5B00EB17F5 /* scudsp.h in Headers */,
 				55FFFFBA2129FB5B00EB17F5 /* steppers.h in Headers */,
 				55A4AEE6212BC6F7009FABC1 /* z80sio.h in Headers */,
+				5528766A215083B1001D2CFD /* mb14241.h in Headers */,
 				55FFFFCB2129FB5B00EB17F5 /* 74148.h in Headers */,
 				55FFFFC82129FB5B00EB17F5 /* scsidev.h in Headers */,
 				55FFFFDF2129FB5B00EB17F5 /* atari_vg.h in Headers */,
@@ -872,7 +904,6 @@
 				55FFFFCD2129FB5B00EB17F5 /* adc083x.h in Headers */,
 				55FFFFE62129FB5B00EB17F5 /* am53cf96.h in Headers */,
 				55FFFFD22129FB5B00EB17F5 /* namcoio.h in Headers */,
-				55FFFFB42129FB5B00EB17F5 /* mmtr.h in Headers */,
 				55FFFFAE2129FB5B00EB17F5 /* konppc.h in Headers */,
 				55FFFFDD2129FB5B00EB17F5 /* mc146818.h in Headers */,
 				55FFFFD62129FB5B00EB17F5 /* 7474.h in Headers */,
@@ -883,11 +914,12 @@
 				55FFFFE32129FB5B00EB17F5 /* atarigen.h in Headers */,
 				55FFFFD12129FB5B00EB17F5 /* mb3773.h in Headers */,
 				55FFFFD42129FB5B00EB17F5 /* tmp68301.h in Headers */,
-				55FFFFE72129FB5B00EB17F5 /* vacfdisp.h in Headers */,
 				55FFFFE82129FB5B00EB17F5 /* pckeybrd.h in Headers */,
 				55FFFFAF2129FB5B00EB17F5 /* pd4990a.h in Headers */,
 				55FFFFAB2129FB5B00EB17F5 /* 6821pia.h in Headers */,
+				5528767E215083B1001D2CFD /* meters.h in Headers */,
 				55FFFFAA2129FB5B00EB17F5 /* ds1302.h in Headers */,
+				5528766C215083B1001D2CFD /* mc8123.h in Headers */,
 				55FFFFB22129FB5B00EB17F5 /* eeprom.h in Headers */,
 				55FFFFD92129FB5B00EB17F5 /* ds2404.h in Headers */,
 				55FFFFDC2129FB5B00EB17F5 /* kanekotb.h in Headers */,
@@ -975,12 +1007,9 @@
 				F5029AF0057F27F6002511AA /* stfight.c in Sources */,
 				F5029AF2057F27F6002511AA /* system16.c in Sources */,
 				F5029AF3057F27F6002511AA /* asic65.c in Sources */,
-				F5029AF5057F27F6002511AA /* berzerk.c in Sources */,
 				F5029AF6057F27F6002511AA /* lkage.c in Sources */,
 				F5029AF7057F27F6002511AA /* segacrpt.c in Sources */,
 				F5029AF9057F27F6002511AA /* bonzeadv.c in Sources */,
-				F5029AFB057F27F6002511AA /* 8080bw.c in Sources */,
-				F5029AFC057F27F6002511AA /* segar.c in Sources */,
 				F5029B00057F27F6002511AA /* dec0.c in Sources */,
 				F5029B01057F27F6002511AA /* mexico86.c in Sources */,
 				F5029B02057F27F6002511AA /* mathbox.c in Sources */,
@@ -990,27 +1019,31 @@
 				F5029B0A057F27F6002511AA /* pacplus.c in Sources */,
 				F5029B0B057F27F6002511AA /* starwars.c in Sources */,
 				F5029B0E057F27F6002511AA /* maniach.c in Sources */,
+				55287670215083B1001D2CFD /* fddebug.c in Sources */,
 				F5029B11057F27F6002511AA /* slapstic.c in Sources */,
 				F5029B12057F27F6002511AA /* leland.c in Sources */,
 				F5029B13057F27F6002511AA /* copsnrob.c in Sources */,
+				55287675215083B1001D2CFD /* mw8080bw.c in Sources */,
 				55A4AEF0212BC766009FABC1 /* daikaiju.c in Sources */,
 				55A4AEE4212BC6F7009FABC1 /* z80ctc.c in Sources */,
 				F5029B14057F27F6002511AA /* flstory.c in Sources */,
+				5528767D215083B1001D2CFD /* cubocd32.c in Sources */,
 				F5029B15057F27F6002511AA /* atarifb.c in Sources */,
 				F5029B16057F27F6002511AA /* 6522via.c in Sources */,
-				F5029B19057F27F6002511AA /* neogeo.c in Sources */,
 				55A4AEEA212BC72F009FABC1 /* n64.c in Sources */,
 				F5029B1A057F27F6002511AA /* nitedrvr.c in Sources */,
 				F5029B1B057F27F6002511AA /* gaplus.c in Sources */,
 				F5029B1C057F27F6002511AA /* decocass.c in Sources */,
-				F5029B1D057F27F6002511AA /* astrocde.c in Sources */,
 				F5029B1E057F27F6002511AA /* atari_vg.c in Sources */,
 				F5029B22057F27F6002511AA /* retofinv.c in Sources */,
+				5528767B215083B1001D2CFD /* dc.c in Sources */,
 				F5029B23057F27F6002511AA /* tait8741.c in Sources */,
 				F5029B26057F27F6002511AA /* arkanoid.c in Sources */,
 				F5029B27057F27F6002511AA /* mspacman.c in Sources */,
+				55287678215083B1001D2CFD /* namco50.c in Sources */,
 				F5029B28057F27F6002511AA /* lsasquad.c in Sources */,
 				F5029B29057F27F6002511AA /* theglobp.c in Sources */,
+				55287669215083B1001D2CFD /* snesdsp1.c in Sources */,
 				F5029B2A057F27F6002511AA /* stactics.c in Sources */,
 				F5029B2B057F27F6002511AA /* vsnes.c in Sources */,
 				F5029B2C057F27F6002511AA /* beezer.c in Sources */,
@@ -1018,6 +1051,7 @@
 				F5029B2E057F27F6002511AA /* namcond1.c in Sources */,
 				F5029B2F057F27F6002511AA /* m68kfmly.c in Sources */,
 				F5029B30057F27F6002511AA /* konami.c in Sources */,
+				5528767C215083B1001D2CFD /* zs01.c in Sources */,
 				F5029B31057F27F6002511AA /* 6821pia.c in Sources */,
 				F5029B33057F27F6002511AA /* subs.c in Sources */,
 				F5029B34057F27F6002511AA /* neocrypt.c in Sources */,
@@ -1029,9 +1063,9 @@
 				F5029B3B057F27F6002511AA /* jackal.c in Sources */,
 				F5029B3C057F27F6002511AA /* bsktball.c in Sources */,
 				F5029B3E057F27F6002511AA /* slikshot.c in Sources */,
+				55287679215083B1001D2CFD /* segas24.c in Sources */,
 				F5029B40057F27F6002511AA /* balsente.c in Sources */,
 				F5029B41057F27F6002511AA /* cchip.c in Sources */,
-				F5029B42057F27F6002511AA /* grchamp.c in Sources */,
 				F5029B44057F27F6002511AA /* bublbobl.c in Sources */,
 				F5029B45057F27F6002511AA /* tnzs.c in Sources */,
 				F5029B46057F27F6002511AA /* toaplan1.c in Sources */,
@@ -1050,8 +1084,6 @@
 				F5029B5C057F27F6002511AA /* jumpshot.c in Sources */,
 				F5029B5F057F27F6002511AA /* atarigen.c in Sources */,
 				F5029B62057F27F6002511AA /* harddriv.c in Sources */,
-				F5029B63057F27F6002511AA /* avalnche.c in Sources */,
-				F5029B64057F27F6002511AA /* spiders.c in Sources */,
 				F5029B65057F27F6002511AA /* mcr.c in Sources */,
 				F5029B67057F27F6002511AA /* simpsons.c in Sources */,
 				F5029B69057F27F6002511AA /* kabuki.c in Sources */,
@@ -1070,13 +1102,13 @@
 				F5029B7A057F27F7002511AA /* equites.c in Sources */,
 				F5029B7B057F27F7002511AA /* carpolo.c in Sources */,
 				F5029B7C057F27F7002511AA /* pgmcrypt.c in Sources */,
-				F5029B7D057F27F7002511AA /* clayshoo.c in Sources */,
-				F5029B7E057F27F7002511AA /* leprechn.c in Sources */,
 				F5029B7F057F27F7002511AA /* 74148.c in Sources */,
 				F5029B84057F27F7002511AA /* nycaptor.c in Sources */,
 				F5029B87057F27F7002511AA /* midyunit.c in Sources */,
 				F5029B88057F27F7002511AA /* decoprot.c in Sources */,
+				55287677215083B1001D2CFD /* segag80.c in Sources */,
 				F5029B89057F27F7002511AA /* midwayic.c in Sources */,
+				55287672215083B1001D2CFD /* cps2crpt.c in Sources */,
 				F5029B8A057F27F7002511AA /* midtunit.c in Sources */,
 				F5029B8B057F27F7002511AA /* midwunit.c in Sources */,
 				F5029B8C057F27F7002511AA /* wrally.c in Sources */,
@@ -1102,18 +1134,24 @@
 				9BE44B1006966E4E00500138 /* namcoio.c in Sources */,
 				9BE44B1506966E6400500138 /* scudsp.c in Sources */,
 				9BE44B1A06966E8200500138 /* seibuspi.c in Sources */,
+				5528766D215083B1001D2CFD /* stvprot.c in Sources */,
+				55287668215083B1001D2CFD /* mb14241.c in Sources */,
 				9BE44B1D06966E9200500138 /* smc91c9x.c in Sources */,
+				552876502150830D001D2CFD /* bfm_bd1.c in Sources */,
 				9BE44B2206966EB700500138 /* spisprit.c in Sources */,
 				9B6F2BC20698BBA40003FB88 /* znsec.c in Sources */,
+				55287671215083B1001D2CFD /* meters.c in Sources */,
 				55A4AEE5212BC6F7009FABC1 /* z80sio.c in Sources */,
 				F59CD3820700EC5C001B45AC /* drakton.c in Sources */,
 				F59CD3830700EC5C001B45AC /* kaneko16.c in Sources */,
 				9BEAADD407C98A3900B14C06 /* atari.c in Sources */,
+				55287674215083B1001D2CFD /* cclimber.c in Sources */,
 				9BEAADD507C98A3900B14C06 /* fd1094.c in Sources */,
 				9BEAADD607C98A3900B14C06 /* s16fd.c in Sources */,
 				9BEAADD707C98A3900B14C06 /* tatsumi.c in Sources */,
 				55A4AEED212BC74C009FABC1 /* generic.c in Sources */,
 				9BEAB59007CB17FE00B14C06 /* 53c810.c in Sources */,
+				55287673215083B1001D2CFD /* konamiic.c in Sources */,
 				9BEAB59107CB17FE00B14C06 /* amiga.c in Sources */,
 				9BEAB59207CB17FE00B14C06 /* ds1302.c in Sources */,
 				9BEAB59307CB17FE00B14C06 /* fd1089.c in Sources */,
@@ -1132,6 +1170,7 @@
 				F511A8A2081F4A2700A83BF6 /* pgmy2ks.c in Sources */,
 				F5855EF30860016E006D0B61 /* konppc.c in Sources */,
 				F5855EF40860016E006D0B61 /* opwolf.c in Sources */,
+				5528767A215083B1001D2CFD /* galaxian.c in Sources */,
 				55A4AEE3212BC6F7009FABC1 /* z80pio.c in Sources */,
 				F5914112089F448B00C2EFF5 /* deco156.c in Sources */,
 				F5AD667709557638004AEC57 /* 8042kbdc.c in Sources */,
@@ -1150,10 +1189,7 @@
 				F5D8C4420974F4DA0081EC9A /* 6840ptm.c in Sources */,
 				55A4AEF4212BC77F009FABC1 /* 6526cia.c in Sources */,
 				F5D8C4430974F4DA0081EC9A /* 6850acia.c in Sources */,
-				F5D8C4440974F4DA0081EC9A /* lamps.c in Sources */,
-				F5D8C4450974F4DA0081EC9A /* mmtr.c in Sources */,
 				F5D8C4470974F4DA0081EC9A /* steppers.c in Sources */,
-				F5D8C4480974F4DA0081EC9A /* vacfdisp.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
