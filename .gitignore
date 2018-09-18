@@ -11,8 +11,5 @@ project.xcworkspace/
 libmacblitters.a
 
 *.o
-src/cpu/m68000/m68kmake
-src/cpu/m68000/m68kops.[ch]
-src/cpu/m68000/m68kopac.c
-src/cpu/m68000/m68kopdm.c
-src/cpu/m68000/m68kopnz.c
+src/emu/cpu/m68000/m68kmake
+src/emu/cpu/m68000/m68kops.[ch]

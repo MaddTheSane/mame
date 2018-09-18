@@ -379,9 +379,6 @@
 		55FF00BC212A267000EB17F5 /* m68kmame.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E5B070D060900E97318 /* m68kmame.c */; };
 		55FF00BD212A267000EB17F5 /* m68kcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E5D070D066100E97318 /* m68kcpu.c */; };
 		55FF00BE212A267000EB17F5 /* m68kops.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E63070D06C200E97318 /* m68kops.c */; };
-		55FF00BF212A267000EB17F5 /* m68kopnz.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E6B070D06F300E97318 /* m68kopnz.c */; };
-		55FF00C0212A267000EB17F5 /* m68kopac.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E6C070D06F300E97318 /* m68kopac.c */; };
-		55FF00C1212A267000EB17F5 /* m68kopdm.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E6D070D06F300E97318 /* m68kopdm.c */; };
 		55FF00C4212A267000EB17F5 /* arm7.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BADA1F607CB2393005FC26A /* arm7.c */; };
 		55FF00C5212A267000EB17F5 /* i8051.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BADA1FE07CB23C3005FC26A /* i8051.c */; };
 		55FF00C6212A267000EB17F5 /* mc68hc11.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BADA20407CB23F1005FC26A /* mc68hc11.c */; };
@@ -554,9 +551,6 @@
 		F5118E5C070D060900E97318 /* m68kmame.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E5B070D060900E97318 /* m68kmame.c */; };
 		F5118E5E070D066100E97318 /* m68kcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E5D070D066100E97318 /* m68kcpu.c */; };
 		F5118E64070D06C200E97318 /* m68kops.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E63070D06C200E97318 /* m68kops.c */; };
-		F5118E6E070D06F300E97318 /* m68kopnz.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E6B070D06F300E97318 /* m68kopnz.c */; };
-		F5118E6F070D06F300E97318 /* m68kopac.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E6C070D06F300E97318 /* m68kopac.c */; };
-		F5118E70070D06F300E97318 /* m68kopdm.c in Sources */ = {isa = PBXBuildFile; fileRef = F5118E6D070D06F300E97318 /* m68kopdm.c */; };
 		F511A8BC081F4ABF00A83BF6 /* es8712.c in Sources */ = {isa = PBXBuildFile; fileRef = F511A8BB081F4ABF00A83BF6 /* es8712.c */; };
 		F56EC1AE0866749900FF69E1 /* 2100dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2CBE057F2C34004EB9EC /* 2100dasm.c */; };
 		F56EC1B0086674AD00FF69E1 /* 16c5xdsm.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2CD5057F2C34004EB9EC /* 16c5xdsm.c */; };
@@ -1254,6 +1248,7 @@
 		552875E221507811001D2CFD /* f8dasm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = f8dasm.c; sourceTree = "<group>"; };
 		552875E92150782C001D2CFD /* e132xsop.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = e132xsop.c; sourceTree = "<group>"; };
 		552875EA2150782C001D2CFD /* e132xs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = e132xs.h; sourceTree = "<group>"; };
+		552875F421507D9A001D2CFD /* m68kops.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = m68kops.h; sourceTree = "<group>"; };
 		55370025212A28720081F61B /* CocoaInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaInput.h; sourceTree = "<group>"; };
 		55370026212A28720081F61B /* CocoaInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CocoaInput.mm; sourceTree = "<group>"; };
 		55370028212A298D0081F61B /* Cocoa.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cocoa.pch; sourceTree = "<group>"; };
@@ -1600,9 +1595,6 @@
 		F5118E5B070D060900E97318 /* m68kmame.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = m68kmame.c; sourceTree = "<group>"; };
 		F5118E5D070D066100E97318 /* m68kcpu.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = m68kcpu.c; sourceTree = "<group>"; };
 		F5118E63070D06C200E97318 /* m68kops.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = m68kops.c; sourceTree = "<group>"; };
-		F5118E6B070D06F300E97318 /* m68kopnz.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = m68kopnz.c; sourceTree = "<group>"; };
-		F5118E6C070D06F300E97318 /* m68kopac.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = m68kopac.c; sourceTree = "<group>"; };
-		F5118E6D070D06F300E97318 /* m68kopdm.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = m68kopdm.c; sourceTree = "<group>"; };
 		F511A8BB081F4ABF00A83BF6 /* es8712.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = es8712.c; sourceTree = "<group>"; };
 		F541AFCB071CC75000C70078 /* MacInput.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MacInput.mm; sourceTree = "<group>"; };
 		F5855EFB086001C5006D0B61 /* sharc.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = sharc.c; sourceTree = "<group>"; };
@@ -2911,9 +2903,7 @@
 				55A4AF31212BC9BB009FABC1 /* m68kfpu.c */,
 				F5118E5B070D060900E97318 /* m68kmame.c */,
 				55A4AE9C212BC3AD009FABC1 /* m68kmame.h */,
-				F5118E6C070D06F300E97318 /* m68kopac.c */,
-				F5118E6D070D06F300E97318 /* m68kopdm.c */,
-				F5118E6B070D06F300E97318 /* m68kopnz.c */,
+				552875F421507D9A001D2CFD /* m68kops.h */,
 				F5118E63070D06C200E97318 /* m68kops.c */,
 				55A4AE9E212BC3AE009FABC1 /* m68000.h */,
 			);
@@ -3981,12 +3971,9 @@
 				55FF00BC212A267000EB17F5 /* m68kmame.c in Sources */,
 				55FF00BD212A267000EB17F5 /* m68kcpu.c in Sources */,
 				55FF00BE212A267000EB17F5 /* m68kops.c in Sources */,
-				55FF00BF212A267000EB17F5 /* m68kopnz.c in Sources */,
 				5597FEA1215060EE00AE12AB /* emupal.c in Sources */,
-				55FF00C0212A267000EB17F5 /* m68kopac.c in Sources */,
 				5528746C215070A0001D2CFD /* apexcdsm.c in Sources */,
 				552874AE2150728B001D2CFD /* tms7000.c in Sources */,
-				55FF00C1212A267000EB17F5 /* m68kopdm.c in Sources */,
 				55FF00C4212A267000EB17F5 /* arm7.c in Sources */,
 				55FF00C5212A267000EB17F5 /* i8051.c in Sources */,
 				552875A821507735001D2CFD /* x86log.c in Sources */,
@@ -4339,10 +4326,7 @@
 				552874522150703C001D2CFD /* cop410.c in Sources */,
 				F5118E64070D06C200E97318 /* m68kops.c in Sources */,
 				5597FEA4215060EE00AE12AB /* attotime.c in Sources */,
-				F5118E6E070D06F300E97318 /* m68kopnz.c in Sources */,
-				F5118E6F070D06F300E97318 /* m68kopac.c in Sources */,
 				5597FE702150602600AE12AB /* avcomp.c in Sources */,
-				F5118E70070D06F300E97318 /* m68kopdm.c in Sources */,
 				9BEAB05507C9D51D00B14C06 /* MacInput.mm in Sources */,
 				9BEAB15007CA65E900B14C06 /* MacPrintf.cpp in Sources */,
 				9BADA1F807CB2393005FC26A /* arm7.c in Sources */,
