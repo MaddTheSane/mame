@@ -152,8 +152,13 @@ struct _osd_file
 // 3 = CR+LF
 #define CRLF 2
 
+#if __LP64__
+#define PTR64 1
+#endif
+
 #include "Source/MacCoreDefines.h"
-#include "driver.h"
+#include "osdcomm.h"
+#include "mame.h"
 
 #ifndef __ppc__
 #include "MacMAME-ppcemu.h"

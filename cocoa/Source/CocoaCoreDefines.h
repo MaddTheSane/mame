@@ -6,10 +6,10 @@
 #define HAS_M6502		1
 #define HAS_M65C02		1
 #define HAS_M65SC02		1
-//#define HAS_M65CE02		0
-//#define HAS_M6509		0
+#define HAS_M65CE02		1
+#define HAS_M6509		1
 #define HAS_M6510		1
-//#define HAS_M6510T		0
+#define HAS_M6510T		1
 //#define HAS_M7501		0
 //#define HAS_M8502		0
 #define HAS_N2A03		1
@@ -19,7 +19,7 @@
 #define HAS_I86			1
 #define HAS_I88			1
 #define HAS_I186		1
-//#define HAS_I188		0
+#define HAS_I188		1
 //#define HAS_I286		0
 #define HAS_V20			1
 #define HAS_V30			1
@@ -50,6 +50,7 @@
 #define HAS_M6809E		1
 #define HAS_KONAMI		1
 #define HAS_M68000		1
+#define HAS_M68008		1
 #define HAS_M68010		1
 #define HAS_M68EC020	1
 #define HAS_M68020		1
@@ -93,11 +94,11 @@
 #define HAS_RM7000		1
 #define HAS_SH2			1
 #define HAS_DSP32C		1
-//#define HAS_PIC16C54	0
+#define HAS_PIC16C54	1
 #define HAS_PIC16C55	1
-//#define HAS_PIC16C56	0
+#define HAS_PIC16C56	1
 #define HAS_PIC16C57	1
-//#define HAS_PIC16C58	0
+#define HAS_PIC16C58	1
 #define HAS_G65816		1
 #define HAS_SPC700		1
 #define HAS_E116T		1
@@ -115,7 +116,7 @@
 //#define HAS_GMS30C2216		1
 //#define HAS_GMS30C2232		1
 #define HAS_I386		1
-//#define HAS_I486		1
+#define HAS_I486		1
 #define HAS_PENTIUM		1
 #define HAS_MEDIAGX		1
 #define HAS_I960		1
@@ -125,6 +126,7 @@
 #define HAS_PPC403		1
 #define HAS_PPC602		1
 #define HAS_PPC603		1
+#define HAS_PPC604		1
 #define HAS_SE3208		1
 #define HAS_MC68HC11	1
 #define HAS_ADSP21062	1
@@ -203,6 +205,6 @@
 #define HAS_ST0016		1
 #define HAS_C352		1
 #define HAS_VRENDER0	1
-//#define HAS_VOTRAX	1
+#define HAS_VOTRAX		1
 #define HAS_ES8712		1
 #define HAS_RF5C400		1

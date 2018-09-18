@@ -517,6 +517,9 @@
 					../../src/mame,
 					../../src/mame/includes,
 					../../src/debug,
+					../../src/emu,
+					../../src/osd,
+					../../src/lib/util,
 				);
 			};
 			name = Debug;
@@ -578,6 +581,9 @@
 					../../src/mame,
 					../../src/mame/includes,
 					../../src/debug,
+					../../src/emu,
+					../../src/osd,
+					../../src/lib/util,
 				);
 			};
 			name = Release;

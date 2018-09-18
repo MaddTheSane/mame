@@ -65,8 +65,6 @@
 		552874DE2150731F001D2CFD /* sh4.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874D92150731F001D2CFD /* sh4.c */; };
 		552874DF2150731F001D2CFD /* sh4dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874DB2150731F001D2CFD /* sh4dasm.c */; };
 		552874E02150731F001D2CFD /* sh4dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874DB2150731F001D2CFD /* sh4dasm.c */; };
-		552874EB21507346001D2CFD /* readpc.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874E421507346001D2CFD /* readpc.c */; };
-		552874EC21507346001D2CFD /* readpc.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874E421507346001D2CFD /* readpc.c */; };
 		552874ED21507346001D2CFD /* sc61860.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874E621507346001D2CFD /* sc61860.c */; };
 		552874EE21507346001D2CFD /* sc61860.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874E621507346001D2CFD /* sc61860.c */; };
 		552874EF21507346001D2CFD /* scdasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874E821507346001D2CFD /* scdasm.c */; };
@@ -233,8 +231,6 @@
 		55A4AF2E212BC998009FABC1 /* rsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF2A212BC998009FABC1 /* rsp.c */; };
 		55A4AF2F212BC998009FABC1 /* rsp_dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF2C212BC998009FABC1 /* rsp_dasm.c */; };
 		55A4AF30212BC998009FABC1 /* rsp_dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF2C212BC998009FABC1 /* rsp_dasm.c */; };
-		55A4AF32212BC9BB009FABC1 /* m68kfpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF31212BC9BB009FABC1 /* m68kfpu.c */; };
-		55A4AF33212BC9BB009FABC1 /* m68kfpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF31212BC9BB009FABC1 /* m68kfpu.c */; };
 		55A4AF38212BC9F8009FABC1 /* alph8201.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF35212BC9F7009FABC1 /* alph8201.c */; };
 		55A4AF39212BC9F8009FABC1 /* alph8201.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF35212BC9F7009FABC1 /* alph8201.c */; };
 		55A4AF3A212BC9F8009FABC1 /* 8201dasm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AF36212BC9F7009FABC1 /* 8201dasm.c */; };
@@ -2766,32 +2762,7 @@
 			path = f8;
 			sourceTree = "<group>";
 		};
-		55370022212A27300081F61B /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				55FF0135212A267100EB17F5 /* MacMAME Cocoa-Info.plist */,
-				55370029212A2B930081F61B /* MainMenu.xib */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		55370024212A28720081F61B /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				5537002B212A2C3C0081F61B /* CocoaCoreDefines.h */,
-				55370025212A28720081F61B /* CocoaInput.h */,
-				55370026212A28720081F61B /* CocoaInput.mm */,
-				557086B2212B53110065B854 /* CocoaInput.swift */,
-				55370028212A298D0081F61B /* Cocoa.pch */,
-				5537002C212A2F0C0081F61B /* main.m */,
-				55E852F1212B421F00AD7CB6 /* CMAMEAppDelegate.h */,
-				55E852F2212B421F00AD7CB6 /* CMAMEAppDelegate.m */,
-				557086B1212B53100065B854 /* MacMAME-Bridging-Header.h */,
-			);
-			path = Source;
-			sourceTree = "<group>";
-		};
-		555459DC2150554200BB50AC /* emu */ = {
+		5528778E21509A78001D2CFD /* common */ = {
 			isa = PBXGroup;
 			children = (
 				5597FE91215060ED00AE12AB /* attotime.c */,
@@ -2875,6 +2846,41 @@
 				F5AD66B409557715004AEC57 /* validity.c */,
 				5597FE95215060EE00AE12AB /* video.c */,
 				5597FE80215060EA00AE12AB /* video.h */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		55370022212A27300081F61B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				55FF0135212A267100EB17F5 /* MacMAME Cocoa-Info.plist */,
+				55370029212A2B930081F61B /* MainMenu.xib */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		55370024212A28720081F61B /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				5537002B212A2C3C0081F61B /* CocoaCoreDefines.h */,
+				55370025212A28720081F61B /* CocoaInput.h */,
+				55370026212A28720081F61B /* CocoaInput.mm */,
+				557086B2212B53110065B854 /* CocoaInput.swift */,
+				55370028212A298D0081F61B /* Cocoa.pch */,
+				5537002C212A2F0C0081F61B /* main.m */,
+				55E852F1212B421F00AD7CB6 /* CMAMEAppDelegate.h */,
+				55E852F2212B421F00AD7CB6 /* CMAMEAppDelegate.m */,
+				557086B1212B53100065B854 /* MacMAME-Bridging-Header.h */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		555459DC2150554200BB50AC /* emu */ = {
+			isa = PBXGroup;
+			children = (
+				5528778E21509A78001D2CFD /* common */,
+				F5EB2C66057F2C34004EB9EC /* CPU Cores */,
+				F5EB2CE6057F2C34004EB9EC /* Sound Cores */,
 			);
 			path = emu;
 			sourceTree = "<group>";
@@ -3114,8 +3120,6 @@
 				F5EB2BDB057F2C33004EB9EC /* MacMAME */,
 				55FF0136212A26A600EB17F5 /* Cocoa */,
 				F5EB2C1A057F2C33004EB9EC /* MAME Core */,
-				F5EB2C66057F2C34004EB9EC /* CPU Cores */,
-				F5EB2CE6057F2C34004EB9EC /* Sound Cores */,
 				F5EB2D66057F2C34004EB9EC /* Dependent Libs */,
 				F5EB2F20057F2C44004EB9EC /* Frameworks */,
 				F5EB2BC9057F2C33004EB9EC /* Products */,
@@ -3322,8 +3326,8 @@
 				55287403215069D4001D2CFD /* z8000 */,
 			);
 			name = "CPU Cores";
-			path = src/emu/cpu;
-			sourceTree = SOURCE_ROOT;
+			path = cpu;
+			sourceTree = "<group>";
 		};
 		F5EB2CE6057F2C34004EB9EC /* Sound Cores */ = {
 			isa = PBXGroup;
@@ -3525,7 +3529,7 @@
 				55FFFF232129EE3800EB17F5 /* ymz280b.h */,
 			);
 			name = "Sound Cores";
-			path = src/emu/sound;
+			path = sound;
 			sourceTree = "<group>";
 		};
 		F5EB2D66057F2C34004EB9EC /* Dependent Libs */ = {
@@ -4172,13 +4176,11 @@
 				552874C4215072D1001D2CFD /* ssp1610.c in Sources */,
 				557086B4212B54220065B854 /* CocoaInput.swift in Sources */,
 				55FF0103212A267000EB17F5 /* dsp56dsm.c in Sources */,
-				552874EC21507346001D2CFD /* readpc.c in Sources */,
 				55FF0104212A267000EB17F5 /* validity.c in Sources */,
 				5528762921507F52001D2CFD /* sp0256.c in Sources */,
 				55FF0105212A267000EB17F5 /* xmlfile.c in Sources */,
 				55FF0106212A267000EB17F5 /* namcona_mac.c in Sources */,
 				55FF0107212A267000EB17F5 /* rf5c400.c in Sources */,
-				55A4AF33212BC9BB009FABC1 /* m68kfpu.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4343,7 +4345,6 @@
 				F5EB2EDC057F2C34004EB9EC /* multipcm.c in Sources */,
 				F5EB2EDE057F2C34004EB9EC /* hash.c in Sources */,
 				F5EB2EE0057F2C34004EB9EC /* sha1.c in Sources */,
-				552874EB21507346001D2CFD /* readpc.c in Sources */,
 				5597FE782150602600AE12AB /* bitmap.c in Sources */,
 				552874C3215072D1001D2CFD /* ssp1610.c in Sources */,
 				5597FEA6215060EE00AE12AB /* video.c in Sources */,
@@ -4444,7 +4445,6 @@
 				552875812150767F001D2CFD /* m65ce02.c in Sources */,
 				F5118E5C070D060900E97318 /* m68kmame.c in Sources */,
 				5528748A21507171001D2CFD /* v30mz.c in Sources */,
-				55A4AF32212BC9BB009FABC1 /* m68kfpu.c in Sources */,
 				F5118E5E070D066100E97318 /* m68kcpu.c in Sources */,
 				552874522150703C001D2CFD /* cop410.c in Sources */,
 				F5118E64070D06C200E97318 /* m68kops.c in Sources */,

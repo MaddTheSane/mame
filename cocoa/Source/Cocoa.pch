@@ -26,7 +26,6 @@
 
 #if defined(__GNUC__)
 #define MAC_XCODE 1
-//#include <ppc_intrinsics.h>
 #endif
 
 #define TARGET_RT_MAC_MACHO		1
@@ -59,15 +58,18 @@
 #define INLINE static inline
 #endif
 
+#ifdef __LP64__
 #define PTR64 1
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #include "CocoaCoreDefines.h"
-#include "driver.h"
-	
+#include "osdcomm.h"
+#include "mame.h"
+
 #ifdef __cplusplus
 }
 #endif

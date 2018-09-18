@@ -65,13 +65,11 @@
 		5528773B21509783001D2CFD /* megadriv.h in Headers */ = {isa = PBXBuildFile; fileRef = 5528773621509782001D2CFD /* megadriv.h */; };
 		5528773C21509783001D2CFD /* meritm.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528773721509782001D2CFD /* meritm.c */; };
 		5528773D21509783001D2CFD /* midas.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528773821509783001D2CFD /* midas.c */; };
-		55287741215097B1001D2CFD /* mpu4drvr.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528773E215097B0001D2CFD /* mpu4drvr.c */; };
 		55287742215097B1001D2CFD /* mjsiyoub.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528773F215097B1001D2CFD /* mjsiyoub.c */; };
 		55287743215097B1001D2CFD /* mlanding.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287740215097B1001D2CFD /* mlanding.c */; };
 		55287745215097BC001D2CFD /* mirage.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287744215097BB001D2CFD /* mirage.c */; };
 		55287748215097CC001D2CFD /* mw8080bw.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287746215097CB001D2CFD /* mw8080bw.c */; };
 		55287749215097CC001D2CFD /* multigam.c in Sources */ = {isa = PBXBuildFile; fileRef = 55287747215097CC001D2CFD /* multigam.c */; };
-		5528774C215097E4001D2CFD /* neodrvr.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528774A215097E3001D2CFD /* neodrvr.c */; };
 		5528774D215097E4001D2CFD /* naomi.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528774B215097E3001D2CFD /* naomi.c */; };
 		5528774F215097FE001D2CFD /* pangofun.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528774E215097FE001D2CFD /* pangofun.c */; };
 		5528775321509813001D2CFD /* pmpoker.c in Sources */ = {isa = PBXBuildFile; fileRef = 5528775021509812001D2CFD /* pmpoker.c */; };
@@ -3463,7 +3461,6 @@
 				F501960B070CF3B1009C5423 /* marinedt.c in Sources */,
 				F501960C070CF3B1009C5423 /* marineb.c in Sources */,
 				F501960D070CF3B1009C5423 /* mappy.c in Sources */,
-				5528774C215097E4001D2CFD /* neodrvr.c in Sources */,
 				F501960E070CF3B1009C5423 /* malzak.c in Sources */,
 				F501960F070CF3B1009C5423 /* mainsnk.c in Sources */,
 				F5019610070CF3B1009C5423 /* mainevt.c in Sources */,
@@ -3695,7 +3692,6 @@
 				F50196E0070CF3B2009C5423 /* darius.c in Sources */,
 				F50196E1070CF3B2009C5423 /* cyberbal.c in Sources */,
 				F50196E2070CF3B2009C5423 /* cvs.c in Sources */,
-				55287741215097B1001D2CFD /* mpu4drvr.c in Sources */,
 				F50196E3070CF3B2009C5423 /* cshooter.c in Sources */,
 				F50196E4070CF3B2009C5423 /* crshrace.c in Sources */,
 				55287719215096DE001D2CFD /* goodejan.c in Sources */,
