@@ -59,6 +59,8 @@
 #define INLINE static inline
 #endif
 
+#define PTR64 1
+
 #ifdef __cplusplus
 extern "C" {
 #endif
