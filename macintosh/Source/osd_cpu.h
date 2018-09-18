@@ -31,15 +31,6 @@
 #define CLIB_DECL
 #endif
 
-typedef unsigned char						UINT8;
-typedef signed char 						INT8;
-typedef unsigned short						UINT16;
-typedef signed short						INT16;
-typedef unsigned int						UINT32;
-typedef signed int							INT32;
-typedef unsigned long long					UINT64;
-typedef signed long long					INT64;
-
 /* Combine two 32-bit integers into a 64-bit integer */
 #define COMBINE_64_32_32(A,B)     ((((UINT64)(A))<<32) | (UINT32)(B))
 #define COMBINE_U64_U32_U32(A,B)  COMBINE_64_32_32(A,B)

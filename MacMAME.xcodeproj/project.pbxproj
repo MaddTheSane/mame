@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		552875EB21507C71001D2CFD /* extBuild */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 552875EC21507C72001D2CFD /* Build configuration list for PBXAggregateTarget "extBuild" */;
+			buildPhases = (
+				552875EF21507C76001D2CFD /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = extBuild;
+			productName = extBuild;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		552874522150703C001D2CFD /* cop410.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874422150703B001D2CFD /* cop410.c */; };
 		552874532150703C001D2CFD /* cop410.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874422150703B001D2CFD /* cop410.c */; };
@@ -215,7 +229,6 @@
 		55FF000E212A267000EB17F5 /* mame.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C41057F2C33004EB9EC /* mame.c */; };
 		55FF0010212A267000EB17F5 /* palette.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C4D057F2C33004EB9EC /* palette.c */; };
 		55FF0011212A267000EB17F5 /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C4F057F2C33004EB9EC /* png.c */; };
-		55FF0012212A267000EB17F5 /* profiler.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C51057F2C33004EB9EC /* profiler.c */; };
 		55FF0013212A267000EB17F5 /* sndintrf.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C55057F2C33004EB9EC /* sndintrf.c */; };
 		55FF0014212A267000EB17F5 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C57057F2C33004EB9EC /* state.c */; };
 		55FF0015212A267000EB17F5 /* tilemap.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C59057F2C33004EB9EC /* tilemap.c */; };
@@ -622,7 +635,6 @@
 		F5EB2DC0057F2C34004EB9EC /* mame.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C41057F2C33004EB9EC /* mame.c */; };
 		F5EB2DC5057F2C34004EB9EC /* palette.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C4D057F2C33004EB9EC /* palette.c */; };
 		F5EB2DC7057F2C34004EB9EC /* png.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C4F057F2C33004EB9EC /* png.c */; };
-		F5EB2DC9057F2C34004EB9EC /* profiler.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C51057F2C33004EB9EC /* profiler.c */; };
 		F5EB2DCB057F2C34004EB9EC /* sndintrf.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C55057F2C33004EB9EC /* sndintrf.c */; };
 		F5EB2DCD057F2C34004EB9EC /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C57057F2C33004EB9EC /* state.c */; };
 		F5EB2DCF057F2C34004EB9EC /* tilemap.c in Sources */ = {isa = PBXBuildFile; fileRef = F5EB2C59057F2C33004EB9EC /* tilemap.c */; };
@@ -748,6 +760,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		552875F021507D2F001D2CFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5EB32E5057F2C58004EB9EC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 552875EB21507C71001D2CFD;
+			remoteInfo = extBuild;
+		};
+		552875F221507D34001D2CFD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5EB32E5057F2C58004EB9EC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 552875EB21507C71001D2CFD;
+			remoteInfo = extBuild;
+		};
 		557086BC212B598F0065B854 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 557086B5212B598F0065B854 /* HID Utilities.xcodeproj */;
@@ -3452,7 +3478,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55FF0131212A267000EB17F5 /* Build configuration list for PBXNativeTarget "MacMAME Cocoa" */;
 			buildPhases = (
-				55FF0003212A267000EB17F5 /* ShellScript */,
 				55FF0004212A267000EB17F5 /* Sources */,
 				55FF0108212A267000EB17F5 /* Resources */,
 				55FF011D212A267000EB17F5 /* Frameworks */,
@@ -3462,6 +3487,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				552875F121507D2F001D2CFD /* PBXTargetDependency */,
 				55A4AF96212BCE16009FABC1 /* PBXTargetDependency */,
 				55FFFFFB212A267000EB17F5 /* PBXTargetDependency */,
 				55FFFFFD212A267000EB17F5 /* PBXTargetDependency */,
@@ -3478,7 +3504,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F56EC1840866694F00FF69E1 /* Build configuration list for PBXNativeTarget "MacMAME" */;
 			buildPhases = (
-				9BEE477E05E9E57900ED1A7A /* ShellScript */,
 				F5EB2BCC057F2C33004EB9EC /* Sources */,
 				F5EB2BCD057F2C33004EB9EC /* Resources */,
 				F5EB2BCE057F2C33004EB9EC /* Frameworks */,
@@ -3488,6 +3513,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				552875F321507D34001D2CFD /* PBXTargetDependency */,
 				55A4AF94212BCE0E009FABC1 /* PBXTargetDependency */,
 				557086C3212B59B60065B854 /* PBXTargetDependency */,
 				F591407E089F343000C2EFF5 /* PBXTargetDependency */,
@@ -3510,6 +3536,10 @@
 				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0940;
 				TargetAttributes = {
+					552875EB21507C71001D2CFD = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
+					};
 					F5EB2BD0057F2C33004EB9EC = {
 						LastSwiftMigration = 0940;
 					};
@@ -3559,6 +3589,7 @@
 			targets = (
 				F5EB2BD0057F2C33004EB9EC /* MacMAME */,
 				55FFFFFA212A267000EB17F5 /* MacMAME Cocoa */,
+				552875EB21507C71001D2CFD /* extBuild */,
 			);
 		};
 /* End PBXProject section */
@@ -3705,7 +3736,7 @@
 /* End PBXRezBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		55FF0003212A267000EB17F5 /* ShellScript */ = {
+		552875EF21507C76001D2CFD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3716,20 +3747,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#\n# Build chdman\n#\n\n[ -s \"${SYMROOT}/chdman\" ] || \\\n\tgcc -DINLINE=\"static inline\" -Dstricmp=strcasecmp -std=gnu99 \\\n\t-Isrc -Isrc/includes -Isrc/debug -Imacintosh/Source -Os -Wall \\\n\tsrc/chdman.c src/chd.c src/chdcd.c src/cdrom.c src/md5.c src/sha1.c src/version.c \\\n\t-lz -s -o \"${SYMROOT}/chdman\"\n\n#\n# Build macblitters.S\n#\n\ncd macintosh/Source\n\n# [ -s libmacblitters.a ] || \\\n# \tcc -E macblitters.S | \\\n# \ttr \";\" \"\\n\" | \\\n# \tas -arch ppc7400 -o libmacblitters.o && \\\n# \tlibtool -o libmacblitters.a libmacblitters.o\n\n#\n# Build and run the 68k support files, needed to compile the C 68k core\n#\n# Caution: make sure you've converted the m68k source files to Unix line\n# endings. If you do not, you'll get a warning about a premature EOF\n# when m68make runs (visible in the shell output in the \"Detailed Build Results\"\n# window).\n#\n\ncd ../../src/cpu/m68000\n\n[ -s m68kmake ] || gcc -Os -s m68kmake.c -o m68kmake\n[ -s m68kops.c ] || ./m68kmake\n";
-		};
-		9BEE477E05E9E57900ED1A7A /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#\n# Build chdman\n#\n\n[ -s \"${SYMROOT}/chdman\" ] || \\\n\tgcc -DINLINE=\"static inline\" -Dstricmp=strcasecmp -std=gnu99 \\\n\t-Isrc -Isrc/includes -Isrc/debug -Imacintosh/Source -Os -Wall \\\n\tsrc/chdman.c src/chd.c src/chdcd.c src/cdrom.c src/md5.c src/sha1.c src/version.c \\\n\t-lz -s -o \"${SYMROOT}/chdman\"\n\n#\n# Build macblitters.S\n#\n\ncd macintosh/Source\n\n# [ -s libmacblitters.a ] || \\\n# \tcc -E macblitters.S | \\\n# \ttr \";\" \"\\n\" | \\\n# \tas -arch ppc7400 -o libmacblitters.o && \\\n# \tlibtool -o libmacblitters.a libmacblitters.o\n\n#\n# Build and run the 68k support files, needed to compile the C 68k core\n#\n# Caution: make sure you've converted the m68k source files to Unix line\n# endings. If you do not, you'll get a warning about a premature EOF\n# when m68make runs (visible in the shell output in the \"Detailed Build Results\"\n# window).\n#\n\ncd ../../src/cpu/m68000\n\n[ -s m68kmake ] || gcc -Os -s m68kmake.c -o m68kmake\n[ -s m68kops.c ] || ./m68kmake\n";
+			shellScript = "#\n# Build chdman\n#\n\n[ -s \"${SYMROOT}/chdman\" ] || \\\ngcc -DINLINE=\"static inline\" -Dstricmp=strcasecmp -std=gnu99 \\\n-Isrc -Isrc/includes -Isrc/debug -Imacintosh/Source -Os -Wall \\\nsrc/tools/chdman.c src/lib/util/chd.c src/lib/util/chdcd.c src/lib/util/cdrom.c src/lib/util/md5.c src/lib/util/sha1.c src/lib/util/version.c \\\n-lz -s -o \"${SYMROOT}/chdman\"\n\n#\n# Build macblitters.S\n#\n\n# cd macintosh/Source\n\n# [ -s libmacblitters.a ] || \\\n# \tcc -E macblitters.S | \\\n# \ttr \";\" \"\\n\" | \\\n# \tas -arch ppc7400 -o libmacblitters.o && \\\n# \tlibtool -o libmacblitters.a libmacblitters.o\n\n#\n# Build and run the 68k support files, needed to compile the C 68k core\n#\n# Caution: make sure you've converted the m68k source files to Unix line\n# endings. If you do not, you'll get a warning about a premature EOF\n# when m68make runs (visible in the shell output in the \"Detailed Build Results\"\n# window).\n#\n\n# cd ../../src/cpu/m68000\ncd src/emu/cpu/m68000\n\n[ -s m68kmake ] || cc -Os -s m68kmake.c -o m68kmake\n[ -s m68kops.c ] || ./m68kmake\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3749,7 +3767,6 @@
 				55FF000E212A267000EB17F5 /* mame.c in Sources */,
 				55FF0010212A267000EB17F5 /* palette.c in Sources */,
 				55FF0011212A267000EB17F5 /* png.c in Sources */,
-				55FF0012212A267000EB17F5 /* profiler.c in Sources */,
 				55A4AED0212BC64A009FABC1 /* rendersw.c in Sources */,
 				55FF0013212A267000EB17F5 /* sndintrf.c in Sources */,
 				55FF0014212A267000EB17F5 /* state.c in Sources */,
@@ -4086,7 +4103,6 @@
 				F5EB2DC5057F2C34004EB9EC /* palette.c in Sources */,
 				F5EB2DC7057F2C34004EB9EC /* png.c in Sources */,
 				5597FE7C2150602600AE12AB /* pool.c in Sources */,
-				F5EB2DC9057F2C34004EB9EC /* profiler.c in Sources */,
 				F5EB2DCB057F2C34004EB9EC /* sndintrf.c in Sources */,
 				F5EB2DCD057F2C34004EB9EC /* state.c in Sources */,
 				F5EB2DCF057F2C34004EB9EC /* tilemap.c in Sources */,
@@ -4418,6 +4434,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		552875F121507D2F001D2CFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 552875EB21507C71001D2CFD /* extBuild */;
+			targetProxy = 552875F021507D2F001D2CFD /* PBXContainerItemProxy */;
+		};
+		552875F321507D34001D2CFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 552875EB21507C71001D2CFD /* extBuild */;
+			targetProxy = 552875F221507D34001D2CFD /* PBXContainerItemProxy */;
+		};
 		557086C3212B59B60065B854 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Framework;
@@ -4535,6 +4561,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		552875ED21507C72001D2CFD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		552875EE21507C72001D2CFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		55FF0132212A267000EB17F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4553,15 +4595,7 @@
 				GCC_OPTIMIZATION_LEVEL = 1;
 				GCC_PREFIX_HEADER = cocoa/Source/Cocoa.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				HEADER_SEARCH_PATHS = (
-					src/mame,
-					src/mame/includes,
-					src/debug,
-					macintosh/Source,
-					src/cpu/m68000,
-					macintosh,
-					macintosh/Source/WASTE,
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "cocoa/Resources/MacMAME Cocoa-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CFLAGS = "";
@@ -4592,15 +4626,7 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREFIX_HEADER = cocoa/Source/Cocoa.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				HEADER_SEARCH_PATHS = (
-					src/mame,
-					src/mame/includes,
-					src/debug,
-					macintosh/Source,
-					src/cpu/m68000,
-					macintosh,
-					macintosh/Source/WASTE,
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "cocoa/Resources/MacMAME Cocoa-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_CFLAGS = (
@@ -4634,12 +4660,7 @@
 				GCC_PREFIX_HEADER = macintosh/Source/MacMAMEDebugXcode.pch;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
-					src/mame,
-					src/mame/includes,
-					src/debug,
-					macintosh/Source,
-					src/cpu/m68000,
-					macintosh,
+					"$(inherited)",
 					macintosh/Source/WASTE,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -4668,12 +4689,7 @@
 				GCC_PREFIX_HEADER = macintosh/Source/MacMAMEXcode.pch;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
-					src/mame,
-					src/mame/includes,
-					src/debug,
-					macintosh/Source,
-					src/cpu/m68000,
-					macintosh,
+					"$(inherited)",
 					macintosh/Source/WASTE,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -4731,11 +4747,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					src,
-					src/includes,
+					src/mame,
+					src/mame/includes,
 					src/debug,
 					macintosh/Source,
-					src/cpu/m68000,
+					src/emu/cpu/m68000,
 					macintosh/Source/WASTE,
 					"macintosh/Source/HID\\ Utilities",
 					macintosh,
@@ -4801,11 +4817,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					src,
-					src/includes,
+					src/mame,
+					src/mame/includes,
 					src/debug,
 					macintosh/Source,
-					src/cpu/m68000,
+					src/emu/cpu/m68000,
 					macintosh/Source/WASTE,
 					"macintosh/Source/HID\\ Utilities",
 					macintosh,
@@ -4833,6 +4849,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		552875EC21507C72001D2CFD /* Build configuration list for PBXAggregateTarget "extBuild" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				552875ED21507C72001D2CFD /* Debug */,
+				552875EE21507C72001D2CFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		55FF0131212A267000EB17F5 /* Build configuration list for PBXNativeTarget "MacMAME Cocoa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
