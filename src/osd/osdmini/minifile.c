@@ -112,6 +112,16 @@ int osd_get_physical_drive_geometry(const char *filename, UINT32 *cylinders, UIN
 	return FALSE;
 }
 
+//============================================================
+//  osd_rmfile
+//============================================================
+
+file_error osd_rmfile(const char *filename)
+{
+	// TODO: implement
+	return FILERR_NONE;
+}
+
 
 //============================================================
 //  osd_uchar_from_osdchar

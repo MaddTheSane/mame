@@ -66,11 +66,13 @@ void osd_work_queue_free(osd_work_queue *queue)
 
 
 //============================================================
-//  osd_work_item_queue
+//  osd_work_item_queue_multiple
 //============================================================
 
-osd_work_item *osd_work_item_queue(osd_work_queue *queue, osd_work_callback callback, void *param, UINT32 flags)
+osd_work_item *osd_work_item_queue_multiple(osd_work_queue *queue, osd_work_callback callback, INT32 numitems, void *parambase, INT32 paramstep, UINT32 flags)
 {
+	// TODO: implement better?
+	void *param = parambase;
 	osd_work_item *item;
 
 	// allocate memory to hold the result
