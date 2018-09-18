@@ -6,7 +6,7 @@
 #define HAS_M6502		1
 #define HAS_M65C02		1
 #define HAS_M65SC02		1
-#define HAS_M65CE02		1
+//#define HAS_M65CE02		1
 #define HAS_M6509		1
 #define HAS_M6510		1
 #define HAS_M6510T		1
@@ -64,7 +64,7 @@
 #define HAS_TI990_10	1
 #define HAS_TMS9980		1
 #define HAS_TMS9985		1
-#define HAS_TMS9989		1
+//#define HAS_TMS9989		1
 #define HAS_TMS9995		1
 //#define HAS_TMS99105A	0
 //#define HAS_TMS99110A	0

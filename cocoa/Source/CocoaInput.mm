@@ -392,7 +392,6 @@ static const KeyboardLookup sFixedKeyList[] =
 #endif
 	{ -1, 					-1 }
 };
-#endif
 
 // macros for differentiating the two
 #define IS_KEYBOARD_CODE(code)		(((code) & 0x80000000) == 0)
@@ -417,6 +416,7 @@ static const KeyboardLookup sFixedKeyList[] =
 #define CODETYPE_MOUSEAXIS			9
 #define CODETYPE_MOUSEBUTTON		10
 #define CODETYPE_GUNAXIS			11
+
 
 // master joystick translation table
 static os_code joy_trans_table[][2] =
@@ -639,6 +639,7 @@ static os_code joy_trans_table[][2] =
 	{ JOYCODE(1, CODETYPE_GUNAXIS, 1),		GUNCODE_2_ANALOG_Y },
 	{ 0,0 }
 };
+
 
 /*##########################################################################
 	FUNCTION PROTOTYPES
@@ -2247,4 +2248,6 @@ static SInt32 HIDCalibrateValue (SInt32 value, IOHIDElementRef pElement)
 {
 	return value;
 }
+
+#endif
 

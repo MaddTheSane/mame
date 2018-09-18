@@ -150,6 +150,14 @@ __extension__ typedef signed long long		INT64;
 		(((((UINT64) (x)) >>  0) & ((UINT64) 0xFF)) << 56)		\
 	)
 
+#ifndef LSB_FIRST
+#ifdef __LITTLE_ENDIAN__
+#define LSB_FIRST
+#elif defined __BIG_ENDIAN__
+#undef LSB_FIRST
+#endif
+#endif
+
 #ifdef LSB_FIRST
 #define BIG_ENDIANIZE_INT16(x)		(FLIPENDIAN_INT16(x))
 #define BIG_ENDIANIZE_INT32(x)		(FLIPENDIAN_INT32(x))
