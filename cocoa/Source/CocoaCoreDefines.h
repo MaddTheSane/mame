@@ -16,11 +16,11 @@
 #define HAS_DECO16		1
 #define HAS_M4510		1
 #define HAS_H6280		1
-#define HAS_I86			1
-#define HAS_I88			1
-#define HAS_I186		1
-#define HAS_I188		1
-//#define HAS_I286		0
+#define HAS_I8086		1
+#define HAS_I8088		1
+#define HAS_I80186		1
+#define HAS_I80188		1
+#define HAS_I80286		1
 #define HAS_V20			1
 #define HAS_V30			1
 #define HAS_V33			1
@@ -73,6 +73,7 @@
 #define HAS_TMS32025	1
 #define HAS_TMS32026	1
 #define HAS_TMS32031	1
+#define HAS_TMS32032	1
 #define HAS_CCPU		1
 #define HAS_ADSP2100	1
 #define HAS_ADSP2101	1
@@ -90,10 +91,12 @@
 #define HAS_R3000		1
 #define HAS_R4600		1
 #define HAS_R4700		1
+#define HAS_R4650		1
 #define HAS_R5000		1
 #define HAS_QED5271		1
 #define HAS_RM7000		1
 #define HAS_SH2			1
+#define HAS_SH4			1
 #define HAS_DSP32C		1
 #define HAS_PIC16C54	1
 #define HAS_PIC16C55	1
@@ -125,6 +128,7 @@
 #define HAS_V810		1
 #define HAS_M37710		1
 #define HAS_PPC403		1
+#define HAS_PPC601		1
 #define HAS_PPC602		1
 #define HAS_PPC603		1
 #define HAS_PPC604		1
@@ -132,6 +136,9 @@
 #define HAS_MC68HC11	1
 #define HAS_ADSP21062	1
 #define HAS_DSP56156	1
+#define HAS_PDP1		1
+#define HAS_SATURN		1
+#define HAS_MINX		1
 
 // Tell MAME which sound systems we're compiling in
 #define HAS_CUSTOM		1
@@ -166,6 +173,7 @@
 #define HAS_NAMCO_63701X	1
 #define HAS_NAMCONA		1
 #define HAS_TMS36XX		1
+#define HAS_TMS3615		1
 #define HAS_TMS5110		1
 #define HAS_TMS5220		1
 #define HAS_VLM5030		1

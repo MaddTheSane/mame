@@ -199,6 +199,8 @@
 		551BCBB72151B46B0019B495 /* es5503.c in Sources */ = {isa = PBXBuildFile; fileRef = 55A4AEB2212BC535009FABC1 /* es5503.c */; };
 		551BCBBA2151B4B10019B495 /* 8257dma.c in Sources */ = {isa = PBXBuildFile; fileRef = 551BCBB82151B4B10019B495 /* 8257dma.c */; };
 		551BCBBB2151B4B10019B495 /* 8257dma.h in Headers */ = {isa = PBXBuildFile; fileRef = 551BCBB92151B4B10019B495 /* 8257dma.h */; };
+		551BCBBC2151B9030019B495 /* i286.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875B6215077A0001D2CFD /* i286.c */; };
+		551BCBBD2151B9040019B495 /* i286.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875B6215077A0001D2CFD /* i286.c */; };
 		552874522150703C001D2CFD /* cop410.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874422150703B001D2CFD /* cop410.c */; };
 		552874532150703C001D2CFD /* cop410.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874422150703B001D2CFD /* cop410.c */; };
 		552874542150703C001D2CFD /* cop410ds.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874432150703B001D2CFD /* cop410ds.c */; };
@@ -11584,6 +11586,7 @@
 				552874C6215072D1001D2CFD /* ssp1610d.c in Sources */,
 				55A4AECE212BC64A009FABC1 /* rendfont.c in Sources */,
 				552875472150759A001D2CFD /* minx.c in Sources */,
+				551BCBBD2151B9040019B495 /* i286.c in Sources */,
 				55FF0048212A267000EB17F5 /* upd7759.c in Sources */,
 				5528760921507F00001D2CFD /* s14001a.c in Sources */,
 				55FF0049212A267000EB17F5 /* vlm5030.c in Sources */,
@@ -14067,6 +14070,7 @@
 				551BCB572151AC930019B495 /* debugcmt.c in Sources */,
 				55A4AED4212BC675009FABC1 /* options.c in Sources */,
 				5528757F2150766F001D2CFD /* m4510.c in Sources */,
+				551BCBBC2151B9030019B495 /* i286.c in Sources */,
 				55287559215075C6001D2CFD /* mb86233.c in Sources */,
 				55A4AEB4212BC535009FABC1 /* es5503.c in Sources */,
 				F5EB2EF7057F2C34004EB9EC /* g65816o3.c in Sources */,
