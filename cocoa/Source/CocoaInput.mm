@@ -266,6 +266,7 @@ static bool				sFoundRightModifiers;
 
 #define MAX_KEY_ENTRIES (kMaxKeys + kSpecialKeys + 1)
 
+#if 0
 static os_code_info	sCodeList[MAX_KEY_ENTRIES+MAX_JOY_ENTRIES];
 
 // list of keys that have fixed scancodes, together with their MAME code
@@ -391,6 +392,7 @@ static const KeyboardLookup sFixedKeyList[] =
 #endif
 	{ -1, 					-1 }
 };
+#endif
 
 // macros for differentiating the two
 #define IS_KEYBOARD_CODE(code)		(((code) & 0x80000000) == 0)

@@ -156,9 +156,13 @@ struct _osd_file
 #define PTR64 1
 #endif
 
+#ifdef __LITTLE_ENDIAN__
+#define LSB_FIRST 1
+#endif
+
 #include "Source/MacCoreDefines.h"
 #include "osdcomm.h"
-#include "mame.h"
+//#include "mame.h"
 
 #ifndef __ppc__
 #include "MacMAME-ppcemu.h"

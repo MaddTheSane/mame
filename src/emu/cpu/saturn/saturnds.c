@@ -76,7 +76,7 @@ typedef enum {
 	branchCarryClear, returnCarryClear,
 
 	outCS, outC, inA, inC,
-	unconfig, config, Cid, shutdown, cp1, reset, buscc,
+	unconfig, config, Cid, Shutdown, cp1, reset, buscc,
 	CcopyP, PcopyC, sreq, CswapP,
 
 	inton, AloadImm, buscb,
@@ -801,7 +801,7 @@ static const OPCODE opcodes[][0x10]= {
 		{ Complete,		AdrNone,		unconfig },
 		{ Complete,		AdrNone,		config },
 		{ Complete,		AdrNone,		Cid },
-		{ Complete,		AdrNone,		shutdown },
+		{ Complete,		AdrNone,		Shutdown },
 		{ Opcode808 },
 		{ Complete,		AdrNone,		cp1 },
 		{ Complete,		AdrNone,		reset },
