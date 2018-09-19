@@ -201,6 +201,7 @@
 		551BCBBB2151B4B10019B495 /* 8257dma.h in Headers */ = {isa = PBXBuildFile; fileRef = 551BCBB92151B4B10019B495 /* 8257dma.h */; };
 		551BCBBC2151B9030019B495 /* i286.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875B6215077A0001D2CFD /* i286.c */; };
 		551BCBBD2151B9040019B495 /* i286.c in Sources */ = {isa = PBXBuildFile; fileRef = 552875B6215077A0001D2CFD /* i286.c */; };
+		551BCBC02151BC900019B495 /* CMAMEOGLUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 551BCBBE2151BC900019B495 /* CMAMEOGLUtils.c */; };
 		552874522150703C001D2CFD /* cop410.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874422150703B001D2CFD /* cop410.c */; };
 		552874532150703C001D2CFD /* cop410.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874422150703B001D2CFD /* cop410.c */; };
 		552874542150703C001D2CFD /* cop410ds.c in Sources */ = {isa = PBXBuildFile; fileRef = 552874432150703B001D2CFD /* cop410ds.c */; };
@@ -3535,6 +3536,8 @@
 		551BCBB42151B44A0019B495 /* gticlub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gticlub.h; sourceTree = "<group>"; };
 		551BCBB82151B4B10019B495 /* 8257dma.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = 8257dma.c; sourceTree = "<group>"; };
 		551BCBB92151B4B10019B495 /* 8257dma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 8257dma.h; sourceTree = "<group>"; };
+		551BCBBE2151BC900019B495 /* CMAMEOGLUtils.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = CMAMEOGLUtils.c; sourceTree = "<group>"; };
+		551BCBBF2151BC900019B495 /* CMAMEOGLUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMAMEOGLUtils.h; sourceTree = "<group>"; };
 		552873E5215067D9001D2CFD /* m37710cm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = m37710cm.h; sourceTree = "<group>"; };
 		552873E6215067D9001D2CFD /* m37710.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = m37710.h; sourceTree = "<group>"; };
 		552873E7215067D9001D2CFD /* m37710op.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = m37710op.h; sourceTree = "<group>"; };
@@ -6550,11 +6553,11 @@
 		F5EB2D60057F2C34004EB9EC /* ymz280b.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = ymz280b.c; sourceTree = "<group>"; };
 		F5EB2D62057F2C34004EB9EC /* ymf278b.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = ymf278b.c; sourceTree = "<group>"; };
 		F5EB2D64057F2C34004EB9EC /* ymdeltat.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = ymdeltat.c; sourceTree = "<group>"; };
-		F5EB2F21057F2C44004EB9EC /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		F5EB2F23057F2C44004EB9EC /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		F5EB2F25057F2C44004EB9EC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
-		F5EB2F27057F2C44004EB9EC /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
-		F5EB3095057F2C4A004EB9EC /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
+		F5EB2F21057F2C44004EB9EC /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		F5EB2F23057F2C44004EB9EC /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = Vendor/oldMacHeaders/QuickTime.framework; sourceTree = "<group>"; };
+		F5EB2F25057F2C44004EB9EC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		F5EB2F27057F2C44004EB9EC /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = System/Library/Frameworks/AGL.framework; sourceTree = SDKROOT; };
+		F5EB3095057F2C4A004EB9EC /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -7935,6 +7938,8 @@
 				55E852F1212B421F00AD7CB6 /* CMAMEAppDelegate.h */,
 				55E852F2212B421F00AD7CB6 /* CMAMEAppDelegate.m */,
 				557086B1212B53100065B854 /* MacMAME-Bridging-Header.h */,
+				551BCBBE2151BC900019B495 /* CMAMEOGLUtils.c */,
+				551BCBBF2151BC900019B495 /* CMAMEOGLUtils.h */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -11631,6 +11636,7 @@
 				55FF0062212A267000EB17F5 /* arm.c in Sources */,
 				55FF0063212A267000EB17F5 /* cpuint.c in Sources */,
 				55FF0064212A267000EB17F5 /* driver.c in Sources */,
+				551BCBC02151BC900019B495 /* CMAMEOGLUtils.c in Sources */,
 				55FF0065212A267000EB17F5 /* info.c in Sources */,
 				55FF0066212A267000EB17F5 /* sh2.c in Sources */,
 				55FF0067212A267000EB17F5 /* r3000.c in Sources */,
