@@ -212,7 +212,6 @@ files {
 	MAME_DIR .. "src/emu/video.cpp",
 	MAME_DIR .. "src/emu/video.h",
 	MAME_DIR .. "src/emu/xtal.cpp",
-	MAME_DIR .. "src/emu/xtal.h",
 	MAME_DIR .. "src/emu/rendersw.hxx",
 	MAME_DIR .. "src/emu/ui/uimain.h",
 	MAME_DIR .. "src/emu/ui/cmddata.h",   -- TODO: remove
@@ -245,7 +244,6 @@ files {
 	MAME_DIR .. "src/emu/debug/textbuf.cpp",
 	MAME_DIR .. "src/emu/debug/textbuf.h",
 	MAME_DIR .. "src/emu/drivers/empty.cpp",
-	MAME_DIR .. "src/emu/drivers/xtal.h",
 	MAME_DIR .. "src/emu/video/generic.cpp",
 	MAME_DIR .. "src/emu/video/generic.h",
 	MAME_DIR .. "src/emu/video/resnet.cpp",
@@ -275,11 +273,17 @@ dependency {
 	{ MAME_DIR .. "src/emu/rendlay.cpp", GEN_DIR .. "emu/layout/quadhsxs.lh" },
 	{ MAME_DIR .. "src/emu/rendlay.cpp", GEN_DIR .. "emu/layout/noscreens.lh" },
 }
-
+-- HEADLESS HACK : use old smallui ui.bdc
+if _OPTIONS["osd"]=="headless" then
+custombuildtask {
+	{ MAME_DIR .. "src/osd/headless/ui.bdc", GEN_DIR .. "emu/uismall.fh",     {  MAME_DIR .. "scripts/build/file2str.py" }, {"@echo Converting ui.bdc...", PYTHON .. " $(1) $(<) $(@) font_uismall uint8_t" }},
+}
+else
 custombuildtask {
 	{ MAME_DIR .. "scripts/font/NotoSans-Bold.bdc", GEN_DIR .. "emu/uismall.fh",     {  MAME_DIR .. "scripts/build/file2str.py" }, {"@echo Converting NotoSans-Bold.bdc...", PYTHON .. " $(1) $(<) $(@) font_uismall uint8_t" }},
 }
-
+end
+-- HEADLESS HACK
 custombuildtask {
 	{ MAME_DIR .. "src/frontend/mame/ui/uicmd14.png"        , GEN_DIR .. "emu/ui/uicmd14.fh",  {  MAME_DIR.. "scripts/build/png2bdc.py",  MAME_DIR .. "scripts/build/file2str.py" }, {"@echo Converting uicmd14.png...", PYTHON .. " $(1) $(<) temp_cmd.bdc", PYTHON .. " $(2) temp_cmd.bdc $(@) font_uicmd14 uint8_t" }},
 

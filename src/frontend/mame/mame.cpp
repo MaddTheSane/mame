@@ -179,6 +179,14 @@ void mame_machine_manager::start_luaengine()
 	}
 }
 
+#if defined(__HEADLESS__)
+void mame_machine_manager::commit_new_driver()
+{
+	m_options.set_system_name(m_new_driver_pending->name);
+	m_firstrun = false;
+}
+#endif
+
 /*-------------------------------------------------
     execute - run the core emulation
 -------------------------------------------------*/

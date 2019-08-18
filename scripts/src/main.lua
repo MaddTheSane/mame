@@ -182,6 +182,43 @@ end
 			}
 		end
 
+-- BEGIN headless overrides to MAME's GENie build
+	configuration { "headless-rel or headless-dbg" }
+		kind "SharedLib"
+		targetsuffix "_headless"
+		if _OPTIONS["targetos"]=="macosx" then
+			targetextension ".dylib"
+		end
+
+		targetprefix ""
+
+		includedirs {
+            MAME_DIR .. "src/emu",
+            MAME_DIR .. "src/osd",
+            MAME_DIR .. "src/lib",
+            MAME_DIR .. "src/lib/util",
+            MAME_DIR .. "src/osd/headless",
+            MAME_DIR .. "src/osd/modules/render",
+            MAME_DIR .. "3rdparty",
+		}
+
+		flags {
+            "ObjcARC",
+        }
+
+		files {
+			MAME_DIR .. "src/osd/osdnet.cpp",
+			MAME_DIR .. "src/osd/osdnet.h",
+			MAME_DIR .. "src/osd/headless/headlessmain.mm",
+			MAME_DIR .. "src/osd/headless/driver.mm",
+		}
+
+		linkoptions {
+		    "-install_name " .. _OPTIONS["target"] .. _OPTIONS["subtarget"] .. "_headless.dylib"
+		}
+
+-- END headless overrides to MAME's GENie build
+
 	configuration { }
 
 	if _OPTIONS["targetos"]=="android" then
@@ -222,12 +259,18 @@ end
 if (STANDALONE~=true) then
 	findfunction("linkProjects_" .. _OPTIONS["target"] .. "_" .. _OPTIONS["subtarget"])(_OPTIONS["target"], _OPTIONS["subtarget"])
 end
+
+-- HEADLESS no qt
+if _OPTIONS["osd"]~="headless" then
 	links {
 		"osd_" .. _OPTIONS["osd"],
 	}
+
 	links {
 		"qtdbg_" .. _OPTIONS["osd"],
 	}
+end
+-- HEADLESS no qt
 if (STANDALONE~=true) then
 	links {
 		"frontend",
@@ -297,10 +340,14 @@ end
 			ext_lib("portmidi"),
 		}
 	end
+	if _OPTIONS["osd"]~="headless" then
+        links {
+            "bgfx",
+            "bimg",
+            "bx",
+        }
+	end
 	links {
-		"bgfx",
-		"bimg",
-		"bx",
 		"ocore_" .. _OPTIONS["osd"],
 	}
 

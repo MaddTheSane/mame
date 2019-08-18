@@ -57,12 +57,14 @@ menu_main::menu_main(mame_ui_manager &mui, render_container &container) : menu(m
 void menu_main::populate(float &customtop, float &custombottom)
 {
 	/* add main menu items */
+#ifndef __HEADLESS__
 	item_append(_("Input (general)"), "", 0, (void *)INPUT_GROUPS);
 
 	item_append(_("Input (this Machine)"), "", 0, (void *)INPUT_SPECIFIC);
 
 	if (ui().machine_info().has_analog())
 		item_append(_("Analog Controls"), "", 0, (void *)ANALOG);
+#endif
 	if (ui().machine_info().has_dips())
 		item_append(_("Dip Switches"), "", 0, (void *)SETTINGS_DIP_SWITCHES);
 	if (ui().machine_info().has_configs())
@@ -72,6 +74,7 @@ void menu_main::populate(float &customtop, float &custombottom)
 
 	item_append(_("Machine Information"), "", 0, (void *)GAME_INFO);
 
+#ifndef __HEADLESS__
 	for (device_image_interface &image : image_interface_iterator(machine().root_device()))
 	{
 		if (image.user_loadable())
@@ -112,6 +115,8 @@ void menu_main::populate(float &customtop, float &custombottom)
 	if (machine().crosshair().get_usage())
 		item_append(_("Crosshair Options"), "", 0, (void *)CROSSHAIR);
 
+#endif
+	
 	if (machine().options().cheat())
 		item_append(_("Cheat"), "", 0, (void *)CHEAT);
 
@@ -121,12 +126,14 @@ void menu_main::populate(float &customtop, float &custombottom)
 	if (mame_machine_manager::instance()->lua()->call_plugin_check<const char *>("data_list", "", true))
 		item_append(_("External DAT View"), "", 0, (void *)EXTERNAL_DATS);
 
+#ifndef __HEADLESS__
 	item_append(menu_item_type::SEPARATOR);
 
 	if (!mame_machine_manager::instance()->favorite().is_favorite(machine()))
 		item_append(_("Add To Favorites"), "", 0, (void *)ADD_FAVORITE);
 	else
 		item_append(_("Remove From Favorites"), "", 0, (void *)REMOVE_FAVORITE);
+#endif
 
 	item_append(menu_item_type::SEPARATOR);
 

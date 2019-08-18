@@ -259,6 +259,7 @@ void running_machine::start()
 	// register callbacks for the devices, then start them
 	add_notifier(MACHINE_NOTIFY_RESET, machine_notify_delegate(&running_machine::reset_all_devices, this));
 	add_notifier(MACHINE_NOTIFY_EXIT, machine_notify_delegate(&running_machine::stop_all_devices, this));
+	add_notifier(MACHINE_NOTIFY_FRAME, machine_notify_delegate(&running_machine::headless_frame_updated, this));
 	save().register_presave(save_prepost_delegate(FUNC(running_machine::presave_all_devices), this));
 	start_all_devices();
 	save().register_postload(save_prepost_delegate(FUNC(running_machine::postload_all_devices), this));
@@ -275,6 +276,175 @@ void running_machine::start()
 
 	manager().update_machine();
 }
+
+#if defined(__HEADLESS__)
+
+void running_machine::headless_frame_updated()
+{
+	m_frame_updated = true;
+}
+
+int running_machine::headless_init(bool quiet)
+{
+	int error = EMU_ERR_NONE;
+	
+	// use try/catch for deep error recovery
+	try
+	{
+		m_manager.http()->clear();
+		
+		// move to the init phase
+		m_current_phase = machine_phase::INIT;
+		
+		// if we have a logfile, set up the callback
+		if (options().log() && !quiet)
+		{
+			m_logfile = std::make_unique<emu_file>(OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
+			osd_file::error filerr = m_logfile->open("error.log");
+			assert_always(filerr == osd_file::error::NONE, "unable to open log file");
+			
+			using namespace std::placeholders;
+			add_logerror_callback(std::bind(&running_machine::logfile_callback, this, _1));
+		}
+		
+		// then finish setting up our local machine
+		start();
+		
+		// load the configuration settings
+		m_configuration->load_settings();
+		
+		// disallow save state registrations starting here.
+		// Don't do it earlier, config load can create network
+		// devices with timers.
+		m_save.allow_registration(false);
+		
+		// load the NVRAM
+		nvram_load();
+		
+		// set the time on RTCs (this may overwrite parts of NVRAM)
+		set_rtc_datetime(system_time(m_base_time));
+		
+		sound().ui_mute(false);
+		if (!quiet)
+			sound().start_recording();
+		
+		// initialize ui lists
+		// display the startup screens
+		manager().ui_initialize(*this);
+		
+		// perform a soft reset -- this takes us to the running phase
+		soft_reset();
+		
+		// handle initial load
+		if (m_saveload_schedule != saveload_schedule::NONE)
+			handle_saveload();
+		
+		export_http_api();
+		
+		m_hard_reset_pending = false;
+	}
+	catch (emu_fatalerror &fatal)
+	{
+		osd_printf_error("Fatal error: %s\n", fatal.string());
+		error = EMU_ERR_FATALERROR;
+		if (fatal.exitcode() != 0)
+			error = fatal.exitcode();
+	}
+	catch (emu_exception &)
+	{
+		osd_printf_error("Caught unhandled emulator exception\n");
+		error = EMU_ERR_FATALERROR;
+	}
+	catch (binding_type_exception &btex)
+	{
+		osd_printf_error("Error performing a late bind of type %s to %s\n", btex.m_actual_type.name(), btex.m_target_type.name());
+		error = EMU_ERR_FATALERROR;
+	}
+	catch (tag_add_exception &aex)
+	{
+		osd_printf_error("Tag '%s' already exists in tagged map\n", aex.tag());
+		error = EMU_ERR_FATALERROR;
+	}
+	catch (std::exception &ex)
+	{
+		osd_printf_error("Caught unhandled %s exception: %s\n", typeid(ex).name(), ex.what());
+		error = EMU_ERR_FATALERROR;
+	}
+	catch (...)
+	{
+		osd_printf_error("Caught unhandled exception\n");
+		error = EMU_ERR_FATALERROR;
+	}
+
+	return error;
+}
+
+int running_machine::headless_run()
+{
+	m_frame_updated = false;
+	while (!m_frame_updated)
+	{
+		g_profiler.start(PROFILER_EXTRA);
+		
+		// execute CPUs if not paused
+		if (!m_paused)
+			m_scheduler.timeslice();
+			// otherwise, just pump video updates through
+		else
+			m_video->frame_update();
+		
+		// handle save/load
+		if (m_saveload_schedule != saveload_schedule::NONE)
+			handle_saveload();
+		
+		g_profiler.stop();
+	}
+	
+	if ((m_hard_reset_pending || m_exit_pending) && m_saveload_schedule == saveload_schedule::NONE) {
+		m_current_phase = machine_phase::EXIT;
+	}
+	
+	return EMU_ERR_NONE;
+}
+
+int running_machine::headless_deinit()
+{
+	int error = EMU_ERR_NONE;
+	
+	try
+	{
+		m_manager.http()->clear();
+		
+		// and out via the exit phase
+		m_current_phase = machine_phase::EXIT;
+		
+		// save the NVRAM and configuration
+		sound().ui_mute(true);
+		if (options().nvram_save())
+			nvram_save();
+		m_configuration->save_settings();
+	}
+	catch (std::exception &ex)
+	{
+		osd_printf_error("Caught unhandled %s exception: %s\n", typeid(ex).name(), ex.what());
+		error = EMU_ERR_FATALERROR;
+	}
+	catch (...)
+	{
+		osd_printf_error("Caught unhandled exception\n");
+		error = EMU_ERR_FATALERROR;
+	}
+	
+	// call all exit callbacks registered
+	call_notifiers(MACHINE_NOTIFY_EXIT);
+	util::archive_file::cache_clear();
+	
+	// close the logfile
+	m_logfile.reset();
+	return error;
+}
+
+#endif
 
 
 //-------------------------------------------------
@@ -912,6 +1082,10 @@ void running_machine::handle_saveload()
 			u32 const openflags = (m_saveload_schedule == saveload_schedule::LOAD) ? OPEN_FLAG_READ : (OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 
 			// open the file
+			if (m_saveload_searchpath == nullptr)
+			{
+				m_saveload_searchpath = "";
+			}
 			emu_file file(m_saveload_searchpath, openflags);
 			auto const filerr = file.open(m_saveload_pending_file);
 			if (filerr == osd_file::error::NONE)

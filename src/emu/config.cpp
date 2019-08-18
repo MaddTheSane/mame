@@ -79,6 +79,8 @@ int configuration_manager::load_settings()
 			throw emu_fatalerror("Could not load controller file %s.cfg", controller);
 	}
 
+// leave settings to frontend
+#ifndef __HEADLESS__
 	/* next load the defaults file */
 	emu_file file(machine().options().cfg_directory(), OPEN_FLAG_READ);
 	osd_file::error filerr = file.open("default.cfg");
@@ -91,6 +93,7 @@ int configuration_manager::load_settings()
 	osd_printf_verbose("Attempting to parse: %s.cfg\n",machine().basename());
 	if (filerr == osd_file::error::NONE)
 		loaded = load_xml(file, config_type::GAME);
+#endif
 
 	/* loop over all registrants and call their final function */
 	for (auto type : m_typelist)
@@ -108,6 +111,7 @@ void configuration_manager::save_settings()
 	for (auto type : m_typelist)
 		type.save(config_type::INIT, nullptr);
 
+#ifndef __HEADLESS__
 	/* save the defaults file */
 	emu_file file(machine().options().cfg_directory(), OPEN_FLAG_WRITE | OPEN_FLAG_CREATE | OPEN_FLAG_CREATE_PATHS);
 	osd_file::error filerr = file.open("default.cfg");
@@ -118,6 +122,7 @@ void configuration_manager::save_settings()
 	filerr = file.open(machine().basename(), ".cfg");
 	if (filerr == osd_file::error::NONE)
 		save_xml(file, config_type::GAME);
+#endif
 
 	/* loop over all registrants and call their final function */
 	for (auto type : m_typelist)

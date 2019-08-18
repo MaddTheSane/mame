@@ -1072,6 +1072,28 @@ function toolchain(_buildDir, _subDir)
 		targetdir (_buildDir .. "rpi" .. "/bin")
 		objdir (_buildDir .. "rpi" .. "/obj")
 
+-- BEGIN headless overrides to MAME's GENie build
+	configuration { "headless-rel or headless-dbg" }
+		objdir (_buildDir .. "headless" .. "/obj")
+
+		_OPTIONS["osd"] = "headless"
+		_OPTIONS["NO_USE_MIDI"] = "1"
+		_OPTIONS["DONT_USE_NETWORK"] = "1"
+		_OPTIONS["NOWERROR"] = "1"
+		_OPTIONS["NO_USE_PORTAUDIO"] = "1"
+
+	configuration { "headless-dbg" }
+		targetdir (_buildDir .. "headless"  .. "/debug")
+		flags {
+			"Symbols",
+		}
+	configuration { "headless-rel" }
+		targetdir (_buildDir .. "headless" .. "/bin")
+		flags {
+			"Optimize",
+		}
+-- END   headless overrides to MAME's GENie build
+
 	configuration {} -- reset configuration
 
 	return true

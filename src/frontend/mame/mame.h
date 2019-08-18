@@ -59,6 +59,13 @@ public:
 	inifile_manager &inifile() const { assert(m_inifile != nullptr); return *m_inifile; }
 	favorite_manager &favorite() const { assert(m_favorite != nullptr); return *m_favorite; }
 
+#if defined(__HEADLESS__)
+	game_driver const * new_driver_pending() const { return m_new_driver_pending; }
+	void clear_new_driver_pending() { m_new_driver_pending = nullptr; }
+	void commit_new_driver();
+	bool firstrun() const { return m_firstrun; }
+#endif
+
 private:
 	// construction
 	mame_machine_manager(emu_options &options, osd_interface &osd);
