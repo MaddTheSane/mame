@@ -8,7 +8,7 @@ typedef uint32_t (*ItemGetStateFunc)(void *device_internal, void *item_internal)
 
 extern NSString *const MAMEErrorDomain;
 
-typedef NS_ENUM(NSInteger, MAMEError)
+typedef NS_ERROR_ENUM(MAMEErrorDomain, MAMEError)
 {
 	MAMEErrorUnsupportedROM = -1,
 	MAMEErrorAuditFailed    = -2,
